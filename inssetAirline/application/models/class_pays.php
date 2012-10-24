@@ -1,4 +1,7 @@
 <?php
+/*
+* Classe Pays by Pampril
+*/
 class Pays
 {
 	private $selectAll;
