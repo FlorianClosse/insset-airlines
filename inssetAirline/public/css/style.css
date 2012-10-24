@@ -3,7 +3,8 @@
 	background-position:top;
 	padding:5px;
 	position:fixed;
-	height: 25px;
+	
+	width:960px;
 	left:0;
 	right:0;
 	top:0;
@@ -12,8 +13,6 @@
 	-moz-opacity:0.5;
 opacity: 0.5;
 filter:alpha(opacity=50);
-
-
 }
 
 .text {
@@ -30,6 +29,16 @@ header p{
 
 body{
 	margin-top:35px;
+}
+
+.form{
+	float:right;
+}
+#mail{
+	width:150px;
+}
+#mdp{
+	width:150px;
 }
 
 
