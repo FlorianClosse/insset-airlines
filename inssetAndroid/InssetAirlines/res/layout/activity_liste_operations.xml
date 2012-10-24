@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/TextView01"
+		style="@style/titre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="Liste des opérations de la révision"
+		android:textSize="40dip"
+		tools:context=".ListeOperations" />
+
+	<LinearLayout
+		android:id="@+id/linearLayout1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView01"
+		android:layout_marginTop="18dp" >
+
+		<TextView
+			android:id="@+id/TextView02"
+			style="@style/textBleu"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:text="Nom de l&apos;opération" />
+	</LinearLayout>
+
+	<ListView
+		android:id="@+id/listOperations"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/linearLayout1" >
+
+	</ListView>
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+    <TextView
+    	android:id="@+id/textDateRev"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:gravity="center_horizontal"
+    	android:text="Date"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/textTypeRev"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBottom="@+id/textDateRev"
+    	android:layout_alignParentRight="true"
+    	android:layout_marginRight="98dp"
+    	android:gravity="center_horizontal"
+    	android:text="type"
+    	android:textSize="20dp" />
+
+</RelativeLayout>

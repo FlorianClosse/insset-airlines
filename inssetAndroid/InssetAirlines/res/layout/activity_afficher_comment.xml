@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/textView1"
+		style="@style/titre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="Commentaires"
+		tools:context=".AfficherComment" />
+
+	<LinearLayout
+		android:id="@+id/linearLayout1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/textView1"
+		android:layout_marginTop="54dp" >
+
+		<TextView
+			android:id="@+id/dateComment"
+			style="@style/textBleu"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="30"
+			android:gravity="center_horizontal"
+			android:text="Date"
+			tools:context=".AfficherComment" />
+
+		<TextView
+			android:id="@+id/comment"
+			style="@style/textBleu"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="70"
+			android:gravity="center_horizontal"
+			android:text="Commentaire"
+			tools:context=".AfficherComment" />
+	</LinearLayout>
+
+	<ListView
+		android:id="@+id/listComment"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/linearLayout1" >
+
+	</ListView>
+
+</RelativeLayout>

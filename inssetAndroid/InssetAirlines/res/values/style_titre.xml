@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<style name="titre">
+        <item name="android:textSize">60dip</item>
+        <item name="android:textColor">@color/bleu</item>
+    </style>
+	
+</resources>

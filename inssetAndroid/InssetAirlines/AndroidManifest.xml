@@ -1,0 +1,173 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.example.inssetairlines"
+	android:versionCode="1"
+	android:versionName="1.0" >
+
+	<supports-screens
+		android:anyDensity="true"
+		android:largeScreens="true"
+		android:normalScreens="true"
+		android:resizeable="true"
+		android:smallScreens="true" />
+
+	<uses-sdk
+		android:minSdkVersion="8"
+		android:targetSdkVersion="14" />
+
+	<application
+		android:icon="@drawable/ic_launcher"
+		android:label="@string/app_name"
+		android:theme="@style/AppTheme" >
+		<activity
+			android:name=".IAMaintenance"
+			android:label="@string/title_activity_iamaintenance" >
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".MenuPrincipal"
+			android:label="@string/title_activity_menu_principal" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".ListeAvions"
+			android:label="@string/title_activity_liste_avions" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".AjouterAvion"
+			android:label="@string/title_activity_ajouter_avion" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".FicheAvion"
+			android:label="@string/title_activity_fiche_avion" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".AfficherComment"
+			android:label="@string/title_activity_afficher_comment" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".FicheModele"
+			android:label="@string/title_activity_fiche_modele" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".PlanifierRevision"
+			android:label="@string/title_activity_planifier_revision" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".Calendrier"
+			android:label="@string/title_activity_calendrier" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".GestionRevisions"
+			android:label="@string/title_activity_gestion_revisions" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".ValiderRevision"
+			android:label="@string/title_activity_valider_revision" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".TerminerRevision"
+			android:label="@string/title_activity_terminer_revision" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".TerminerRevChoisie"
+			android:label="@string/title_activity_terminer_rev_choisie" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".PlanningRevisions"
+			android:label="@string/title_activity_planning_revisions" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".RevisionsJour"
+			android:label="@string/title_activity_revisions_jour" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".FicheRevision"
+			android:label="@string/title_activity_fiche_revision" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".GererOperation"
+			android:label="@string/title_activity_gerer_operation" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".AvionsEnRevision"
+			android:label="@string/title_activity_avions_en_revision" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".ListeOperations"
+			android:label="@string/title_activity_liste_operations" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".ValiderOperation"
+			android:label="@string/title_activity_valider_operation" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".AjouterModele"
+			android:label="@string/title_activity_ajouter_modele" >
+			<intent-filter>
+
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+	</application>
+
+</manifest>

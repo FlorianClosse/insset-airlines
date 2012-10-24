@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/textView1"
+		style="@style/titre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="Liste des avions" />
+
+	<Button
+		android:id="@+id/ajouter"
+		style="@style/bouton_vert"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_below="@+id/textView1"
+		android:text="Ajouter un avion" />
+
+	<TextView
+		android:id="@+id/textView2"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/ajouter"
+		android:layout_marginTop="18dp"
+		android:text="Rechercher :" />
+
+	<EditText
+		android:id="@+id/rechAvion"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/textView2"
+		android:layout_alignBottom="@+id/textView2"
+		android:layout_centerHorizontal="true"
+		android:ems="10"
+		android:hint="nom de l&apos;avion"
+		android:textSize="25dp" >
+
+		<requestFocus />
+	</EditText>
+
+	<ListView
+		android:id="@+id/listeAvions"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@id/rechAvion" >
+	</ListView>
+
+</RelativeLayout>

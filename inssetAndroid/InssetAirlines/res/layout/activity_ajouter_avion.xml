@@ -1,0 +1,135 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/textView2"
+		style="@style/titre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="Ajouter un avion"
+		tools:context=".AjouterAvion" />
+
+	<TextView
+		android:id="@+id/textView1"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/textView2"
+		android:layout_marginLeft="26dp"
+		android:layout_marginTop="92dp"
+		android:text="Immatriculation :" />
+
+	<TextView
+		android:id="@+id/TextView01"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignLeft="@+id/textView1"
+		android:layout_below="@+id/textView1"
+		android:layout_marginTop="62dp"
+		android:text="Date de mise en service :" />
+
+	<TextView
+		android:id="@+id/TextView02"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignLeft="@+id/TextView01"
+		android:layout_below="@+id/TextView01"
+		android:layout_marginTop="72dp"
+		android:text="Modèle :       " />
+
+	<TextView
+		android:id="@+id/TextView03"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignLeft="@+id/TextView02"
+		android:layout_below="@+id/TextView02"
+		android:layout_marginTop="91dp"
+		android:text="Aéroport d&apos;attache :       " />
+
+	<Button
+		android:id="@+id/valider"
+		style="@style/bouton_vert"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/TextView03"
+		android:layout_centerHorizontal="true"
+		android:layout_marginLeft="47dp"
+		android:layout_marginTop="135dp"
+		android:text="Valider" />
+
+	<EditText
+		android:id="@+id/editText2"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView01"
+		android:layout_alignBottom="@+id/TextView01"
+		android:layout_alignParentRight="true"
+		android:ems="10" />
+
+	<EditText
+		android:id="@+id/editText1"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/textView1"
+		android:layout_alignBottom="@+id/textView1"
+		android:layout_alignParentRight="true"
+		android:ems="10" >
+
+		<requestFocus />
+	</EditText>
+
+	<ImageButton
+		android:id="@+id/boutonModele"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/TextView02"
+		android:layout_toRightOf="@+id/listModele"
+		android:src="@android:drawable/arrow_down_float" />
+
+	<ListView
+		android:id="@+id/listAeroport"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignRight="@+id/boutonModele"
+		android:layout_alignTop="@+id/TextView03"
+		android:layout_toRightOf="@+id/TextView03" >
+
+	</ListView>
+	
+	<ListView
+		android:id="@+id/listModele"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignRight="@+id/textView2"
+		android:layout_alignTop="@+id/TextView02"
+		android:layout_toRightOf="@+id/TextView02" >
+
+	</ListView>
+	
+	<ImageButton
+		android:id="@+id/boutonAeroport"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/TextView03"
+		android:layout_toRightOf="@+id/listAeroport"
+		android:src="@android:drawable/arrow_down_float" />
+
+	<ImageButton
+		android:id="@+id/newModele"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/boutonModele"
+		android:layout_toRightOf="@+id/boutonAeroport"
+		android:src="@android:drawable/ic_input_add" />
+
+</RelativeLayout>

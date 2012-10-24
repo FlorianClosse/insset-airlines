@@ -1,0 +1,10 @@
+<resources>
+
+	<style name="AppTheme" parent="android:Theme.Light" />
+	<color name="bleu">#5757FF</color>
+	<color name="vert">#0BDC00</color>
+	<color name="noir">#000000</color>
+	<color name="gris_clair">#D8D3D3</color>
+	<color name="blanc">#FFFFFF</color>
+
+</resources>

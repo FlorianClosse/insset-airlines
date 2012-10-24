@@ -1,0 +1,157 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/textView2"
+		style="@style/titre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="Ajouter un modèle"
+		tools:context=".AjouterModele" />
+
+	<TextView
+		android:id="@+id/textView1"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/textView2"
+		android:layout_marginTop="57dp"
+		android:text="Nom du modèle :" />
+
+	<TextView
+		android:id="@+id/TextView01"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/textView1"
+		android:layout_marginTop="56dp"
+		android:text="Longueur de la piste (en m) :" />
+
+	<TextView
+		android:id="@+id/TextView02"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView01"
+		android:layout_marginTop="65dp"
+		android:text="Rayon d&apos;action (en km) :" />
+
+	<TextView
+		android:id="@+id/TextView03"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_centerVertical="true"
+		android:text="Nombre de places :" />
+
+	<TextView
+		android:id="@+id/TextView04"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView03"
+		android:layout_marginTop="86dp"
+		android:text="Période de la petite révision :" />
+
+	<TextView
+		android:id="@+id/TextView05"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView04"
+		android:layout_marginTop="81dp"
+		android:text="Période de la grande révision :    " />
+
+	<Button
+		android:id="@+id/validerModele"
+		style="@style/bouton_vert"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginBottom="54dp"
+		android:layout_marginLeft="16dp"
+		android:text="Valider" />
+
+	<EditText
+		android:id="@+id/nomModele"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/textView1"
+		android:layout_alignBottom="@+id/textView1"
+		android:layout_toRightOf="@+id/TextView05"
+		android:ems="10"
+		android:inputType="text" />
+
+	<EditText
+		android:id="@+id/longueurPiste"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView01"
+		android:layout_alignBottom="@+id/TextView01"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@+id/TextView05"
+		android:ems="10"
+		android:inputType="number" />
+
+	<EditText
+		android:id="@+id/rayonAction"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView02"
+		android:layout_alignBottom="@+id/TextView02"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@+id/TextView05"
+		android:ems="10"
+		android:inputType="number" />
+
+	<EditText
+		android:id="@+id/nbPlaces"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView03"
+		android:layout_alignBottom="@+id/TextView03"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@+id/TextView05"
+		android:ems="10"
+		android:inputType="number" />
+
+	<EditText
+		android:id="@+id/petiteRev"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView04"
+		android:layout_alignBottom="@+id/TextView04"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@+id/TextView05"
+		android:ems="10"
+		android:inputType="number" />
+
+	<EditText
+		android:id="@+id/grandeRev"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView05"
+		android:layout_alignBottom="@+id/TextView05"
+		android:layout_alignLeft="@+id/petiteRev"
+		android:layout_alignParentRight="true"
+		android:ems="10"
+		android:inputType="number" />
+
+</RelativeLayout>

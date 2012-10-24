@@ -1,0 +1,146 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/textView2"
+		style="@style/titre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="Fiche du modèle"
+		tools:context=".FicheModele" />
+
+	<TextView
+		android:id="@+id/textView1"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/textView2"
+		android:layout_marginTop="67dp"
+		android:text="Nom du modèle :" />
+
+	<TextView
+		android:id="@+id/TextView01"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/textView1"
+		android:layout_marginTop="50dp"
+		android:text="Longueur de la piste (en m) :" />
+
+	<TextView
+		android:id="@+id/TextView02"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView01"
+		android:layout_marginTop="60dp"
+		android:text="Rayon d&apos;action (en km) :" />
+
+	<TextView
+		android:id="@+id/TextView03"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView02"
+		android:layout_marginTop="58dp"
+		android:text="Nombre de places :" />
+
+	<TextView
+		android:id="@+id/TextView04"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView03"
+		android:layout_marginTop="66dp"
+		android:text="Période de la petite révision :" />
+
+	<TextView
+		android:id="@+id/TextView05"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/TextView04"
+		android:layout_marginTop="64dp"
+		android:text="Période de la grande révision :   " />
+
+	<TextView
+		android:id="@+id/textNomModele"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/textView1"
+		android:layout_alignBottom="@+id/textView1"
+		android:layout_toRightOf="@+id/TextView05"
+		android:text="TextView"
+		android:textSize="25dp" />
+
+	<TextView
+		android:id="@+id/TextPiste"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView01"
+		android:layout_alignBottom="@+id/TextView01"
+		android:layout_toRightOf="@+id/TextView05"
+		android:text="TextView"
+		android:textSize="25dp" />
+
+	<TextView
+		android:id="@+id/TextRayon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView02"
+		android:layout_alignBottom="@+id/TextView02"
+		android:layout_toRightOf="@+id/TextView05"
+		android:text="TextView"
+		android:textSize="25dp" />
+
+	<TextView
+		android:id="@+id/TextPlaces"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView03"
+		android:layout_alignBottom="@+id/TextView03"
+		android:layout_toRightOf="@+id/TextView05"
+		android:text="TextView"
+		android:textSize="25dp" />
+
+	<TextView
+		android:id="@+id/TextPetiteRev"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView04"
+		android:layout_alignBottom="@+id/TextView04"
+		android:layout_toRightOf="@+id/TextView05"
+		android:text="TextView"
+		android:textSize="25dp" />
+
+	<TextView
+		android:id="@+id/TextGrandeRev"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/TextView05"
+		android:layout_alignBottom="@+id/TextView05"
+		android:layout_toRightOf="@+id/TextView05"
+		android:text="TextView"
+		android:textSize="25dp" />
+
+	<Button
+		android:id="@+id/OkModele"
+		style="@style/bouton_vert"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/TextView05"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="77dp"
+		android:text="     OK     " />
+
+</RelativeLayout>

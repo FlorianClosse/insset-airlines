@@ -1,0 +1,242 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+    <TextView
+    	android:id="@+id/nomAvion"
+    	style="@style/titre"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:text="Fiche de l&apos;avion"
+    	tools:context=".FicheAvion" />
+
+    <TextView
+    	android:id="@+id/textView1"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/nomAvion"
+    	android:layout_marginTop="24dp"
+    	android:paddingBottom="10dp"
+    	android:text="Immatriculation de l&apos;avion :" />
+
+    <TextView
+    	android:id="@+id/TextView01"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/textView1"
+    	android:paddingBottom="10dp"
+    	android:text="Modèle de l&apos;avion :" />
+
+    <TextView
+    	android:id="@+id/TextView02"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView01"
+    	android:paddingBottom="10dp"
+    	android:text="Date de mise en service :" />
+
+    <TextView
+    	android:id="@+id/TextView03"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView02"
+    	android:paddingBottom="10dp"
+    	android:text="Nombre d&apos;heures de vol :" />
+
+    <TextView
+    	android:id="@+id/TextView04"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView03"
+    	android:paddingBottom="10dp"
+    	android:text="Heures depuis la grande révision :   " />
+
+    <TextView
+    	android:id="@+id/TextView05"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="Heures depuis la petite révision :" />
+
+    <TextView
+    	android:id="@+id/TextView06"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView05"
+    	android:paddingBottom="10dp"
+    	android:text="Localisation :" />
+
+    <TextView
+    	android:id="@+id/TextView07"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView06"
+    	android:paddingBottom="10dp"
+    	android:text="Aéroport d&apos;attache :" />
+
+    <TextView
+    	android:id="@+id/TextView08"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView07"
+    	android:paddingBottom="10dp"
+    	android:text="Statut :" />
+
+    <TextView
+    	android:id="@+id/immatri"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/textView1"
+    	android:layout_alignBottom="@+id/textView1"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/modele"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView01"
+    	android:layout_alignBottom="@+id/TextView01"
+    	android:layout_alignLeft="@+id/immatri"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/miseEnService"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView02"
+    	android:layout_alignBottom="@+id/TextView02"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/nbHeuresVol"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView03"
+    	android:layout_alignBottom="@+id/TextView03"
+    	android:layout_alignLeft="@+id/miseEnService"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/heuresGR"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView04"
+    	android:layout_alignBottom="@+id/TextView04"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/heuresPR"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView05"
+    	android:layout_alignBottom="@+id/TextView05"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/localisation"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView06"
+    	android:layout_alignBottom="@+id/TextView06"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/aeroAttache"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView07"
+    	android:layout_alignBottom="@+id/TextView07"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/statut"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBaseline="@+id/TextView08"
+    	android:layout_alignBottom="@+id/TextView08"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:paddingBottom="10dp"
+    	android:text="pas de valeur"
+    	android:textSize="20dp" />
+
+    <TextView
+    	android:id="@+id/textView2"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/TextView08"
+    	android:paddingBottom="10dp"
+    	android:text="Révisions :" />
+
+    <Button
+    	android:id="@+id/commentaires"
+    	style="@style/bouton_vert"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignTop="@+id/textView2"
+    	android:layout_toRightOf="@+id/TextView04"
+    	android:text="Commentaires"
+    	android:textSize="20dp" />
+
+    <ListView
+    	android:id="@+id/revisions"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/commentaires" >
+    </ListView>
+
+    <ImageButton
+    	android:id="@+id/boutonModele"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBottom="@+id/TextView01"
+    	android:layout_alignParentRight="true"
+    	android:src="@android:drawable/ic_dialog_info" />
+
+</RelativeLayout>

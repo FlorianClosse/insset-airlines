@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/textView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="27dp"
+		android:background="@drawable/fond_bleu"
+		android:padding="15dp"
+		android:text="Insset Airlines"
+		android:textColor="@color/bleu"
+		android:textSize="80dp" />
+
+	<TextView
+		android:id="@+id/textView2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/textView1"
+		android:layout_centerHorizontal="true"
+		android:text="La maintenance, c&apos;est vous!"
+		android:textColor="@color/bleu"
+		android:textSize="40dp"
+		android:textStyle="italic" />
+
+	<Button
+		android:id="@+id/gererAvion"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/textView2"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="99dp"
+		android:background="@drawable/cadre_noir"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:text="Gérer les avions"
+		android:textColor="@color/bleu"
+		android:textSize="40dp" />
+
+	<Button
+		android:id="@+id/planifier"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:background="@drawable/cadre_noir"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:text="Planifier les révisions"
+		android:textColor="@color/bleu"
+		android:textSize="40dp" />
+
+	<Button
+		android:id="@+id/gererRevisions"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/planifier"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="57dp"
+		android:background="@drawable/cadre_noir"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:text="Gérer les révisions"
+		android:textColor="@color/bleu"
+		android:textSize="40dp" />
+
+	<Button
+		android:id="@+id/planning"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/gererRevisions"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="50dp"
+		android:background="@drawable/cadre_noir"
+		android:paddingBottom="5dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:text="Accéder au planning"
+		android:textColor="@color/bleu"
+		android:textSize="40dp" />
+
+	<Button
+		android:id="@+id/gererOperations"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/planning"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="48dp"
+		android:background="@drawable/cadre_noir"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:text="Gérer les opérations"
+		android:textColor="@color/bleu"
+		android:textSize="40dp" />
+
+</RelativeLayout>
