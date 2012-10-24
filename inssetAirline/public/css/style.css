@@ -1,0 +1,35 @@
+.Bar {
+	background:black repeat-x;
+	background-position:top;
+	padding:5px;
+	position:fixed;
+	height: 25px;
+	left:0;
+	right:0;
+	top:0;
+	color:#FFF;
+	border-bottom:3px solid #FFF;
+	-moz-opacity:0.5;
+opacity: 0.5;
+filter:alpha(opacity=50);
+
+
+}
+
+.text {
+	color:white;
+	padding:7px 0;
+	font-weight:900;
+	text-align:center;
+}
+
+header p{
+	margin : 0px;
+	padding : 0px;
+}
+
+body{
+	margin-top:35px;
+}
+
+
