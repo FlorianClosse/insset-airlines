@@ -8,6 +8,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		parent::run();
 	}
 	
+	protected function _initEncoding() {
+		mb_internal_encoding("UTF-8");
+	}
+	
 	protected function _initConfig()
 	{
 		Zend_Registry::set('configs', new Zend_Config($this->getOptions()));
