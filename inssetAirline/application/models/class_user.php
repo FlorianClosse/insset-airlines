@@ -33,7 +33,7 @@ class User
 		$this -> selectOne -> execute(array(':idUser' => $idUser));
 		return $this -> selectOne -> fetch();
 	}
-	public function update($idUser, $nomUser, $prenomUser, $email, $motDePasse, $dateNaissance, $service)
+	public function update($idUser, $nomUser, $prenomUser, $email, $motDePasse, $dateNaissance, $service, $idAeroport )
 	{
 		$this ->update -> execute(array (':idUser' => $idUser, ':nomUser' => $nomUser, ':prenomUser' => $prenomUser, ':email' => $email, ':motDePasse' => $motDePasse, ':dateNaissance' => $dateNaissance, ':service' => $service, ':idAeroport' => $idAeroport));
 		return $this -> update -> rowCount();
