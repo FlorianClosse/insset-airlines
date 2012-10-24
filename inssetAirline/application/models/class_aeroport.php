@@ -15,7 +15,7 @@ class Aeroport
 		$this -> selectAll 	= $db -> prepare("SELECT idAeroport, nomAeroport, trigramme, longueurPiste, idVille FROM aeroport");
 		$this -> insertAll 	= $db -> prepare("INSERT INTO aeroport (idAeroport, nomAeroport, trigramme, longueurPiste, idVille) values (:idAeroport, :nomAeroport, :trigramme, :longueurPiste, :idVille)");
 		$this -> selectOne 	= $db -> prepare("SELECT idAeroport, nomAeroport FROM aeroport WHERE idAeroport = :idAeroport");
-		$this -> update 	= $db -> prepare("UPDATE pays SET nomAeroport = :nomAeroport, trigramme = :trigramme, longueurPiste = :longueurPiste, idVille = :idVille WHERE idAeroport = :idAeroport");
+		$this -> update 	= $db -> prepare("UPDATE aeroport SET nomAeroport = :nomAeroport, trigramme = :trigramme, longueurPiste = :longueurPiste, idVille = :idVille WHERE idAeroport = :idAeroport");
 		$this -> delete		= $db -> prepare("DELETE FROM aeroport WHERE idAeroport = :idAeroport");
 	}
 	public function selectAll()
