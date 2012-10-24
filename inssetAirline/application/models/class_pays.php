@@ -1,7 +1,4 @@
 <?php
-/*
- * Class_Pays
- */
 class Pays
 {
 	private $selectAll;

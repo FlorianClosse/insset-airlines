@@ -18,6 +18,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$session = new Zend_Session_Namespace('inssetAirline', true);
 		return $session;
 	}
+	
+	// 	protected function _initDb()
+	// 	{
+	// 		$db = Zend_Db::factory(Zend_Registry::get('config')->database);
+	// 		Zend_Registry::set('db', $db);
+	// 	}
 }
 
 

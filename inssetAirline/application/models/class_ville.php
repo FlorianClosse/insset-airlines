@@ -1,7 +1,4 @@
 <?php
-/*
- * Class ville
- */
 class Ville
 {
 	private $selectAll;
