@@ -29,11 +29,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		return $session;
 	}
 	
-	// 	protected function _initDb()
-	// 	{
-	// 		$db = Zend_Db::factory(Zend_Registry::get('config')->database);
-	// 		Zend_Registry::set('db', $db);
-	// 	}
+// 		protected function _initDb()
+// 		{
+// 			$db = Zend_Db::factory(Zend_Registry::get('config')->database);
+// 			Zend_Db_Table_Abstract::setDefaultAdapter($db);
+// 			Zend_Registry::set('db', $db);
+// 		}
 }
 
 
