@@ -5,7 +5,7 @@ class Aeroport extends Zend_Db_Table_Abstract
 	protected $_primary=array('idAeroport');
 	
 	protected $_referenceMap = array(
-			'Ville' => array(
+			'idVille' => array(
 					'columns' => 'idVille',
 					'refTableClass' =>'ville'));
 }
