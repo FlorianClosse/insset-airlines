@@ -5,7 +5,7 @@ class User extends Zend_Db_Table_Abstract
 	protected $_primary=array('idUser');
 	
 	protected $_referenceMap = array(
-			'Aeroport' => array(
+			'idAeroport' => array(
 					'columns' => 'idAeroport',
 					'refTableClass' =>'aeroport'));
 }
