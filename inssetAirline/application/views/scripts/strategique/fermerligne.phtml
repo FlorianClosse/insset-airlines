@@ -1,21 +1,24 @@
-<?php $lesVols = $this->lesVols; ?>
-
-<table>
-<tr>
-	<th >id</th>
-	<th >numero</th>
-	<th >periodicite</th>
-</tr>
-<form method="post" action="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=fermer" id="formulaireSuppression">
-		
-<?php foreach($lesVols as $unVol) { ?>
-	<tr>
-		<td><input type="checkbox" name="id<?php $unVol->idVol; ?>" id="id<?php $unVol->idVol; ?>" value="<?php $unVol->idVol; ?>" /></td>
-		<td><?php echo $unVol->numVol; ?></td>
-		<td><?php echo $unVol->periodicite; ?></td>
-   </tr>
-<?php } ?>
-
-</table>
-<input type="submit" name="btValider" id="btValider" value="Valider" />
-</form>
+<div id="tableauxSupprVol">
+	
+	<table id="tableauTitreVol">
+		<tr>
+			<th >Vols a supprimer</th>
+			<th >numero</th>
+			<th >periodicite</th>
+		</tr>
+	</table>
+	
+	<?php echo $this->formulaire; ?>
+	
+	<table id="tableauInfoVol">
+	<?php $lesVols = $this->lesVols; 
+		  foreach($lesVols as $unVol) { ?>
+		<tr>
+			<td><?php echo $unVol->numVol; ?></td>
+			<td><?php echo $unVol->periodicite; ?></td>
+	   </tr>
+	<?php } ?>
+	
+	</table>
+	
+</div>

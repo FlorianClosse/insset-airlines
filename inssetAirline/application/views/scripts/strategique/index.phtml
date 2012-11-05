@@ -11,3 +11,11 @@
 	</li>
 </ul>
 
+
+<?php $tableau = $this->tableau; if(count($tableau) > 0){ ?>
+<div id="volSupprime">
+	<?php for ($i=0; $i<count($tableau); $i++) {?>
+	<p>Le vol <u><?php echo $tableau[$i]; ?></u> a été supprimé. </p>
+	<?php } ?>
+</div>
+<?php } ?>
