@@ -1,17 +1,15 @@
 package com.example.inssetairlines;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import seb.util.IoSeb;
 import seb.util.ToastSeb;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,11 +28,6 @@ public class AjouterAvion extends Activity {
 	ListView listAero = null;
 	ImageButton newModele = null;
 	String[][] modeles;
-	// liste d'aeroports pour les tests
-	// String[] aeroports = {"aeroport0", "aeroport1", "aeroport2", "aeroport3",
-	// "aeroport4", "aeroport5", "aeroport6", "aeroport7", "aeroport8",
-	// "aeroport9", "aeroport10", "aeroport11", "aeroport12", "aeroport13",
-	// "aeroport14"};
 	String[][] aeroports;
 	private Avion avion;
 	private EditText editImmatri;
@@ -53,7 +46,7 @@ public class AjouterAvion extends Activity {
         editImmatri = (EditText)findViewById(R.id.editText1);
         editDateMisEnService = (EditText)findViewById(R.id.editText2);
         boutonValider = (Button)findViewById(R.id.valider);
-        avion = new Avion();
+        avion = new Avion(getApplicationContext());
         
         initialiserListModele("nom du modèle");
         initialiserListAero("nom de l'aéroport");
@@ -131,14 +124,7 @@ public class AjouterAvion extends Activity {
 				// TODO Auto-generated method stub
 				avion.setNumImmatriculation(editImmatri.getText().toString());
 				avion.setDateMisEnService(editDateMisEnService.getText().toString());
-				IoSeb ioSeb = new IoSeb();
-				ioSeb.ajoutParam("numImmatriculation", avion.getNumImmatriculation());
-				ioSeb.ajoutParam("dateMisEnService", avion.getDateMisEnService());
-				ioSeb.ajoutParam("idModele", String.valueOf((avion.getIdModele())));
-				ioSeb.ajoutParam("idAeroport", String.valueOf((avion.getIdAeroport())));
-				ioSeb.inputSeb(UrlScriptsPhp.urlAjouterAvion, handlerAjouterAvion, getApplicationContext());
-				ToastSeb.toastSeb(getApplicationContext(), avion.getDateMisEnService().toString());
-
+				avion.ajouterAvion();
 			}
 		});
         
@@ -182,16 +168,7 @@ public class AjouterAvion extends Activity {
 				}
 			 };
 			 
-			 Handler handlerAjouterAvion = new Handler() {
-				 public void handleMessage(Message msg) {
-						if(msg.what == 1) {
-							ToastSeb.toastSeb(getApplicationContext(), "Avion Ajouté");
-						}
-						if(msg.what == 2) {
-							ToastSeb.toastSeb(getApplicationContext(), "erreur. l'avion n'est pas ajouté");
-						}
-					}
-			 };
+			
 
 	public void initialiserListModele(String nomDuModele) {
 		listModele.setEnabled(false);
