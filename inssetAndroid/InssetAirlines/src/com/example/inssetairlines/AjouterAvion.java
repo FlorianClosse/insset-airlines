@@ -59,7 +59,7 @@ public class AjouterAvion extends Activity {
 				// TODO Auto-generated method stub
 				 IoSeb ioSeb = new IoSeb();
 				 ioSeb.ajoutParam("nomTable", "modele");
-				 ioSeb.outputSeb(UrlScriptsPhp.urlListeModeleOuAeroport, new String[] {"idModele","nomModele"}, getApplicationContext(), handlerListeModele);
+				 ioSeb.outputSeb(UrlScriptsPhp.urlLireListe_id_nom, new String[] {"idModele","nomModele"}, getApplicationContext(), handlerListeModele);
 			}
 				
 		});
@@ -86,7 +86,7 @@ public class AjouterAvion extends Activity {
 				// TODO Auto-generated method stub
 				IoSeb ioSeb = new IoSeb();
 				ioSeb.ajoutParam("nomTable", "aeroport");
-				ioSeb.outputSeb(UrlScriptsPhp.urlListeModeleOuAeroport, new String[] {"idAeroport","nomAeroport"}, getApplicationContext(), handlerListeAeroport);
+				ioSeb.outputSeb(UrlScriptsPhp.urlLireListe_id_nom, new String[] {"idAeroport","nomAeroport"}, getApplicationContext(), handlerListeAeroport);
 			}
 				
 		});
