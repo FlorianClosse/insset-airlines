@@ -58,6 +58,7 @@ public final class R {
         public static final int date=0x7f090044;
         public static final int dateComment=0x7f090002;
         public static final int datePickerOp=0x7f09003c;
+        public static final int datePrevue=0x7f090048;
         public static final int editNomTech=0x7f09003b;
         public static final int editText1=0x7f09000b;
         public static final int editText2=0x7f09000a;
@@ -94,9 +95,8 @@ public final class R {
         public static final int revisions=0x7f090028;
         public static final int statut=0x7f090026;
         public static final int textDate=0x7f09003e;
-        public static final int textDateRev=0x7f090047;
         public static final int textNomModele=0x7f090029;
-        public static final int textTypeRev=0x7f090048;
+        public static final int textTypeRev=0x7f090047;
         public static final int textView1=0x7f090000;
         public static final int textView2=0x7f090005;
         public static final int textview01=0x7f09003d;

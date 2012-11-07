@@ -42,18 +42,8 @@ public class FicheAvion extends Activity {
 	Button boutonComment = null;
 	ListView listeRevisions = null;
 	ImageButton boutonModele = null;
-	String modeleAvionChoisi = "exemple modèle"; // modele de l'avion
-													// selectionné dans la liste
-													// des avions
-	// liste de revisions contenant une date pour les tests
-	GregorianCalendar[] datesRevisions = { new GregorianCalendar(2012, 4, 22),
-			new GregorianCalendar(2012, 5, 23),
-			new GregorianCalendar(2011, 11, 12) };// mois: de 0 à 11
-	String[] typeRevisions = { "grande", "petite", "grande" };// liste de types
-																// de revisions
-																// pour les
-																// tests
-
+	String[][] revisions;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,7 +71,7 @@ public class FicheAvion extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent t = new Intent(FicheAvion.this, AfficherComment.class);
-				t.putExtra("immatriAvion", avion.getIdAvion());
+				t.putExtra("idAvion", avion.getIdAvion());
 				startActivity(t);
 			}
 		});
@@ -106,7 +96,7 @@ public class FicheAvion extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent t = new Intent(FicheAvion.this, FicheModele.class);
-				t.putExtra("modele", modeleAvionChoisi);
+				t.putExtra("idModele", avion.getIdModele());
 				startActivity(t);
 			}
 		});
@@ -116,20 +106,17 @@ public class FicheAvion extends Activity {
 	public void afficherRevisions() {
 		ArrayList<HashMap<String, String>> listeRev = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> revision = new HashMap<String, String>();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		String dateString = null;
-		for (int i = 0; i < datesRevisions.length; i++) {
+		
+		for (int i = 0; i < revisions.length; i++) {
 			revision = new HashMap<String, String>();
-			// conversion gregoriancalendar en string
-			dateString = dateFormat.format(datesRevisions[i].getTime());
-			revision.put("date", dateString);
-			revision.put("type", typeRevisions[i]);
+			revision.put("datePrevue", revisions[i][2]);
+			revision.put("statutRevision", revisions[i][5]);
 			listeRev.add(revision);
 		}
 
 		SimpleAdapter adapter = new SimpleAdapter(FicheAvion.this, listeRev,
-				R.layout.ligne_revision, new String[] { "date", "type" },
-				new int[] { R.id.textDateRev, R.id.textTypeRev });
+				R.layout.ligne_revision, new String[] { "datePrevue", "statutRevision" },
+				new int[] { R.id.datePrevue, R.id.textTypeRev });
 		listeRevisions.setAdapter(adapter);
 	}// fin afficherRevisions
 
@@ -148,7 +135,18 @@ public class FicheAvion extends Activity {
 			modele.setText(avion.getNomModele());
 			localisation.setText(avion.getNomLocalisation());
 			aeroAttache.setText(avion.getNomAeroportDattache());
-			// afficherRevisions();
+		
+			if (IoSeb.tabResultats[0].length > 10) { //si une revision existe
+				revisions = new String[IoSeb.tabResultats.length][6];
+				for (int i = 0; i < IoSeb.tabResultats.length; i++) {
+					for (int j = 0; j < revisions[0].length; j++) {
+						revisions[i][j] = IoSeb.tabResultats[i][j + 10];
+					}
+				}
+				afficherRevisions();
+				
+			}
+			
 		}
 	};
 

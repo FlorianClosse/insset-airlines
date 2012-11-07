@@ -124,7 +124,9 @@ public class Avion {
 	};
 
 	public static void lireLigneAvionAvecId(Context context, Handler handler,
-			int idAvion) {
+			int idAvion) { // detail d'un avion avec nom du modele, de
+							// l'aeroport et de la localisation et détail des
+							// revisions
 		IoSeb ioSeb = new IoSeb();
 		ioSeb.ajoutParam("nomTable", "avion");
 		ioSeb.ajoutParam("idAvion", String.valueOf(idAvion));
@@ -132,7 +134,8 @@ public class Avion {
 				"idAvion", "numImmatriculation", "dateMisEnService",
 				"nombreHeureTotale", "nbHeureVolDepuisGrandeRevision",
 				"nbHeureVolDepuisPetiteRevision", "statut", "nomModele",
-				"aeroL", "aeroA" }, context, handler);
+				"aeroL", "aeroA", "idRevision", "immatriculationAvion",
+				"datePrevue", "dateDebut", "dateFin", "statutRevision" }, context, handler);
 	}
 
 	public int getIdAvion() {
