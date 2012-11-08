@@ -120,4 +120,19 @@ td
 	background-color:#01F601;
 }
 
+.boutonValider
+{
+	background: white;
+	border:none;
+}
+
+#valider
+{
+	height : 40px;
+	width : 160px;
+	font-size: 18px;
+	border-radius:15px;
+	background-color:#01F601;
+}
+
 

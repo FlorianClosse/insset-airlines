@@ -51,15 +51,6 @@ class LogistiqueController extends Zend_Controller_Action
     	}
     	else
     	{
-    		
-    		foreach ($lesVols as $unVol)
-    		{
-    			$tableau[] = $unVol->numVol;
-    		}
-    		
-
-    			$this->view->tableau = $tableau;
-
     		//decorateur des cases a cocher
     		$decorateurCase = array(
     				array('ViewHelper'),
@@ -85,7 +76,16 @@ class LogistiqueController extends Zend_Controller_Action
     		$decorateurTableau = array(
     				array('FormElements'),
     				array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
-    		);    	
+    		);
+    		
+    		
+    		
+    		foreach ($lesVols as $unVol)
+    		{
+    			$tableau[] = $unVol->numVol;
+    		}    		
+
+    		$this->view->tableau = $tableau;    		
 
     		//on crée le formulaire
     		$formulaireAfficherVol = new Zend_Form;
@@ -111,8 +111,7 @@ class LogistiqueController extends Zend_Controller_Action
     		 
     		//on envoie les vols a la vue
     		$this->view->lesVols = $lesVols;
-    		 
-    		echo $formulaireAfficherVol;
+    		$this->view->formulaire = $formulaireAfficherVol;
     		
     	}
 	}

@@ -7,9 +7,13 @@
 </ul>
 
 
-<?php $tableauCom = $this->tableauCom;
+<?php 
+$tableauCom = $this->tableauCom;
+
 $compteur = $this->compteur;
-if(count($tableauCom) > 0){ ?>
+
+if(count($tableauCom) > 0){ 
+?>
 	<div id="tableauxSupprVol">
 		
 		<table id="tableauTitreVol">
@@ -47,19 +51,30 @@ if(count($tableauCom) > 0){ ?>
 	</div>
 <?php } ?>
 
-<?php $tableau = $this->tableau;
 
-if(count($tableau) > 0){ ?>
+<?php if(!isset($_POST['valider'])){?>
+
+<table id="tableauTitreVol">
+		<tr>
+			<th > </th>
+			<th > Vols </th>			
+		</tr>
+	</table>
+
+<?php $tableau = $this->tableau;
+$formulaire = $this->formulaire; 
+?>
+		<?php echo $this->formulaire; ?>
 	
-			
-		<table>	
-			<tr><?php for ($i=0; $i<count($tableau); $i++) 
-			  {?>				
-				<td><?php echo $tableau[$i] ;?></td>						
-		<?php } ?>
-				
-			</tr>
-		</table>
-		
-	</div>
-<?php } ?>
+	<table id="tableauInfoVol">
+	<?php $lesVols = $this->lesVols; 
+		  foreach($lesVols as $unVol) { ?>
+		<tr>
+			<td><?php echo $unVol->numVol; ?></td>
+	   </tr>
+	<?php } ?>
+	
+	</table>
+	
+	
+	<?php }?>
