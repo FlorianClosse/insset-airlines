@@ -59,8 +59,9 @@ public class Avion {
 		this.setNbHeureVolDepuisPetiteRevision(Integer.valueOf(tabResultats[5]));
 		this.setStatut(tabResultats[6]);
 		this.nomModele = tabResultats[7];
-		this.nomLocalisation = tabResultats[8];
-		this.nomAeroportDattache = tabResultats[9];
+		this.idModele = Integer.valueOf(tabResultats[8]);
+		this.nomLocalisation = tabResultats[9];
+		this.nomAeroportDattache = tabResultats[10];
 		this.context = null;
 	}
 
@@ -129,11 +130,11 @@ public class Avion {
 							// revisions
 		IoSeb ioSeb = new IoSeb();
 		ioSeb.ajoutParam("nomTable", "avion");
-		ioSeb.ajoutParam("idAvion", String.valueOf(idAvion));
+		ioSeb.ajoutParam("id", String.valueOf(idAvion));
 		ioSeb.outputSeb(UrlScriptsPhp.urlLireLigneCompleteAvecId, new String[] {
 				"idAvion", "numImmatriculation", "dateMisEnService",
 				"nombreHeureTotale", "nbHeureVolDepuisGrandeRevision",
-				"nbHeureVolDepuisPetiteRevision", "statut", "nomModele",
+				"nbHeureVolDepuisPetiteRevision", "statut", "nomModele", "idModele",
 				"aeroL", "aeroA", "idRevision", "immatriculationAvion",
 				"datePrevue", "dateDebut", "dateFin", "statutRevision" }, context, handler);
 	}

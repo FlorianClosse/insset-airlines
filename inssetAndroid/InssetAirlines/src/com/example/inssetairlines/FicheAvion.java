@@ -136,11 +136,11 @@ public class FicheAvion extends Activity {
 			localisation.setText(avion.getNomLocalisation());
 			aeroAttache.setText(avion.getNomAeroportDattache());
 		
-			if (IoSeb.tabResultats[0].length > 10) { //si une revision existe
+			if (IoSeb.tabResultats[0].length > 11) { //si une revision existe
 				revisions = new String[IoSeb.tabResultats.length][6];
 				for (int i = 0; i < IoSeb.tabResultats.length; i++) {
 					for (int j = 0; j < revisions[0].length; j++) {
-						revisions[i][j] = IoSeb.tabResultats[i][j + 10];
+						revisions[i][j] = IoSeb.tabResultats[i][j + 11];
 					}
 				}
 				afficherRevisions();
