@@ -43,4 +43,8 @@ public class IoSeb {
 		output.setParams(params);
 		output.execute();
 	}
+	
+	public static void viderTabResultats() {
+		tabResultats = null;
+	}
 }

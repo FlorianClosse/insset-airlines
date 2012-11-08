@@ -83,9 +83,7 @@ public class FicheAvion extends Activity {
 					int position, long arg3) {
 				// TODO Auto-generated method stub
 				Intent t = new Intent(FicheAvion.this, FicheRevision.class);
-				t.putExtra("idRevision", position); // il faut envoyer l'id de
-													// la revision au lieu de la
-													// position
+				t.putExtra("idRevision", Integer.valueOf(revisions[position][0])); // envoie de l'id de la revision
 				startActivity(t);
 			}
 		});
@@ -144,7 +142,7 @@ public class FicheAvion extends Activity {
 					}
 				}
 				afficherRevisions();
-				
+				IoSeb.viderTabResultats();
 			}
 			
 		}
