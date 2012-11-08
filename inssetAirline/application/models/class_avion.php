@@ -11,13 +11,13 @@
 				'idModele' => array(
 						'columns' => 'idModele',
 						'refTableClass' =>'modele'));
-		protected $_referenceMap = array(
-				'idAeroportDattache' => array(
-						'columns' => 'idAeroport',
-						'refTableClass' =>'aeroport'));
-		protected $_referenceMap = array(
-				'localisation' => array(
-						'columns' => 'idAeroport',
-						'refTableClass' =>'aeroport'));
+// 		protected $_referenceMap = array(
+// 				'idAeroportDattache' => array(
+// 						'columns' => 'idAeroport',
+// 						'refTableClass' =>'aeroport'));
+// 		protected $_referenceMap = array(
+// 				'localisation' => array(
+// 						'columns' => 'idAeroport',
+// 						'refTableClass' =>'aeroport'));
 	}
 ?>

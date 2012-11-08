@@ -2,7 +2,7 @@
 /*
  * Classe de liaison pilote, brevet par Nicolas
 */
-class Pilote extends Zend_Db_Table_Abstract
+class LiaisonPiloteBrevet extends Zend_Db_Table_Abstract
 {
 	protected $_name = 'liaisonPiloteBrevet';
 	protected $_primary = array('idPilote','idBrevet');
