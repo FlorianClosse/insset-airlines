@@ -4,10 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+
+import seb.util.IoSeb;
+import seb.util.ToastSeb;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -19,19 +25,20 @@ import android.widget.TextView;
 
 public class AfficherComment extends Activity {
 	ListView listeComment = null;
-	//creation des commentaires pour les tests:
-	GregorianCalendar[] dateComment = {new GregorianCalendar(2012, 4, 22), new GregorianCalendar(2012, 5, 23), new GregorianCalendar(2011, 11, 12)};//mois: de 0 à 11
-	String[] commentaires = {"Ceci est mon premier commentaire a entrer dans mon appli inssetAirlines. c'est du beau travail", "deuxième commentaire: le nouvel avion est très performant mais il faut changer les essuie-glaces","pour mon troisième commentaire, je vais être moins bavard"};
-	String[] nomTechnicien = {"robert", "robert","roberto"};
-
+	Commentaire[] commentaires = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_comment);
+        Intent t = getIntent();
+        int idAvion = t.getIntExtra("idAvion", 1);
         listeComment = (ListView)findViewById(R.id.listComment);
         
-        afficherListeComment();
+        IoSeb ioSeb = new IoSeb();
+        ioSeb.ajoutParam("idAvion", String.valueOf(idAvion));
+        ioSeb.outputSeb(UrlScriptsPhp.urlLireCommentairesAvion, new String[] {"idCommentaire","idAvion","commentaire","dateCommentaire"}, getApplicationContext(), handlerListeCommentairesAvion);
+       
         
         listeComment.setOnItemClickListener(new OnItemClickListener() {
 
@@ -47,17 +54,31 @@ public class AfficherComment extends Activity {
 		});
     }
     
+    Handler handlerListeCommentairesAvion = new Handler() {
+    	public void handleMessage(Message msg) {
+    		if(IoSeb.tabResultats.length != 0) {
+    			commentaires = new Commentaire[IoSeb.tabResultats.length];
+    			String[] resultat = new String[IoSeb.tabResultats[0].length];
+    			for(int i = 0; i < IoSeb.tabResultats.length; i++) {
+    				for(int j = 0; j < IoSeb.tabResultats[i].length; j++) {
+    					resultat[j] = IoSeb.tabResultats[i][j];
+    				}
+    				commentaires[i] = new Commentaire(resultat);
+    			}
+    			afficherListeComment();
+    			IoSeb.viderTabResultats();
+    		}
+    	}
+    };
+    
     public void afficherListeComment() {
     	ArrayList<HashMap<String, String>> lComment = new ArrayList<HashMap<String,String>>();
     	HashMap<String, String> comment = new HashMap<String, String>();
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		String dateString = null;
-    	for(int i = 0; i < dateComment.length; i++) {
+    	for(int i = 0; i < commentaires.length; i++) {
     		comment = new HashMap<String, String>();
-    		dateString = dateFormat.format(dateComment[i].getTime());
-    		comment.put("date", dateString);
-    		comment.put("comment", commentaires[i]);
-    		comment.put("nomTechnicien", nomTechnicien[i]);
+    		comment.put("date", commentaires[i].getDateCommentaire());
+    		comment.put("comment", commentaires[i].getCommentaire());
+    		comment.put("nomTechnicien", "Robert");
     		lComment.add(comment);
     	}
     	
@@ -68,8 +89,8 @@ public class AfficherComment extends Activity {
     
 	  public void alertDial(HashMap<String, String> map) {
 	 
-	  LayoutInflater factory = LayoutInflater.from(this); final View
-	  alertDialogView = factory.inflate(R.layout.alert_dial_comment, null);
+	  LayoutInflater factory = LayoutInflater.from(this); 
+	  final View alertDialogView = factory.inflate(R.layout.alert_dial_comment, null);
 	  AlertDialog.Builder adb = new AlertDialog.Builder(this);
 	  adb.setView(alertDialogView);
 	  adb.setTitle("Détails du commentaire");

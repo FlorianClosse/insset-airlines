@@ -3,7 +3,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:background="@drawable/cadre_liste_comment" >
-
+
     <TextView
     	android:id="@+id/date"
     	style="@style/textBleu"
@@ -15,7 +15,7 @@
     	android:padding="5dp"
     	android:text="date comment"
     	android:textColor="@color/noir" />
-    
+    
      <TextView
      	android:id="@+id/comment"
      	style="@style/textBleu"
