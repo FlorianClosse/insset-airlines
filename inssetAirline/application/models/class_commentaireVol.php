@@ -2,9 +2,9 @@
 /*
 *	classe realisee par matthieu
 */
-	class CommentaireVol extends Zend_Db_Table_Abstract
+	class Commentairevol extends Zend_Db_Table_Abstract
 	{
-		protected $_name='commentaireVol';
+		protected $_name='commentairevol';
 		protected $_primary=array('idCommentaireVol');
 		
 		protected $_referenceMap = array(
@@ -13,3 +13,4 @@
 						'refTableClass' =>'journaldebord'));
 	}
 ?>
+

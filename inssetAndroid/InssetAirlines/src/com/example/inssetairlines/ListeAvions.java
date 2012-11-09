@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import seb.util.IoSeb;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,20 +1,14 @@
 package com.example.inssetairlines;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import seb.util.IoSeb;
-import seb.util.ToastSeb;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
-import android.content.Intent;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +19,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class FicheAvion extends Activity {
 
@@ -43,7 +36,7 @@ public class FicheAvion extends Activity {
 	ListView listeRevisions = null;
 	ImageButton boutonModele = null;
 	String[][] revisions;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +76,8 @@ public class FicheAvion extends Activity {
 					int position, long arg3) {
 				// TODO Auto-generated method stub
 				Intent t = new Intent(FicheAvion.this, FicheRevision.class);
-				t.putExtra("idRevision", Integer.valueOf(revisions[position][0])); // envoie de l'id de la revision
+				t.putExtra("idRevision",
+						Integer.valueOf(revisions[position][0]));
 				startActivity(t);
 			}
 		});
@@ -104,17 +98,18 @@ public class FicheAvion extends Activity {
 	public void afficherRevisions() {
 		ArrayList<HashMap<String, String>> listeRev = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> revision = new HashMap<String, String>();
-		
+
 		for (int i = 0; i < revisions.length; i++) {
 			revision = new HashMap<String, String>();
-			revision.put("datePrevue", revisions[i][2]);
-			revision.put("statutRevision", revisions[i][5]);
+			revision.put("datePrevue", revisions[i][1]);
+			revision.put("statutRevision", revisions[i][2]);
 			listeRev.add(revision);
 		}
 
 		SimpleAdapter adapter = new SimpleAdapter(FicheAvion.this, listeRev,
-				R.layout.ligne_revision, new String[] { "datePrevue", "statutRevision" },
-				new int[] { R.id.datePrevue, R.id.textTypeRev });
+				R.layout.ligne_revision, new String[] { "datePrevue",
+						"statutRevision" }, new int[] { R.id.datePrevue,
+						R.id.textTypeRev });
 		listeRevisions.setAdapter(adapter);
 	}// fin afficherRevisions
 
@@ -133,9 +128,9 @@ public class FicheAvion extends Activity {
 			modele.setText(avion.getNomModele());
 			localisation.setText(avion.getNomLocalisation());
 			aeroAttache.setText(avion.getNomAeroportDattache());
-		
-			if (IoSeb.tabResultats[0].length > 11) { //si une revision existe
-				revisions = new String[IoSeb.tabResultats.length][6];
+
+			if (IoSeb.tabResultats[0].length > 11) { // si une revision existe
+				revisions = new String[IoSeb.tabResultats.length][3];
 				for (int i = 0; i < IoSeb.tabResultats.length; i++) {
 					for (int j = 0; j < revisions[0].length; j++) {
 						revisions[i][j] = IoSeb.tabResultats[i][j + 11];
@@ -144,7 +139,7 @@ public class FicheAvion extends Activity {
 				afficherRevisions();
 				IoSeb.viderTabResultats();
 			}
-			
+
 		}
 	};
 
