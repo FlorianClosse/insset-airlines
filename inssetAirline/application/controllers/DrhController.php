@@ -70,26 +70,26 @@ class DrhController extends Zend_Controller_Action
     	$PiloteMail->setAttrib('id', 'formpilote');
     	
     	
-//     	$aeroport = new Aeroport;
-//     	$lesAeroport = $aeroport->fetchAll();
-//     	$aeroport = new Zend_Form_Element_Select('aeroport');
-//     	$aeroport ->setLabel('Choisir un aeroport');
-//     	foreach ($lesAeroport as $unAeroport ) {
-//     		$tableauAeroport[$unAeroport -> idAeroport] = ucfirst($unAeroport->nomAeroport);
-//     	} // permet de construite mes données de mon select
-    	 
-//     	$aeroport->setMultiOptions($tableauAeroport); // remplit ma liste deroulante
-    	
-    	
-    	$pays = new Pays;
-    	$lesPays = $pays->fetchAll();
-    	$pays = new Zend_Form_Element_Select('pays');
-    	$pays ->setLabel('Choisir un pays');
-    	$pays->setAttrib('id', 'listePaysId');
-    	foreach ($lesPays as $unPays ) {
-    		$tableauPays[$unPays -> idPays] = ucfirst($unPays->nomPays);
+    	$aeroport = new Aeroport;
+    	$lesAeroport = $aeroport->fetchAll();
+    	$aeroport = new Zend_Form_Element_Select('aeroport');
+    	$aeroport ->setLabel('Choisir un aeroport');
+    	foreach ($lesAeroport as $unAeroport ) {
+    		$tableauAeroport[$unAeroport -> idAeroport] = ucfirst($unAeroport->nomAeroport);
     	} // permet de construite mes données de mon select
-    	$pays->setMultiOptions($tableauPays); // remplit ma liste deroulante
+    	 
+    	$aeroport->setMultiOptions($tableauAeroport); // remplit ma liste deroulante
+    	
+    	
+//     	$pays = new Pays;
+//     	$lesPays = $pays->fetchAll();
+//     	$pays = new Zend_Form_Element_Select('pays');
+//     	$pays ->setLabel('Choisir un pays');
+//     	$pays->setAttrib('id', 'listePaysId');
+//     	foreach ($lesPays as $unPays ) {
+//     		$tableauPays[$unPays -> idPays] = ucfirst($unPays->nomPays);
+//     	} // permet de construite mes données de mon select
+//     	$pays->setMultiOptions($tableauPays); // remplit ma liste deroulante
     	
     	?><select name="listeVille" id="listeVilleId" disabled="true"></select><?php 
     	
@@ -104,8 +104,8 @@ class DrhController extends Zend_Controller_Action
     	$FormAjoutPilote->addElement($PiloteAdresse);
     	$FormAjoutPilote->addElement($PiloteTelephone);
     	$FormAjoutPilote->addElement($PiloteMail);
-//     	$FormAjoutPilote->addElement($aeroport);
-    	$FormAjoutPilote->addElement($pays);
+     	$FormAjoutPilote->addElement($aeroport);
+//     	$FormAjoutPilote->addElement($pays);
     	$FormAjoutPilote->addElement($pSubmit);
     	$FormAjoutPilote->addElement($pReset);
     	
