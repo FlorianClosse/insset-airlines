@@ -101,8 +101,8 @@ public class FicheAvion extends Activity {
 
 		for (int i = 0; i < revisions.length; i++) {
 			revision = new HashMap<String, String>();
-			revision.put("datePrevue", revisions[i][2]);
-			revision.put("statutRevision", revisions[i][5]);
+			revision.put("datePrevue", revisions[i][1]);
+			revision.put("statutRevision", revisions[i][2]);
 			listeRev.add(revision);
 		}
 
@@ -130,7 +130,7 @@ public class FicheAvion extends Activity {
 			aeroAttache.setText(avion.getNomAeroportDattache());
 
 			if (IoSeb.tabResultats[0].length > 11) { // si une revision existe
-				revisions = new String[IoSeb.tabResultats.length][6];
+				revisions = new String[IoSeb.tabResultats.length][3];
 				for (int i = 0; i < IoSeb.tabResultats.length; i++) {
 					for (int j = 0; j < revisions[0].length; j++) {
 						revisions[i][j] = IoSeb.tabResultats[i][j + 11];

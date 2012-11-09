@@ -135,8 +135,7 @@ public class Avion {
 				"idAvion", "numImmatriculation", "dateMisEnService",
 				"nombreHeureTotale", "nbHeureVolDepuisGrandeRevision",
 				"nbHeureVolDepuisPetiteRevision", "statut", "nomModele",
-				"idModele", "aeroL", "aeroA", "idRevision",
-				"immatriculationAvion", "datePrevue", "dateDebut", "dateFin",
+				"idModele", "aeroL", "aeroA", "idRevision", "datePrevue",
 				"statutRevision" }, context, handler);
 	}
 
