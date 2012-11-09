@@ -11,18 +11,25 @@ class MaintenanceController extends Zend_Controller_Action
     {
     	if(isset($_POST['Envoyer']))
     	{
-    		$db=Zend_Db::factory(Zend_Registry::get('config')->database);
-//     		$data=array(	'numImmatriculation'=> $_POST['immatriculation'],
-//     						'dateMisEnService'=>$_POST['dateMisEnService'],
-//     						'nombreHeureTotale'=>0,
-//     						'nbHeureVolDepuisGrandeRevision'=>0,
-//     						'nbHeureVolDepuisPetiteRevision'=>0,
-//     						'statut'=>$_POST['statut'],
-//     						'modele'=>$_POST['modele']
-//     					);
-//     		$db->inssert(avion,$data);
-    		$message='L\'avion a bien été ajouté';
-    		$this->view->message = $message;
+    		$listeAvion = New Avion();
+    		$avion = $listeAvion->createRow();
+    		$avion->idAvion = '';
+    		$avion->numImmatriculation = $_POST['immatriculation'];
+    		$avion->dateMisEnService = $_POST['dateMisEnService'];
+    		$avion->nombreHeureTotale = 0;
+    		$avion->nbHeureVolDepuisGrandeRevision = 0;
+    		$avion->nbHeureVolDepuisPetiteRevision = 0;
+    		$avion->statut = $_POST['statut'];
+     		$avion->idModele = $_POST['modele'];
+    		
+    		
+    		$avion->localisation = 1;
+    		$avion->idAeroportDattache = 1;
+    		$avion->save();
+ 			
+ 	
+ 			$message='L\'avion a bien été ajouté';
+ 			$this->view->message = $message;
     	}
     	else
     	{
@@ -52,12 +59,12 @@ class MaintenanceController extends Zend_Controller_Action
 	    	
 	    	$objmodele = new Modele;
 	    	$lesModeles = $objmodele->fetchAll();
+	    	$modele = new Zend_Form_Element_Select('modele');
+	    	$modele ->setLabel('Modele de l\'avion');
 	    	foreach ($lesModeles as $unModele ) 
 	    	{
 	    		$listeModele[$unModele['idModele']] = ucfirst($unModele['nomModele']);
 	    	}
-	    	$modele = new Zend_Form_Element_Select('modele');
-	    	$modele ->setLabel('Modele de l\'avion');
 	    	$modele->addMultiOptions($listeModele);
 	    	$formAjoutAvion->addElement($modele);
 	    	
