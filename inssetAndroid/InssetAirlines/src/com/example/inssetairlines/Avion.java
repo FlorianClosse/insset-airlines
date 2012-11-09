@@ -127,16 +127,17 @@ public class Avion {
 	public static void lireLigneAvionAvecId(Context context, Handler handler,
 			int idAvion) { // detail d'un avion avec nom du modele, de
 							// l'aeroport et de la localisation et détail des
-							// revisions
+							// revisions et idModele
 		IoSeb ioSeb = new IoSeb();
 		ioSeb.ajoutParam("nomTable", "avion");
 		ioSeb.ajoutParam("id", String.valueOf(idAvion));
 		ioSeb.outputSeb(UrlScriptsPhp.urlLireLigneCompleteAvecId, new String[] {
 				"idAvion", "numImmatriculation", "dateMisEnService",
 				"nombreHeureTotale", "nbHeureVolDepuisGrandeRevision",
-				"nbHeureVolDepuisPetiteRevision", "statut", "nomModele", "idModele",
-				"aeroL", "aeroA", "idRevision", "immatriculationAvion",
-				"datePrevue", "dateDebut", "dateFin", "statutRevision" }, context, handler);
+				"nbHeureVolDepuisPetiteRevision", "statut", "nomModele",
+				"idModele", "aeroL", "aeroA", "idRevision",
+				"immatriculationAvion", "datePrevue", "dateDebut", "dateFin",
+				"statutRevision" }, context, handler);
 	}
 
 	public int getIdAvion() {

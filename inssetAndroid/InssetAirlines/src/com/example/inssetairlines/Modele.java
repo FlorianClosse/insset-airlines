@@ -1,10 +1,10 @@
 package com.example.inssetairlines;
 
+import seb.util.IoSeb;
+import seb.util.ToastSeb;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import seb.util.IoSeb;
-import seb.util.ToastSeb;
 
 public class Modele {
 	private int idModele;

@@ -35,140 +35,156 @@ public class AjouterAvion extends Activity {
 	private Button boutonValider;
 
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ajouter_avion);
-        boutonMod = (ImageButton)findViewById(R.id.boutonModele);
-        listModele = (ListView)findViewById(R.id.listModele);
-        boutonAero = (ImageButton)findViewById(R.id.boutonAeroport);
-        listAero = (ListView)findViewById(R.id.listAeroport);
-        newModele = (ImageButton)findViewById(R.id.newModele);
-        editImmatri = (EditText)findViewById(R.id.editText1);
-        editDateMisEnService = (EditText)findViewById(R.id.editText2);
-        boutonValider = (Button)findViewById(R.id.valider);
-        avion = new Avion(getApplicationContext());
-        
-        initialiserListModele("nom du modèle");
-        initialiserListAero("nom de l'aéroport");
-        
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_ajouter_avion);
+		boutonMod = (ImageButton) findViewById(R.id.boutonModele);
+		listModele = (ListView) findViewById(R.id.listModele);
+		boutonAero = (ImageButton) findViewById(R.id.boutonAeroport);
+		listAero = (ListView) findViewById(R.id.listAeroport);
+		newModele = (ImageButton) findViewById(R.id.newModele);
+		editImmatri = (EditText) findViewById(R.id.editText1);
+		editDateMisEnService = (EditText) findViewById(R.id.editText2);
+		boutonValider = (Button) findViewById(R.id.valider);
+		avion = new Avion(getApplicationContext());
 
-        boutonMod.setOnClickListener(new OnClickListener() {
-			
+		initialiserListModele("nom du modèle");
+		initialiserListAero("nom de l'aéroport");
+
+		boutonMod.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				 IoSeb ioSeb = new IoSeb();
-				 ioSeb.ajoutParam("nomTable", "modele");
-				 ioSeb.outputSeb(UrlScriptsPhp.urlLireListe_id_nom, new String[] {"idModele","nomModele"}, getApplicationContext(), handlerListeModele);
+				IoSeb ioSeb = new IoSeb();
+				ioSeb.ajoutParam("nomTable", "modele");
+				ioSeb.outputSeb(UrlScriptsPhp.urlLireListe_id_nom,
+						new String[] { "idModele", "nomModele" },
+						getApplicationContext(), handlerListeModele);
 			}
-				
+
 		});
-        
-        listModele.setOnItemClickListener(new OnItemClickListener() {
+
+		listModele.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
 				// TODO Auto-generated method stub
-				//on accede a la table pour savoir a quel modele correspond "position"
-				//toast de test:
-				ToastSeb.toastSeb(AjouterAvion.this, "modele "+modeles[position][0]+" choisi: "+modeles[position][1]);
+				// on accede a la table pour savoir a quel modele correspond
+				// "position"
+				// toast de test:
+				ToastSeb.toastSeb(AjouterAvion.this, "modele "
+						+ modeles[position][0] + " choisi: "
+						+ modeles[position][1]);
 				avion.setIdModele(Integer.parseInt(modeles[position][0]));
 				initialiserListModele(modeles[position][1]);
-				
+
 			}
 		});
-        
-        boutonAero.setOnClickListener(new OnClickListener() {
-			
+
+		boutonAero.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				IoSeb ioSeb = new IoSeb();
 				ioSeb.ajoutParam("nomTable", "aeroport");
-				ioSeb.outputSeb(UrlScriptsPhp.urlLireListe_id_nom, new String[] {"idAeroport","nomAeroport"}, getApplicationContext(), handlerListeAeroport);
+				ioSeb.outputSeb(UrlScriptsPhp.urlLireListe_id_nom,
+						new String[] { "idAeroport", "nomAeroport" },
+						getApplicationContext(), handlerListeAeroport);
 			}
-				
+
 		});
-        
-        listAero.setOnItemClickListener(new OnItemClickListener() {
+
+		listAero.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
 				// TODO Auto-generated method stub
-				//on accede a la table pour savoir a quel aeroport correspond "position"
-				//toast de test:
-				ToastSeb.toastSeb(AjouterAvion.this, "aeroport "+aeroports[position][0]+" choisi: "+aeroports[position][1]);
+				// on accede a la table pour savoir a quel aeroport correspond
+				// "position"
+				// toast de test:
+				ToastSeb.toastSeb(AjouterAvion.this, "aeroport "
+						+ aeroports[position][0] + " choisi: "
+						+ aeroports[position][1]);
 				avion.setIdAeroport(Integer.parseInt(aeroports[position][0]));
 				initialiserListAero(aeroports[position][1]);
-				
+
 			}
-		}); 
-        
-        newModele.setOnClickListener(new OnClickListener() {
-			
+		});
+
+		newModele.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent t = new Intent(AjouterAvion.this, AjouterModele.class);
 				startActivity(t);
-				
+
 			}
 		});
-        
-        boutonValider.setOnClickListener(new OnClickListener() {
-			
+
+		boutonValider.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				avion.setNumImmatriculation(editImmatri.getText().toString());
-				avion.setDateMisEnService(editDateMisEnService.getText().toString());
+				avion.setDateMisEnService(editDateMisEnService.getText()
+						.toString());
 				avion.ajouterAvion();
 			}
 		});
-        
-    }//onCreate
-	
-	 Handler handlerListeModele = new Handler() { // fonction appelee quand le 2eme thread
-			// envoie un message et se termine
-		 @Override
-		 public void handleMessage(Message msg) {
-			 modeles = IoSeb.tabResultats;
-			// seb.util.ToastSeb.toastSeb(getApplicationContext(), String.valueOf(modeles.length));
-			 ArrayList<HashMap<String, String>> lModele = new ArrayList<HashMap<String,String>>();
-				HashMap<String, String> modele;
-				for(int i = 0; i<modeles.length; i++) {
+
+	}// onCreate
+
+	Handler handlerListeModele = new Handler() { // fonction appelee quand le
+													// 2eme thread
+		// envoie un message et se termine
+		@Override
+		public void handleMessage(Message msg) {
+			modeles = IoSeb.tabResultats;
+			// seb.util.ToastSeb.toastSeb(getApplicationContext(),
+			// String.valueOf(modeles.length));
+			ArrayList<HashMap<String, String>> lModele = new ArrayList<HashMap<String, String>>();
+			HashMap<String, String> modele;
+			for (int i = 0; i < modeles.length; i++) {
 				modele = new HashMap<String, String>();
-		        modele.put("nomModele", modeles[i][1]);
-		        lModele.add(modele);
-				}
-				 SimpleAdapter adaptater = new SimpleAdapter(AjouterAvion.this, lModele, R.layout.ligne_modele_aeroport, new String[] {"nomModele"}, new int[] {R.id.nom_ligne});
-				 listModele.setAdapter(adaptater);
-				 listModele.setEnabled(true);
+				modele.put("nomModele", modeles[i][1]);
+				lModele.add(modele);
 			}
-		 };
-		 
-		 Handler handlerListeAeroport = new Handler() { // fonction appelee quand le 2eme thread
-				// envoie un message et se termine
-			 @Override
-			 public void handleMessage(Message msg) {
-				 aeroports = IoSeb.tabResultats;
-				// seb.util.ToastSeb.toastSeb(getApplicationContext(), String.valueOf(aeroports.length));
-				 ArrayList<HashMap<String, String>> lAero = new ArrayList<HashMap<String,String>>();
-					HashMap<String, String> aero;
-					for(int i = 0; i<aeroports.length; i++) {
-					aero = new HashMap<String, String>();
-			        aero.put("nomAero", aeroports[i][1]);
-			        lAero.add(aero);
-					}
-					 SimpleAdapter adaptater = new SimpleAdapter(AjouterAvion.this, lAero, R.layout.ligne_modele_aeroport, new String[] {"nomAero"}, new int[] {R.id.nom_ligne});
-					 listAero.setAdapter(adaptater);
-					 listAero.setEnabled(true);
-				}
-			 };
-			 
-			
+			SimpleAdapter adaptater = new SimpleAdapter(AjouterAvion.this,
+					lModele, R.layout.ligne_modele_aeroport,
+					new String[] { "nomModele" }, new int[] { R.id.nom_ligne });
+			listModele.setAdapter(adaptater);
+			listModele.setEnabled(true);
+		}
+	};
+
+	Handler handlerListeAeroport = new Handler() { // fonction appelee quand le
+													// 2eme thread
+		// envoie un message et se termine
+		@Override
+		public void handleMessage(Message msg) {
+			aeroports = IoSeb.tabResultats;
+			// seb.util.ToastSeb.toastSeb(getApplicationContext(),
+			// String.valueOf(aeroports.length));
+			ArrayList<HashMap<String, String>> lAero = new ArrayList<HashMap<String, String>>();
+			HashMap<String, String> aero;
+			for (int i = 0; i < aeroports.length; i++) {
+				aero = new HashMap<String, String>();
+				aero.put("nomAero", aeroports[i][1]);
+				lAero.add(aero);
+			}
+			SimpleAdapter adaptater = new SimpleAdapter(AjouterAvion.this,
+					lAero, R.layout.ligne_modele_aeroport,
+					new String[] { "nomAero" }, new int[] { R.id.nom_ligne });
+			listAero.setAdapter(adaptater);
+			listAero.setEnabled(true);
+		}
+	};
 
 	public void initialiserListModele(String nomDuModele) {
 		listModele.setEnabled(false);
