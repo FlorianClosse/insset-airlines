@@ -1,3 +1,11 @@
-<?php
-echo 'coucou';
+<?php 
+if(isset($this->formajoutavion))
+{
+	echo $this->formajoutavion; 
+}
+else
+{
+	echo $this->message;
+}
 ?>
+<a href="<?php echo $this->baseUrl('maintenance/index'); ?>">Retour </a>
