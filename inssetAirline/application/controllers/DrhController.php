@@ -22,7 +22,7 @@ class DrhController extends Zend_Controller_Action
 	    	 	$Pilote->save();
 	    	}
 	    	else{
-	    		echo" dans le cul";
+	    		echo" raté";
 	    	}
     	}
     	
