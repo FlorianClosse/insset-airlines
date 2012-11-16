@@ -11,6 +11,7 @@ import android.widget.Button;
 public class MenuPrincipal extends Activity {
 	Button gererAvion = null;
 	Button gererOperation = null;
+	Button gererRevisions = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class MenuPrincipal extends Activity {
         setContentView(R.layout.activity_menu_principal);
         gererAvion = (Button)findViewById(R.id.gererAvion);
         gererOperation = (Button)findViewById(R.id.gererOperations);
+        gererRevisions = (Button)findViewById(R.id.gererRevisions);
         
         gererAvion.setOnClickListener(new OnClickListener() {
 			
@@ -38,6 +40,17 @@ public class MenuPrincipal extends Activity {
 				startActivity(t);
 			}
 		});
+ 
+ gererRevisions.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent t = new Intent(MenuPrincipal.this, GestionRevisions.class);
+			startActivity(t);
+		}
+	});
+ 
     }
 
     @Override
