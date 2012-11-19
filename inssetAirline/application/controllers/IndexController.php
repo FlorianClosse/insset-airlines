@@ -10,9 +10,11 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $this->_helper->actionStack('login', 'index', 'default', array());
     }
-
+    public function loginAction(){
+    	$this->_helper->viewRenderer->setResponseSegment('login');
+    }
 
 }
 
