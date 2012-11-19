@@ -22,5 +22,70 @@ class Vol extends Zend_Db_Table_Abstract
 					'columns'=>'id_pilote',
 					'refTableClass'=>'Pilote')
 	);
+	
+	// ***fonction getRecuperAeroportDepart par Nicolas 
+	public function getRecuperAeroportDepart($aeroportDepart)
+	{
+		$tableAeroport = new Aeroport;
+		$requete = $tableAeroport->select()
+ 								 ->from($tableAeroport)
+								 ->where('aeroport.idAeroport=?', $aeroportDepart);
+		return $requete->query()->fetch();	
+	}
+	
+	// ***fonction getRecuperAeroportDArrivee par Nicolas
+	public function getRecuperAeroportDArrivee($aeroportArrivee)
+	{
+		$tableAeroport = new Aeroport;
+		$requete = $tableAeroport->select()
+		->from($tableAeroport)
+		->where('aeroport.idAeroport=?', $aeroportArrivee);
+		return $requete->query()->fetch();
+	}
+	
+	// ***fonction getRecuperDates de vol par Nicolas
+	public function getRecuperDateDeVol($date)
+	{
+		$requete = $this->select()
+						->from($this)
+						->where('idVol=?', $date);
+		$ligne = $requete->query()->fetch();
+		
+		if(empty($ligne['datePrevu']))
+		{
+			$tableLiaisonVolJour = new Liaisonvoljour;
+			$requete = $tableLiaisonVolJour->select()
+			->from($tableLiaisonVolJour)
+			->where('liaisonVolJour.idVol=?', $ligne['idVol']);
+			$lesLiaisons = $requete->query()->fetchAll();
+			foreach($lesLiaisons as $uneLiaison)
+			{
+				$tableJour = new Jour;
+				$requete2 = $tableJour->select()
+								   	  ->from($tableJour)
+									  ->where('jour.idJour=?', $uneLiaison['idJour']);
+				$ligne = $requete2->query()->fetch();
+				$ligne = $ligne['libelleJour'];
+				
+				if(isset($resultat))
+				{
+					$resultat = $resultat.', '.$ligne;
+				}
+				else
+				{
+					$resultat = $ligne;
+				}
+			}
+			
+			if(isset($resultat))
+			{
+				return $resultat;
+			}
+		}
+		else
+		{
+			return $ligne['datePrevu'];
+		}
+	}
 }
 ?>

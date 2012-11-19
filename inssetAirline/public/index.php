@@ -29,8 +29,18 @@ $application = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/config
 //on modifie l'include path de php
 set_include_path(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH), get_include_path())));
 
-//on a besoin des sessions
+//on a besoin des models
+require_once 'models/class_aeroport.php';
 require_once 'models/class_vol.php';
+
+require_once 'models/class_jour.php';
+require_once 'models/class_liaisonvoljour.php';
+require_once 'models/class_datevolalacarte.php';
+
+//on a besoin des fonctions
+require_once 'fonction/fonctionConvertirHeure.php';
+require_once 'fonction/fonctionFormulaireChoixAeroport.php';
+
 require_once 'models/class_avion.php';
 require_once 'models/class_aeroport.php';
 require_once 'models/class_brevet.php';
