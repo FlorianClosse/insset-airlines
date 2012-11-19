@@ -32,7 +32,7 @@ set_include_path(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH), get_i
 //on a besoin des models
 require_once 'models/class_aeroport.php';
 require_once 'models/class_vol.php';
-<<<<<<< HEAD
+
 require_once 'models/class_jour.php';
 require_once 'models/class_liaisonvoljour.php';
 require_once 'models/class_datevolalacarte.php';
@@ -40,7 +40,7 @@ require_once 'models/class_datevolalacarte.php';
 //on a besoin des fonctions
 require_once 'fonction/fonctionConvertirHeure.php';
 require_once 'fonction/fonctionFormulaireChoixAeroport.php';
-=======
+
 require_once 'models/class_avion.php';
 require_once 'models/class_aeroport.php';
 require_once 'models/class_brevet.php';
@@ -61,7 +61,6 @@ require_once 'models/class_reservation.php';
 require_once 'models/class_revision.php';
 require_once 'models/class_user.php';
 require_once 'models/class_ville.php';
->>>>>>> branch 'master' of https://github.com/FlorianClosse/insset-airlines.git
 
 $application->bootstrap()->run();
 ?>
