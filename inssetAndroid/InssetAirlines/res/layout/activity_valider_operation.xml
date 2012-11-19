@@ -21,7 +21,7 @@
     	android:layout_below="@+id/textView1"
     	android:layout_marginLeft="42dp"
     	android:layout_marginTop="124dp"
-    	android:text="Nom du technicien :" />
+    	android:text="id du technicien :" />
 
     <TextView
     	android:id="@+id/TextView01"
@@ -43,7 +43,7 @@
     	android:layout_alignRight="@+id/textView1"
     	android:ems="10"
     	android:gravity="center_vertical|center_horizontal"
-    	android:text="nom" />
+    	android:text="id" />
 
     <DatePicker
     	android:id="@+id/datePickerOp"
@@ -53,7 +53,7 @@
     	android:layout_toRightOf="@+id/TextView01" />
 
     <Button
-    	android:id="@+id/button1"
+    	android:id="@+id/buttonValider"
     	style="@style/bouton_vert"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"

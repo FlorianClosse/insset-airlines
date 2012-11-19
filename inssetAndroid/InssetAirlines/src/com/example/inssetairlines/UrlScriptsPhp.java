@@ -7,6 +7,8 @@ public class UrlScriptsPhp {
 	public static String urlAjouterModele = urlScriptsPhp+"AjouterModele.php";
 	public static String urlLireLigneCompleteAvecId = urlScriptsPhp+"LireLigneCompleteAvecId.php";
 	public static String urlLireCommentairesAvion = urlScriptsPhp+"lireCommentairesAvion.php";
-
-
+	public static String urlLireListeAvionsEnRevision = urlScriptsPhp+"LireListeAvionsEnRevision.php";
+	public static String urlLireListeOperations = urlScriptsPhp+"LireListeOperations.php";
+	public static String urlValiderOperation = urlScriptsPhp+"ValiderOperation.php";
+	
 }
