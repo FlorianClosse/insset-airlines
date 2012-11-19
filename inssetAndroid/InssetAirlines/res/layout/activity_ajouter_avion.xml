@@ -64,7 +64,7 @@
 		android:layout_marginLeft="47dp"
 		android:layout_marginTop="135dp"
 		android:text="Valider" />
-
+
 	<EditText
 		android:id="@+id/editText2"
 		style="@style/editText"
@@ -73,7 +73,9 @@
 		android:layout_alignBaseline="@+id/TextView01"
 		android:layout_alignBottom="@+id/TextView01"
 		android:layout_alignParentRight="true"
-		android:ems="10" />
+		android:ems="10"
+		android:inputType="date"
+		android:text="1983/06/04" />
 
 	<EditText
 		android:id="@+id/editText1"

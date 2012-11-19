@@ -1,0 +1,39 @@
+<?php if ($this->pageCount): ?>
+    <!-- First page link -->
+    <?php if (isset($this->previous)): ?>
+      <a href="<?php echo $this->url(array('page' => $this->first)); ?>">
+        Première page
+      </a> |
+    <?php else: ?>
+      <span class="disabled">Première page</span> |
+    <?php endif; ?>
+     
+    <!-- Previous page link -->
+    <?php if (isset($this->previous)): ?>
+      <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+        &lt; Précédente
+      </a> |
+    <?php else: ?>
+      <span class="disabled">&lt; Précédente</span> |
+    <?php endif; ?>
+     
+    <!-- Next page link -->
+    <?php if (isset($this->next)): ?>
+      <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
+        Suivante &gt;
+      </a> |
+    <?php else: ?>
+      <span class="disabled">Suivante &gt;</span> |
+    <?php endif; ?>
+     
+    <!-- Last page link -->
+    <?php if (isset($this->next)): ?>
+      <a href="<?php echo $this->url(array('page' => $this->last)); ?>">
+        Dernière page
+      </a>
+    <?php else: ?>
+      <span class="disabled">Dernière page</span>
+    <?php endif; ?>
+     
+    </div>
+    <?php endif; ?>

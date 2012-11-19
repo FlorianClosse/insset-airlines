@@ -1,65 +1,91 @@
 <?php
+class Vol extends Zend_Db_Table_Abstract
+{
+	protected $_name='vol';
+	protected $_primary=array('idVol');
 
-  class Vol
-  {
-	private $selectAll;
-	private $insertAll;
-	private $selectMax;
-	private $selectOne;
-	private $update;
-	private $delete;
+
+	protected $_referenceMap = array(
+			'aeroportDepart'=>array(
+					'columns'=>'idAeroport',
+					'refTableClass'=>'aeroport'),
+			'aeroportArrivee'=>array(
+					'columns'=>'idAeroport',
+					'refTableClass'=>'aeroport'),
+			'idAvion'=>array(
+					'columns'=>'idAvion',
+					'refTableClass'=>'Avion'),
+			'idDate'=>array(
+					'columns'=>'idDate',
+					'refTableClass'=>'dateVolAlaCarte'),
+			'id_copilote'=>array(
+					'columns'=>'id_pilote',
+					'refTableClass'=>'Pilote')
+	);
 	
-	public function __construct($db)
+	// ***fonction getRecuperAeroportDepart par Nicolas 
+	public function getRecuperAeroportDepart($aeroportDepart)
 	{
-	  $this->selectAll=$db->prepare("SELECT idVol, numVol , periodicite , aeroportDepart , aeroportArrivee , idDate , dureeVol FROM vol");
-	  $this->insertAll=$db->prepare("INSERT INTO vol (idVol, numVol , periodicite , aeroportDepart , aeroportArrivee , idDate , dureeVol)values(:idVol, :numVol , :periodicite , :aeroportDepart , :aeroportArrivee , :idDate , :dureeVol)");
-	  $this->selectMax=$db->prepare("SELECT max(idVol) FROM vol");
-	  $this->selectOne=$db->prepare("SELECT idVol, numVol , periodicite , aeroportDepart , aeroportArrivee , idDate , dureeVol FROM vol WHERE idVol=:idVol");
-	  $this->update=$db->prepare("update vol set idVol=idVol, numVol=:numVol , periodicite=:periodicite , aeroportDepart=:aeroportDepart , aeroportArrivee=:aeroportArrivee , idDate=:idDate , dureeVol=:dureeVol WHERE idcommune=:idcommune");
-	  $this->delete=$db->prepare("delete FROM vol WHERE idVol=:idVol");
+		$tableAeroport = new Aeroport;
+		$requete = $tableAeroport->select()
+ 								 ->from($tableAeroport)
+								 ->where('aeroport.idAeroport=?', $aeroportDepart);
+		return $requete->query()->fetch();	
 	}
 	
-	// Fonction qui sélectionne tous les éléments de la table.
-	public function selectAll()
+	// ***fonction getRecuperAeroportDArrivee par Nicolas
+	public function getRecuperAeroportDArrivee($aeroportArrivee)
 	{
-	  $this->selectAll->execute();
-	  return $this-> selectAll-> fetchAll();
+		$tableAeroport = new Aeroport;
+		$requete = $tableAeroport->select()
+		->from($tableAeroport)
+		->where('aeroport.idAeroport=?', $aeroportArrivee);
+		return $requete->query()->fetch();
 	}
 	
-	
-	// Fonction qui permet d'insérer des nouvelles données dans la base de données.
-	public function insertAll($idVol, $numVol , $periodicite , $aeroportDepart , $aeroportArrivee , $idDate , $dureeVol)
+	// ***fonction getRecuperDates de vol par Nicolas
+	public function getRecuperDateDeVol($date)
 	{
-		$this->insertAll->execute(array(':idVol'=>$idVol,':numVol'=>$numVol,':periodicite'=>$periodicite,':aeroportDepart'=>$aeroportDepart,':aeroportArrivee'=>$aeroportArrivee,':idDate'=>$idDate,':dureeVol'=>$dureeVol));
-		return $this->insertAll->rowCount();
+		$requete = $this->select()
+						->from($this)
+						->where('idVol=?', $date);
+		$ligne = $requete->query()->fetch();
+		
+		if(empty($ligne['datePrevu']))
+		{
+			$tableLiaisonVolJour = new Liaisonvoljour;
+			$requete = $tableLiaisonVolJour->select()
+			->from($tableLiaisonVolJour)
+			->where('liaisonVolJour.idVol=?', $ligne['idVol']);
+			$lesLiaisons = $requete->query()->fetchAll();
+			foreach($lesLiaisons as $uneLiaison)
+			{
+				$tableJour = new Jour;
+				$requete2 = $tableJour->select()
+								   	  ->from($tableJour)
+									  ->where('jour.idJour=?', $uneLiaison['idJour']);
+				$ligne = $requete2->query()->fetch();
+				$ligne = $ligne['libelleJour'];
+				
+				if(isset($resultat))
+				{
+					$resultat = $resultat.', '.$ligne;
+				}
+				else
+				{
+					$resultat = $ligne;
+				}
+			}
+			
+			if(isset($resultat))
+			{
+				return $resultat;
+			}
+		}
+		else
+		{
+			return $ligne['datePrevu'];
+		}
 	}
-	
-	// Fonction qui permet de compter le nombre total d'id.
-	public function selectMax()
-	{
-		$this->selectMax->execute();
-		return $this->selectMax->fetch();
-	}
-	
-	// Fonction qui sélectionne l'id du vol.
-	public function selectOne($idVol)
-	{
-		$this->selectOne->execute(array(':idVol'=>$idVol));
-		return $this->selectOne->fetch();
-	}
-	
-	// Fonction qui permet de mettre à jour des champs de la table vol
-	public function update($idVol, $numVol , $periodicite , $aeroportDepart , $aeroportArrivee , $idDate , $dureeVol)
-	{
-		$this->update->execute(array(':idVol'=>$idVol,':numVol'=>$numVol,':periodicite'=>$periodicite,':aeroportDepart'=>$aeroportDepart,':aeroportArrivee'=>$aeroportArrivee,':idDate'=>$idDate,':dureeVol'=>$dureeVol));
-		return $this->update->rowCount();
-	}
-	
-	// Fonction qui permet de supprimer des champs de la table vol
-	public function delete($idVol)
-	{
-		$this->delete->execute(array(':idVol'=>$idVol));
-		return $this->delete->rowCount();
-	}
-  }
+}
 ?>

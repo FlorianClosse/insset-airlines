@@ -1,0 +1,21 @@
+<ul>
+	<li>
+		<a href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=creer">
+			Créer une ligne
+		</a>
+	</li>
+	<li>
+		<a href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=fermer">
+			Fermer une ligne
+		</a>
+	</li>
+</ul>
+
+
+<?php $tableau = $this->tableau; if(count($tableau) > 0){ ?>
+<div id="volSupprime">
+	<?php for ($i=0; $i<count($tableau); $i++) {?>
+	<p>Le vol <u><?php echo $tableau[$i]; ?></u> a été supprimé. </p>
+	<?php } ?>
+</div>
+<?php } ?>

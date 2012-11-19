@@ -1,0 +1,80 @@
+<ul>
+	<li>
+		<a href="<?php echo $this->baseUrl('logistique/index'); ?>?valeur=afficher">
+			Vols
+		</a>
+	</li>	
+</ul>
+
+
+<?php 
+$tableauCom = $this->tableauCom;
+
+$compteur = $this->compteur;
+
+if(count($tableauCom) > 0){ 
+?>
+	<div id="tableauxSupprVol">
+		
+		<table id="tableauTitreVol">
+			<tr>
+				<th >idCommentaireVol</th>
+				<th >idJournalDeBord</th>
+				<th >titre</th>
+				<th >commentaire</th>
+				<th >idVol</th>
+				
+			</tr>
+		
+				<?php 
+					for ($ii=1; $ii<=$compteur; $ii++)
+					{
+				?>
+						<tr>
+						<?php 
+							for ($jj=0;$jj<5;$jj++){
+						?>
+							<td>
+								<?php echo $tableauCom[$ii][$jj];?>
+							</td>
+						<?php 			
+							}$jj=0;
+						?>
+						</tr>
+				<?php 	
+					}
+				?>
+					
+			
+		</table>
+		
+	</div>
+<?php } ?>
+
+
+<?php if(!isset($_POST['valider'])){?>
+
+<table id="tableauTitreVol">
+		<tr>
+			<th > </th>
+			<th > Vols </th>			
+		</tr>
+	</table>
+
+<?php $tableau = $this->tableau;
+$formulaire = $this->formulaire; 
+?>
+		<?php echo $this->formulaire; ?>
+	
+	<table id="tableauInfoVol">
+	<?php $lesVols = $this->lesVols; 
+		  foreach($lesVols as $unVol) { ?>
+		<tr>
+			<td><?php echo $unVol->numVol; ?></td>
+	   </tr>
+	<?php } ?>
+	
+	</table>
+	
+	
+	<?php }?>

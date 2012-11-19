@@ -41,4 +41,98 @@ body{
 	width:150px;
 }
 
+.pied
+{
+	text-align:center;
+	margin-top:300px;
+	height : 40px;
+	width : 800px;
+	border: 1px solid black;
+	border-radius:5px;
+}
+
+#volSupprime
+{
+	text-align:center;
+	margin-top:20px;
+	width : 400px;
+	border: 1px solid black;
+	border-radius:25px;
+	background-color: #d6d6d6;
+}
+
+th
+{
+	background-color: #d6d6d6;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	height : 40px;
+	width : 140px;
+	border: 1px solid black;
+}
+
+
+td
+{
+	background-color: #e5e5e5;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	height : 100px;
+	width : 138px;
+	border: 1px solid black;
+}
+
+#tableauTitreVol
+{
+	border-collapse: collapse;
+	margin-bottom: -1px;
+}
+#tableauInfoVol
+{
+	border-collapse: collapse;
+}
+
+#tableauCaseACocherVol
+{
+	float:left;
+	border-collapse: collapse;
+	margin-right: -1px;
+}
+
+.boutonEnvoyer
+{
+	background: white;
+	border:none;
+}
+
+#boutonSubmitSupprimerVol, #boutonSubmitAjouterVol
+{
+	height : 40px;
+	width : 135px;
+	font-size: 18px;
+	border-radius:15px;
+	background-color:#01F601;
+}
+
+.boutonValider
+{
+	background: white;
+	border:none;
+}
+
+#valider
+{
+	height : 40px;
+	width : 160px;
+	font-size: 18px;
+	border-radius:15px;
+	background-color:#01F601;
+}
+
 

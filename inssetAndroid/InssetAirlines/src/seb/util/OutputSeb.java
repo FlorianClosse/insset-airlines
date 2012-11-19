@@ -15,6 +15,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
@@ -75,7 +76,7 @@ public class OutputSeb extends AsyncTask<String, Integer, String> {
 			}
 			socketFactory = new SSLSocketFactory(trusted);
 			socketFactory.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
-
+			registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 			registry.register(new Scheme("https", socketFactory, 443));
 			SingleClientConnManager mgr = new SingleClientConnManager(client.getParams(), registry);
 			DefaultHttpClient hclient = new DefaultHttpClient(mgr, client.getParams());
