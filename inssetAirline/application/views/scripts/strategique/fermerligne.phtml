@@ -1,24 +1,38 @@
+<?php 
+//on récupère les infos du controlleur
+$formulaire = $this->formulaire;
+$lesVols = $this->lesVols;
+$lesAeroportsDeDepart = $this->lesAeroportsDeDepart;
+$lesAeroportsDArrivee = $this->lesAeroportsDArrivee;
+$lesJourEtDateDeVol = $this->lesJourEtDateDeVol;
+$duree = $this->duree;
+?>
+
 <div id="tableauxSupprVol">
 	
 	<table id="tableauTitreVol">
 		<tr>
 			<th >Vols a supprimer</th>
 			<th >numero</th>
-			<th >periodicite</th>
+			<th >aeroport de depart</th>
+			<th >aeroport d'arrivée</th>
+			<th >Départ</th>
+			<th >Durée</th>
 		</tr>
 	</table>
 	
-	<?php echo $this->formulaire; ?>
+	<?php echo $formulaire; ?>
 	
 	<table id="tableauInfoVol">
-	<?php $lesVols = $this->lesVols; 
-		  foreach($lesVols as $unVol) { ?>
+	<?php foreach($lesVols as $unVol) { ?>
 		<tr>
 			<td><?php echo $unVol->numVol; ?></td>
-			<td><?php echo $unVol->periodicite; ?></td>
+			<td><?php echo $lesAeroportsDeDepart[$unVol->idVol]; ?></td>
+			<td><?php echo $lesAeroportsDArrivee[$unVol->idVol]; ?></td>
+			<td><?php echo $lesJourEtDateDeVol[$unVol->idVol]; ?></td>
+			<td><?php echo $duree[$unVol->idVol]; ?></td>
 	   </tr>
 	<?php } ?>
-	
 	</table>
-	
+	<?php  echo $this->paginationControl($lesVols,'All', 'paginationcontrole.phtml');?>
 </div>

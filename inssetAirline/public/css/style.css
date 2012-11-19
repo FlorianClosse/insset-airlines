@@ -70,7 +70,7 @@ th
 	padding-top: 2px;
 	padding-bottom: 2px;
 	height : 40px;
-	width : 160px;
+	width : 140px;
 	border: 1px solid black;
 }
 
@@ -83,8 +83,8 @@ td
 	padding-right: 10px;
 	padding-top: 2px;
 	padding-bottom: 2px;
-	height : 40px;
-	width : 160px;
+	height : 100px;
+	width : 138px;
 	border: 1px solid black;
 }
 
@@ -111,10 +111,10 @@ td
 	border:none;
 }
 
-#envoyer
+#boutonSubmitSupprimerVol, #boutonSubmitAjouterVol
 {
 	height : 40px;
-	width : 160px;
+	width : 135px;
 	font-size: 18px;
 	border-radius:15px;
 	background-color:#01F601;
