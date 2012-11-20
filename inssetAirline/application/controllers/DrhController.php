@@ -161,19 +161,6 @@ class DrhController extends Zend_Controller_Action
     
     public function piloteAction(){
     	
-//     	$listeDonnees = array();
-    	
-//     	$pilote = new Pilote;
-//     	$lesPilotes = $pilote->fetchAll();
-//     	$compteur = 0;
-//     	foreach ($lesPilotes as $unPilote ) {
-//     		$compteur = $compteur + 1;
-//     		$listeDonnees[$compteur][0] = ucfirst($unPilote->idPilote);
-//     		$listeDonnees[$compteur][1] = ucfirst($unPilote->nomPilote);
-//     		$listeDonnees[$compteur][2] = ucfirst($unPilote->prenomPilote);
-//     	}
-//     	$this->view->listePilote = $listeDonnees;
-    	
     	$listeDonnees = array();
     	$pilote = 1;
     	$datejour = date('Y-m-d');
@@ -187,23 +174,28 @@ class DrhController extends Zend_Controller_Action
     	}
 
     	
-    	$sql = 'select P.nomPilote , count(V.dureeVol) AS nombreVol,  SUM( V.dureeVol ) AS dureeVol
-    			from journaldebord J, pilote P , vol V
+    	$sql = 'select P.nomPilote , 
+    					P.prenomPilote, 
+    					count(V.dureeVol) AS nombreVol,  
+    					SUM( V.dureeVol ) AS dureeVol
+    			from journaldebord J, 
+    					pilote P , 
+    					vol V
     			WHERE dateDepart  >= \''.$datemoin7.'\' 
-    			AND dateDepart  <= \''.$datejour.'\' 
-    			AND P.idPilote = '.$pilote.' 
-    			and J.idPilote = P.idPilote
-    			AND J.idVol = V.idVol
+    				AND dateDepart  <= \''.$datejour.'\' 
+    				AND P.idPilote = '.$pilote.' 
+    				AND (J.idPilote = P.idPilote OR J.idCoPilote =  P.idPilote )
+    				AND J.idVol = V.idVol
     			GROUP BY P.nomPilote';
     	$db = Zend_Db_Table::getDefaultAdapter();
     	$datas = $db->query($sql)->fetchAll();
-    	
     	$compteur = 0;
     	foreach ($datas as $data ) {
     	    $compteur = $compteur + 1;
     	    $listeDonnees[$compteur][0] = $data['nomPilote'];
-    	    $listeDonnees[$compteur][1] = $data['nombreVol'];
-    	    $listeDonnees[$compteur][2] = $data['dureeVol'];
+    	    $listeDonnees[$compteur][1] = $data['prenomPilote'];
+    	    $listeDonnees[$compteur][2] = $data['nombreVol'];
+    	    $listeDonnees[$compteur][3] = $data['dureeVol'];
     	}
     	$this->view->listePilote = $listeDonnees;
     }
