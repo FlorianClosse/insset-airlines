@@ -158,5 +158,55 @@ class DrhController extends Zend_Controller_Action
     	/* Effectuer le rendu du formulaire */
     	echo $formbrevet;
     }
+    
+    public function piloteAction(){
+    	
+//     	$listeDonnees = array();
+    	
+//     	$pilote = new Pilote;
+//     	$lesPilotes = $pilote->fetchAll();
+//     	$compteur = 0;
+//     	foreach ($lesPilotes as $unPilote ) {
+//     		$compteur = $compteur + 1;
+//     		$listeDonnees[$compteur][0] = ucfirst($unPilote->idPilote);
+//     		$listeDonnees[$compteur][1] = ucfirst($unPilote->nomPilote);
+//     		$listeDonnees[$compteur][2] = ucfirst($unPilote->prenomPilote);
+//     	}
+//     	$this->view->listePilote = $listeDonnees;
+    	
+    	$listeDonnees = array();
+    	$pilote = 1;
+    	$datejour = date('Y-m-d');
+    	
+    	$sql0= 'SELECT \''.$datejour.'\' - INTERVAL 7 DAY AS jourmoin7';
+    	$db2 = Zend_Db_Table::getDefaultAdapter();
+    	$datas2 = $db2->query($sql0)->fetchAll();
+    	
+    	foreach ($datas2 as $data2 ) {
+    	 $datemoin7 = $data2['jourmoin7'];
+    	}
+
+    	
+    	$sql = 'select P.nomPilote , count(V.dureeVol) AS nombreVol,  SUM( V.dureeVol ) AS dureeVol
+    			from journaldebord J, pilote P , vol V
+    			WHERE dateDepart  >= \''.$datemoin7.'\' 
+    			AND dateDepart  <= \''.$datejour.'\' 
+    			AND P.idPilote = '.$pilote.' 
+    			and J.idPilote = P.idPilote
+    			AND J.idVol = V.idVol
+    			GROUP BY P.nomPilote';
+    	$db = Zend_Db_Table::getDefaultAdapter();
+    	$datas = $db->query($sql)->fetchAll();
+    	
+    	$compteur = 0;
+    	foreach ($datas as $data ) {
+    	    $compteur = $compteur + 1;
+    	    $listeDonnees[$compteur][0] = $data['nomPilote'];
+    	    $listeDonnees[$compteur][1] = $data['nombreVol'];
+    	    $listeDonnees[$compteur][2] = $data['dureeVol'];
+    	}
+    	$this->view->listePilote = $listeDonnees;
+    }
+    
 }
 

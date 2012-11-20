@@ -1,0 +1,27 @@
+<h1>Nombres d'heures des pilotes et co-pilotes</h1>
+<br /><br />
+<?php 
+$listePilote = $this->listePilote; 
+$count = count($listePilote);
+?>
+
+<table id="listepilote">
+	<?php 
+	for ($i = 1; $i <= $count; $i++) {
+	?>
+		<tr>
+			<td>
+				<?php echo $listePilote[$i][0]; ?>
+			</td>
+			<td>
+				<?php echo $listePilote[$i][1]; ?>
+			</td>
+			<td>
+				<?php echo $listePilote[$i][2]; ?>
+			</td>
+	   	</tr>
+	<?php
+	}
+	?>
+</table>
+	
