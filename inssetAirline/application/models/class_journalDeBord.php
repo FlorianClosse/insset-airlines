@@ -1,8 +1,8 @@
 
 <?php
-class JournalDeBord extends Zend_Db_Table_Abstract
+class Journaldebord extends Zend_Db_Table_Abstract
 {
-	protected $_name='journalDeBord';
+	protected $_name='journaldebord';
 	protected $_primary=array('idJournalDeBord');
 	
 	protected $_referenceMap = array(
