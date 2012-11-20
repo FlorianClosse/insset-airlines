@@ -1,0 +1,30 @@
+<h2>Affichage de commentaires</h2>
+
+
+<?php if(!isset($_POST['valider']))
+	  {?>
+		<table id="tableauTitreVol">
+			<tr>
+				<th > </th>
+				<th > Vols </th>			
+			</tr>
+		</table>
+
+		<?php 
+			$tableau = $this->tableau;
+			$formulaire = $this->formulaire;
+					
+			echo $this->formulaire; 
+		?>
+			
+		<table id="tableauInfoVol">
+		<?php 
+				$lesVols = $this->lesVols; 
+			  	foreach($lesVols as $unVol) 
+			  	{ ?>
+					<tr>
+						<td><?php echo $unVol->numVol; ?></td>
+				   </tr>
+		  <?php } ?>		
+		</table>
+<?php }?>
