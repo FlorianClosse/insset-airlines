@@ -1,0 +1,39 @@
+<h1>Affichage des réservations :</h1>
+
+<div id="tableauxSupprVol">	
+		<table id="tableauTitreVol">
+			<tr>				
+				<th > Id reservation </th>		
+				<th > Statut</th>	
+				<th > Id Journal de bord </th>		
+			</tr>
+		
+
+		<?php 
+			$tableauReservations = $this->tableauReservations;
+			$compteur = $this->compteur;
+			
+			if(count($tableauReservations) > 0)
+ 			{ ?>	
+				<?php 
+				for ($ii=1; $ii<=$compteur; $ii++)
+				{
+				?> <tr>
+				<?php 
+					for ($jj=0;$jj<3;$jj++)
+					{
+				?>
+					<td>
+						<?php echo $tableauReservations[$ii][$jj];?>
+					</td>
+				<?php 			
+					}
+					$jj=0;
+				?>
+			</tr>
+			<?php 	
+				}
+ 			}
+			?>
+			</table>		
+	</div>		
