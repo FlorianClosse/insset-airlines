@@ -1,9 +1,7 @@
 <?php
-
 class DrhController extends Zend_Controller_Action
 {
-	public function init() {
-	
+	public function init(){
 	}
 	
     public function indexAction(){
@@ -67,8 +65,7 @@ class DrhController extends Zend_Controller_Action
     	
     	$PiloteMail = new Zend_Form_Element_Text('mailPilote');
     	$PiloteMail ->setLabel('Mail du pilote');
-    	$PiloteMail->setAttrib('id', 'formpilote');
-    	
+    	$PiloteMail->setAttrib('id', 'formpilote');	
     	
     	$aeroport = new Aeroport;
     	$lesAeroport = $aeroport->fetchAll();
@@ -79,20 +76,6 @@ class DrhController extends Zend_Controller_Action
     	} // permet de construite mes données de mon select
     	 
     	$aeroport->setMultiOptions($tableauAeroport); // remplit ma liste deroulante
-    	
-    	
-//     	$pays = new Pays;
-//     	$lesPays = $pays->fetchAll();
-//     	$pays = new Zend_Form_Element_Select('pays');
-//     	$pays ->setLabel('Choisir un pays');
-//     	$pays->setAttrib('id', 'listePaysId');
-//     	foreach ($lesPays as $unPays ) {
-//     		$tableauPays[$unPays -> idPays] = ucfirst($unPays->nomPays);
-//     	} // permet de construite mes données de mon select
-//     	$pays->setMultiOptions($tableauPays); // remplit ma liste deroulante
-    	
-    	?><select name="listeVille" id="listeVilleId" disabled="true"></select><?php 
-    	
 
     	$pSubmit = new Zend_Form_Element_Submit('Envoyer');
     	$pReset = new Zend_Form_Element_Reset('Reset');
@@ -162,7 +145,6 @@ class DrhController extends Zend_Controller_Action
     public function piloteAction(){
     	
     	$listeDonnees = array();
-    	$pilote = 1;
     	$datejour = date('Y-m-d');
     	
     	$sql0= 'SELECT \''.$datejour.'\' - INTERVAL 7 DAY AS jourmoin7';
@@ -172,7 +154,6 @@ class DrhController extends Zend_Controller_Action
     	foreach ($datas2 as $data2 ) {
     	 $datemoin7 = $data2['jourmoin7'];
     	}
-
     	
     	$sql = 'select P.nomPilote , 
     					P.prenomPilote, 
@@ -183,14 +164,13 @@ class DrhController extends Zend_Controller_Action
     					vol V
     			WHERE dateDepart  >= \''.$datemoin7.'\' 
     				AND dateDepart  <= \''.$datejour.'\' 
-    				AND P.idPilote = '.$pilote.' 
     				AND (J.idPilote = P.idPilote OR J.idCoPilote =  P.idPilote )
     				AND J.idVol = V.idVol
     			GROUP BY P.nomPilote';
     	$db = Zend_Db_Table::getDefaultAdapter();
     	$datas = $db->query($sql)->fetchAll();
     	$compteur = 0;
-    	foreach ($datas as $data ) {
+    	foreach ($datas as $data ){
     	    $compteur = $compteur + 1;
     	    $listeDonnees[$compteur][0] = $data['nomPilote'];
     	    $listeDonnees[$compteur][1] = $data['prenomPilote'];
@@ -199,6 +179,4 @@ class DrhController extends Zend_Controller_Action
     	}
     	$this->view->listePilote = $listeDonnees;
     }
-    
 }
-
