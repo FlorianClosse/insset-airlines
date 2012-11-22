@@ -18,6 +18,26 @@ class CommercialController extends Zend_Controller_Action
 					break;
 			}
 		}
+		
+		if(isset($_POST['AjouterReservation']))
+		{
+			$reservation = new Reservation;
+		
+			$reserv = $reservation->createRow();
+			$reserv->idReservation = '';
+			$reserv->idJournal = $_POST['journaldebord'];
+			$reserv->statutReservation = $_POST['statut'];
+		
+			if(!empty($reserv->idJournal))
+			{
+				$reserv->save();
+				echo "Réservation enregistrée";
+			}
+			else
+			{
+				echo"Erreur d'enregistrement";
+			}
+		}
 	}
 	
 	public function afficheroptionsAction()
@@ -38,8 +58,7 @@ class CommercialController extends Zend_Controller_Action
 			}
 		}
 		
-		$this->view->compteur = $compteur;
-		$this->view->tableauReservations = $tableauReservations;
+		$this->view->compteur = $compteur;		
 		
 		if(isset($tableauReservations))
 		{
@@ -48,7 +67,48 @@ class CommercialController extends Zend_Controller_Action
 		else
 		{
 			echo 'Il n\'y a pas de réservation';
+		}		
+	}
+	
+	public function ajouteroptionsAction()
+	{
+		/* Créer un objet formulaire */
+		$FormAjoutOption = new Zend_Form();
+		 
+		/* Parametrer le formulaire */
+		$FormAjoutOption->setMethod('post')->setAction('/commercial/index');
+		$FormAjoutOption->setAttrib('id', 'FormAjoutOption');
+		 
+		/* Creer des elements de formulaire */
+		$journalDeBord = new Journaldebord;		
+ 		$lesjournaldebord = $journalDeBord->fetchAll();
+ 		
+		$journalDeBord = new Zend_Form_Element_Select('journaldebord');
+		$journalDeBord ->setLabel('Choisir un id journal de bord');
+			
+		foreach ($lesjournaldebord as $unjournaldebord )
+		{
+			$tableaujournaldebord[$unjournaldebord -> idJournalDeBord] = $unjournaldebord -> idJournalDeBord ;
 		}
+						
+		$journalDeBord->setMultiOptions($tableaujournaldebord);
 		
+		$Statut = new Zend_Form_Element_Select('statut');
+		$Statut ->setLabel('Choisir un statut');
+		$valide='valide';$attente='attente';
+ 		$Statut->addMultiOption($valide, 'Validé');
+ 		$Statut->addMultiOption($attente, 'en attente');
+ 		
+ 		$boutonSubmit = new Zend_Form_Element_Submit('AjouterReservation');
+ 		$boutonReset = new Zend_Form_Element_Reset('Reset');
+		
+		$FormAjoutOption->addElement($Statut);
+		$FormAjoutOption->addElement($journalDeBord);
+		$FormAjoutOption->addElement($boutonSubmit);
+		$FormAjoutOption->addElement($boutonReset);
+		
+		//affiche le formulaire
+		echo $FormAjoutOption;
+			
 	}
 }
