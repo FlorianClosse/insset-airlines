@@ -1,0 +1,31 @@
+<h1>Nombres d'heures des pilotes et co-pilotes</h1>
+<br /><br />
+<?php 
+$listePilote = $this->listePilote; 
+$count = count($listePilote);
+?>
+
+<table id="listepilote">
+	<?php 
+	for ($i = 1; $i <= $count; $i++) {
+	?>
+		<tr>
+			<td>
+				<?php echo " le pilote "; echo $listePilote[$i][0] . " " . $listePilote[$i][1];; ?>
+			</td>
+			<td>
+				<?php echo" à éffectué "; echo $listePilote[$i][2]; echo " vol";?>
+			</td>
+			<td>
+				<?php echo "soit un total de "; echo $listePilote[$i][3]; echo" heures de vol"; ?>
+			</td>
+	   	</tr>
+	<?php
+	}
+	?>
+</table>
+	<li>
+		<a href="<?php echo $this->baseUrl('drh/index'); ?>">
+			Revenir à l'accueil
+		</a>
+	</li>	

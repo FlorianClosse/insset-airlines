@@ -128,10 +128,10 @@ class StrategiqueController extends Zend_Controller_Action
     		$multiOptions[] = $unjour['libelleJour'];
     	}
     	$choixJours = new Zend_Form_Element_MultiCheckbox(
-    	'ChoixDesJours', array('multiOptions' => $multiOptions));
+    			'ChoixDesJours', array('multiOptions' => $multiOptions));
     	$choixJours -> setLabel('Choix des jours de vol');
     	$formulaireAjout -> addElement($choixJours);
-    	
+    	 
     	//bouton d'envoie du formulaire
     	$envoyer = new Zend_Form_Element_Submit('boutonSubmitAjouterVol');
     	$envoyer -> setLabel('Ajouter');
