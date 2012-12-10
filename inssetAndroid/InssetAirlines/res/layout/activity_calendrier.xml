@@ -4,10 +4,41 @@
     android:layout_height="match_parent" >
 
     <CalendarView
-        android:id="@+id/calendarView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+    	android:id="@+id/calendarViewRevisions"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:layout_above="@+id/buttonValiderDateRevision"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/textView2" />
+
+    <TextView
+    	android:id="@+id/textView1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:text="Calendrier"
+    	android:textAppearance="@style/titre" />
+
+    <TextView
+    	android:id="@+id/textView2"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/textView1"
+    	android:layout_marginTop="58dp"
+    	android:text="Choisissez la date de début de la révision."
+    	android:textAppearance="@style/editText" />
+
+    <Button
+    	android:id="@+id/buttonValiderDateRevision"
+    	style="@style/bouton_vert"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentBottom="true"
+    	android:layout_centerHorizontal="true"
+    	android:background="@drawable/fond_bouton_vert"
+    	android:text="Valider"
+    	android:textAppearance="@style/bouton_vert" />
 
 </RelativeLayout>
