@@ -64,7 +64,7 @@
 		android:layout_marginLeft="47dp"
 		android:layout_marginTop="135dp"
 		android:text="Valider" />
-
+
 	<EditText
 		android:id="@+id/editText2"
 		style="@style/editText"

@@ -12,17 +12,19 @@ public class MenuPrincipal extends Activity {
 	Button gererAvion = null;
 	Button gererOperation = null;
 	Button gererRevisions = null;
+	Button planifierRevisions = null;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_principal);
-        gererAvion = (Button)findViewById(R.id.gererAvion);
-        gererOperation = (Button)findViewById(R.id.gererOperations);
-        gererRevisions = (Button)findViewById(R.id.gererRevisions);
-        
-        gererAvion.setOnClickListener(new OnClickListener() {
-			
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_menu_principal);
+		gererAvion = (Button) findViewById(R.id.gererAvion);
+		gererOperation = (Button) findViewById(R.id.gererOperations);
+		gererRevisions = (Button) findViewById(R.id.gererRevisions);
+		planifierRevisions = (Button) findViewById(R.id.planifier);
+
+		gererAvion.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -30,9 +32,9 @@ public class MenuPrincipal extends Activity {
 				startActivity(t);
 			}
 		});
-        
- gererOperation.setOnClickListener(new OnClickListener() {
-			
+
+		gererOperation.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -40,22 +42,34 @@ public class MenuPrincipal extends Activity {
 				startActivity(t);
 			}
 		});
- 
- gererRevisions.setOnClickListener(new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			Intent t = new Intent(MenuPrincipal.this, GestionRevisions.class);
-			startActivity(t);
-		}
-	});
- 
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_menu_principal, menu);
-        return true;
-    }
+		gererRevisions.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent t = new Intent(MenuPrincipal.this,
+						GestionRevisions.class);
+				startActivity(t);
+			}
+		});
+
+		planifierRevisions.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent t = new Intent(MenuPrincipal.this,
+						PlanifierRevision.class);
+				startActivity(t);
+
+			}
+		});
+	}//onCreate
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_menu_principal, menu);
+		return true;
+	}
 }

@@ -3,23 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="Planifier une revision"
-        tools:context=".PlanifierRevision" />
-
     <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="37dp" >
+    	android:id="@+id/listViewAvionAmettreEnRev"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/linearLayoutTitreListView" >
+
     </ListView>
 
+    <TextView
+    	android:id="@+id/textView1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:text="Planifier une revision"
+    	android:textAppearance="@style/titre"
+    	tools:context=".PlanifierRevision" />
+
+    <LinearLayout
+    	android:id="@+id/linearLayoutTitreListView"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_alignParentLeft="true"
+	android:orientation="horizontal"
+	  android:layout_below="@+id/textView1" 
+	   android:layout_marginTop="37dp">
+
+    <TextView
+    	android:id="@+id/textViewNumImmatri"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_weight="50"
+    	android:background="@drawable/cadre_operation"
+    	android:gravity="center_horizontal|center_vertical"
+    	android:paddingBottom="10dp"
+    	android:text="numImmatri"
+    	android:textSize="40sp" />
+
+    <TextView
+    	android:id="@+id/textViewTypeRev"
+    	android:layout_width="wrap_content"
+    	android:layout_height="match_parent"
+    	android:layout_weight="50"
+    	android:background="@drawable/cadre_operation"
+    	android:gravity="center_horizontal|center_vertical"
+    	android:paddingBottom="10dp"
+    	android:text="typeRevision"
+    	android:textSize="40sp" />
+
+</LinearLayout>
+    
 </RelativeLayout>
