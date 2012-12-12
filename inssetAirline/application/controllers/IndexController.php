@@ -43,7 +43,7 @@ class IndexController extends Zend_Controller_Action
         			break;
         		
         		case "maintenance":
-        			$this->_helper->actionStack('fermerligne', 'maintenance', 'default', array());
+        			$this->_helper->actionStack('index', 'maintenance', 'default', array());
         			break;
         	}
         }
