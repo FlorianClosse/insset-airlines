@@ -1,0 +1,12 @@
+<?php 
+//on récupère les infos du controlleur
+$lesVolsAEnvoyer = $this->lesVolsAEnvoyer;
+$lesLignesAEnvoyer = $this->lesLignesAEnvoyer;
+$lesAvionsAEnvoyer = $this->lesAvionsAEnvoyer;
+?>
+
+<?php foreach($lesVolsAEnvoyer as $unVol) {  ?>
+	 Le vol numero : <?php echo $unVol['idJournalDeBord']; ?><br:>
+	 L'avion numero : <?php echo $lesAvionsAEnvoyer[$unVol['idJournalDeBord']]->numImmatriculation; ?>
+		
+<?php } ?>

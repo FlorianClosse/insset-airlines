@@ -10,9 +10,9 @@ class TechniqueController extends Zend_Controller_Action
     	$formulaireChoix -> setMethod('post');
     	$formulaireChoix -> setAction('/technique/index/');
     	//choix de l'aéroport de départ
-    	$numeroVol = new Zend_Form_Element_Text('numeroVol');
-    	$numeroVol -> setLabel('Numéro de vol');
-    	$formulaireChoix -> addElement($numeroVol);
+    	$numeroAeroport = new Zend_Form_Element_Text('numeroAeroport');
+    	$numeroAeroport -> setLabel('choisir votre aéroport');
+    	$formulaireChoix -> addElement($numeroAeroport);
     	//bouton d'envoie du formulaire
     	$envoyer = new Zend_Form_Element_Submit('boutonSubmitChoixAeroport');
     	$envoyer -> setLabel('Ajouter');
@@ -23,7 +23,7 @@ class TechniqueController extends Zend_Controller_Action
     	
     	if(isset($_POST['boutonSubmitChoixAeroport']))
     	{
-    		$_SESSION['aeroport'] = $_POST['numeroVol'];
+    		$_SESSION['aeroport'] = $_POST['numeroAeroport'];
     	}
     	if(isset($_SESSION['aeroport']))
     	{
@@ -51,16 +51,37 @@ class TechniqueController extends Zend_Controller_Action
     
     public function decollageAction()
     {
-    	$journalDeBord = new Journaldebord;
+    	$journalDeBord = new Journaldebord();
+    	$vol = new Vol();
+    	$avion = new Avion();
+    	$aujourdhui = date('Y-m-j');
+    	$monAeroport = $_SESSION['aeroport'];
     	
-    		$lesVols = $journalDeBord->fetchAll();
     	
-    	
-	    //$lesVols = $journalDeBord->getRecuperLesVolsAujourdHuiDeMonAeroport(2);
+	    $lesVols = $journalDeBord->getRecuperLesVolsAujourdHui($aujourdhui);
 	    foreach($lesVols as $unVol)
 	    {
-	    	var_dump($unVol);
+	    	$idVol = $unVol['idVol'];
+	    	$leVol = $vol->find($idVol)->current();
+	    	if($leVol->aeroportDepart == $monAeroport)
+	    	{
+	    		$idAvion = $unVol['idAvion'];
+	    		$lAvion = $avion->find($idAvion)->current();
+	    		if($lAvion->statut == 'actif')
+	    		{
+	    			$lesVolsAEnvoyer[] = $unVol;
+	    			$lesLignesAEnvoyer[$unVol['idJournalDeBord']] = $leVol;
+	    			$lesAvionsAEnvoyer[$unVol['idJournalDeBord']] = $lAvion;
+	    		}
+	    	}
 	    }
+	    //on envoie les Vols a la vue
+	    $this->view->lesVolsAEnvoyer = $lesVolsAEnvoyer;
+	    //on envoie les lignes a la vue
+	    $this->view->lesLignesAEnvoyer = $lesLignesAEnvoyer;
+	    //on envoie les avions a la vue
+	    $this->view->lesAvionsAEnvoyer = $lesAvionsAEnvoyer;
+	    
     }
     
     public function atterissageAction()
