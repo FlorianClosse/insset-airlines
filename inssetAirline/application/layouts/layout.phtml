@@ -2,6 +2,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Insset Airlines</title>
+	<?php echo $this->headLink()->appendStylesheet('/css/style.css') ?>
 	<link href="<?php echo $this->baseUrl('/css/style.css')?>" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <header>
@@ -12,6 +13,10 @@
 </div>
 </header>
 <body>
+	
+	<div id="entete">
+			<br/><br/><h1><a href="/">Airline</a></h1>		
+	</div>	
 
 	<div id="contenu">
 	<?php echo $this->layout()->content; ?>
