@@ -20,16 +20,15 @@ class Journaldebord extends Zend_Db_Table_Abstract
 					'refTableClass'=>'vol')
 	);
 	
-	// ***fonction getRecuperLesVolsAujourdHuiDeMonAeroport par Nicolas
-	public function getRecuperLesVolsAujourdHuiDeMonAeroport($aeroportDepart)
+	// ***fonction getRecuperLesVolsAujourdHui par Nicolas
+	public function getRecuperLesVolsAujourdHui($date)
 	{
-// 		$requete = $this->select()
-// 		->from($this);
-		
-		
-// 		->join(vol, 'journalDeBord.idVol = vol.idVol')
-// 		->where('vol.aeroportDepart=?', $aeroportDepart);
-		//return $requete->query()->fetchAll();
+		$requete = $this->select()
+		->from($this)
+		->where('dateDepart=?', $date)
+		->where('statut=?','attente')
+		;
+		return $requete->query()->fetchAll();
 	}
 }
 ?>
