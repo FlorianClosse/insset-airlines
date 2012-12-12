@@ -134,5 +134,25 @@ td
 	border-radius:15px;
 	background-color:#01F601;
 }
-
-
+.boutonFormulaire input
+{
+	margin-bottom: 15px;
+	margin-left: 4%;
+	margin-right: 4%;
+	width: 40%;
+}
+.listeVolAfficher
+{
+	overflow: hidden;
+	margin-left: 10%;
+	margin-right: 10%;
+	width: 60%;
+	border: solid 1px #010101;
+	border-radius: 5px;
+}
+.unVolAfficher
+{
+	margin: 2%;
+	width: 96%;
+	border-bottom: solid 1px #010101;
+	overflow: hidden;

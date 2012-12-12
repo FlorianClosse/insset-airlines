@@ -1,5 +1,5 @@
 <?php 
-
+//Par Nicolas
 class TechniqueController extends Zend_Controller_Action
 {
 	public function indexAction()
@@ -62,6 +62,7 @@ class TechniqueController extends Zend_Controller_Action
 	    foreach($lesVols as $unVol)
 	    {
 	    	$idVol = $unVol['idVol'];
+	    	$idJournal = $unVol['idJournalDeBord'];
 	    	$leVol = $vol->find($idVol)->current();
 	    	if($leVol->aeroportDepart == $monAeroport)
 	    	{
@@ -70,8 +71,10 @@ class TechniqueController extends Zend_Controller_Action
 	    		if($lAvion->statut == 'actif')
 	    		{
 	    			$lesVolsAEnvoyer[] = $unVol;
-	    			$lesLignesAEnvoyer[$unVol['idJournalDeBord']] = $leVol;
-	    			$lesAvionsAEnvoyer[$unVol['idJournalDeBord']] = $lAvion;
+	    			$lesLignesAEnvoyer[$idJournal] = $leVol;
+	    			$lesAvionsAEnvoyer[$idJournal] = $lAvion;
+	    			$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal);
+	    			
 	    		}
 	    	}
 	    }
@@ -81,6 +84,8 @@ class TechniqueController extends Zend_Controller_Action
 	    $this->view->lesLignesAEnvoyer = $lesLignesAEnvoyer;
 	    //on envoie les avions a la vue
 	    $this->view->lesAvionsAEnvoyer = $lesAvionsAEnvoyer;
+	    //on envoie les formulaires a la vue
+	    $this->view->lesFormulaires = $lesFormulaires;
 	    
     }
     

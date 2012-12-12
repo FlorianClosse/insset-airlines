@@ -10,6 +10,7 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        //Menu par Nicolas 
         $this->_helper->actionStack('login', 'index', 'default', array());
         
         $menu = $this->_getParam('menu');
