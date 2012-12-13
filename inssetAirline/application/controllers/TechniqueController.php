@@ -90,7 +90,8 @@ class TechniqueController extends Zend_Controller_Action
 		    			$lesHorairesAEnvoyer[$idJournal] = fonctionConvertirHeure($leVol->dureeVol);
 		    			$lesAeroportAEnvoyer[$idJournal] = $lAeroport;
 		    			$lesAvionsAEnvoyer[$idJournal] = $lAvion;
-		    			$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal);
+		    			$action = 'index?valeur=decollage';
+		    			$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal, $action);
 	    			}
 	    		}
 	    	}
@@ -171,7 +172,8 @@ class TechniqueController extends Zend_Controller_Action
     					$lesHorairesAEnvoyer[$idJournal] = fonctionConvertirHeure($leVol->dureeVol);
     					$lesAeroportAEnvoyer[$idJournal] = $lAeroport;
     					$lesAvionsAEnvoyer[$idJournal] = $lAvion;
-    					$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal);
+    					$action = 'index?valeur=atterissage';
+		    			$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal, $action);
     				}
     			}
     		}

@@ -42,7 +42,7 @@ class CommercialController extends Zend_Controller_Action
 	
 	public function afficheroptionsAction()
 	{
-		$reservation = new reservation();
+		$reservation = new Reservation();
 		$lesReservations = $reservation->fetchAll();
 		$compteur=0;
 		
@@ -95,7 +95,7 @@ class CommercialController extends Zend_Controller_Action
 		
 		$Statut = new Zend_Form_Element_Select('statut');
 		$Statut ->setLabel('Choisir un statut');
-		$valide='valide';$attente='attente';
+		$valide='valide';$attente='en attente';
  		$Statut->addMultiOption($valide, 'Validé');
  		$Statut->addMultiOption($attente, 'en attente');
  		
