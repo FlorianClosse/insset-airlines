@@ -3,55 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="176dp"
-        android:layout_marginTop="57dp"
-        android:text="Terminer la révision choisie"
-        tools:context=".TerminerRevChoisie" />
-
     <DatePicker
-        android:id="@+id/datePicker1"
+        android:id="@+id/datePickerFinRevision"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
+        android:calendarViewShown="false"
         android:layout_marginTop="37dp" />
 
     <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/datePicker1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:text="Commentaire sur la révision"
-        tools:context=".TerminerRevChoisie" />
+    	android:id="@+id/TextView01"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/datePickerFinRevision"
+    	android:layout_centerHorizontal="true"
+    	android:layout_marginTop="60dp"
+    	android:text="Commentaire sur la révision"
+    	android:textAppearance="@style/textBleu"
+    	tools:context=".TerminerRevChoisie" />
+
+    <TextView
+    	android:id="@+id/textView1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:text="Terminer la révision choisie"
+    	android:textAppearance="@style/titre"
+    	tools:context=".TerminerRevChoisie" />
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextView01"
-        android:layout_below="@+id/TextView01"
-        android:layout_marginTop="78dp"
-        android:ems="10"
-        android:inputType="textMultiLine" >
-
-        <requestFocus />
-    </EditText>
+    	android:id="@+id/editTextCommentaireTerminerRev"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/TextView01"
+    	android:layout_centerHorizontal="true"
+    	android:layout_marginTop="76dp"
+    	android:ems="10"
+    	android:inputType="textMultiLine" />
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="87dp"
-        android:text="Valider" />
+    	android:id="@+id/buttonValiderTerminerRev"
+    	style="@style/bouton_vert"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/editTextCommentaireTerminerRev"
+    	android:layout_centerHorizontal="true"
+    	android:layout_marginTop="130dp"
+    	android:text="Valider" />
 
 </RelativeLayout>

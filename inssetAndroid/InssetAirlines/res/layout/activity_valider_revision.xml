@@ -1,14 +1,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
 
-    <TextView
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_centerHorizontal="true"
-    	android:layout_centerVertical="true"
-    	android:text="valider une revision"
-    	tools:context=".ValiderRevision" />
+	<TextView
+		android:id="@+id/textView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="valider une revision"
+		android:textAppearance="@style/titre"
+		tools:context=".ValiderRevision" />
+
+	<LinearLayout
+		android:id="@+id/linearLayoutLigneTitre"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/textView1"
+		android:layout_marginLeft="0dp"
+		android:layout_marginTop="78dp" >
+
+		<TextView
+			android:id="@+id/textView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Valider"
+			android:textAppearance="@style/textBleu"
+			android:textSize="30sp" />
+
+		<TextView
+			android:id="@+id/textView3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="40dp"
+			android:text="Immatriculation de l&apos;avion"
+			android:textAppearance="@style/textBleu"
+			android:textSize="30sp" />
+
+	</LinearLayout>
+
+	<ListView
+		android:id="@+id/listViewValiderRevision"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/linearLayoutLigneTitre" >
+	</ListView>
 
 </RelativeLayout>

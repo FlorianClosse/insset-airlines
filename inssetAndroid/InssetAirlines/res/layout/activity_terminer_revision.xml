@@ -1,43 +1,79 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="Terminer une revision"
-        tools:context=".TerminerRevision" />
+    	android:id="@+id/textView1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:text="Terminer une revision"
+    	android:textAppearance="@style/titre"
+    	tools:context=".TerminerRevision" />
+
+    <RadioGroup
+    	android:id="@+id/radioGroupTypeRev"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/textView1"
+    	android:layout_marginTop="20dp"
+    	android:orientation="horizontal" >
+    
+    <RadioButton
+    	android:id="@+id/radioButtonPetite"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:text="Petites Révisions"
+    	android:textAppearance="@style/textBleu" />
 
     <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="22dp"
-        android:text="Petite Revision" />
+    	android:id="@+id/radioButtonGrande"
+    	style="@style/textBleu"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_marginLeft="36dp"
+    	android:text="Grandes Révisions" />
+    
+    </RadioGroup>
 
-    <RadioButton
-        android:id="@+id/RadioButton01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/radioButton1"
-        android:layout_alignBottom="@+id/radioButton1"
-        android:layout_centerHorizontal="true"
-        android:text="Grandes Revisions" />
+    <LinearLayout
+    	android:id="@+id/linearLayoutLigneTitre"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/radioGroupTypeRev"
+    	android:layout_marginLeft="0dp"
+    	android:layout_marginTop="20dp"
+    	android:orientation="horizontal" >
+
+        <TextView
+        	android:id="@+id/textView2"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="Terminer"
+        	android:textAppearance="@style/textBleu"
+        	android:textSize="30sp" />
+
+        <TextView
+        	android:id="@+id/textView3"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_marginLeft="40dp"
+        	android:text="Immatriculation de l&apos;avion"
+        	android:textAppearance="@style/textBleu"
+        	android:textSize="30sp" />
+
+    </LinearLayout>
 
     <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/radioButton1"
-        android:layout_marginTop="30dp" >
+    	android:id="@+id/listViewTerminerRevision"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/linearLayoutLigneTitre"
+    	android:descendantFocusability="beforeDescendants" >
+
     </ListView>
 
 </RelativeLayout>
