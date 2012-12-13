@@ -99,11 +99,24 @@ class CommercialController extends Zend_Controller_Action
  		$Statut->addMultiOption($valide, 'Validé');
  		$Statut->addMultiOption($attente, 'en attente');
  		
+ 		$aeroport = new Aeroport;
+ 		$lesAeroport = $aeroport->fetchAll();
+ 		$aeroport = new Zend_Form_Element_Select('aeroport');
+ 		$aeroport ->setLabel('Choisir un aeroport');
+ 		foreach ($lesAeroport as $unAeroport ) 
+ 		{
+ 			$tableauAeroport[$unAeroport -> idAeroport] = ucfirst($unAeroport->nomAeroport);
+ 		}
+ 		
+ 		$aeroport->setMultiOptions($tableauAeroport);
+ 		 	
+ 		
  		$boutonSubmit = new Zend_Form_Element_Submit('AjouterReservation');
  		$boutonReset = new Zend_Form_Element_Reset('Reset');
 		
 		$FormAjoutOption->addElement($Statut);
 		$FormAjoutOption->addElement($journalDeBord);
+		$FormAjoutOption->addElement($aeroport);
 		$FormAjoutOption->addElement($boutonSubmit);
 		$FormAjoutOption->addElement($boutonReset);
 		
