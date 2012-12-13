@@ -1,8 +1,8 @@
 
 <?php
-class Journaldebord extends Zend_Db_Table_Abstract
+class JournalDeBord extends Zend_Db_Table_Abstract
 {
-	protected $_name='journaldebord';
+	protected $_name='journalDeBord';
 	protected $_primary=array('idJournalDeBord');
 	
 	protected $_referenceMap = array(
@@ -19,5 +19,27 @@ class Journaldebord extends Zend_Db_Table_Abstract
 					'columns'=>'idVol',
 					'refTableClass'=>'vol')
 	);
+	
+	// ***fonction getRecuperLesVolsDepartAujourdHui par Nicolas
+	public function getRecuperLesVolsDepartAujourdHui($date)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('dateDepart=?', $date)
+		->where('statut=?','attente')
+		;
+		return $requete->query()->fetchAll();
+	}
+	
+	// ***fonction getRecuperLesVolsArriveAujourdHui par Nicolas
+	public function getRecuperLesVolsArriveAujourdHui($date)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('dateDepart=?', $date)
+		->where('statut=?','en vol')
+		;
+		return $requete->query()->fetchAll();
+	}
 }
 ?>

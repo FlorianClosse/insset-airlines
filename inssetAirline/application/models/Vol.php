@@ -53,7 +53,7 @@ class Vol extends Zend_Db_Table_Abstract
 		
 		if(empty($ligne['datePrevu']))
 		{
-			$tableLiaisonVolJour = new Liaisonvoljour;
+			$tableLiaisonVolJour = new LiaisonVolJour();
 			$requete = $tableLiaisonVolJour->select()
 			->from($tableLiaisonVolJour)
 			->where('liaisonVolJour.idVol=?', $ligne['idVol']);

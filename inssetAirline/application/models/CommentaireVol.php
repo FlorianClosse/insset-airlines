@@ -2,7 +2,7 @@
 /*
 *	classe realisee par matthieu
 */
-	class Commentairevol extends Zend_Db_Table_Abstract
+	class CommentaireVol extends Zend_Db_Table_Abstract
 	{
 		protected $_name='commentairevol';
 		protected $_primary=array('idCommentaireVol');

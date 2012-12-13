@@ -52,7 +52,7 @@ class TechniqueController extends Zend_Controller_Action
     
     public function decollageAction()
     {
-    	$journalDeBord = new Journaldebord();
+    	$journalDeBord = new JournalDeBord();
     	$vol = new Vol();
     	$avion = new Avion();
     	$aeroport = new Aeroport();
@@ -130,7 +130,7 @@ class TechniqueController extends Zend_Controller_Action
     
     public function atterissageAction()
     {
-    	$journalDeBord = new Journaldebord();
+    	$journalDeBord = new JournalDeBord();
     	$vol = new Vol();
     	$avion = new Avion();
     	$aeroport = new Aeroport();
