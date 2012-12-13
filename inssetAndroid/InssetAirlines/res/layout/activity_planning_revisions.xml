@@ -4,10 +4,19 @@
     android:layout_height="match_parent" >
 
     <CalendarView
-        android:id="@+id/calendarView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+    	android:id="@+id/calendarViewPlanning"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/textView1" />
+
+    <TextView
+    	android:id="@+id/textView1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:text="Planning des révisions"
+    	android:textAppearance="@style/titre" />
 
 </RelativeLayout>

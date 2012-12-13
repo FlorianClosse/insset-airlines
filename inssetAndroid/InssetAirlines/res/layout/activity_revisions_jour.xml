@@ -1,24 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="201dp"
-        android:layout_marginTop="33dp"
-        android:text="Revisions du jour choisi"
-        tools:context=".RevisionsJour" />
+    	android:id="@+id/textView1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:text="Révisions du jour"
+    	android:textAppearance="@style/titre" />
+
+    <LinearLayout
+    	android:id="@+id/linearLayoutLigneTitre"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/textView1"
+    	android:layout_marginTop="56dp"
+    	android:gravity="center_horizontal" >
+
+        <TextView
+        	android:id="@+id/textView2"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="Immatriculation de l&apos;avion en révision"
+        	android:textAppearance="@style/textBleu"
+        	android:textSize="30sp" />
+
+    </LinearLayout>
 
     <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" >
+    	android:id="@+id/listViewRevJour"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/linearLayoutLigneTitre" >
+
     </ListView>
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ public class MenuPrincipal extends Activity {
 	Button gererOperation = null;
 	Button gererRevisions = null;
 	Button planifierRevisions = null;
+	Button planning = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class MenuPrincipal extends Activity {
 		gererOperation = (Button) findViewById(R.id.gererOperations);
 		gererRevisions = (Button) findViewById(R.id.gererRevisions);
 		planifierRevisions = (Button) findViewById(R.id.planifier);
+		planning = (Button)findViewById(R.id.planning);
 
 		gererAvion.setOnClickListener(new OnClickListener() {
 
@@ -33,6 +35,16 @@ public class MenuPrincipal extends Activity {
 			}
 		});
 
+		planning.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent t = new Intent(MenuPrincipal.this, PlanningRevisions.class);
+				startActivity(t);
+			}
+		});
+		
 		gererOperation.setOnClickListener(new OnClickListener() {
 
 			@Override
