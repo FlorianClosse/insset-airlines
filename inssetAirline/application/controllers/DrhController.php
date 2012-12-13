@@ -1,9 +1,6 @@
 <?php
 class DrhController extends Zend_Controller_Action
 {
-	public function init(){
-	}
-	
     public function indexAction(){
     	if(isset($_POST['Envoyer']))
     	{
@@ -25,7 +22,7 @@ class DrhController extends Zend_Controller_Action
     	}
     	
     	if(isset($_POST['EnvoyerBrevet'])){
-    		$listepilotebrevet = New liaisonPiloteBrevet();
+    		$listepilotebrevet = New LiaisonPiloteBrevet();
     		$brevet = $listepilotebrevet->createRow();
     		$brevet->idPilote = $_POST['pilote'];
     		$brevet->idBrevet = $_POST['brevet'];
@@ -111,7 +108,10 @@ class DrhController extends Zend_Controller_Action
     	foreach ($lesPilotes as $unPilote ) {
     		$tableauPilote[$unPilote -> idPilote] = ucfirst($unPilote->nomPilote);
     	} // permet de construite mes données de mon select
-    	
+    	if(!isset($tableauPilote))
+    	{
+    		$tableauPilote = array();
+    	}
     	$pilote->setMultiOptions($tableauPilote); // remplit ma liste deroulante
     	
     	$brevet = new Brevet;
@@ -121,7 +121,10 @@ class DrhController extends Zend_Controller_Action
     	foreach ($lesBrevets as $unBrevet ) {
     		$tableauBrevet[$unBrevet -> idBrevet] = ucfirst($unBrevet->nomBrevet);
     	} // permet de construite mes données de mon select
-    	 
+    	if(!isset($tableauBrevet))
+    	{
+    		$tableauBrevet = array();
+    	}
     	$brevet->setMultiOptions($tableauBrevet); // remplit ma liste deroulante
     	
     	$datepicker = new Zend_Form_Element_Text('datepicker');
@@ -149,17 +152,14 @@ class DrhController extends Zend_Controller_Action
     	
     	$sql0= 'SELECT \''.$datejour.'\' - INTERVAL 7 DAY AS jourmoin7';
     	$db2 = Zend_Db_Table::getDefaultAdapter();
-    	$datas2 = $db2->query($sql0)->fetchAll();
-    	
-    	foreach ($datas2 as $data2 ) {
-    	 $datemoin7 = $data2['jourmoin7'];
-    	}
+    	$datas = $db2->query($sql0)->fetch();
+    	$datemoin7 = $datas['jourmoin7'];
     	
     	$sql = 'select P.nomPilote , 
     					P.prenomPilote, 
     					count(V.dureeVol) AS nombreVol,  
     					SUM( V.dureeVol ) AS dureeVol
-    			from journaldebord J, 
+    			from journalDeBord J, 
     					pilote P , 
     					vol V
     			WHERE dateDepart  >= \''.$datemoin7.'\' 

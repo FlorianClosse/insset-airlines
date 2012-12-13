@@ -49,9 +49,10 @@ class TechniqueController extends Zend_Controller_Action
     	} 
     }
     
+    
     public function decollageAction()
     {
-    	$journalDeBord = new Journaldebord();
+    	$journalDeBord = new JournalDeBord();
     	$vol = new Vol();
     	$avion = new Avion();
     	$aeroport = new Aeroport();
@@ -59,7 +60,7 @@ class TechniqueController extends Zend_Controller_Action
     	$monAeroport = $_SESSION['aeroport'];
     	
     	
-	    $lesVols = $journalDeBord->getRecuperLesVolsAujourdHui($aujourdhui);
+	    $lesVols = $journalDeBord->getRecuperLesVolsDepartAujourdHui($aujourdhui);
 	    foreach($lesVols as $unVol)
 	    {
 	    	$idVol = $unVol['idVol'];
@@ -76,6 +77,8 @@ class TechniqueController extends Zend_Controller_Action
 	    				$modifierStatut = $journalDeBord->find($idJournal)->current();
 	    				$modifierStatut->statut = "en vol";
 	    				$modifierStatut->save();
+	    				$lAvion->statut = "en vol";
+	    				$lAvion->save();
 	    				$message = 'le décollage du vol '.$idJournal.' à bien été enregistré.<br/>';
 	    			}
 	    			else
@@ -87,7 +90,8 @@ class TechniqueController extends Zend_Controller_Action
 		    			$lesHorairesAEnvoyer[$idJournal] = fonctionConvertirHeure($leVol->dureeVol);
 		    			$lesAeroportAEnvoyer[$idJournal] = $lAeroport;
 		    			$lesAvionsAEnvoyer[$idJournal] = $lAvion;
-		    			$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal);
+		    			$action = 'index?valeur=decollage';
+		    			$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal, $action);
 	    			}
 	    		}
 	    	}
@@ -127,6 +131,81 @@ class TechniqueController extends Zend_Controller_Action
     
     public function atterissageAction()
     {
+    	$journalDeBord = new JournalDeBord();
+    	$vol = new Vol();
+    	$avion = new Avion();
+    	$aeroport = new Aeroport();
+    	$aujourdhui = date('Y-m-j');
+    	$monAeroport = $_SESSION['aeroport'];
     	 
+    	 
+    	$lesVols = $journalDeBord->getRecuperLesVolsArriveAujourdHui($aujourdhui);
+    	foreach($lesVols as $unVol)
+    	{
+    		$idVol = $unVol['idVol'];
+    		$idJournal = $unVol['idJournalDeBord'];
+    		$leVol = $vol->find($idVol)->current();
+    		if($leVol->aeroportArrivee == $monAeroport)
+    		{
+    			$idAvion = $unVol['idAvion'];
+    			$lAvion = $avion->find($idAvion)->current();
+    			if($lAvion->statut == 'en vol')
+    			{
+    				if(isset($_POST['ajouter'.$idJournal]))
+    				{
+    					$modifierStatut = $journalDeBord->find($idJournal)->current();
+    					$modifierStatut->statut = "fini";
+    					$modifierStatut->save();
+    					$lAvion->statut = "actif";
+    					$lAvion->nombreHeureTotale = $lAvion->nombreHeureTotale + $leVol->dureeVol;
+    					$lAvion->nbHeureVolDepuisGrandeRevision = $lAvion->nbHeureVolDepuisGrandeRevision - $leVol->dureeVol;
+    					$lAvion->nbHeureVolDepuisPetiteRevision = $lAvion->nbHeureVolDepuisPetiteRevision - $leVol->dureeVol;
+    					$lAvion->save();
+    					$message = 'le décollage du vol '.$idJournal.' à bien été enregistré.<br/>';
+    				}
+    				else
+    				{
+    					$idAeroportDepart = $leVol->aeroportDepart;
+    					$lAeroport = $aeroport->find($idAeroportDepart)->current();
+    			   
+    					$lesVolsAEnvoyer[] = $unVol;
+    					$lesHorairesAEnvoyer[$idJournal] = fonctionConvertirHeure($leVol->dureeVol);
+    					$lesAeroportAEnvoyer[$idJournal] = $lAeroport;
+    					$lesAvionsAEnvoyer[$idJournal] = $lAvion;
+    					$action = 'index?valeur=atterissage';
+		    			$lesFormulaires[$idJournal] = new FormulaireServiceTechniqueEnvoiVol($idJournal, $action);
+    				}
+    			}
+    		}
+    	}
+    	if(isset($lesVolsAEnvoyer))
+    	{
+    		//on envoie les Vols a la vue
+    		$this->view->lesVolsAEnvoyer = $lesVolsAEnvoyer;
+    		//on envoie les horaires a la vue
+    		$this->view->lesHorairesAEnvoyer = $lesHorairesAEnvoyer;
+    		//on envoie les avions a la vue
+    		$this->view->lesAvionsAEnvoyer = $lesAvionsAEnvoyer;
+    		//on envoie les aeroport a la vue
+    		$this->view->lesAeroportAEnvoyer = $lesAeroportAEnvoyer;
+    		//on envoie les formulaires a la vue
+    		$this->view->lesFormulaires = $lesFormulaires;
+    	}
+    	else
+    	{
+    		if(isset($message))
+    		{
+    			$message = $message +'<br/>Aucun vol prévu aujourd\'hui.';
+    		}
+    		else
+    		{
+    			$message = 'Aucun vol prévu aujourd\'hui.';
+    		}
+    	}
+    	if(isset($message))
+    	{
+    		//on envoie un message  a la vue
+    		$this->view->message = $message;
+    	}
     }
 }

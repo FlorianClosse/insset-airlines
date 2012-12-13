@@ -60,7 +60,7 @@ class StrategiqueController extends Zend_Controller_Action
     		
     		if( $_POST['choixDuVol'] == 2)
     		{
-    			$liaisonVolJour = new Liaisonvoljour;
+    			$liaisonVolJour = new LiaisonVolJour();
     			foreach($_POST['ChoixDesJours'] as $unJour)
 				{
 					$liaisonAAjouter = $liaisonVolJour->createRow();

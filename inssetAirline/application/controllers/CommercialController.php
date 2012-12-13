@@ -42,7 +42,7 @@ class CommercialController extends Zend_Controller_Action
 	
 	public function afficheroptionsAction()
 	{
-		$reservation = new reservation();
+		$reservation = new Reservation();
 		$lesReservations = $reservation->fetchAll();
 		$compteur=0;
 		
@@ -80,7 +80,7 @@ class CommercialController extends Zend_Controller_Action
 		$FormAjoutOption->setAttrib('id', 'FormAjoutOption');
 		 
 		/* Creer des elements de formulaire */
-		$journalDeBord = new Journaldebord;		
+		$journalDeBord = new JournalDeBord();		
  		$lesjournaldebord = $journalDeBord->fetchAll();
  		
 		$journalDeBord = new Zend_Form_Element_Select('journaldebord');
@@ -95,15 +95,28 @@ class CommercialController extends Zend_Controller_Action
 		
 		$Statut = new Zend_Form_Element_Select('statut');
 		$Statut ->setLabel('Choisir un statut');
-		$valide='valide';$attente='attente';
+		$valide='valide';$attente='en attente';
  		$Statut->addMultiOption($valide, 'Validé');
  		$Statut->addMultiOption($attente, 'en attente');
+ 		
+ 		$aeroport = new Aeroport;
+ 		$lesAeroport = $aeroport->fetchAll();
+ 		$aeroport = new Zend_Form_Element_Select('aeroport');
+ 		$aeroport ->setLabel('Choisir un aeroport');
+ 		foreach ($lesAeroport as $unAeroport ) 
+ 		{
+ 			$tableauAeroport[$unAeroport -> idAeroport] = ucfirst($unAeroport->nomAeroport);
+ 		}
+ 		
+ 		$aeroport->setMultiOptions($tableauAeroport);
+ 		 	
  		
  		$boutonSubmit = new Zend_Form_Element_Submit('AjouterReservation');
  		$boutonReset = new Zend_Form_Element_Reset('Reset');
 		
 		$FormAjoutOption->addElement($Statut);
 		$FormAjoutOption->addElement($journalDeBord);
+		$FormAjoutOption->addElement($aeroport);
 		$FormAjoutOption->addElement($boutonSubmit);
 		$FormAjoutOption->addElement($boutonReset);
 		

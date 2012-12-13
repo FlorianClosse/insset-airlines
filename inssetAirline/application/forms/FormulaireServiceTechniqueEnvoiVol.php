@@ -3,10 +3,12 @@
 class FormulaireServiceTechniqueEnvoiVol extends Zend_Form
 {
 	private $identifiant;
+	private $action;
 	
-	public function __construct ($identifiant)
+	public function __construct ($identifiant, $action)
 	{
 		$this -> setIdentifiant($identifiant);
+		$this -> setAction($action);
 	
 		$decorateurBouton=array(
 				array('ViewHelper'),
@@ -21,7 +23,7 @@ class FormulaireServiceTechniqueEnvoiVol extends Zend_Form
 			
 		$this -> setDecorators($decorateurFormulaire);
 		$this -> setMethod('post');
-		$this -> setAction('index?valeur=decollage');
+		$this -> setAction($this->action);
 		$this -> setAttrib('id','formulaire'.$this->identifiant);
 
 		$bouton = new Zend_Form_Element_Submit('ajouter'.$this->identifiant);
@@ -33,5 +35,10 @@ class FormulaireServiceTechniqueEnvoiVol extends Zend_Form
 	public function setIdentifiant($identifiant)
 	{
 		$this->identifiant = $identifiant;
+	}
+	
+	public function setAction($action)
+	{
+		$this->action = $action;
 	}
 }

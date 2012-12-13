@@ -1,0 +1,27 @@
+<?php 
+//on récupère les infos du controlleur
+$lesVolsAEnvoyer = $this->lesVolsAEnvoyer;
+$lesHorairesAEnvoyer = $this->lesHorairesAEnvoyer;
+$lesAvionsAEnvoyer = $this->lesAvionsAEnvoyer;
+$lesAeroportAEnvoyer = $this->lesAeroportAEnvoyer;
+$lesFormulaires = $this->lesFormulaires;
+$message = $this->message;
+?>
+<?php if(isset($message)) { ?>
+	<div class="listeVolAfficher">
+		<?php echo $message; ?><br/>
+	
+	</div>
+<?php } ?><br/>
+	
+<div class="listeVolAfficher">
+	<?php if(isset($lesVolsAEnvoyer)) { foreach($lesVolsAEnvoyer as $unVol) {  ?>
+		<div class="unVolAfficher">
+			 Le vol numero : <?php echo $unVol['idJournalDeBord']; ?><br/>
+			 L'avion numero : <?php echo $lesAvionsAEnvoyer[$unVol['idJournalDeBord']]->numImmatriculation; ?><br/>
+			 Aéroport de départ : <?php echo $lesAeroportAEnvoyer[$unVol['idJournalDeBord']]->nomAeroport; ?><br/>
+			 Durée du vol : <?php echo $lesHorairesAEnvoyer[$unVol['idJournalDeBord']]; ?><br/>
+			 <?php echo $lesFormulaires[$unVol['idJournalDeBord']]; ?>
+		</div>	
+	<?php }}?>	
+</div>	
