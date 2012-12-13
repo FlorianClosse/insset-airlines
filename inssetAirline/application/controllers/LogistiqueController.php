@@ -21,7 +21,7 @@ class LogistiqueController extends Zend_Controller_Action
 		
 		//******** affichage de commentaire (bouton valider) ********
 		$compteur = 0;		
-		$commentaire = new CommentaireVol();
+		$commentaire = new Commentairevol;
 		$lesCommentaires = $commentaire->fetchAll();
 		
 		$vol = new Vol;
@@ -64,7 +64,7 @@ class LogistiqueController extends Zend_Controller_Action
 		}
 		if(isset($_POST['EnvoyerCommentaire']))
 		{
-							$commentaire = new CommentaireVol();
+							$commentaire = new Commentairevol;
 								
 							$comvol = $commentaire->createRow();
 							$comvol->idCommentaireVol = '';
@@ -179,7 +179,7 @@ class LogistiqueController extends Zend_Controller_Action
 			}		
  			$vol->setMultiOptions($tableauVols);
 			
- 			$journalDeBord = new JournalDeBord();
+ 			$journalDeBord = new Journaldebord;
  			$lesjournaldebord = $journalDeBord->fetchAll();
 			$journalDeBord = new Zend_Form_Element_Select('journaldebord');
 			$journalDeBord ->setLabel('Choisir un id journal de bord');
