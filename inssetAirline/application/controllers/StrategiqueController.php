@@ -1,5 +1,5 @@
 <?php
-
+//Par nicolas
 class StrategiqueController extends Zend_Controller_Action
 {
 	public function indexAction()
