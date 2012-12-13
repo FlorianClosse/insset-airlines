@@ -4,31 +4,31 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:text="Gestion des révisions"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    	android:id="@+id/textView1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_alignParentTop="true"
+    	android:text="Gestion des révisions"
+    	android:textAppearance="@style/titre" />
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="122dp"
-        android:text="Valider une révision" />
+    	android:id="@+id/buttonValiderRevision"
+    	style="@style/bouton_vert"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_centerHorizontal="true"
+    	android:layout_centerVertical="true"
+    	android:text="Valider une révision" />
 
     <Button
-        android:id="@+id/Button01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="45dp"
-        android:text="Terminer une révision" />
+    	android:id="@+id/buttonTerminerRevision"
+    	style="@style/bouton_vert"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/buttonValiderRevision"
+    	android:layout_centerHorizontal="true"
+    	android:layout_marginTop="49dp"
+    	android:text="Terminer une révision" />
 
 </RelativeLayout>
