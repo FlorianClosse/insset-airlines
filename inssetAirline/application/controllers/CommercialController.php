@@ -80,7 +80,7 @@ class CommercialController extends Zend_Controller_Action
 		$FormAjoutOption->setAttrib('id', 'FormAjoutOption');
 		 
 		/* Creer des elements de formulaire */
-		$journalDeBord = new JournalDeBord();		
+		$journalDeBord = new JournalDeBord;		
  		$lesjournaldebord = $journalDeBord->fetchAll();
  		
 		$journalDeBord = new Zend_Form_Element_Select('journaldebord');
