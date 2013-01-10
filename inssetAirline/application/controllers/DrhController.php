@@ -2,24 +2,7 @@
 class DrhController extends Zend_Controller_Action
 {
     public function indexAction(){
-    	if(isset($_POST['Envoyer']))
-    	{
-	    	$listepilote = New Pilote();
-	    	$Pilote = $listepilote->createRow();
-	    	$Pilote->idPilote = '';
-	    	$Pilote->nomPilote = $_POST['nomPilote'];
-	    	$Pilote->prenomPilote = $_POST['prenomPilote'];
-	    	$Pilote->adresse = $_POST['adressePilote'];
-	    	$Pilote->telephone = $_POST['telephonePilote'];
-	    	$Pilote->email = $_POST['mailPilote'];
-	    	$Pilote->idAeroportEmbauche = $_POST['aeroport'];
-	    	if(!empty($Pilote->nomPilote)){
-	    	 	$Pilote->save();
-	    	}
-	    	else{
-	    		echo" raté";
-	    	}
-    	}
+    	
     	
     	if(isset($_POST['EnvoyerBrevet'])){
     		$listepilotebrevet = New LiaisonPiloteBrevet();
@@ -36,7 +19,31 @@ class DrhController extends Zend_Controller_Action
     	/* Créer un objet formulaire */
     	$formajoutpers = new Fajoutpilote();
     	/* Effectuer le rendu du formulaire */
-    	$this->view->formajoutpers = $formajoutpers;
+//     	$this->view->formajoutpers = $formajoutpers;
+    	
+    	$data = $this->getRequest()->getPost();
+    	
+    	if($this->getRequest()->getPost()){
+	    	$listepilote = New Pilote();
+	    	$Pilote = $listepilote->createRow();
+	    	$Pilote->idPilote = '';
+	    	$Pilote->nomPilote = $_POST['nomPilote'];
+	    	$Pilote->prenomPilote = $_POST['prenomPilote'];
+	    	$Pilote->adresse = $_POST['adressePilote'];
+	    	$Pilote->telephone = $_POST['telephonePilote'];
+	    	$Pilote->email = $_POST['mailPilote'];
+	    	$Pilote->idAeroportEmbauche = $_POST['aeroport'];
+	    	if($formajoutpers->isValid($data)){	
+	    	 		$Pilote->save();
+	    	 		$this->getResponse()->setHeader('Refresh', '0; URL=/drh/index');	
+	    	}
+	    	else{
+	    		echo 'Une ou plusieur erreur se sont introduit dans le formulaire , réessayez ';
+	    		echo $formajoutpers->populate($data);
+	    	}
+    	}else{
+    		echo  $formajoutpers;
+    	}
     } 
     
     public function brevetAction(){

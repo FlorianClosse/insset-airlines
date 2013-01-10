@@ -5,22 +5,23 @@ class Fajoutpilote extends Zend_Form
 	{
 		    	
     	/* Parametrer le formulaire */
-    	$this->setMethod('post')->setAction('/drh/index');
+    	$this->setMethod('post')->setAction('/drh/ajouterpersonne');
     	$this->setAttrib('id', 'FormAjoutPilote');
     	
     	/* Creer des elements de formulaire */
     	$PiloteNom= new Zend_Form_Element_Text('nomPilote');
     	$PiloteNom ->setLabel('Nom du pilote');
+    	$PiloteNom ->setRequired(true);
     	$PiloteNom->setAttrib('id', 'formpilote');
     	$PiloteNom -> autocomplete = 'off';
-    	$PiloteNom ->setRequired(TRUE);
-    	
+    	$PiloteNom -> addValidator('Alpha');
     	
     	$PilotePrenom = new Zend_Form_Element_Text('prenomPilote');
     	$PilotePrenom ->setLabel('Prenom du pilote');
     	$PilotePrenom->setAttrib('id', 'formpilote');
     	$PilotePrenom ->setRequired(TRUE);
     	$PilotePrenom-> autocomplete = 'off';
+    	$PilotePrenom-> addValidator('Alpha');
     	
     	$PiloteAdresse = new Zend_Form_Element_Text('adressePilote');
     	$PiloteAdresse ->setLabel('Adresse du pilote');
@@ -31,10 +32,13 @@ class Fajoutpilote extends Zend_Form
     	$PiloteTelephone ->setLabel('Téléphone du pilote');
     	$PiloteTelephone->setAttrib('id', 'formpilote');
     	$PiloteTelephone-> autocomplete = 'off';
+    	$PiloteTelephone-> addValidator('Int');
+    	
     	
     	$PiloteMail = new Zend_Form_Element_Text('mailPilote');
     	$PiloteMail ->setLabel('Mail du pilote');
     	$PiloteMail->setAttrib('id', 'formpilote');
+    	$PiloteMail->addValidator('EmailAddress');
     	$PiloteMail-> autocomplete = 'off';
     	
     	$aeroport = new Aeroport;
