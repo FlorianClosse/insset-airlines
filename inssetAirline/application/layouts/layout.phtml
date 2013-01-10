@@ -3,7 +3,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Insset Airlines</title>
 	<?php echo $this->headLink()->appendStylesheet('/css/style.css') ?>
-	<link href="<?php echo $this->baseUrl('/css/style.css')?>" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="/js/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+	<script>
+		  $(function() {
+		    $( "#datepicker" ).datepicker();
+		  });
+	</script>
 </head>
 <header>
 <div class="Bar">

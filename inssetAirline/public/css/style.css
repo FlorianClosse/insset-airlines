@@ -61,32 +61,33 @@ body{
 	background-color: #d6d6d6;
 }
 
-th
-{
-	background-color: #d6d6d6;
-	text-align: center;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	height : 40px;
-	width : 140px;
-	border: 1px solid black;
-}
+/* Fou en l'air le datepicker */
+/* th */
+/* { */
+/* 	background-color: #d6d6d6; */
+/* 	text-align: center; */
+/* 	padding-left: 10px; */
+/* 	padding-right: 10px; */
+/* 	padding-top: 2px; */
+/* 	padding-bottom: 2px; */
+/* 	height : 40px; */
+/* 	width : 140px; */
+/* 	border: 1px solid black; */
+/* } */
 
 
-td
-{
-	background-color: #e5e5e5;
-	text-align: center;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	height : 100px;
-	width : 138px;
-	border: 1px solid black;
-}
+/* td */
+/* { */
+/* 	background-color: #e5e5e5; */
+/* 	text-align: center; */
+/* 	padding-left: 10px; */
+/* 	padding-right: 10px; */
+/* 	padding-top: 2px; */
+/* 	padding-bottom: 2px; */
+/* 	height : 100px; */
+/* 	width : 138px; */
+/* 	border: 1px solid black; */
+/* } */
 
 #tableauTitreVol
 {
@@ -156,3 +157,90 @@ td
 	width: 96%;
 	border-bottom: solid 1px #010101;
 	overflow: hidden;
+}
+
+
+
+
+/* Vue brevet */
+	#formbrevet{
+	padding:5px;
+	width:400px;
+	border-radius:10px;
+	background-image:url("http://www.bobun-creation.fr/wp-content/themes/bobun/img/background/background-08.jpg");
+		line-height:150%;
+	}
+	#boutonretourbrevet{
+		position: absolute;
+		bottom: 0;
+		right: 50%;
+	}
+	
+	#vuebrevetform{
+		font-size : 2ex;
+		position:absolute;
+		right: 50%;
+	}
+	
+	#EnvoyerBrevet{
+		width: 100px;
+	}
+	#EnvoyerBrevet:hover{
+		color: #000;
+	    background: #444;
+	    background: -webkit-linear-gradient( #555, #2C2C2C);
+	    background:    -moz-linear-gradient( #555, #2C2C2C);
+	    background:     -ms-linear-gradient( #555, #2C2C2C);
+	    background:      -o-linear-gradient( #555, #2C2C2C);
+	    background:         linear-gradient( #555, #2C2C2C);
+	    box-shadow: 1px 1px 10px black inset, 
+	                0 1px 0 rgba( 255, 255, 255, 0.4);
+	}
+	#formbrevet.datepicker{
+		width: 200px;
+	}
+	#listederoulantebrevet{
+		width: 200px;
+	}
+/* Fin vue brevet */
+
+
+/* Vue ajoutpersonne */
+	#FormAjoutPilote{
+	padding:5px;
+	width:400px;
+	border-radius:10px;
+	background-image:url("http://www.bobun-creation.fr/wp-content/themes/bobun/img/background/background-08.jpg");
+	line-height:150%;
+	}
+	#retourajoutpersonne{
+		position: absolute;
+		bottom: 0;
+		right: 50%;
+	}
+	
+	#FormAjoutPilote{
+		font-size : 2ex;
+		position:absolute;
+		right: 50%;
+	}
+	
+	#boutonajoutpersonne{
+		width: 100px;
+	}
+	#boutonajoutpersonne:hover{
+		color: #000;
+	    background: #444;
+	    background: -webkit-linear-gradient( #555, #2C2C2C);
+	    background:    -moz-linear-gradient( #555, #2C2C2C);
+	    background:     -ms-linear-gradient( #555, #2C2C2C);
+	    background:      -o-linear-gradient( #555, #2C2C2C);
+	    background:         linear-gradient( #555, #2C2C2C);
+	    box-shadow: 1px 1px 10px black inset, 
+	                0 1px 0 rgba( 255, 255, 255, 0.4);
+	}
+
+	#listederoulanteajout{
+		width: 200px;
+	}
+/* Fin vue ajout personne */

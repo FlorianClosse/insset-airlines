@@ -1,5 +1,11 @@
-	<li>
-		<a href="<?php echo $this->baseUrl('drh/index'); ?>">
-			Revenir à l'accueil
-		</a>
-	</li>
+<?php $formbrevet = $this->formbrevet; ?>
+
+<div id="vuebrevetform" >
+	<?php echo $formbrevet ; ?>
+	
+	<a id="boutonretourbrevet" href="<?php echo $this->baseUrl('drh/index'); ?>">
+		Revenir à l'accueil
+	</a>
+</div>
+
+
