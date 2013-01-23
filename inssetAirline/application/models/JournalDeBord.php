@@ -54,10 +54,16 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 		return $datas;
 	}
 	
+	public function getVolEnCour()
+	{
+		$requete = 'select *
+					 from journalDeBord
+					 where statut = "en vol";';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$datas = $db->query($requete)->fetchAll();
+		//Zend_Debug::dump($datas) ;
+		return $datas;
+	}
 
-// 	$this->select('numVol')
-// 		->from(array('J' => 'journalDeBord'))                 
-// 		->join(array('V' => 'vol'))
-// 		->where('J.idVol = V.idVol');
 }
 ?>

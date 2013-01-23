@@ -84,8 +84,8 @@ class LogistiqueController extends Zend_Controller_Action
 	public function affichercommentaireAction()
 	{
 		$journal = new JournalDeBord;
-		$lesJournaux = $journal->fetchAll();
-		    	
+		$lesJournaux = $journal->getVolEnCour();
+		Zend_Debug::dump($lesJournaux);	
     	//decorateur des cases a cocher
     	$decorateurCase = array(
     			array('ViewHelper'),
@@ -111,16 +111,9 @@ class LogistiqueController extends Zend_Controller_Action
     			array('FormElements'),
     			array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
     	);   		
-    		
-    	foreach ($lesJournaux as $unJournal)
-    	{
-    		$tableau[] = $unJournal->idJournalDeBord;
-    	}    		
-    	
-    	$this->view->tableau = $tableau;    		
 
     	//on crée le formulaire
-    	$formulaireAfficherVol = new Zend_Form;
+    	$formulaireAfficherVol = new Zend_Form();
     	$formulaireAfficherVol -> setMethod('post');
     	$formulaireAfficherVol -> setAction('/logistique/index/');
     	$formulaireAfficherVol -> setAttrib('id','formulaireAfficherVol');
@@ -128,9 +121,9 @@ class LogistiqueController extends Zend_Controller_Action
     		 
     	foreach($lesJournaux as $unJournal)
     	{    			
-    		$caseACocher = new Zend_Form_Element_Checkbox($unJournal -> idJournalDeBord);
-    		$caseACocher -> setValue($unJournal -> idJournalDeBord);
-    		$caseACocher -> setDecorators($decorateurCase);
+    		$caseACocher = new Zend_Form_Element_Checkbox($unJournal['idJournalDeBord']);
+    		$caseACocher -> setValue($unJournal['idJournalDeBord']);
+    		$caseACocher -> setDecorators($decorateurCase);    		
     		$formulaireAfficherVol -> addElement($caseACocher);    			
     	}    		
     	//on crée le bouton submit
