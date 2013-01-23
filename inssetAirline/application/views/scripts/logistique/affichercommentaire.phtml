@@ -6,14 +6,13 @@
 		<table id="tableauTitreVol">
 			<tr>
 				<th > </th>
-				<th > Id Journal de bord </th>	
-				<th > </th>
+				<th > Id Journal de bord </th>				
 				<th>  Numero de vol </th>		
 			</tr>
 		</table>
 
 		<?php 
-			$tableau = $this->tableau;
+			//$tableau = $this->tableau;
 			$formulaire = $this->formulaire;
 			$listeNumVol = $this->listeNumVol;
 			$i=0;
@@ -28,7 +27,7 @@
 			  	{
 			  		$i++; ?>
 					<tr>
-						<td><?php echo $unJournal->idJournalDeBord; ?></td>						
+						<td><?php echo $unJournal['idJournalDeBord']; ?></td>						
 				   		<td><?php echo $listeNumVol[$i][0];?></td>	
 					</tr>
 		  <?php }?> 						

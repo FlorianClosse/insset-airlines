@@ -4,7 +4,7 @@ class FormAjoutAvion extends Zend_Form
 	public function init()
 	{
 		$this->setMethod('POST');
-		$this->setAction('/maintenance/ajoutavion');
+		$this->setAction('/maintenance/ajout');
 		$this->setAttrib('id', 'formAjoutAvion');
 		$this->clearDecorators();
 		
@@ -23,8 +23,8 @@ class FormAjoutAvion extends Zend_Form
 		$this -> addElement($immatriculation);
 		
 		$dateMisEnService = new Zend_Form_Element_Text('dateMisEnService');
+		$dateMisEnService->setLabel('Date de mis en service');
 		$dateMisEnService->setAttrib('id','datepicker');
-		$dateMisEnService->addValidator('Date');
 		$dateMisEnService->setRequired(true);
 		$this -> addElement($dateMisEnService);
 			

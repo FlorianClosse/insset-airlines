@@ -2,19 +2,23 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Insset Airlines</title>
-	<?php echo $this->headLink()->appendStylesheet('/css/style.css') ?>
-
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script src="/js/popup.js"></script>
+	
+	<?php echo $this->headLink()->appendStylesheet('/css/style.css') ?>	
 	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 	<script src="/js/jquery-ui.js"></script>
+	
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 	<script>
 		  $(function() {
 		    $( "#datepicker" ).datepicker();
 		  });
 	</script>
+	
+	
 </head>
-
-
 <header>
 <div class="Bar">
 		<p class="text">
@@ -27,17 +31,18 @@
 	<div id="entete">
 			<br/><br/><h1><a href="/">Airline</a></h1>		
 	</div>	
+
 	<div id="contenu">
 	<?php echo $this->layout()->content; ?>
 	
 	</div>
 
-	
 </body>
 
 <footer>
-	<div class="pied">
-		Grp 4 &copy; 2012
+	<div class="pied"><br /><br /> <br />
+		<p class="copyright">Grp 4 &copy; 2012</p>
 	</div>
 </footer>
+
 </html>
