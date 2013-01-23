@@ -1,12 +1,36 @@
 <?php 
 //on récupère les infos du controlleur
 $formulaire = $this->formulaire;
+$formFiltAeroDepart = $this->formFiltAeroDepart;
+$formFiltAeroArrivee = $this->formFiltAeroArrivee;
 $lesVols = $this->lesVols;
 $lesAeroportsDeDepart = $this->lesAeroportsDeDepart;
 $lesAeroportsDArrivee = $this->lesAeroportsDArrivee;
 $lesJourEtDateDeVol = $this->lesJourEtDateDeVol;
 $duree = $this->duree;
+$numVol = $this->numVol;
+$idVol = $this->idVol;
 ?>
+
+<div class="filtreEtPanier">
+	<ul class="filtre">
+		<li >
+			<a class="filt1" href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=fermer&filtreStategique=defaut">
+				Tout les vols
+			</a>
+		</li>
+		<li>
+			Filtrer par aéroport de depart
+			<?php echo $formFiltAeroDepart; ?>
+		</li>
+		<li>
+			Filtrer par aéroport d'arrivée
+			<?php echo $formFiltAeroArrivee; ?>
+		</li>
+		
+	</ul>
+</div>
+
 
 <div id="tableauxSupprVol">
 	
@@ -24,15 +48,15 @@ $duree = $this->duree;
 	<?php echo $formulaire; ?>
 	
 	<table id="tableauInfoVol">
-	<?php foreach($lesVols as $unVol) { ?>
+	<?php foreach($lesVols as $unVol) { if(isset($idVol[$unVol->idVol])){?>
 		<tr>
-			<td><?php echo $unVol->numVol; ?></td>
+			<td><?php echo $numVol[$unVol->idVol]; ?></td>
 			<td><?php echo $lesAeroportsDeDepart[$unVol->idVol]; ?></td>
 			<td><?php echo $lesAeroportsDArrivee[$unVol->idVol]; ?></td>
 			<td><?php echo $lesJourEtDateDeVol[$unVol->idVol]; ?></td>
 			<td><?php echo $duree[$unVol->idVol]; ?></td>
 	   </tr>
-	<?php } ?>
+	<?php } } ?>
 	</table>
 	<?php  echo $this->paginationControl($lesVols,'All', 'paginationcontrole.phtml');?>
 </div>

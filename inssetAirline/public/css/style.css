@@ -61,33 +61,32 @@ body{
 	background-color: #d6d6d6;
 }
 
-/* Fou en l'air le datepicker */
-/* th */
-/* { */
-/* 	background-color: #d6d6d6; */
-/* 	text-align: center; */
-/* 	padding-left: 10px; */
-/* 	padding-right: 10px; */
-/* 	padding-top: 2px; */
-/* 	padding-bottom: 2px; */
-/* 	height : 40px; */
-/* 	width : 140px; */
-/* 	border: 1px solid black; */
-/* } */
+#tableauTitreVol tr th 
+{ 
+ 	background-color: #d6d6d6; 
+ 	text-align: center; 
+	padding-left: 10px; 
+ 	padding-right: 10px; 
+ 	padding-top: 2px; 
+ 	padding-bottom: 2px; 
+ 	height : 40px; 
+ 	width : 140px; 
+ 	border: 1px solid black; 
+} 
 
 
-/* td */
-/* { */
-/* 	background-color: #e5e5e5; */
-/* 	text-align: center; */
-/* 	padding-left: 10px; */
-/* 	padding-right: 10px; */
-/* 	padding-top: 2px; */
-/* 	padding-bottom: 2px; */
-/* 	height : 100px; */
-/* 	width : 138px; */
-/* 	border: 1px solid black; */
-/* } */
+ #tableauInfoVol tr td 
+ { 
+ 	background-color: #e5e5e5; 
+ 	text-align: center; 
+ 	padding-left: 10px; 
+ 	padding-right: 10px; 
+ 	padding-top: 2px; 
+ 	padding-bottom: 2px; 
+ 	height : 100px; 
+ 	width : 138px; 
+ 	border: 1px solid black; 
+ } 
 
 #tableauTitreVol
 {

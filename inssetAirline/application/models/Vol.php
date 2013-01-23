@@ -23,6 +23,9 @@ class Vol extends Zend_Db_Table_Abstract
 					'refTableClass'=>'Pilote')
 	);
 	
+	
+	
+	
 	// ***fonction getRecuperAeroportDepart par Nicolas 
 	public function getRecuperAeroportDepart($aeroportDepart)
 	{
