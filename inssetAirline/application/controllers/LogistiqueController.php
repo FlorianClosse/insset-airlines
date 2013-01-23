@@ -85,7 +85,7 @@ class LogistiqueController extends Zend_Controller_Action
 	{
 		$journal = new JournalDeBord;
 		$lesJournaux = $journal->getVolEnCour();
-		Zend_Debug::dump($lesJournaux);	
+			
     	//decorateur des cases a cocher
     	$decorateurCase = array(
     			array('ViewHelper'),
