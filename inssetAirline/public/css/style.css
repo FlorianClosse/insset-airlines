@@ -1,10 +1,38 @@
+#contenu{
+	width: 980px;
+	height: 85%;
+	margin: 0px auto;	
+}
+#entete{
+	width: 980px;
+	height: 120px;
+	margin: 0px auto;
+}
+.pied{
+	text-align:center;
+	margin-top:300px;
+	height : 40px;
+	width : 980px;
+}
+
+a
+{
+	text-decoration: none;
+	color: blue;
+}
+
 .Bar {
 	background:black repeat-x;
 	background-position:top;
 	padding:5px;
 	position:fixed;
 	
-	width:960px;
+	
+	width: 980px;
+	height: 40px;
+	margin: 0px auto;
+	
+
 	left:0;
 	right:0;
 	top:0;
@@ -29,6 +57,8 @@ header p{
 
 body{
 	margin-top:35px;
+	background-image: url("/img/fond.jpg");
+	
 }
 
 .form{
@@ -41,15 +71,15 @@ body{
 	width:150px;
 }
 
-.pied
-{
-	text-align:center;
-	margin-top:300px;
-	height : 40px;
-	width : 800px;
-	border: 1px solid black;
-	border-radius:5px;
-}
+/* .pied */
+/* { */
+/* 	text-align:center; */
+/* 	margin-top:300px; */
+/* 	height : 40px; */
+/* 	width : 800px; */
+/* 	border: 1px solid black; */
+/* 	border-radius:5px; */
+/* } */
 
 #volSupprime
 {
