@@ -143,6 +143,7 @@ class TechniqueController extends Zend_Controller_Action
     	foreach($lesVols as $unVol)
     	{
     		$idVol = $unVol['idVol'];
+    		$aeroportDArrivee = $unVol['aeroportArrivee'];
     		$idJournal = $unVol['idJournalDeBord'];
     		$leVol = $vol->find($idVol)->current();
     		if($leVol->aeroportArrivee == $monAeroport)
@@ -160,6 +161,7 @@ class TechniqueController extends Zend_Controller_Action
     					$lAvion->nombreHeureTotale = $lAvion->nombreHeureTotale + $leVol->dureeVol;
     					$lAvion->nbHeureVolDepuisGrandeRevision = $lAvion->nbHeureVolDepuisGrandeRevision - $leVol->dureeVol;
     					$lAvion->nbHeureVolDepuisPetiteRevision = $lAvion->nbHeureVolDepuisPetiteRevision - $leVol->dureeVol;
+    					$lAvion->localisation = $aeroportDArrivee;
     					$lAvion->save();
     					$message = 'le décollage du vol '.$idJournal.' à bien été enregistré.<br/>';
     				}

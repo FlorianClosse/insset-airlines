@@ -90,5 +90,15 @@ class Vol extends Zend_Db_Table_Abstract
 			return $ligne['datePrevu'];
 		}
 	}
+	public function getRecuperLesVolsAujourdHui($aujourdhui, $aeroport)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('datePrevu=?', $aujourdhui)
+		->where('aeroportDepart=?', $aeroport)
+		;
+		return $requete->query()->fetchAll();
+	}
+	
 }
 ?>
