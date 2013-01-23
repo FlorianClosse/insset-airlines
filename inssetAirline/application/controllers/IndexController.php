@@ -41,6 +41,10 @@ class IndexController extends Zend_Controller_Action
         		case "maintenance":
         			$this->_helper->actionStack('index', 'maintenance', 'default', array());
         			break;
+        			
+        		case "planning":
+        			$this->_helper->actionStack('index', 'planning', 'default', array());
+        			break;
         	}
         }
     }
