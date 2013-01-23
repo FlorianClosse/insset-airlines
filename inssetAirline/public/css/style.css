@@ -58,6 +58,8 @@ header p{
 body{
 	margin-top:35px;
 	background-image: url("/img/fond.jpg");
+		background-position: center;
+	background-attachment: fixed;
 	
 }
 
