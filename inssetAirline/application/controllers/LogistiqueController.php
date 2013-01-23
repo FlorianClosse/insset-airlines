@@ -23,23 +23,20 @@ class LogistiqueController extends Zend_Controller_Action
 		$compteur = 0;		
 		$commentaire = new CommentaireVol;
 		$lesCommentaires = $commentaire->fetchAll();
-		
-		$vol = new Vol;
-		$lesVols = $vol->fetchAll();
-		
+				
 		if(isset($_POST['valider']))
 		{
-			foreach($lesVols as $unVol)
+			foreach($lesCommentaires as $unCommentaires)
 			{
-				if(isset($_POST[$unVol->idVol]))
+				if(isset($_POST[$unCommentaires->idJournalDeBord]))
 				{
-					if($_POST[$unVol->idVol] == 1)
+					if($_POST[$unCommentaires->idJournalDeBord] == 1)
 					{
-						$idVolSelectionne= $unVol->idVol;
+						$idVolSelectionne= $unCommentaires->idJournalDeBord;
 									    
 						foreach ($lesCommentaires as $unCommentaire)
 						{		
-							if($idVolSelectionne == $unCommentaire->idVol)
+							if($idVolSelectionne == $unCommentaire->idJournalDeBord)
 							{
 								$compteur=$compteur+1;
 								$tableauCom[$compteur][0] = $unCommentaire->idCommentaireVol;
@@ -143,7 +140,7 @@ class LogistiqueController extends Zend_Controller_Action
     	
     	$lesNumVol = $journal->getNumeroVol();
     	
-    	$compteur =0;
+    	$compteur = 0;
     	foreach ($lesNumVol as $unNumVol )
     	{
     		$compteur = $compteur + 1;
