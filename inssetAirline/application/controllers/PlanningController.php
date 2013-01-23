@@ -51,14 +51,57 @@ class PlanningController extends Zend_Controller_Action
     	else
     	{
     		$aeroport = $_SESSION['aeroportCreerPlanning'];
-    		echo $aujourdhui = date('Y-m-j');
+    		echo'!'.$aeroport.'!';
+    		$aujourdhui = date('Y-m-j');
+    		$jour = date('N');
+    		echo '<h1>Pour le '.$aujourdhui.' pour l\'aéroport '.$aeroport.' : </h1>';
+    		
     		$vol = new Vol();
+    		$journalDeBord = new JournalDeBord();
+    		$liaisonVolJour = new LiaisonVolJour();
+    		
     		$lesVols = $vol->getRecuperLesVolsAujourdHui($aujourdhui, $aeroport);
     		foreach($lesVols as $unVol)
     		{
-    			echo $unVol['idVol'].'<br/>';
+    			
+    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol['idVol']);
+    			if(isset($journal['idJournalDeBord']))
+    			{
+    				echo 'Vol : '.$unVol['numVol'].'<br/>Fait <br/>';
+    			}
+    			else
+    			{
+    				echo '<h2>Vol : '.$unVol['numVol'].'</h2>';
+    				echo '<h3>Non programmé </h3>';
+    			}
+    			
+    		}
+    		echo '___________';
+    		$lesVols = $liaisonVolJour->getRecupererVolSuivantJour($jour);
+    		foreach($lesVols as $leVol)
+    		{
+    			$unVol = $vol->find($leVol['idVol'])->current();
+    			if($unVol->aeroportDepart == $aeroport)
+    			{
+	    			
+	    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol->idVol);
+	    			if(isset($journal['idJournalDeBord']))
+	    			{
+	    				echo 'Vol : '.$unVol['numVol'].'<br/>Fait <br/>';
+	    			}
+	    			else
+	    			{
+	    				echo '<h2>Vol : '.$unVol['numVol'].'</h2>';
+	    				echo '<h3>Non programmé </h3>';
+	    			}
+    			}
     		}
     	}
+    }
+    
+    public function volacreerAction()
+    {
+    	
     }
     public function modifierplanningAction()
     {
