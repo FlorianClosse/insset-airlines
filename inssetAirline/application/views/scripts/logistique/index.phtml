@@ -23,8 +23,7 @@ $compteur = $this->compteur;
 				<th >idCommentaireVol</th>
 				<th >idJournalDeBord</th>
 				<th >titre</th>
-				<th >commentaire</th>
-				<th >idVol</th>				
+				<th >commentaire</th>								
 			</tr>
 		
 				<?php 
@@ -32,7 +31,8 @@ $compteur = $this->compteur;
 					{
 				?>  	<tr>
 						<?php 
-							for ($jj=0;$jj<5;$jj++){
+							for ($jj=0;$jj<4;$jj++)
+							{
 						?>
 							<td>
 								<?php echo $tableauCom[$ii][$jj];?>
