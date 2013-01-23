@@ -1,11 +1,34 @@
-<ul>
-	<li>
-		<a href="<?php echo $this->baseUrl('maintenance/ajoutavion'); ?>">Ajouter un avion</a>
-	</li>
-	<li>
-		<a href="<?php echo $this->baseUrl('maintenance/supprimeravion'); ?>">Supprimer un avion</a>
-	</li>
-	<li>
-		<a href="<?php echo $this->baseUrl('index/'); ?>">Retour à l'accueil</a>
-	</li>
-</ul>
+<a href="#?w=500" rel="popupajoutavion" class="poplight">Ajouter un avion</a>
+
+<table>
+	<thead>
+		<tr>
+			<th></th>
+			<th>Immatriculation</th>
+			<th>Date mis en service</th>
+			<th>Modele</th>
+			<th>Aeroport d'attache</th>
+			<th>Localisation</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lesavions = $this->lesavions;
+	foreach ($lesavions as $unAvion)
+	{
+?>
+	<tr>
+    	<td><a href="/maintenance/supprimer?supprId=<?= $unAvion['idAvion']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce projet ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+		<td><?= $unAvion['numImmatriculation'] ;?></td>
+		<td><?= $unAvion['dateMisEnService'] ;?></td>
+		<td><?= $unAvion['idModele'] ;?></td>
+		<td><?= $unAvion['idAeroportDattache'] ;?></td>
+		<td><?= $unAvion['localisation'] ;?></td>
+	</tr>
+<?php }?>
+	</tbody>
+</table>
+
+<div id="popupajoutavion" class="popup_block">
+	<?php echo $this->formajoutavion;?>           
+</div>
