@@ -3,7 +3,37 @@ class Fajoutpilote extends Zend_Form
 {
 	public function init()
 	{
-		    	
+
+		// traduction des messages d'erreur de validation
+		$french = array(
+				'notAlnum' => "'%value%' ne contient pas que des lettres et/ou des chiffres.",
+				'notAlpha' => "'%value%' ne contient pas que des lettres.",
+				'notBetween' => "'%value%' n'est pas compris entre %min% et %max% inclus.",
+				'notBetweenStrict' => "'%value%' n'est pas compris entre %min% et %max% exclus.",
+				'dateNotYYYY-MM-DD'=> "'%value%' n'est pas une date au format AAAA-MM-JJ (exemple : 2000-12-31).",
+				'dateInvalid' => "'%value%' n'est pas une date valide.",
+				'dateFalseFormat' => "'%value%' n'est pas une date valide au format JJ/MM/AAAA (exemple : 31/12/2000).",
+				'notDigits' => "'%value%' ne contient pas que des chiffres.",
+				'emailAddressInvalid' => "'%value%' n'est pas une adresse mail valide selon le format adresse@domaine.",
+				'emailAddressInvalidHostname' => "'%hostname%' n'est pas un domaine valide pour l'adresse mail '%value%'.",
+				'emailAddressInvalidMxRecord' => "'%hostname%' n'accepte pas l'adresse mail '%value%'.",
+				'emailAddressDotAtom' => "'%localPart%' ne respecte pas le format dot-atom.",
+				'emailAddressQuotedString' => "'%localPart%' ne respecte pas le format quoted-string.",
+				'emailAddressInvalidLocalPart' => "'%localPart%' n'est pas une adresse individuelle valide.",
+				'notFloat' => "'%value%' n'est pas un nombre décimal.",
+				'notGreaterThan' => "'%value%' n'est pas strictement supérieur à '%min%'.",
+				'notInt'=> "'%value%' n'est pas un nombre entier.",
+				'notLessThan' => "'%value%' n'est pas strictement inférieur à '%max%'.",
+				'isEmpty' => "Ce champ est vide : vous devez le compléter.",
+				'stringEmpty' => "Ce champ est vide : vous devez le compléter.",
+				'regexNotMatch' => "'%value%' ne respecte pas le format '%pattern%'.",
+				'stringLengthTooShort' => "'%value%' fait moins de %min% caractères.",
+				'stringLengthTooLong' => "'%value%' fait plus de %max% caractères."
+		);
+		
+		$translate = new Zend_Translate('array', $french, 'fr');
+		$this->setTranslator($translate);
+		
     	/* Parametrer le formulaire */
     	$this->setMethod('post')->setAction('/drh/ajouterpersonne');
     	$this->setAttrib('id', 'FormAjoutPilote');
@@ -64,9 +94,84 @@ class Fajoutpilote extends Zend_Form
     	$this->addElement($PiloteMail);
      	$this->addElement($aeroport);
     	$this->addElement($pSubmit);
-		
+
+
+        // Liste des continents
+        $idAeroport = new Zend_Form_Element_Select('$idAeroport');
+        $idAeroport->setLabel ('Aeroport')
+            ->addMultiOptions($this->listAeroport())
+        ;
+
+        // Liste des pays
+        $idPays = new Zend_Form_Element_Select('$idPays');
+        $idPays->setLabel ('Pays')
+            ->addMultiOptions($this->listPays())
+        ;
+
+        // Liste des villes
+        $idVille = new Zend_Form_Element_Select('$idVille');
+        $idVille->setLabel ('Ville')
+            ->addMultiOptions($this->listVille())
+        ;
+        $this->addElement($idAeroport);
+        $this->addElement($idPays);
+        $this->addElement($idVille);
 	}
-	
+
+    /**
+     * Liste des continents
+     */
+    private function listAeroport () {
+
+        $TAeroport = new Aeroport();
+        $Aeroports = $TAeroport->selectData();
+
+        $listAeroport = array();
+        $listAeroport[""] = "-- Choisissez --";
+        foreach ($Aeroports as $Aeroport) {
+            $listAeroport[$Aeroport->idAeroport] = $Aeroport->nomAeroport;
+        }
+        return $listAeroport;
+
+    }//Eof:: listContinent
+
+
+    /**
+     * Liste des Pays
+     */
+    private function listPays () {
+
+        $TPays = new Pays();
+        $Pays = $TPays->selectData();
+
+        $listPays = array();
+        $listPays[""] = "-- Choisissez --";
+        foreach ($Pays as $pays) {
+            $listPays[$pays->idPays] = $pays->nomPays;
+        }
+
+        return $listPays;
+
+    }//Eof:: listPays
+
+
+    /**
+     * Liste des Villes
+     */
+    private function listVille () {
+
+        $TVilles = new Ville();
+        $Villes = $TVilles->selectData();
+
+        $listVille = array();
+        $listVille[""] = "-- Choisissez --";
+        foreach ($Villes as $Ville) {
+            $listVille[$Ville->idVille] = $Ville->nomVille;
+        }
+
+        return $listVille;
+
+    }//Eof:: listVille
 
 
 } 

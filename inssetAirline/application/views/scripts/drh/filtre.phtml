@@ -1,0 +1,45 @@
+<table>
+    <tr>
+        <td>
+            <a href="<?php echo $this->baseUrl('drh/filtre/id/1'); ?>">
+                Filtrer les pilotes par point d'attache
+            </a>
+        </td>
+    </tr>
+</table>
+
+<?php
+$idfiltre = $this->idfiltre;
+if($idfiltre==1){
+
+    $listePilote = $this->listePilote;
+
+   $count = count($listePilote);
+    ?>
+<?php
+    if($count ==0) {echo'la liste est vide';}
+    ?>
+<table id="listepilote">
+    <?php
+    for ($i = 1; $i <= $count; $i++) {
+
+        ?>
+        <tr>
+            <td>
+                <?php echo " le pilote "; echo $listePilote[$i][0] . " " . $listePilote[$i][1];; ?>
+            </td>
+            <td>
+                <?php echo" à éffectué "; echo $listePilote[$i][2]; echo " vol";?>
+            </td>
+            <td>
+                <?php echo "soit un total de "; echo $listePilote[$i][3]; echo" heures de vol"; ?>
+            </td>
+        </tr>
+
+        <?php
+    }
+    ?>
+</table>
+<?php
+}
+?>
