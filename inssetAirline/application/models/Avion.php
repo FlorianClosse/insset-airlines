@@ -19,5 +19,12 @@
 // 				'localisation' => array(
 // 						'columns' => 'idAeroport',
 // 						'refTableClass' =>'aeroport'));
+		
+		public function selectAll()
+		{
+			$db = Zend_Db_Table::getDefaultAdapter();
+			$requete = 'SELECT * FROM avion';
+			return $db->query($requete)->fetchAll();
+		}
 	}
 ?>
