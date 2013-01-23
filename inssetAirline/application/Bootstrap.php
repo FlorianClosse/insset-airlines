@@ -27,7 +27,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$session = new Zend_Session_Namespace('inssetAirline', true);
 		return $session;
 	}
-	
+
+    protected function _initPagination(){
+        Zend_View_Helper_PaginationControl::setDefaultViewPartial('drh/pagination.phtml');
+    }
+
 	protected function _initDb()
 	{
 		$db = Zend_Db::factory(Zend_Registry::get('configs')->database);

@@ -99,24 +99,62 @@ class CommercialController extends Zend_Controller_Action
  		$Statut->addMultiOption($valide, 'Validé');
  		$Statut->addMultiOption($attente, 'en attente');
  		
- 		$aeroport = new Aeroport;
- 		$lesAeroport = $aeroport->fetchAll();
- 		$aeroport = new Zend_Form_Element_Select('aeroport');
- 		$aeroport ->setLabel('Choisir un aeroport');
- 		foreach ($lesAeroport as $unAeroport ) 
+ 		$aeroportD = new Aeroport;
+ 		$lesAeroportD = $aeroportD->fetchAll();
+ 		$aeroportD = new Zend_Form_Element_Select('aeroportD');
+ 		$aeroportD ->setLabel('Choisir un aeroport de départ');
+ 		foreach ($lesAeroportD as $unAeroportD ) 
  		{
- 			$tableauAeroport[$unAeroport -> idAeroport] = ucfirst($unAeroport->nomAeroport);
+ 			$tableauAeroportD[$unAeroportD -> idAeroport] = ucfirst($unAeroportD->nomAeroport);
  		}
+ 		$aeroportD->setMultiOptions($tableauAeroportD);
  		
- 		$aeroport->setMultiOptions($tableauAeroport);
- 		 	
+ 		$aeroportA = new Aeroport;
+ 		$lesAeroportA = $aeroportA->fetchAll();
+ 		$aeroportA = new Zend_Form_Element_Select('aeroportA');
+ 		$aeroportA ->setLabel('Choisir un aeroport d\'arrivé');
+ 		foreach ($lesAeroportA as $unAeroportA )
+ 		{
+ 			$tableauAeroportA[$unAeroportA -> idAeroport] = ucfirst($unAeroportA->nomAeroport);
+ 		}
+ 		$aeroportA->setMultiOptions($tableauAeroportA);
+ 		
+ 		$paysDe = new Pays;
+ 		$lesPaysD = $paysDe->fetchAll();
+ 		
+ 		$paysD = new Zend_Form_Element_Select('paysD');
+ 		$paysD ->setLabel('Choisir un Pays de départ');
+ 		foreach ($lesPaysD as $unPaysD)
+ 		{
+ 			$tableauPaysD[$unPaysD -> idPays] = $unPaysD->nomPays;
+ 		}
+ 		$paysD->setMultiOptions($tableauPaysD);
+ 		
+ 		$paysAe = new Pays;
+ 		$lesPaysA = $paysAe->fetchAll();
+ 		$paysA = new Zend_Form_Element_Select('paysA');
+ 		$paysA ->setLabel('Choisir un Pays d\'arrivé');
+ 		foreach ($lesPaysA as $unPaysA)
+ 		{
+ 			$tableauPaysA[$unPaysA -> idPays] = $unPaysA->nomPays;
+ 		} 		
+ 		$paysA->setMultiOptions($tableauPaysA);  			
+ 		
+ 		$date = new Zend_Form_Element_Text('datepicker');
+		$date ->setLabel('Date ');
+		$date ->setRequired(TRUE);
+		$date ->addValidator('Date');
  		
  		$boutonSubmit = new Zend_Form_Element_Submit('AjouterReservation');
  		$boutonReset = new Zend_Form_Element_Reset('Reset');
 		
-		$FormAjoutOption->addElement($Statut);
+		$FormAjoutOption->addElement($Statut);		
+		$FormAjoutOption->addElement($date);
+		$FormAjoutOption->addElement($paysD);
+		$FormAjoutOption->addElement($aeroportD);
 		$FormAjoutOption->addElement($journalDeBord);
-		$FormAjoutOption->addElement($aeroport);
+		$FormAjoutOption->addElement($paysA);
+		$FormAjoutOption->addElement($aeroportA);
 		$FormAjoutOption->addElement($boutonSubmit);
 		$FormAjoutOption->addElement($boutonReset);
 		

@@ -6,25 +6,31 @@
 		<table id="tableauTitreVol">
 			<tr>
 				<th > </th>
-				<th > Vols </th>			
+				<th > Id Journal de bord </th>	
+				<th > </th>
+				<th>  Numero de vol </th>		
 			</tr>
 		</table>
 
 		<?php 
 			$tableau = $this->tableau;
 			$formulaire = $this->formulaire;
+			$listeNumVol = $this->listeNumVol;
+			$i=0;
 					
 			echo $this->formulaire; 
 		?>
 			
 		<table id="tableauInfoVol">
 		<?php 
-				$lesVols = $this->lesVols; 
-			  	foreach($lesVols as $unVol) 
-			  	{ ?>
+				$lesJournaux = $this->lesJournaux; 
+			  	foreach($lesJournaux as $unJournal) 
+			  	{
+			  		$i++; ?>
 					<tr>
-						<td><?php echo $unVol->numVol; ?></td>
-				   </tr>
-		  <?php } ?>		
+						<td><?php echo $unJournal->idJournalDeBord; ?></td>						
+				   		<td><?php echo $listeNumVol[$i][0];?></td>	
+					</tr>
+		  <?php }?> 						
 		</table>
-<?php }?>
+	<?php }?>
