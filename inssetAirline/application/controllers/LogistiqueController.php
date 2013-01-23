@@ -45,8 +45,7 @@ class LogistiqueController extends Zend_Controller_Action
 								$tableauCom[$compteur][0] = $unCommentaire->idCommentaireVol;
 								$tableauCom[$compteur][1] = $unCommentaire->idJournalDeBord;
 								$tableauCom[$compteur][2] = $unCommentaire->titre;
-								$tableauCom[$compteur][3] = $unCommentaire->commentaire;
-								$tableauCom[$compteur][4] = $unCommentaire->idVol;							
+								$tableauCom[$compteur][3] = $unCommentaire->commentaire;															
 							}
 						}
 						$this->view->compteur = $compteur;
@@ -70,8 +69,7 @@ class LogistiqueController extends Zend_Controller_Action
 							$comvol->idCommentaireVol = '';
 							$comvol->idJournalDeBord = $_POST['journaldebord'];
 							$comvol->commentaire = $_POST['NewCom'];
-							$comvol->titre = $_POST['NewTitre'];
-							$comvol->idVol = $_POST['vol'];
+							$comvol->titre = $_POST['NewTitre'];							
 						
 							if(!empty($comvol->commentaire))
 							{
@@ -88,8 +86,8 @@ class LogistiqueController extends Zend_Controller_Action
 	//***** fonction afficher*****
 	public function affichercommentaireAction()
 	{
-		$vol = new Vol;
-		$lesVols = $vol->fetchAll();
+		$journal = new JournalDeBord;
+		$lesJournaux = $journal->fetchAll();
 		    	
     	//decorateur des cases a cocher
     	$decorateurCase = array(
@@ -117,9 +115,9 @@ class LogistiqueController extends Zend_Controller_Action
     			array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
     	);   		
     		
-    	foreach ($lesVols as $unVol)
+    	foreach ($lesJournaux as $unJournal)
     	{
-    		$tableau[] = $unVol->numVol;
+    		$tableau[] = $unJournal->idJournalDeBord;
     	}    		
     	
     	$this->view->tableau = $tableau;    		
@@ -131,10 +129,10 @@ class LogistiqueController extends Zend_Controller_Action
     	$formulaireAfficherVol -> setAttrib('id','formulaireAfficherVol');
     	$formulaireAfficherVol -> addDecorators($decorateurTableau);
     		 
-    	foreach($lesVols as $unVol)
+    	foreach($lesJournaux as $unJournal)
     	{    			
-    		$caseACocher = new Zend_Form_Element_Checkbox($unVol -> idVol);
-    		$caseACocher -> setValue($unVol -> idVol);
+    		$caseACocher = new Zend_Form_Element_Checkbox($unJournal -> idJournalDeBord);
+    		$caseACocher -> setValue($unJournal -> idJournalDeBord);
     		$caseACocher -> setDecorators($decorateurCase);
     		$formulaireAfficherVol -> addElement($caseACocher);    			
     	}    		
@@ -142,9 +140,20 @@ class LogistiqueController extends Zend_Controller_Action
     	$valider = new Zend_Form_Element_Submit('valider');
     	$valider -> setDecorators($decorateurBoutonValider);
     	$formulaireAfficherVol -> addElement($valider);
+    	
+    	$lesNumVol = $journal->getNumeroVol();
+    	
+    	$compteur =0;
+    	foreach ($lesNumVol as $unNumVol )
+    	{
+    		$compteur = $compteur + 1;
+    		$listeNumVol[$compteur][0] = $unNumVol['numVol'].'<br>'; 
+    		$this->view->listeNumVol = $listeNumVol;  	
+    	}
+    	
     		 
     	//on envoie les vols a la vue
-    	$this->view->lesVols = $lesVols;
+    	$this->view->lesJournaux = $lesJournaux;
     	$this->view->formulaire = $formulaireAfficherVol;    	
 	}
 	
@@ -167,18 +176,8 @@ class LogistiqueController extends Zend_Controller_Action
 			$NewTitre= new Zend_Form_Element_Text('NewTitre');
 			$NewTitre ->setLabel('Taper votre titre');
 			$NewTitre->setAttrib('id', 'formcommentaire');
-			$NewTitre ->setRequired(TRUE);
-			
-			$vol = new Vol;
-			$lesVols = $vol->fetchAll();
-			$vol = new Zend_Form_Element_Select('vol');
-			$vol ->setLabel('Choisir un numero vol');
-			foreach ($lesVols as $unVol )
-			{
-				$tableauVols[$unVol -> idVol] = ucfirst($unVol->numVol);
-			}		
- 			$vol->setMultiOptions($tableauVols);
-			
+			$NewTitre ->setRequired(TRUE);			
+						
  			$journalDeBord = new JournalDeBord;
  			$lesjournaldebord = $journalDeBord->fetchAll();
 			$journalDeBord = new Zend_Form_Element_Select('journaldebord');
@@ -194,8 +193,7 @@ class LogistiqueController extends Zend_Controller_Action
 			$boutonSubmit = new Zend_Form_Element_Submit('EnvoyerCommentaire');
 			$boutonReset = new Zend_Form_Element_Reset('Reset');
 			
-			$FormAjoutCommentaire->addElement($NewTitre);
-			$FormAjoutCommentaire->addElement($vol);
+			$FormAjoutCommentaire->addElement($NewTitre);			
  			$FormAjoutCommentaire->addElement($journalDeBord);
 			$FormAjoutCommentaire->addElement($NewCommentaire);
 			$FormAjoutCommentaire->addElement($boutonSubmit);

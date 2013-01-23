@@ -41,5 +41,23 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 		;
 		return $requete->query()->fetchAll();
 	}
+	
+	//fonction qui permet de recuper les numero de vol
+	public function getNumeroVol()
+	{		
+		$requete = 	 'select numVol
+					 from journalDeBord J, vol V
+					 where J.idVol = V.idVol;';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$datas = $db->query($requete)->fetchAll();
+		//Zend_Debug::dump($datas) ;
+		return $datas;
+	}
+	
+
+// 	$this->select('numVol')
+// 		->from(array('J' => 'journalDeBord'))                 
+// 		->join(array('V' => 'vol'))
+// 		->where('J.idVol = V.idVol');
 }
 ?>
