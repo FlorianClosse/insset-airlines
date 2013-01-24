@@ -8,5 +8,12 @@ class Aeroport extends Zend_Db_Table_Abstract
 			'idVille' => array(
 					'columns' => 'idVille',
 					'refTableClass' =>'ville'));
+	
+	public function selectOne($idAeroport)
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM aeroport WHERE idAeroport='.$idAeroport;
+		return $db->query($requete)->fetchAll();
+	}
 }
 ?>
