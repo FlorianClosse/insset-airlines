@@ -17,27 +17,7 @@ class CommercialController extends Zend_Controller_Action
 					$this->_helper->actionStack('ajouteroptions', 'commercial', 'default', array());
 					break;
 			}
-		}
-		
-		if(isset($_POST['AjouterReservation']))
-		{
-			$reservation = new Reservation;
-		
-			$reserv = $reservation->createRow();
-			$reserv->idReservation = '';
-			$reserv->idJournal = $_POST['journaldebord'];
-			$reserv->statutReservation = $_POST['statut'];
-		
-			if(!empty($reserv->idJournal))
-			{
-				$reserv->save();
-				echo "Réservation enregistrée";
-			}
-			else
-			{
-				echo"Erreur d'enregistrement";
-			}
-		}
+		}		
 	}
 	
 	public function afficheroptionsAction()
@@ -70,96 +50,88 @@ class CommercialController extends Zend_Controller_Action
 		}		
 	}
 	
+	//permet de demander les vols disponibles et de reserver des places
 	public function ajouteroptionsAction()
 	{
 		/* Créer un objet formulaire */
-		$FormAjoutOption = new Zend_Form();
-		 
-		/* Parametrer le formulaire */
-		$FormAjoutOption->setMethod('post')->setAction('/commercial/index');
-		$FormAjoutOption->setAttrib('id', 'FormAjoutOption');
-		 
-		/* Creer des elements de formulaire */
-		$journalDeBord = new JournalDeBord;		
- 		$lesjournaldebord = $journalDeBord->fetchAll();
- 		
-		$journalDeBord = new Zend_Form_Element_Select('journaldebord');
-		$journalDeBord ->setLabel('Choisir un id journal de bord');
+		$formDemanderLesVols = new FdemanderLesVols();
+		$formAjoutReservation = new FajoutReservation();
+		/*On instancie le model journaldebord*/
+		$journal = new JournalDeBord;
+		$lesjournaldebord=$journal->fetchAll();		
+		
+		//traitement aprés le formulaire de reservation de places
+		if(isset($_POST['Ajouter']))
+		{			
+			$data = $this->getRequest()->getPost();
+			$x = $_SESSION['nbplacedispo'] ; $y = $data['place'];
 			
-		foreach ($lesjournaldebord as $unjournaldebord )
-		{
-			$tableaujournaldebord[$unjournaldebord -> idJournalDeBord] = $unjournaldebord -> idJournalDeBord ;
-		}
+			echo 'Nombre de place choisies : '.$data['place'].'<br>';
+			if($y < $x)
+			{				
+				echo 'Nombre de places restantes : '.$resultat = $x - $y.'<br>';				
+				
+				foreach($lesjournaldebord as $unjournaldebord)
+				{
+					if($_SESSION['idjournaldebord'] == $unjournaldebord['idJournalDeBord'])
+					{
+						$sauvegarde = $journal->find($unjournaldebord['idJournalDeBord'])->current();
+						$sauvegarde-> nbPlaceDispo = $resultat;						
+						$sauvegarde->save();
+
 						
-		$journalDeBord->setMultiOptions($tableaujournaldebord);
+						
+						echo'Reservation enregistrée';
+					}
+				}	
+			}
+			else
+			{
+				echo'Il n\'y a pas assé de place disponible<br>';
+				echo 'Nombre de places disponibles :'.$x;
+			}
+				
+		}
 		
-		$Statut = new Zend_Form_Element_Select('statut');
-		$Statut ->setLabel('Choisir un statut');
-		$valide='valide';$attente='en attente';
- 		$Statut->addMultiOption($valide, 'Validé');
- 		$Statut->addMultiOption($attente, 'en attente');
- 		
- 		$aeroportD = new Aeroport;
- 		$lesAeroportD = $aeroportD->fetchAll();
- 		$aeroportD = new Zend_Form_Element_Select('aeroportD');
- 		$aeroportD ->setLabel('Choisir un aeroport de départ');
- 		foreach ($lesAeroportD as $unAeroportD ) 
- 		{
- 			$tableauAeroportD[$unAeroportD -> idAeroport] = ucfirst($unAeroportD->nomAeroport);
- 		}
- 		$aeroportD->setMultiOptions($tableauAeroportD);
- 		
- 		$aeroportA = new Aeroport;
- 		$lesAeroportA = $aeroportA->fetchAll();
- 		$aeroportA = new Zend_Form_Element_Select('aeroportA');
- 		$aeroportA ->setLabel('Choisir un aeroport d\'arrivé');
- 		foreach ($lesAeroportA as $unAeroportA )
- 		{
- 			$tableauAeroportA[$unAeroportA -> idAeroport] = ucfirst($unAeroportA->nomAeroport);
- 		}
- 		$aeroportA->setMultiOptions($tableauAeroportA);
- 		
- 		$paysDe = new Pays;
- 		$lesPaysD = $paysDe->fetchAll();
- 		
- 		$paysD = new Zend_Form_Element_Select('paysD');
- 		$paysD ->setLabel('Choisir un Pays de départ');
- 		foreach ($lesPaysD as $unPaysD)
- 		{
- 			$tableauPaysD[$unPaysD -> idPays] = $unPaysD->nomPays;
- 		}
- 		$paysD->setMultiOptions($tableauPaysD);
- 		
- 		$paysAe = new Pays;
- 		$lesPaysA = $paysAe->fetchAll();
- 		$paysA = new Zend_Form_Element_Select('paysA');
- 		$paysA ->setLabel('Choisir un Pays d\'arrivé');
- 		foreach ($lesPaysA as $unPaysA)
- 		{
- 			$tableauPaysA[$unPaysA -> idPays] = $unPaysA->nomPays;
- 		} 		
- 		$paysA->setMultiOptions($tableauPaysA);  			
- 		
- 		$date = new Zend_Form_Element_Text('datepicker');
-		$date ->setLabel('Date ');
-		$date ->setRequired(TRUE);
-		$date ->addValidator('Date');
- 		
- 		$boutonSubmit = new Zend_Form_Element_Submit('AjouterReservation');
- 		$boutonReset = new Zend_Form_Element_Reset('Reset');
-		
-		$FormAjoutOption->addElement($Statut);		
-		$FormAjoutOption->addElement($date);
-		$FormAjoutOption->addElement($paysD);
-		$FormAjoutOption->addElement($aeroportD);
-		$FormAjoutOption->addElement($journalDeBord);
-		$FormAjoutOption->addElement($paysA);
-		$FormAjoutOption->addElement($aeroportA);
-		$FormAjoutOption->addElement($boutonSubmit);
-		$FormAjoutOption->addElement($boutonReset);
-		
-		//affiche le formulaire
-		echo $FormAjoutOption;
+		//traitement aprés le formulaire de demande de vol
+		if(isset($_POST['Envoyer']))
+		{		
 			
+			$data = $this->getRequest()->getPost();	
+			
+			$date = $data['datepicker'] ;
+			$aeroportDepart = $data['aeroportD'];
+			$aeroportArrivee = 	$data['aeroportA'];
+			
+			$journal = new JournalDeBord;
+			$lesjournaldebord=$journal->getVol($date,$aeroportDepart,$aeroportArrivee);
+		
+			if(!empty($lesjournaldebord))
+			{
+				foreach($lesjournaldebord as $unjournaldebord)
+				{
+					echo'Numero du vol :  '. $unjournaldebord['numVol'].'<br/>';
+					echo'Nombre de places disponibles :  '. $unjournaldebord['nbPlaceDispo'].'<br/>';					
+				}		
+				$_SESSION['nbplacedispo']=$unjournaldebord['nbPlaceDispo'];
+				$_SESSION['idjournaldebord']=$unjournaldebord['idJournalDeBord'];
+				
+				//on affiche le formulaire
+				echo $formAjoutReservation;
+			}
+			else
+			{
+				echo'Aucun vol n\'existe avec ces critéres';
+			}
+		}
+		else 
+		{	
+			if(!isset($_POST['Ajouter']))
+			{		
+				//on affiche le formulaire
+				echo $formDemanderLesVols;
+			}
+		}			
 	}
+	
 }
