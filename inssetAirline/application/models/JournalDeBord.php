@@ -20,18 +20,6 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 					'refTableClass'=>'vol')
 	);
 	
-	
-	public function getRecupererSuivantDateEtVol($aujourdhui, $idVol)
-	{
-		$requete = $this->select()
-		->from($this)
-		->where('dateDepart=?', $aujourdhui)
-		->where('idVol=?',$idVol)
-		;
-		return $requete->query()->fetch();
-	}
-	
-	
 	// ***fonction getRecuperLesVolsDepartAujourdHui par Nicolas
 	public function getRecuperLesVolsDepartAujourdHui($date)
 	{
@@ -71,6 +59,20 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 		$requete = 'select *
 					 from journalDeBord
 					 where statut = "en vol";';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$datas = $db->query($requete)->fetchAll();
+		//Zend_Debug::dump($datas) ;
+		return $datas;
+	}
+	
+	public function getVol($date,$aeroportDepart,$aeroportArrivee)
+	{
+		$requete = 'select *
+					from journalDeBord J, vol V
+					where J.idVol = V.idVol
+					and J.dateDepart =\''.$date.'\'
+					and V.aeroportDepart =\''.$aeroportDepart.'\'
+					and V.aeroportArrivee =\''.$aeroportArrivee.'\';';
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$datas = $db->query($requete)->fetchAll();
 		//Zend_Debug::dump($datas) ;
