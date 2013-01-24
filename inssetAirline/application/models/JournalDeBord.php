@@ -20,6 +20,29 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 					'refTableClass'=>'vol')
 	);
 	
+	public function getRecupererLieuAvion($idAvion)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where idAvion = '.$idAvion.'
+		ORDER BY idJournalDeBord DESC
+		LIMIT 1';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetch();
+		return $donnees;
+	}
+	
+	
+	
+	public function getRecupererSuivantDateEtVol($aujourdhui, $idVol)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('dateDepart=?', $aujourdhui)
+		->where('idVol=?',$idVol)
+		;
+		return $requete->query()->fetch();
+	}
 	// ***fonction getRecuperLesVolsDepartAujourdHui par Nicolas
 	public function getRecuperLesVolsDepartAujourdHui($date)
 	{

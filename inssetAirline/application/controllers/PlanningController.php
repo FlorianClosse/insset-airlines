@@ -51,57 +51,124 @@ class PlanningController extends Zend_Controller_Action
     	else
     	{
     		$aeroport = $_SESSION['aeroportCreerPlanning'];
-    		echo'!'.$aeroport.'!';
     		$aujourdhui = date('Y-m-j');
     		$jour = date('N');
-    		echo '<h1>Pour le '.$aujourdhui.' pour l\'aéroport '.$aeroport.' : </h1>';
+
+    		$this->view->aujourdhui = $aujourdhui;
+    		$this->view->jour = $jour;
+    		$this->view->aeroport = $aeroport;
     		
     		$vol = new Vol();
     		$journalDeBord = new JournalDeBord();
     		$liaisonVolJour = new LiaisonVolJour();
+    		$aerop = new Aeroport();
     		
     		$lesVols = $vol->getRecuperLesVolsAujourdHui($aujourdhui, $aeroport);
-    		foreach($lesVols as $unVol)
+    		if(!empty($lesVols))
     		{
-    			
-    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol['idVol']);
-    			if(isset($journal['idJournalDeBord']))
-    			{
-    				echo 'Vol : '.$unVol['numVol'].'<br/>Fait <br/>';
-    			}
-    			else
-    			{
-    				echo '<h2>Vol : '.$unVol['numVol'].'</h2>';
-    				echo '<h3>Non programmé </h3>';
-    			}
-    			
-    		}
-    		echo '___________';
-    		$lesVols = $liaisonVolJour->getRecupererVolSuivantJour($jour);
-    		foreach($lesVols as $leVol)
-    		{
-    			$unVol = $vol->find($leVol['idVol'])->current();
-    			if($unVol->aeroportDepart == $aeroport)
-    			{
+    			foreach($lesVols as $unVol)
+	    		{
 	    			
-	    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol->idVol);
+	    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol['idVol']);
+	    			$numVols[$unVol['idVol']] = $unVol['numVol'];
+	    			
+	    			$aeroArriveeVols[$unVol['idVol']] = $aerop->find($unVol['aeroportArrivee'])->current()->nomAeroport;
+	    			$aeroDepartVols[$unVol['idVol']] = $aerop->find($unVol['aeroportDepart'])->current()->nomAeroport;
+	    			$idVols[$unVol['idVol']] = $unVol['idVol'];
 	    			if(isset($journal['idJournalDeBord']))
 	    			{
-	    				echo 'Vol : '.$unVol['numVol'].'<br/>Fait <br/>';
+						$journal[$unVol['idVol']] = 'existe';
 	    			}
 	    			else
 	    			{
-	    				echo '<h2>Vol : '.$unVol['numVol'].'</h2>';
-	    				echo '<h3>Non programmé </h3>';
+	    				$journal[$unVol['idVol']] = 'existe pas';
 	    			}
-    			}
+	    			
+	    		}
+	    		$this->view->journalsDate = $journal;
+	    		$this->view->idVolsDate = $idVols;
+	    		$this->view->numVolsDate = $numVols;
+	    		$this->view->aeroDepartVolsDate = $aeroDepartVols;
+	    		$this->view->aeroArriveeVolsDate = $aeroArriveeVols;
+	    		$this->view->lesVolsDate = $lesVols;
     		}
+    		
+    		$lesVols = $liaisonVolJour->getRecupererVolSuivantJour($jour);
+    		if(!empty($lesVols))
+    		{
+	    		foreach($lesVols as $leVol)
+	    		{
+	    			$idVols2[$leVol['idVol']] = $leVol['idVol'];
+	    			
+	    			$unVol = $vol->find($leVol['idVol'])->current();
+	    			$numVols2[$leVol['idVol']] = $unVol->numVol;
+	    			$aeroArriveeVols2[$leVol['idVol']] = $aerop->find($unVol['aeroportArrivee'])->current()->nomAeroport;
+	    			$aeroDepartVols2[$leVol['idVol']] = $aerop->find($unVol['aeroportDepart'])->current()->nomAeroport;
+	    			
+	    			$aeroportDepart[$leVol['idVol']] = $unVol->aeroportDepart;
+	    			if($unVol->aeroportDepart == $aeroport)
+	    			{
+		    			
+		    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol->idVol);
+		    			if(isset($journal['idJournalDeBord']))
+		    			{
+		    				$journal2[$leVol['idVol']] = 'existe';
+		    			}
+		    			else
+		    			{
+		    				$journal2[$leVol['idVol']] = 'existe pas';
+		    			}
+	    			}
+	    		}
+	    		$this->view->aeroportDepart = $aeroportDepart;
+	    		$this->view->journalsJour = $journal2;
+	    		$this->view->idVolsJour = $idVols2;
+	    		$this->view->numVolsJour = $numVols2;
+	    		$this->view->aeroDepartVolsJour = $aeroDepartVols2;
+	    		$this->view->aeroArriveeVolsJour = $aeroArriveeVols2;
+	    		$this->view->lesVolsJour = $lesVols;
+    		}	
     	}
     }
     
     public function volacreerAction()
     {
+    	$journalDeBord = new JournalDeBord();
+    	$avion = new Avion();
+    	$vol = new Vol();
     	
+    	$volAPlannifier = $this->_getParam('numerovol');
+    	$dateDuVolAPlannifier = $this->_getParam('date');
+    	$monAeroDepart = $vol->find($volAPlannifier)->current()->aeroportDepart;
+    	
+    	$lesAvions = $avion->fetchAll();
+    	
+    	foreach($lesAvions as $unAvion)
+    	{
+	    	$jdb = $journalDeBord->getRecupererLieuAvion($unAvion->idAvion);
+	    	
+	    	$aeroDepart = $vol->find($jdb['idVol'])->current();
+	    	$aeroDepart = $aeroDepart['aeroportArrivee'];
+	    	
+	    	if($monAeroDepart == $aeroDepart)
+	    	{
+	    		$idAvion[] = $jdb['idAvion'];
+	    		$idPilote[] = $jdb['idPilote'];
+	    		$idPilote[] = $jdb['idCoPilote'];
+	    		 
+	    	}
+    	}
+    	$this->view->leVol = $volAPlannifier;
+    	if(isset($idAvion))
+    	{
+    		$this->view->lesAvions = $idAvion;
+    	}
+    	if(isset($idPilote))
+    	{
+    		$this->view->lesPilotes = $idPilote;
+    	}
+    	
+    	$this->view->datePrevu = $dateDuVolAPlannifier;
     }
     public function modifierplanningAction()
     {
