@@ -34,7 +34,9 @@ class CommercialController extends Zend_Controller_Action
 			
 				$tableauReservations[$compteur][0] = $uneReservation->idReservation;
 				$tableauReservations[$compteur][1] = $uneReservation->statutReservation;
-				$tableauReservations[$compteur][2] = $uneReservation->idJournal;
+				$tableauReservations[$compteur][2] = $uneReservation->nbPlaceReservee;				
+				$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$uneReservation->heureReservation );
+				$tableauReservations[$compteur][4] = $uneReservation->idJournal;
 			}
 		}
 		
@@ -64,22 +66,30 @@ class CommercialController extends Zend_Controller_Action
 		if(isset($_POST['Ajouter']))
 		{			
 			$data = $this->getRequest()->getPost();
-			$x = $_SESSION['nbplacedispo'] ; $y = $data['place'];
+			$dispo = $_SESSION['nbplacedispo'] ; $place = $data['place'];
 			
-			echo 'Nombre de place choisies : '.$data['place'].'<br>';
-			if($y < $x)
+			echo 'Nombre de place choisies : '.$place.'<br>';
+			if($place < $dispo)
 			{				
-				echo 'Nombre de places restantes : '.$resultat = $x - $y.'<br>';				
+				echo 'Nombre de places restantes : '.$resultat = $dispo - $place.'<br>';				
 				
 				foreach($lesjournaldebord as $unjournaldebord)
 				{
 					if($_SESSION['idjournaldebord'] == $unjournaldebord['idJournalDeBord'])
 					{
+						$reservation = new Reservation;
+						$lesReservation = $reservation->fetchAll();
+						$ajoutReservation = $reservation->createRow();						
+						
+						$ajoutReservation -> statutReservation = 'en attente';
+						$ajoutReservation -> nbPlaceReservee = $place;
+						$ajoutReservation -> heureReservation = time();
+						$ajoutReservation -> idJournal = $unjournaldebord['idJournalDeBord'];
+						$ajoutReservation -> save();					
+						
 						$sauvegarde = $journal->find($unjournaldebord['idJournalDeBord'])->current();
 						$sauvegarde-> nbPlaceDispo = $resultat;						
 						$sauvegarde->save();
-
-						
 						
 						echo'Reservation enregistrée';
 					}
@@ -88,7 +98,7 @@ class CommercialController extends Zend_Controller_Action
 			else
 			{
 				echo'Il n\'y a pas assé de place disponible<br>';
-				echo 'Nombre de places disponibles :'.$x;
+				echo 'Nombre de places disponibles :'.$dispo;
 			}
 				
 		}
@@ -129,7 +139,7 @@ class CommercialController extends Zend_Controller_Action
 			if(!isset($_POST['Ajouter']))
 			{		
 				//on affiche le formulaire
-				echo $formDemanderLesVols;
+				echo $formDemanderLesVols;				
 			}
 		}			
 	}

@@ -5,6 +5,8 @@
 			<tr>				
 				<th > Id reservation </th>		
 				<th > Statut</th>	
+				<th > Nombre de places reservées </th>	
+				<th > Heure restante</th>	
 				<th > Id Journal de bord </th>		
 			</tr>
 		
@@ -20,11 +22,20 @@
 				{
 				?> <tr>
 				<?php 
-					for ($jj=0;$jj<3;$jj++)
+					for ($jj=0;$jj<5;$jj++)
 					{
 				?>
-					<td>
-						<?php echo $tableauReservations[$ii][$jj];?>
+					<td>						
+						<?php
+							if($tableauReservations[$ii][3] >= 2)
+							{?>							
+								<U  style= color:red;><?php echo $tableauReservations[$ii][$jj]; ?></U>
+					  <?php }
+						 	else 
+							{
+								echo $tableauReservations[$ii][$jj];
+							}
+						 ?>
 					</td>
 				<?php 			
 					}
