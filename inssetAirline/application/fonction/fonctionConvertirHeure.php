@@ -25,4 +25,22 @@
 		$resultat = $heure * 60 + $minute;
     	return $resultat;
     }
+    
+    function fonctionConvertirHeureMinutes($temps)
+    {
+    	$heure = ceil($temps / 3600);
+    	if($temps == ($heure*3600))
+    	{
+    		$resultat = $heure.' H 00';
+    	}
+    	else 
+    	{
+    		$heure = $heure -1;
+    		$minute = $temps - ($heure*3600);
+    		$minute = ceil($minute / 60) - 1;
+    		$resultat = $heure.' H '.$minute;
+    	}
+    	
+    	return $resultat;
+    }
 ?>
