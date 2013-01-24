@@ -1,34 +1,44 @@
 <a href="#?w=500" rel="popupajoutavion" class="poplight">Ajouter un avion</a>
 
-<table>
+<table class="avion">
 	<thead>
 		<tr>
 			<th></th>
 			<th>Immatriculation</th>
 			<th>Date mis en service</th>
+			<th>Statut</th>
 			<th>Modele</th>
 			<th>Aeroport d'attache</th>
 			<th>Localisation</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 <?php 
 	$lesavions = $this->lesavions;
+	$modele = new Modele();
+	$aeroport = new Aeroport();
 	foreach ($lesavions as $unAvion)
 	{
+		$lemodele = $modele->selectOne($unAvion['idModele']);
+		$laeroportDattache = $aeroport->selectOne($unAvion['idAeroportDattache']);
+		$localisation = $aeroport->selectOne($unAvion['localisation']);
 ?>
-	<tr>
-    	<td><a href="/maintenance/supprimer?supprId=<?= $unAvion['idAvion']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce projet ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
-		<td><?= $unAvion['numImmatriculation'] ;?></td>
-		<td><?= $unAvion['dateMisEnService'] ;?></td>
-		<td><?= $unAvion['idModele'] ;?></td>
-		<td><?= $unAvion['idAeroportDattache'] ;?></td>
-		<td><?= $unAvion['localisation'] ;?></td>
-	</tr>
+		<tr>
+	    	<td><a href="/maintenance/supprimer?supprId=<?= $unAvion['idAvion']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet avion ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+			<td><?= $unAvion['numImmatriculation'] ;?></td>
+			<td><?= $unAvion['dateMisEnService'] ;?></td>
+			<td><? if($unAvion['statut']==1){?>En service<?}else{?> En révision<?}?></td>
+			<td><?= $lemodele[0]['nomModele']; ?></td>
+			<td><?= $laeroportDattache[0]['nomAeroport'] ;?></td>
+			<td><?= $localisation[0]['nomAeroport'] ;?></td>
+			<td>
+				
+			</td>
+		</tr>
 <?php }?>
 	</tbody>
 </table>
-
 <div id="popupajoutavion" class="popup_block">
 	<?php echo $this->formajoutavion;?>           
 </div>
