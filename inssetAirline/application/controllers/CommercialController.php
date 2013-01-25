@@ -144,4 +144,22 @@ class CommercialController extends Zend_Controller_Action
 		}			
 	}
 	
+	public function supprimeroptionAction()
+	{
+		$reservation = new Reservation;
+		$lesReservation = $reservation->fetchAll();
+		
+		$idReservation = $this->_getParam('idReservation');	
+		
+		foreach ($lesReservation as $uneReservation)
+		{			
+			if($idReservation ==$uneReservation->idReservation)
+			{
+				$reservation->find($uneReservation->idReservation)->current()->delete();											
+			}
+		}
+		
+	
+	}
+	
 }

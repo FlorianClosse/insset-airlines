@@ -29,12 +29,17 @@
 						<?php
 							if($tableauReservations[$ii][3] >= 2)
 							{?>							
-								<U  style= color:red;><?php echo $tableauReservations[$ii][$jj]; ?></U>
+								<U  style= color:red;><?php echo $tableauReservations[$ii][$jj]; ?></U><br><br>
+								<?php $id = $tableauReservations[$ii][0]; ?>
+								<a href="<?php echo $this->baseUrl('commercial/supprimeroption')."?idReservation=$id"?>">Supprimer</a>	
+					  
 					  <?php }
 						 	else 
 							{
-								echo $tableauReservations[$ii][$jj];
-							}
+								echo $tableauReservations[$ii][$jj]; ?><br><br>
+								<a href="<?php echo $this->baseUrl('commercial/supprimeroption')."?idReservation=$id"?>">Supprimer</a>
+									
+					  <?php }
 						 ?>
 					</td>
 				<?php 			
