@@ -46,6 +46,7 @@
 								echo $tableauReservations[$ii][$jj]; ?><br><br>
 								<?php if($bool == 1)
 								{
+									$id = $tableauReservations[$ii][0];
 									$bool =0; ?>
 									
 									<a href="<?php echo $this->baseUrl('commercial/supprimeroption')."?idReservation=$id"?>">Supprimer</a> <br>
