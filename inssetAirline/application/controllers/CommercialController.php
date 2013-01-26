@@ -183,16 +183,80 @@ class CommercialController extends Zend_Controller_Action
 	
 	public function modifieroptionAction()
 	{
+		//on instancie le model
 		$reservation = new Reservation;
 		$lesReservation = $reservation->fetchAll();
 		
-		$idReservation = $this->_getParam('idReservation');
+		/*On instancie le model journaldebord*/
+		$journal = new JournalDeBord;
+		$lesJournalDeBord=$journal->fetchAll();
 		
-		foreach ($lesReservation as $uneReservation)
+		/* Créer un objet formulaire */
+		$formModifierReservation = new FmodifierReservation();		
+		
+		if(isset($_POST['Modifier']))
 		{
-			if($idReservation ==$uneReservation->idReservation)
+			//on récupére les variables stockés en session
+			$idReservation=$_SESSION['idreservation'];
+			$placeAvantModif=$_SESSION['place'];
+			$idJournal=$_SESSION['idJournal'];			
+						 			
+			//récupére les données du post et les sauvegarde 
+			$place = $this->_request->getPost('place');
+			$statut = $this->_request->getPost('statut');
+					
+			
+			foreach($lesJournalDeBord as $unJournalDeBord)
 			{
-				$reservation->find($uneReservation->idReservation)->current();
+				if($idJournal == $unJournalDeBord['idJournalDeBord'])
+				{
+					if($placeAvantModif < $place)
+					{
+						$resultat = $place - $placeAvantModif;						
+						$placeDispo = $unJournalDeBord['nbPlaceDispo'] + $resultat;
+					}
+					else
+					{
+						$resultat = $place - $placeAvantModif;
+						$placeDispo = $unJournalDeBord['nbPlaceDispo'] + $resultat;
+						
+					}
+
+					$modification= $journal->find($idJournal)->current();
+					$modification-> nbPlaceDispo = $placeDispo ;					
+					$modification->save();
+				}
+			}
+    		$sauvegarde = $reservation->find($idReservation)->current();
+			$sauvegarde-> nbPlaceReservee = $place ;
+			$sauvegarde-> statutReservation = $statut;
+			$sauvegarde->save();		
+
+			//renvoi à l'index du controller commercial
+			$this->_redirect('/commercial/index?valeur=afficher');
+		}
+		else 
+		{
+			//on récupére l'id de la reservation à modifier
+			$idReservation = $this->_getParam('idReservation');
+			
+			foreach ($lesReservation as $uneReservation)
+			{
+				if($idReservation == $uneReservation->idReservation)
+				{
+					$datas=array('statut'=>$uneReservation ->statutReservation,
+							'place'=>$uneReservation ->nbPlaceReservee);
+						
+					echo 'Id de reservation : '.$uneReservation ->idReservation;
+					
+					//on stock l'id de la reservation en session pour le récupérer
+					$_SESSION['idreservation']=$idReservation;
+					$_SESSION['place']=$uneReservation ->nbPlaceReservee;
+					$_SESSION['idJournal']=$uneReservation ->idJournal;
+					
+					$formModifierReservation->populate($datas);
+					echo $formModifierReservation;
+				}
 			}
 		}
 	}
