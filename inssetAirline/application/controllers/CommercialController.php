@@ -154,12 +154,47 @@ class CommercialController extends Zend_Controller_Action
 		foreach ($lesReservation as $uneReservation)
 		{			
 			if($idReservation ==$uneReservation->idReservation)
+			{				
+				$journal = new JournalDeBord;
+				$lesJournaux = $journal->fetchAll();				
+				
+				foreach ($lesJournaux as $unJournal)
+				{
+					if($uneReservation->idJournal == $unJournal->idJournalDeBord )
+					{
+						//supprime la reservation selectionnée
+						$sauvegarde= $journal->find($unJournal->idJournalDeBord)->current();
+						$a = $sauvegarde->nbPlaceDispo ; 
+						$b = $uneReservation->nbPlaceReservee;
+						$resultat = $a+$b;
+						$sauvegarde ->nbPlaceDispo = $resultat;
+						$sauvegarde->save();
+					}
+				}
+				
+				//supprime la reservation selectionnée
+				$reservation->find($uneReservation->idReservation)->current()->delete();
+				
+				//renvoi à l'index du controller commercial
+				$this->_redirect('/commercial/index?valeur=afficher');
+			}
+		}		
+	}
+	
+	public function modifieroptionAction()
+	{
+		$reservation = new Reservation;
+		$lesReservation = $reservation->fetchAll();
+		
+		$idReservation = $this->_getParam('idReservation');
+		
+		foreach ($lesReservation as $uneReservation)
+		{
+			if($idReservation ==$uneReservation->idReservation)
 			{
-				$reservation->find($uneReservation->idReservation)->current()->delete();											
+				$reservation->find($uneReservation->idReservation)->current();
 			}
 		}
-		
-	
 	}
 	
 }
