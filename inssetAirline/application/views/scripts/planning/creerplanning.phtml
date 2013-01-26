@@ -20,8 +20,11 @@ $aeroDepartVolsJour = $this->aeroDepartVolsJour;
 $aeroArriveeVolsJour = $this->aeroArriveeVolsJour;
 $lesVolsJour = $this->lesVolsJour;
 
-?>
 
+$message = $this->message;
+if(isset($message))
+	echo $message;
+?>
 <a href="<?php echo $this->baseUrl('planning/index'); ?>?valeur=creer&retour=oui">
 	Retour
 </a>
