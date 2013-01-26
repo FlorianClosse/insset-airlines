@@ -217,9 +217,12 @@ class CommercialController extends Zend_Controller_Action
 					}
 					else
 					{
-						$resultat = $place - $placeAvantModif;
-						$placeDispo = $unJournalDeBord['nbPlaceDispo'] + $resultat;
-						
+						if($placeAvantModif > $place)
+						{
+							$resultat = $place - $placeAvantModif;
+							$placeDispo = $unJournalDeBord['nbPlaceDispo'] + $resultat;
+						}
+						$placeDispo = $unJournalDeBord['nbPlaceDispo'];
 					}
 
 					$modification= $journal->find($idJournal)->current();
