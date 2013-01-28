@@ -1,8 +1,12 @@
 package com.example.inssetairlines;
 
+import seb.util.IoSeb;
 import seb.util.ToastSeb;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +18,10 @@ public class Calendrier extends Activity {
 	
 	CalendarView calendrierRevisions = null;
 	Button boutonValider = null;
+	int idAvion;
+	String statutRevision;
+	String immatriculationAvion;
+	String datePrevue;
 	int annee = 0;
 	int mois = 0;
 	int jour = 0;
@@ -26,8 +34,10 @@ public class Calendrier extends Activity {
         calendrierRevisions.setOnDateChangeListener(listenerDateChange);
         boutonValider = (Button)findViewById(R.id.buttonValiderDateRevision);
         boutonValider.setOnClickListener(listenerValider);
-        
-        //ajouter intent...getExtra... avec idRevision et/ou idAvion
+        Intent t = getIntent();
+        idAvion = t.getIntExtra("idAvion", 0);
+        immatriculationAvion = t.getStringExtra("numImmatri");
+        statutRevision = t.getStringExtra("statutRev");
     }
 
     
@@ -36,13 +46,21 @@ public class Calendrier extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(annee != 0) { // tester valider de la date choisie
-				//si date valide:
-				String date = String.valueOf(annee)+"-"+String.valueOf(mois)+"-"+String.valueOf(jour);
-				ToastSeb.toastSeb(getApplicationContext(), date);
-				//enregistrement de la date prévue de la revision
-				finish();  //on peux mettre finish dans un handler
-			}
+			boutonValider.setEnabled(false);
+				datePrevue = String.valueOf(annee)+"-"+String.valueOf(mois)+"-"+String.valueOf(jour);
+				IoSeb ioSeb = new IoSeb();
+				ioSeb.ajoutParam("idAvion", String.valueOf(idAvion));
+				ioSeb.ajoutParam("datePrevue", datePrevue);
+				ioSeb.ajoutParam("immatriculationAvion", immatriculationAvion);
+				ioSeb.ajoutParam("statutRevision", statutRevision);
+				ioSeb.inputSeb(UrlScriptsPhp.urlValiderDateRevisionPrevue, handlerValiderDate, getApplicationContext());
+		}
+	};
+	
+	private Handler handlerValiderDate = new Handler() {
+		public void handleMessage(Message msg) {
+			ToastSeb.toastSeb(getApplicationContext(), "Révision prévue le "+datePrevue+" pour "+immatriculationAvion);
+			finish();
 		}
 	};
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import seb.util.IoSeb;
+import android.R.id;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,10 +19,13 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class PlanifierRevision extends Activity {
 
+	static float MARGE_HEURES_VOL = 0.9F;
+
 	ListView listeAvionsAmettreEnRev = null;
 
-	String[] numImmatri = { "avion1", "avion2", "avion3" };
-	String[] typeRev = { "grande", "petite", "grande" };
+	String[] numImmatri = null;
+	String[] typeRev = null;
+	int[] idAvions;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,35 +45,45 @@ public class PlanifierRevision extends Activity {
 				long arg3) {
 			// TODO Auto-generated method stub
 			Intent t = new Intent(PlanifierRevision.this, Calendrier.class);
+			t.putExtra("idAvion", idAvions[position]);
 			t.putExtra("numImmatri", numImmatri[position]);
+			t.putExtra("statutRev", typeRev[position]);
 			startActivity(t);
+			finish();
 		}
 	};
 
 	public void afficherListeAvionAmettreEnRevision() {
 
-		/*
-		 * mettre requete IoSeb ioSeb = new IoSeb(); ioSeb.ajoutParam("param",
-		 * "param"); // param inutile
-		 * ioSeb.outputSeb(UrlScriptsPhp.urlLireListeAvionsEnRevision, new
-		 * String[] { "idAvion", "immatriculationAvion", "idRevision",
-		 * "dateDebut", "statutRevision" }, getApplicationContext(),
-		 * handlerListeAvionsAmettreEnRevision);
-		 */
-		remplaceHandlerPourTests();  //a supprimer
+		
+		  IoSeb ioSeb = new IoSeb(); ioSeb.ajoutParam("param", "param"); // param inutile
+		  ioSeb.outputSeb(UrlScriptsPhp.urlLireListeAvionsAenvoyerEnRevision, new
+		  String[] { "idAvion", "numImmatriculation", "periodeGrandeRevision",
+		  "periodePetiteRevision", "nbHeureVolDepuisGrandeRevision", "nbHeureVolDepuisPetiteRevision" }, getApplicationContext(),
+		  handlerListeAvionsAenvoyerEnRevision);
 	}
 
-	// Handler handlerListeAvionsAmettreEnRevision = new Handler() {    //enlever comment
-	// public void handleMessage(Message msg) {      //enlever comment
-	public void remplaceHandlerPourTests() {
+	 Handler handlerListeAvionsAenvoyerEnRevision = new Handler() { 
+	 public void handleMessage(Message msg) {  
 		ArrayList<HashMap<String, String>> lAvions = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> avionRev = new HashMap<String, String>();
-		for (int i = 0; i < 3; i++) { // remplacer 3 par
-										// IoSeb.tabResultats.length
+		typeRev = new String[IoSeb.tabResultats.length];
+		numImmatri = new String[IoSeb.tabResultats.length];
+		idAvions = new int[IoSeb.tabResultats.length];
+		for (int i = 0; i < IoSeb.tabResultats.length; i++) {
 			avionRev = new HashMap<String, String>();
-			avionRev.put("numImmatri", numImmatri[i]); // remplacer
-														// numImmatri[i] par
-														// IoSeb.tabResultats[i][0]
+			avionRev.put("numImmatri", IoSeb.tabResultats[i][1]);
+			numImmatri[i] = IoSeb.tabResultats[i][1];
+			idAvions[i] = Integer.valueOf(IoSeb.tabResultats[i][0]);
+			
+			if(Integer.valueOf(IoSeb.tabResultats[i][4]) >= Integer.valueOf(IoSeb.tabResultats[i][2])*MARGE_HEURES_VOL) {
+				typeRev[i] = "grande";
+			}
+			else {
+				if(Integer.valueOf(IoSeb.tabResultats[i][5]) >= Integer.valueOf(IoSeb.tabResultats[i][3])*MARGE_HEURES_VOL) {
+					typeRev[i] = "petite";
+				}
+			}
 			avionRev.put("typeRev", typeRev[i]);
 			lAvions.add(avionRev);
 		}
@@ -80,7 +94,7 @@ public class PlanifierRevision extends Activity {
 		listeAvionsAmettreEnRev.setAdapter(adapter);
 	}
 
-	// };           //enlever comment
+	 };
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
