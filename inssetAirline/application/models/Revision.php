@@ -19,5 +19,24 @@ class Revision extends Zend_Db_Table_Abstract
 		->where('datePrevue=?', $date);
 		return $requete->query()->fetch();
 	}
+	
+	public function isPlannifie($idAvion)
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM revision WHERE idAvion='.$idAvion.' AND dateFin=\'NULL\'';
+		return $db->query($requete)->fetchAll();
+	}
+	public function getRevisionPlannifiees()
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM revision WHERE dateFin=\'NULL\' OR dateDebut=\'NULL\'';
+		return $db->query($requete)->fetchAll();
+	}
+	public function selectOne($idRevision)
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM revision WHERE idRevision='.$idRevision;
+		return $db->query($requete)->fetchAll();
+	}
 }
 ?>

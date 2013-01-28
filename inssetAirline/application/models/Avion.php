@@ -26,5 +26,12 @@
 			$requete = 'SELECT * FROM avion';
 			return $db->query($requete)->fetchAll();
 		}
+		
+		public function selectOne($idAvion)
+		{
+			$db = Zend_Db_Table::getDefaultAdapter();
+			$requete = 'SELECT * FROM avion WHERE idAvion='.$idAvion;
+			return $db->query($requete)->fetchAll();
+		}
 	}
 ?>

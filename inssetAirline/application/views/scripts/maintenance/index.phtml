@@ -1,5 +1,7 @@
 <a href="#?w=500" rel="popupajoutavion" class="poplight">Ajouter un avion</a>
-
+<br /><br />
+<a href="/maintenance/afficherrevision">Gérer les révisions</a>
+<br /><br />
 <table class="avion">
 	<thead>
 		<tr>
@@ -10,12 +12,13 @@
 			<th>Modele</th>
 			<th>Aeroport d'attache</th>
 			<th>Localisation</th>
-			<th></th>
+			<th>Révisions</th>
 		</tr>
 	</thead>
 	<tbody>
 <?php 
 	$lesavions = $this->lesavions;
+	$revision = new Revision();
 	$modele = new Modele();
 	$aeroport = new Aeroport();
 	foreach ($lesavions as $unAvion)
@@ -23,17 +26,36 @@
 		$lemodele = $modele->selectOne($unAvion['idModele']);
 		$laeroportDattache = $aeroport->selectOne($unAvion['idAeroportDattache']);
 		$localisation = $aeroport->selectOne($unAvion['localisation']);
+		$plannifie=$revision->isPlannifie($unAvion['idAvion']);
 ?>
 		<tr>
 	    	<td><a href="/maintenance/supprimer?supprId=<?= $unAvion['idAvion']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet avion ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
 			<td><?= $unAvion['numImmatriculation'] ;?></td>
 			<td><?= $unAvion['dateMisEnService'] ;?></td>
-			<td><? if($unAvion['statut']==1){?>En service<?}else{?> En révision<?}?></td>
+			<td><?= ucfirst ($unAvion['statut']);?></td>
 			<td><?= $lemodele[0]['nomModele']; ?></td>
 			<td><?= $laeroportDattache[0]['nomAeroport'] ;?></td>
 			<td><?= $localisation[0]['nomAeroport'] ;?></td>
 			<td>
-				
+				<?php 
+				if(count($plannifie)<1)
+				{
+					if($unAvion['statut']!='en révision')
+					{
+						if($unAvion['nbHeureVolDepuisGrandeRevision']>= $lemodele[0]['periodeGrandeRevision'])
+						{?>
+							<a href="/maintenance/plannifier?idAvion=<?= $unAvion['idAvion'] ;?>&statut=grande">Plannifier</a>
+					<?php }
+						else
+						{
+							if($unAvion['nbHeureVolDepuisPetiteRevision']>= $lemodele[0]['periodePetiteRevision'])
+							{?>
+								<a href="/maintenance/plannifier?idAvion=<?= $unAvion['idAvion'];?>&statut=petite">Plannifier</a>
+						<?php }
+						}
+					 }
+				}
+				?>
 			</td>
 		</tr>
 <?php }?>
@@ -42,3 +64,4 @@
 <div id="popupajoutavion" class="popup_block">
 	<?php echo $this->formajoutavion;?>           
 </div>
+	           
