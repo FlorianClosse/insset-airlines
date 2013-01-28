@@ -100,5 +100,17 @@ class Vol extends Zend_Db_Table_Abstract
 		return $requete->query()->fetchAll();
 	}
 	
+	public function getRecuperUnVolAvecDateDepartArriveeEtNom($aujourdhui, $aeroportDepart, $aeroportArrivee, $nom)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('datePrevu=?', $aujourdhui)
+		->where('aeroportDepart=?', $aeroportDepart)
+		->where('aeroportArrivee=?', $aeroportArrivee)
+		->where('numVol=?', $nom)
+		;
+		return $requete->query()->fetch();
+	}
+	
 }
 ?>
