@@ -35,7 +35,11 @@ if(isset($message))
 <h1>Pour le <?php echo $aujourdhui; ?> pour l'aéroport <?php echo $aeroport; ?> : </h1>
 <?php }?>
 
-<?php if(isset($lesVolsDate)) { foreach($lesVolsDate as $unVol) { if($journalsDate[$unVol['idVol']] == 'existe pas'){?>
+<?php if(isset($lesVolsDate)) 
+{ 
+	foreach($lesVolsDate as $unVol) 
+	{ 
+		if($journalsDate[$unVol['idVol']] == 'existe pas'){?>
 		Vol de <?php echo $aeroDepartVolsDate[$unVol['idVol']]; ?> à <?php echo $aeroArriveeVolsDate[$unVol['idVol']]; ?> : <br/>
 		<a href="<?php echo $this->baseUrl('planning/volacreer'); ?>?numerovol=<?php echo $idVolsDate[$unVol['idVol']]; ?>&date=<?php echo $aujourdhui; ?>">
 		Créer le vol n° <?php echo $numVolsDate[$unVol['idVol']]; ?>

@@ -9,5 +9,15 @@ class Revision extends Zend_Db_Table_Abstract
 					'columns'=>'idJournal',
 					'refTableClass'=>'journalDeBord')
 	);
+	
+	// fonction fait par Nicolas
+	public function getRecuperRevisionDUnAvionAUneDateDonnee($avion, $date)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('idAvion=?', $avion)
+		->where('datePrevue=?', $date);
+		return $requete->query()->fetch();
+	}
 }
 ?>

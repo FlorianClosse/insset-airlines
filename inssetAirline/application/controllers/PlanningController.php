@@ -67,6 +67,8 @@ class PlanningController extends Zend_Controller_Action
 	    	$journalDeBord = new JournalDeBord();
 	    	$liaisonVolJour = new LiaisonVolJour();
 	    	$aerop = new Aeroport();
+	    	$avion = new Avion();
+	    	$revision = new Revision();
 	    	
 	    	
 	    	$recupDate = $this->_getParam('date');
@@ -184,71 +186,117 @@ class PlanningController extends Zend_Controller_Action
 	    		$this->view->jour = $jour;
 	    		$this->view->aeroport = $aeroport;
 	    		
-	    		$lesVols = $vol->getRecuperLesVolsAujourdHui($aujourdhui, $aeroport);
-	    		if(!empty($lesVols))
+	    		
+	    		
+	    		$lesAvions = $avion->fetchAll();
+	    		
+	    		foreach($lesAvions as $unAvion)
 	    		{
-	    			foreach($lesVols as $unVol)
-		    		{
-		    			
-		    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol['idVol']);
-		    			$numVols[$unVol['idVol']] = $unVol['numVol'];
-		    			
-		    			$aeroArriveeVols[$unVol['idVol']] = $aerop->find($unVol['aeroportArrivee'])->current()->nomAeroport;
-		    			$aeroDepartVols[$unVol['idVol']] = $aerop->find($unVol['aeroportDepart'])->current()->nomAeroport;
-		    			$idVols[$unVol['idVol']] = $unVol['idVol'];
-		    			if(isset($journal['idJournalDeBord']))
-		    			{
-							$journal[$unVol['idVol']] = 'existe';
-		    			}
-		    			else
-		    			{
-		    				$journal[$unVol['idVol']] = 'existe pas';
-		    			}
-		    			
-		    		}
-		    		$this->view->journalsDate = $journal;
-		    		$this->view->idVolsDate = $idVols;
-		    		$this->view->numVolsDate = $numVols;
-		    		$this->view->aeroDepartVolsDate = $aeroDepartVols;
-		    		$this->view->aeroArriveeVolsDate = $aeroArriveeVols;
-		    		$this->view->lesVolsDate = $lesVols;
+	    			$jdb = $journalDeBord->getRecupererLieuAvion($unAvion->idAvion);
+	    			$aeroDepart = $vol->find($jdb['idVol'])->current();
+	    			$aeroDepart = $aeroDepart['aeroportArrivee'];
+	    			if($aeroport == $aeroDepart)
+	    			{
+	    				$tabAvions[] = $jdb['idAvion'];
+	    			}
+	    		}
+	    		if(isset($tabAvions))
+	    		{
+	    			$recupDateDemain = $recupDate + 60 * 60 * 24;
+	    			$demain = date('Y-m-j', $recupDateDemain);
+	    			foreach($tabAvions as $unTabAvion)
+	    			{
+	    				$info = $revision->getRecuperRevisionDUnAvionAUneDateDonnee($unTabAvion,$demain);
+	    				if($info)
+	    				{
+	    					$infoAvion = $avion->find($unTabAvion)->current();
+		    				$aeroportAttache = $infoAvion->idAeroportDattache;
+		    				$immatricule = $infoAvion->numImmatriculation;
+		    				if($aeroportAttache != $aeroport)
+		    				{
+		    					$maligne = $vol->createRow();
+		    					$maligne -> numVol = 'indefini... <span class="pasDeVols">Vol vers maintenance pour l\'avion '.$immatricule.'</span>'; 	
+		    					$maligne -> aeroportDepart = $aeroport;
+		    					$maligne -> aeroportArrivee = $aeroportAttache;	
+		    					$maligne -> datePrevu = $aujourdhui;
+		    					$maligne -> dureeVol = 150;
+		    					$maligne -> save();
+	    					}
+	    				}
+	    			}
 	    		}
 	    		
-	    		$lesVols = $liaisonVolJour->getRecupererVolSuivantJour($jour);
-	    		if(!empty($lesVols))
-	    		{
-		    		foreach($lesVols as $leVol)
+// 	    		if()
+// 	    		{
+// 	    		}
+// 	    		else
+// 	    		{
+		    		$lesVols = $vol->getRecuperLesVolsAujourdHui($aujourdhui, $aeroport);
+		    		if(!empty($lesVols))
 		    		{
-		    			$idVols2[$leVol['idVol']] = $leVol['idVol'];
-		    			
-		    			$unVol = $vol->find($leVol['idVol'])->current();
-		    			$numVols2[$leVol['idVol']] = $unVol->numVol;
-		    			$aeroArriveeVols2[$leVol['idVol']] = $aerop->find($unVol['aeroportArrivee'])->current()->nomAeroport;
-		    			$aeroDepartVols2[$leVol['idVol']] = $aerop->find($unVol['aeroportDepart'])->current()->nomAeroport;
-		    			
-		    			$aeroportDepart[$leVol['idVol']] = $unVol->aeroportDepart;
-		    			if($unVol->aeroportDepart == $aeroport)
-		    			{
+		    			foreach($lesVols as $unVol)
+			    		{
 			    			
-			    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol->idVol);
+			    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol['idVol']);
+			    			$numVols[$unVol['idVol']] = $unVol['numVol'];
+			    			
+			    			$aeroArriveeVols[$unVol['idVol']] = $aerop->find($unVol['aeroportArrivee'])->current()->nomAeroport;
+			    			$aeroDepartVols[$unVol['idVol']] = $aerop->find($unVol['aeroportDepart'])->current()->nomAeroport;
+			    			$idVols[$unVol['idVol']] = $unVol['idVol'];
 			    			if(isset($journal['idJournalDeBord']))
 			    			{
-			    				$journal2[$leVol['idVol']] = 'existe';
+								$journal[$unVol['idVol']] = 'existe';
 			    			}
 			    			else
 			    			{
-			    				$journal2[$leVol['idVol']] = 'existe pas';
+			    				$journal[$unVol['idVol']] = 'existe pas';
 			    			}
-		    			}
+			    			
+			    		}
+			    		$this->view->journalsDate = $journal;
+			    		$this->view->idVolsDate = $idVols;
+			    		$this->view->numVolsDate = $numVols;
+			    		$this->view->aeroDepartVolsDate = $aeroDepartVols;
+			    		$this->view->aeroArriveeVolsDate = $aeroArriveeVols;
+			    		$this->view->lesVolsDate = $lesVols;
 		    		}
-		    		$this->view->aeroportDepart = $aeroportDepart;
-		    		$this->view->journalsJour = $journal2;
-		    		$this->view->idVolsJour = $idVols2;
-		    		$this->view->numVolsJour = $numVols2;
-		    		$this->view->aeroDepartVolsJour = $aeroDepartVols2;
-		    		$this->view->aeroArriveeVolsJour = $aeroArriveeVols2;
-		    		$this->view->lesVolsJour = $lesVols;
-	    		}
+		    		
+		    		$lesVols = $liaisonVolJour->getRecupererVolSuivantJour($jour);
+		    		if(!empty($lesVols))
+		    		{
+			    		foreach($lesVols as $leVol)
+			    		{
+			    			$idVols2[$leVol['idVol']] = $leVol['idVol'];
+			    			
+			    			$unVol = $vol->find($leVol['idVol'])->current();
+			    			$numVols2[$leVol['idVol']] = $unVol->numVol;
+			    			$aeroArriveeVols2[$leVol['idVol']] = $aerop->find($unVol['aeroportArrivee'])->current()->nomAeroport;
+			    			$aeroDepartVols2[$leVol['idVol']] = $aerop->find($unVol['aeroportDepart'])->current()->nomAeroport;
+			    			
+			    			$aeroportDepart[$leVol['idVol']] = $unVol->aeroportDepart;
+			    			if($unVol->aeroportDepart == $aeroport)
+			    			{
+				    			
+				    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol->idVol);
+				    			if(isset($journal['idJournalDeBord']))
+				    			{
+				    				$journal2[$leVol['idVol']] = 'existe';
+				    			}
+				    			else
+				    			{
+				    				$journal2[$leVol['idVol']] = 'existe pas';
+				    			}
+			    			}
+			    		}
+			    		$this->view->aeroportDepart = $aeroportDepart;
+			    		$this->view->journalsJour = $journal2;
+			    		$this->view->idVolsJour = $idVols2;
+			    		$this->view->numVolsJour = $numVols2;
+			    		$this->view->aeroDepartVolsJour = $aeroDepartVols2;
+			    		$this->view->aeroArriveeVolsJour = $aeroArriveeVols2;
+			    		$this->view->lesVolsJour = $lesVols;
+		    		}
+// 	    		}
 			}	
     	}
     }
@@ -260,6 +308,8 @@ class PlanningController extends Zend_Controller_Action
     	$vol = new Vol();
     	$pilote = new Pilote();
     	$modele = new Modele();
+    	$liaionBrevetModele = new LiaisonBrevetModele();
+    	$liaisonPiloteBrevet = new LiaisonPiloteBrevet();
     	
     	$volAPlannifier = $this->_getParam('numerovol');
     	$dateDuVolAPlannifier = $this->_getParam('date');
@@ -308,49 +358,107 @@ class PlanningController extends Zend_Controller_Action
 		    	
 		    	if($monAeroDepart == $aeroDepart)
 		    	{
-		    		$tabAvion = array(
-		    				$jdb['idAvion'] => $numAvion
-		    		);
-		    		$tabPilote = array(
-		    				$jdb['idPilote'] => $nomPrenomPilote,
-		    				$jdb['idCoPilote'] => $nomPrenomcoPilote
-		    		);
+		    		$tabAvion = array($jdb['idAvion'] => $numAvion);
+		    		if(isset($_POST['boutonAvion']))
+		    		{
+			    		$monAvion = $_POST['ChoixDesAvions'];
+			    		$avions = $avion->find($monAvion)->current();
+			    		$nomDeAvion = $avions['numImmatriculation'];
+			    		$this->view->monAvion = $nomDeAvion;
+			    		$avions = $avion->find($monAvion)->current();
+			    		$idModele = $avions['idModele'];
+			    		
+			    		$lesBrevetsModeles = $liaionBrevetModele->fetchAll();
+			    		foreach($lesBrevetsModeles as $unBrevetModele)
+			    		{
+			    			if($idModele == $unBrevetModele['idModele'])
+			    			{
+			    				$listeBrevets[] = $unBrevetModele['idBrevet'];
+			    			}
+			    		}
+			    		if(!isset($listeBrevets))
+			    		{
+			    			$listeBrevets[] = 1;
+			    		}
+			    		
+			    		$lesBrevetsPilotes = $liaisonPiloteBrevet->fetchAll();
+			    		foreach($listeBrevets as $unBrevet)
+			    		{
+				    		foreach($lesBrevetsPilotes as $unBrevetPilote)
+				    		{
+				    			if($unBrevet == $unBrevetPilote['idBrevet'])
+				    			{
+				    				$listePilotes[] = $unBrevetPilote['idPilote'];
+				    			}
+				    		}
+			    		}
+			    		foreach($listePilotes as $unPilote)
+			    		{
+				    		if($jdb['idPilote'] == $unPilote)
+				    			$tabPilote = array($jdb['idPilote'] => $nomPrenomPilote);
+				    		if($jdb['idCoPilote'] == $unPilote)
+				    			$tabPilote = array($jdb['idCoPilote'] => $nomPrenomcoPilote);
+			    		}
+		    		}
 		    	}
 	    	}
-	    	$erreur = 0;
-	    	if(!isset($tabAvion))
-	    		$erreur = 1;
-	    	if(!isset($tabPilote))
-	    		$erreur = 1;
-	    	
-	    	if($erreur == 0)
+	    	if(isset($tabAvion))
 	    	{
-		    	//on crée le formulaire
-		    	$formulaireAjout = new Zend_Form;
-		    	$formulaireAjout -> setAttrib('id','formulaireAjout');
-		    	$formulaireAjout -> setMethod('post');
-		    	$formulaireAjout -> setAction('/planning/volacreer?retour=oui&numerovol='.$volAPlannifier.'&date='.$dateDuVolAPlannifier);
-		    	 
-		    	$choixAvion = new Zend_Form_Element_Select('ChoixDesAvions');
-		    	$choixAvion -> setLabel('Choisir l\'avion');
-		    	$choixAvion -> setMultiOptions($tabAvion);
-				$choixAvion -> setValue($tabAvion);
-		    	$formulaireAjout -> addElement($choixAvion);
-		    	
-		    	$choixPilote = new Zend_Form_Element_Select('ChoixDesPilotes');
-		    	$choixPilote -> setLabel('Choisir le pilote');
-		    	$choixPilote -> setMultiOptions($tabPilote);
-		    	$formulaireAjout -> addElement($choixPilote);
-		    	
-		    	$choixCoPilote = new Zend_Form_Element_Select('ChoixDesCoPilotes');
-		    	$choixCoPilote -> setLabel('Choisir le co-pilote');
-		    	$choixCoPilote -> setMultiOptions($tabPilote);
-		    	$formulaireAjout -> addElement($choixCoPilote);
-		    	
-		    	$envoyer = new Zend_Form_Element_Submit('boutonAjouterJDB');
-		    	$envoyer -> setLabel('Ajouter');
-		    	$formulaireAjout -> addElement($envoyer);
-		    	$this->view->formulaire = $formulaireAjout;
+		    	if(!isset($_POST['boutonAvion']))
+		    	{
+			    	//on crée le formulaire
+			    	$formulaireAjout = new Zend_Form;
+			    	$formulaireAjout -> setAttrib('id','formulaireAjout');
+			    	$formulaireAjout -> setMethod('post');
+			    	$formulaireAjout -> setAction('/planning/volacreer?numerovol='.$volAPlannifier.'&date='.$dateDuVolAPlannifier);
+			    	 
+			    	$choixAvion = new Zend_Form_Element_Select('ChoixDesAvions');
+			    	$choixAvion -> setLabel('Choisir l\'avion');
+			    	$choixAvion -> setMultiOptions($tabAvion);
+					$choixAvion -> setValue($tabAvion);
+			    	$formulaireAjout -> addElement($choixAvion);
+			    	
+			    	$envoyer = new Zend_Form_Element_Submit('boutonAvion');
+			    	$envoyer -> setLabel('Ajouter');
+			    	$formulaireAjout -> addElement($envoyer);
+			    	$this->view->formulaire = $formulaireAjout;
+		    	}
+		    	else
+		    	{
+		    		if(isset($tabPilote))
+		    		{
+			    		//on crée le formulaire
+			    		$formulaireAjout = new Zend_Form;
+			    		$formulaireAjout -> setAttrib('id','formulaireAjout');
+			    		$formulaireAjout -> setMethod('post');
+			    		$formulaireAjout -> setAction('/planning/volacreer?retour=oui&numerovol='.$volAPlannifier.'&date='.$dateDuVolAPlannifier);
+			    		 
+			    		$choixPilote = new Zend_Form_Element_Select('ChoixDesPilotes');
+	    		    	$choixPilote -> setLabel('Choisir le pilote');
+	    		    	$choixPilote -> setMultiOptions($tabPilote);
+	    		    	$formulaireAjout -> addElement($choixPilote);
+	    		
+	    		    	$choixCoPilote = new Zend_Form_Element_Select('ChoixDesCoPilotes');
+	    		    	$choixCoPilote -> setLabel('Choisir le co-pilote');
+	    		    	$choixCoPilote -> setMultiOptions($tabPilote);
+	    		    	$formulaireAjout -> addElement($choixCoPilote);
+			    		
+			    		$envoyer = new Zend_Form_Element_Submit('boutonAjouterJDB');
+			    		$envoyer -> setLabel('Ajouter');
+			    		$formulaireAjout -> addElement($envoyer);
+			    		$this->view->formulaire = $formulaireAjout;
+		    		}
+		    		else
+		    		{
+		    			$message = 'Aucun pilote présent n\'est habilité à piloter cet avion...';
+		    			$this->view->message = $message;
+		    		}
+		    	}
+	    	}
+	    	else
+	    	{
+	    		$message = 'Aucun avion n\'est présent...';
+	    		$this->view->message = $message;
 	    	}	 
 	    	
 	    	//on envoie les données a la vue

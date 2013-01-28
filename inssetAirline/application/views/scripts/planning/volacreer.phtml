@@ -4,20 +4,18 @@ $volAPlannifier = $this->leVol;
 $idAvion = $this->lesAvions;
 $idPilote = $this->lesPilotes;
 $dateDuVolAPlannifier = $this->datePrevu;
+$monAvion = $this->monAvion;
+$message = $this->message;
 ?>
 
 Vol: <?php echo $volAPlannifier;?> <br/>
-date prevu: <?php echo $dateDuVolAPlannifier;?> <br/>
-________________________________________________<br/>
-Les Avions disponibles: <br/>
-<?php  if(isset($idAvion)) { foreach($idAvion as $unAvion) { ?>
-<?php echo $unAvion; ?><br/>
-<?php } }?>
-________________________________________________<br/>
-Les Pilotes et copilotes disponibles: <br/>
-<?php  if(isset($idPilote)) { foreach($idPilote as $unPilote) { ?>
-<?php echo $unPilote; ?><br/>
-<?php } }?>
+Date prevu: <?php echo $dateDuVolAPlannifier;?> <br/>
+<?php if(isset($monAvion)){?>
+Avion choisie: <?php echo $monAvion;?> <br/>
+<?php }?>
+<?php if(isset($message)){?>
+<?php echo $message;?> <br/>
+<?php }?>
 
 <?php 
 $formulaire = $this->formulaire; 
