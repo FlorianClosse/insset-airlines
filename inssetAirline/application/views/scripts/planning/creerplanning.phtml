@@ -1,10 +1,50 @@
 <?php 
 //on récupère les infos du controlleur
 $formulaire = $this->formulaire;
-?>
+$aujourdhui = $this->aujourdhui;
+$jour = $this->jour;
+$aeroport = $this->aeroport;
 
+$journalsDate = $this->journalsDate;
+$idVolsDate = $this->idVolsDate;
+$numVolsDate = $this->numVolsDate;
+$aeroDepartVolsDate = $this->aeroDepartVolsDate;
+$aeroArriveeVolsDate = $this->aeroArriveeVolsDate;
+$lesVolsDate = $this->lesVolsDate;
+
+$aeroportDepart = $this->aeroportDepart;
+$journalsJour = $this->journalsJour;
+$idVolsJour = $this->idVolsJour;
+$numVolsJour = $this->numVolsJour;
+$aeroDepartVolsJour = $this->aeroDepartVolsJour;
+$aeroArriveeVolsJour = $this->aeroArriveeVolsJour;
+$lesVolsJour = $this->lesVolsJour;
+
+
+$message = $this->message;
+if(isset($message))
+	echo $message;
+?>
 <a href="<?php echo $this->baseUrl('planning/index'); ?>?valeur=creer&retour=oui">
 	Retour
 </a>
 	
 <?php echo $formulaire; ?>
+
+<?php if(isset($aujourdhui)) { ?>
+<h1>Pour le <?php echo $aujourdhui; ?> pour l'aéroport <?php echo $aeroport; ?> : </h1>
+<?php }?>
+
+<?php if(isset($lesVolsDate)) { foreach($lesVolsDate as $unVol) { if($journalsDate[$unVol['idVol']] == 'existe pas'){?>
+		Vol de <?php echo $aeroDepartVolsDate[$unVol['idVol']]; ?> à <?php echo $aeroArriveeVolsDate[$unVol['idVol']]; ?> : <br/>
+		<a href="<?php echo $this->baseUrl('planning/volacreer'); ?>?numerovol=<?php echo $idVolsDate[$unVol['idVol']]; ?>&date=<?php echo $aujourdhui; ?>">
+		Créer le vol n° <?php echo $numVolsDate[$unVol['idVol']]; ?>
+		</a><br/>
+<?php } } } ?>
+
+<?php if(isset($lesVolsJour)) { foreach($lesVolsJour as $unVol) { if($aeroportDepart[$unVol['idVol']] == $aeroport) { if($journalsJour[$unVol['idVol']] == 'existe pas'){?>
+		Vol de <?php echo $aeroDepartVolsJour[$unVol['idVol']]; ?> à <?php echo $aeroArriveeVolsJour[$unVol['idVol']]; ?> : <br/>
+		<a href="<?php echo $this->baseUrl('planning/volacreer'); ?>?numerovol=<?php echo $idVolsJour[$unVol['idVol']]; ?>&date=<?php echo $aujourdhui; ?>">
+		Créer le vol n° <?php echo $numVolsJour[$unVol['idVol']]; ?>
+		</a><br/>
+<?php } } } } ?>

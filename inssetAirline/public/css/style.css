@@ -331,3 +331,8 @@ table.avion
 {
 	border-collapse:collapse;
 }
+
+.pasDeVols
+{
+	color :red;
+}
