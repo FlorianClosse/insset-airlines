@@ -7262,7 +7262,7 @@ function Datepicker() {
 		dayNamesShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'], // For formatting
 		dayNamesMin: ['Lu','Ma','Me','Je','Ve','Sa','Di'], // Column headings for days starting at Sunday
 		weekHeader: 'Wk', // Column header for week of the year
-		dateFormat: 'dd/mm/yy', // See format options on parseDate
+		dateFormat: 'yy-mm-dd', // See format options on parseDate
 		firstDay: 1, // The first day of the week, Sun = 0, Mon = 1, ...
 		isRTL: false, // True if right-to-left language, false if left-to-right
 		showMonthAfterYear: false, // True if the year select precedes month, false for month then year
@@ -8333,7 +8333,7 @@ $.extend(Datepicker.prototype, {
 	},
 
 	/* Standard date formats. */
-	ATOM: 'dd-mm-yy', // RFC 3339 (ISO 8601)
+	ATOM: 'yy-mm-dd', // RFC 3339 (ISO 8601)
 	COOKIE: 'D, dd M yy',
 	ISO_8601: 'yy-mm-dd',
 	RFC_822: 'D, d M y',
