@@ -71,20 +71,29 @@ class Fajoutpilote extends Zend_Form
     	$PiloteMail->addValidator('EmailAddress');
     	$PiloteMail-> autocomplete = 'off';
     	
-    	$aeroport = new Aeroport;
-    	$lesAeroport = $aeroport->fetchAll();
-    	$aeroport = new Zend_Form_Element_Select('aeroport');
-    	$aeroport ->setLabel('Choisir un aeroport');
-    	foreach ($lesAeroport as $unAeroport ) {
-    		$tableauAeroport[$unAeroport -> idAeroport] = ucfirst($unAeroport->nomAeroport);
-    	} // permet de construite mes données de mon select
-    	 
-    	$aeroport->setMultiOptions($tableauAeroport); // remplit ma liste deroulante
-		$aeroport->setAttrib('id', 'listederoulanteajout');
+    	
 		
     	$pSubmit = new Zend_Form_Element_Submit('Envoyer');
     	$pSubmit->setAttrib('id', 'boutonajoutpersonne');
     	
+    	
+    	/** AUTOCOMPLETE TEST **/
+    	
+//     	$baseurl = Zend_Controller_Front::getInstance()->getBaseUrl();
+    	
+//     	// Commune
+//     	// FIXME Ne donne pour le moment que le nom de la commune et pas son identifiant
+//     	$aeroport = new ZendX_JQuery_Form_Element_AutoComplete('etb_id_commune');
+//     	$aeroport
+//     	->setLabel('Aeroport')
+//     	->setRequired(false)
+//     	->setFilters(array('StripTags'))
+//     	->setJQueryParam('autoFill', true)
+//     	->setJQueryParams(array('source' => $baseurl.'/drh/rechercheaeroport')
+//     	);
+    	 
+    	
+    	/** FIN **/
     	
     	/* On ajoute les elements au formulaire */
     	$this->addElement($PiloteNom);
@@ -92,7 +101,9 @@ class Fajoutpilote extends Zend_Form
     	$this->addElement($PiloteAdresse);
     	$this->addElement($PiloteTelephone);
     	$this->addElement($PiloteMail);
-     	$this->addElement($aeroport);
+    	$this->addElement(fonctionAeroport());
+
+     	
     	$this->addElement($pSubmit);
 
 
@@ -100,3 +111,29 @@ class Fajoutpilote extends Zend_Form
 
 
 } 
+
+
+
+
+
+
+
+// $pays = new Zend_Form_Element_Select('first');
+// $pays ->setLabel('Choisir un pays');
+// $i =0;
+// foreach ($lesPays as $unPays ) {
+// 	$Pays = $unPays->nomPays ;
+
+// 	foreach ($lesVilles as $uneVille ) {
+		 
+// 		$idP =$unPays -> idPays;
+// 		$idV =$uneVille -> idPays;
+// 		if( $idP == $idV){
+
+// 			$tableauVille[$i] = $uneVille->nomVille;
+
+// 			$i++;
+// 		}
+		 
+// 	}
+// } // permet de construite mes données de mon select

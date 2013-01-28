@@ -22,7 +22,7 @@ function fonctionAeroport(){
 				 
 				if(($idP== $idV)&&($idV2 == $idA)){
 					$aeroport->addMultiOptions(array($unPays->nomPays=>array()));
-					$aeroport->addMultiOption ( $unAeroport->nomAeroport, $unAeroport->nomAeroport );
+					$aeroport->addMultiOption ( $unAeroport->idAeroport, $unAeroport->nomAeroport );
 					
 					//$tabPays[$unPays->nomPays] =  array( $unAeroport->nomAeroport);		
 

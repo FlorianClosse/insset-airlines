@@ -32,9 +32,11 @@ class DrhController extends Zend_Controller_Action
 	    	$Pilote->telephone = $_POST['telephonePilote'];
 	    	$Pilote->email = $_POST['mailPilote'];
 	    	$Pilote->idAeroportEmbauche = $_POST['aeroport'];
+	    	
 	    	if($formajoutpers->isValid($data)){	
+	    			
 	    	 		$Pilote->save();
-	    	 		$this->getResponse()->setHeader('Refresh', '0; URL=/drh/index');	
+	    	 		$this->getResponse()->setHeader('Refresh', '1; URL=/drh/index');	
 	    	}
 	    	else{
 	    		echo 'Une ou plusieur erreur se sont introduit dans le formulaire , réessayez ';
