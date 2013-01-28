@@ -1,0 +1,55 @@
+
+
+<table class="avion">
+	<thead>
+		<tr>
+			<th>Immatriculation</th>
+			<th>Date mis en service</th>
+			<th>Statut</th>
+			<th>Modele</th>
+			<th>Aeroport d'attache</th>
+			<th>Localisation</th>
+			<th>Révisions</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lesrevisions = $this->lesrevisions;
+	$avion = new Avion();
+	$modele = new Modele();
+	$aeroport = new Aeroport();
+	foreach ($lesrevisions as $unerevision)
+	{
+		$lavion = $avion->selectOne($unerevision['idAvion']);
+		$lemodele = $modele->selectOne($lavion[0]['idModele']);
+		$laeroportDattache = $aeroport->selectOne($lavion[0]['idAeroportDattache']);
+		$localisation = $aeroport->selectOne($lavion[0]['localisation']);
+?>
+		<tr>
+			<td><?= $lavion[0]['numImmatriculation'] ;?></td>
+			<td><?= $lavion[0]['dateMisEnService'] ;?></td>
+			<td><?= ucfirst ($lavion[0]['statut']);?></td>
+			<td><?= $lemodele[0]['nomModele']; ?></td>
+			<td><?= $laeroportDattache[0]['nomAeroport'] ;?></td>
+			<td><?= $localisation[0]['nomAeroport'] ;?></td>
+			<td>
+				<?php 
+				if($unerevision['dateDebut']=='NULL')
+				{?>	
+					<a href="/maintenance/gererrevision?idAvion=<?= $lavion[0]['idAvion'] ;?>&action=mettre">Mettre en révision</a>
+				<?php }
+				else 
+				{?>
+					<a href="/maintenance/gererrevision?idAvion=<?= $lavion[0]['idAvion'];?>&action=sortir">Sortir de révision</a>
+				<?php }
+				?>
+			</td>
+		</tr>
+<?php }?>
+	</tbody>
+</table>
+
+<div id="popupajoutavion" class="popup_block">
+	<?php echo $this->formajoutavion;?>      
+	<a href="#?w=500" rel="popupajoutavion" class="poplight">Ajouter un avion</a>     
+</div>
