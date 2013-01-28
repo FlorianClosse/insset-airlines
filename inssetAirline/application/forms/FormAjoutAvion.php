@@ -8,18 +8,10 @@ class FormAjoutAvion extends Zend_Form
 		$this->setAttrib('id', 'formAjoutAvion');
 		$this->clearDecorators();
 		
-		$deco= array(
-				array('ViewHelper'),
-				array('Errors'),
-				array('HtmlTag'),
-				array('Label')
-		);
-		
 		$immatriculation = new Zend_Form_Element_Text('immatriculation');
 		$immatriculation->setLabel('Immatriculation de l\'avion');
 		$immatriculation->addValidator('StringLength', true, array('max' => 200));
 		$immatriculation->setRequired(true);
-		$immatriculation->setDecorators($deco);
 		$this -> addElement($immatriculation);
 		
 		$dateMisEnService = new Zend_Form_Element_Text('dateMisEnService');
@@ -30,7 +22,7 @@ class FormAjoutAvion extends Zend_Form
 			
 		$statut = new Zend_Form_Element_Select('statut');
 		$statut ->setLabel('Statut de l\'avion');
-		$statut->addMultiOptions(array('1'=>'en service','2'=>'en révision'));
+		$statut->addMultiOptions(array('actif'=>'actif','en révision'=>'en révision','en vol'=>'en vol'));
 		$this->addElement($statut);
 			
 		$aeroport = new Aeroport;
