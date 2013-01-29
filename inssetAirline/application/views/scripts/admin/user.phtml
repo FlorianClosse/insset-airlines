@@ -1,0 +1,46 @@
+<a href="#?w=500" rel="popupajoutuser" class="poplight">Ajouter un utilisateur</a>
+<br /><br />
+<center>
+<table class="avion">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Nom</th>
+			<th>Prenom</th>
+			<th>Email</th>
+			<th>Date de naissance</th>
+			<th>Service</th>
+			<th>Aeroport</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lesusers = $this->lesusers;
+	$service = new Service();
+	$aeroport = new Aeroport();
+	foreach ($lesusers as $unuser)
+	{
+		$leservice = $service->selectOne($unuser['service']);
+		$laeroportDattache = $aeroport->selectOne($unuser['idAeroport']);
+?>
+		<tr>
+	    	<td><a href="/admin/supprimerUser?idUser=<?= $unuser['idUser']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+			<td><?= $unuser['nomUser'] ;?></td>
+			<td><?= $unuser['prenomUser'] ;?></td>
+			<td><?= $unuser['email']; ?></td>
+			<td><?= $laeroportDattache[0]['nomAeroport'] ;?></td>
+			<td><?= $leservice[0]['nomService'] ;?></td>
+			<td><?= ucfirst ($laeroportDattache[0]['nomAeroport']);?></td>
+			<td><a href="/admin/modifierUser?idUser=<?= $unuser['idUser']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+		</tr>
+<?php }?>
+	</tbody>
+</table>
+<div id="popupajoutuser" class="popup_block">
+	<?php echo $this->formajoutuser;?>           
+</div>
+<br />
+<?php if($lesusers != NULL){ echo $this->paginationControl($lesusers,'All', 'paginationcontroleavion.phtml');}?>
+<br /><br /></center>
+<a href="/">Retour à l'accueil</a>

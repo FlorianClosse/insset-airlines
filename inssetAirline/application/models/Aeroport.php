@@ -15,5 +15,12 @@ class Aeroport extends Zend_Db_Table_Abstract
 		$requete = 'SELECT * FROM aeroport WHERE idAeroport='.$idAeroport;
 		return $db->query($requete)->fetchAll();
 	}
+	
+	public function selectAll()
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM aeroport ';
+		return $db->query($requete)->fetchAll();
+	}
 }
 ?>

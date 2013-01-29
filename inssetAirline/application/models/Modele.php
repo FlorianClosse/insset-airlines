@@ -13,5 +13,12 @@ class Modele extends Zend_Db_Table_Abstract
 		$requete = 'SELECT * FROM modele WHERE idModele='.$idModele;
 		return $db->query($requete)->fetchAll();
 	}
+	
+	public function selectAll()
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM modele';
+		return $db->query($requete)->fetchAll();
+	}
 }
 ?>

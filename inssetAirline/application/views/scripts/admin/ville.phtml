@@ -1,0 +1,38 @@
+<a href="#?w=500" rel="popupajoutville" class="poplight">Ajouter une ville</a>
+<br /><br />
+<center>
+<table class="avion">
+	<thead>
+		<tr> 	
+			<th></th>
+			<th>Nom</th>
+			<th>Code postal</th>
+			<th>Pays</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lesvilles = $this->lesvilles;
+	$pays = new Pays();
+	foreach ($lesvilles as $uneville)
+	{
+		$lepays = $pays->selectOne($uneville['idPays']);
+?>
+		<tr>
+	    	<td><a href="/admin/supprimerville?idVille=<?= $uneville['idVille']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette ville ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+			<td><?= $uneville['nomVille'] ;?></td>
+			<td><?= $uneville['cpVille'] ;?></td>
+			<td><?= $lepays[0]['nomPays'] ;?></td>
+			<td><a href="/admin/modifierville?idVille=<?= $uneville['idVille']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+		</tr>
+<?php }?>
+	</tbody>
+</table>
+<div id="popupajoutville" class="popup_block">
+	<?php echo $this->formajoutville;?>           
+</div>
+<br />
+<?php if($lesvilles != NULL){ echo $this->paginationControl($lesvilles,'All', 'paginationcontroleavion.phtml');}?>
+<br /><br /></center>
+<a href="/admin/index">Retour</a>

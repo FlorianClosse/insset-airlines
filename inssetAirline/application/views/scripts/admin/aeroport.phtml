@@ -1,0 +1,40 @@
+<a href="#?w=500" rel="popupajoutaeroport" class="poplight">Ajouter un aéroport</a>
+<br /><br />
+<center>
+<table class="avion">
+	<thead>
+		<tr> 	
+			<th></th>
+			<th>Nom</th>
+			<th>Trigramme</th>
+			<th>Longueur de la piste</th>
+			<th>Ville</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lesaeroports = $this->lesaeroports;
+	$ville = new Ville();
+	foreach ($lesaeroports as $unaeroport)
+	{
+		$laville = $ville->selectOne($unaeroport['idVille']);
+?>
+		<tr>
+	    	<td><a href="/admin/supprimeraeroport?idAeroport=<?= $unaeroport['idAeroport']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet aéroport ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+			<td><?= $unaeroport['nomAeroport'] ;?></td>
+			<td><?= $unaeroport['trigramme'] ;?></td>
+			<td><?= $unaeroport['longueurPiste']; ?></td>
+			<td><?= $laville[0]['nomVille'] ;?></td>
+			<td><a href="/admin/modifieraeroport?idAeroport=<?= $unaeroport['idAeroport']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+		</tr>
+<?php }?>
+	</tbody>
+</table>
+<div id="popupajoutaeroport" class="popup_block">
+	<?php echo $this->formajoutaeroport;?>           
+</div>
+<br />
+<?php if($lesaeroports != NULL){ echo $this->paginationControl($lesaeroports,'All', 'paginationcontroleavion.phtml');}?>
+<br /><br /></center>
+<a href="/admin/index">Retour</a>

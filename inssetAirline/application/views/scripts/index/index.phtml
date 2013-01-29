@@ -48,16 +48,20 @@
 	</li>
 	<?php } ?>
 	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 7)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 8)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=exploitation">
 			Service d'exploitation
 		</a>
 	</li>
+	
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 7)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=planning">
 			Gestion du planning
 		</a>
 	</li>
+	<?php } ?>
 	<?php } ?>
 </ul>

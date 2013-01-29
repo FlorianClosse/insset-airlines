@@ -1,0 +1,42 @@
+<a href="#?w=500" rel="popupajoutmodele" class="poplight">Ajouter un modèle</a>
+<br /><br />
+<center>
+<table class="avion">
+	<thead>
+		<tr> 	
+			<th></th>
+			<th>Nom</th>
+			<th>Longueur nécessaire de piste</th>
+			<th>Rayon d'action</th>
+			<th>Nombre de place disponnibles</th>
+			<th>Période pour petite révision</th>
+			<th>Période pour grande révision</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lesmodeles = $this->lesmodeles;
+	foreach ($lesmodeles as $unmodele)
+	{
+?>
+		<tr>
+	    	<td><a href="/admin/supprimermodele?idModele=<?= $unmodele['idModele']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce modèle ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+			<td><?= $unmodele['nomModele'] ;?></td>
+			<td><?= $unmodele['longueurPiste'] ;?></td>
+			<td><?= $unmodele['rayonDaction']; ?></td>
+			<td><?= $unmodele['nbPlace']; ?></td>
+			<td><?= $unmodele['periodePetiteRevision']; ?></td>
+			<td><?= $unmodele['periodeGrandeRevision']; ?></td>
+			<td><a href="/admin/modifiermodele?idModelet=<?= $unmodele['idModele']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+		</tr>
+<?php }?>
+	</tbody>
+</table>
+<div id="popupajoutmodele" class="popup_block">
+	<?php echo $this->formajoutmodele;?>           
+</div>
+<br />
+<?php if($lesmodeles != NULL){ echo $this->paginationControl($lesmodeles,'All', 'paginationcontroleavion.phtml');}?>
+<br /><br /></center>
+<a href="/admin/index">Retour</a>
