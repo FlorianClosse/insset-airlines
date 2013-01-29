@@ -1,6 +1,19 @@
 <?php
 class DrhController extends Zend_Controller_Action
 {
+	
+	public function preDispatch()
+	{
+		$this->_helper->actionStack('login', 'index', 'default', array());
+		// Ne rend plus aucune action de ce contrôleur
+		$auth = Zend_Auth::getInstance();
+		if (!$auth->hasIdentity())
+		{
+			 $this->_redirect('/index/login'); 
+		}
+	}
+	
+	
     public function indexAction(){
     	
     	if(isset($_POST['EnvoyerBrevet'])){
@@ -49,6 +62,7 @@ class DrhController extends Zend_Controller_Action
     
     public function brevetAction(){
     	
+
     	/* Créer un objet formulaire */
     	$formbrevet = new Fbrevet();
     	/* Effectuer le rendu du formulaire */

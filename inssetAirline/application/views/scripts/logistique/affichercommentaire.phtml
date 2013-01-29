@@ -1,13 +1,15 @@
-<h2>Affichage de commentaires</h2>
+<h2>Affichage des vols</h2>
 
 
 <?php if(!isset($_POST['valider']))
 	  {?>
 		<table id="tableauTitreVol">
 			<tr>
-				<th > </th>
+				<th > Commentaires </th>
 				<th > Id Journal de bord </th>				
-				<th>  Numero de vol </th>		
+				<th>  Numero de vol </th>				
+				<th>  Statut </th>	
+				<th > </th>
 			</tr>
 		</table>
 
@@ -15,6 +17,7 @@
 			//$tableau = $this->tableau;
 			$formulaire = $this->formulaire;
 			$listeNumVol = $this->listeNumVol;
+			$paginator=$this->paginator;
 			$i=0;
 					
 			echo $this->formulaire; 
@@ -22,14 +25,20 @@
 			
 		<table id="tableauInfoVol">
 		<?php 
+				$form = $this->formAjoutCommentaire;
 				$lesJournaux = $this->lesJournaux; 
 			  	foreach($lesJournaux as $unJournal) 
-			  	{
+			  	{	
+			  		$id=$unJournal['idJournalDeBord'];
 			  		$i++; ?>
 					<tr>
 						<td><?php echo $unJournal['idJournalDeBord']; ?></td>						
 				   		<td><?php echo $listeNumVol[$i][0];?></td>	
-					</tr>
+				   		<td><?php echo $unJournal['statut']; ?></td>
+				   		<td><a  href="<?php echo $this->baseUrl('logistique/ajoutcommentaire')."?idJournalDeBord=$id"?>">Ajouter un commentaire</a></td>				   			
+					</tr>			
 		  <?php }?> 						
 		</table>
-	<?php }?>
+		
+	<?php }
+	echo $paginator;?>		

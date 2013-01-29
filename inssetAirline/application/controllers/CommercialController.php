@@ -2,6 +2,19 @@
 
 class CommercialController extends Zend_Controller_Action
 {
+	
+	
+	public function preDispatch()
+	{
+		$this->_helper->actionStack('login', 'index', 'default', array());
+		// Ne rend plus aucune action de ce contrôleur
+		$auth = Zend_Auth::getInstance();
+		if (!$auth->hasIdentity())
+		{
+			$this->_redirect('/index/login');
+		}
+	}
+	
 	public function indexAction()
 	{
 		$valeur = $this->_getParam('valeur');
@@ -20,163 +33,95 @@ class CommercialController extends Zend_Controller_Action
 		}		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	public function afficheroptionsAction()
 	{
+
 		$reservation = new Reservation();
-		$lesReservations = $reservation->getLesAeroports();
-		
-		$aeroport = new Aeroport();
-		
-		
+		$aeroport = new Aeroport();		
+		$formFiltreDepart = new FfiltreReservationDepart();
+		$formFiltreArrivee = new FfiltreReservationArrivee();
 		$compteur=0;
 		
-		/* Créer un objet formulaire */
-		$formFiltre = new FfiltreReservation();
-		echo $formFiltre;	
 		
-		if(isset($_SESSION['boutonArrivee']) && isset($_SESSION['boutonDepart']))
-		{
-						
-			if(isset($_SESSION['arrivee']) && isset($_SESSION['depart']))
-			{
-				$arrive = $_SESSION['arrivee'];
-				$depart = $_SESSION['depart'];
-				
-				$filtreArriveeDepart = $reservation-> getAeroportDepartArrivee($depart,$arrive);
-					
-				foreach($filtreArriveeDepart as $unFiltreArriveeDepart)
-				{					
-						$compteur=$compteur+1;
-						$tableauReservations[$compteur][0] = $unFiltreArriveeDepart['idReservation'];
-						$tableauReservations[$compteur][1] = $unFiltreArriveeDepart['statutReservation'];
-						$tableauReservations[$compteur][2] = $unFiltreArriveeDepart['nbPlaceReservee'];
-						$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$unFiltreArriveeDepart['heureReservation'] );
-						$tableauReservations[$compteur][4] = $unFiltreArriveeDepart['idJournal'];
-							
-						$aeroportDepart = $unFiltreArriveeDepart['aeroportDepart'];
-						$aeroportArrivee = $unFiltreArriveeDepart['aeroportArrivee'];
-						$unAeroportD = $aeroport->find($aeroportDepart)->current();
-						$unAeroportA = $aeroport->find($aeroportArrivee)->current();
-							
-						$tableauReservations[$compteur][5] = $unAeroportD['nomAeroport'];
-						$tableauReservations[$compteur][6] = $unAeroportA['nomAeroport'];
-					
-				}
-			}
-		}
-		else 
-		{
-			if(isset($_POST['FiltrerD']) && !isset($_POST['FiltrerA']))
-			{
-				$_SESSION['depart'] = $_POST['aeroportD'];
-					
-				$_SESSION['boutonDepart'] = $_POST['FiltrerD'];
-					
-					
-				if(isset($_SESSION['depart']))
-				{
-					$depart = $_SESSION['depart'];
-					$filtreDepart = $reservation-> getAeroportDepart($depart);
-			
-					foreach($filtreDepart as $unFiltreDepart)
-					{
-						if($unFiltreDepart['statutReservation'] == 'en attente')
-						{
-							$compteur=$compteur+1;
-							$tableauReservations[$compteur][0] = $unFiltreDepart['idReservation'];
-							$tableauReservations[$compteur][1] = $unFiltreDepart['statutReservation'];
-							$tableauReservations[$compteur][2] = $unFiltreDepart['nbPlaceReservee'];
-							$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$unFiltreDepart['heureReservation'] );
-							$tableauReservations[$compteur][4] = $unFiltreDepart['idJournal'];
-								
-							$aeroportDepart = $unFiltreDepart['aeroportDepart'];
-							$aeroportArrivee = $unFiltreDepart['aeroportArrivee'];
-							$unAeroportD = $aeroport->find($aeroportDepart)->current();
-							$unAeroportA = $aeroport->find($aeroportArrivee)->current();
-								
-							$tableauReservations[$compteur][5] = $unAeroportD['nomAeroport'];
-							$tableauReservations[$compteur][6] = $unAeroportA['nomAeroport'];
-						}
-					}
-			
-				}
-			}
-				
-			if(isset($_POST['FiltrerA']) && !isset($_POST['FiltrerD']))
-			{
-				$_SESSION['arrivee'] = $_POST['aeroportA'];
-					
-				$_SESSION['boutonArrivee'] = $_POST['FiltrerA'];
-					
-				if(isset($_SESSION['arrivee']))
-				{
-					$arrive = $_SESSION['arrivee'];
-					$filtreArrivee = $reservation-> getAeroportArrivee($arrive);
-						
-					foreach($filtreArrivee as $unFiltreArrivee)
-					{
-						if($unFiltreArrivee['statutReservation'] == 'en attente')
-						{
-							$compteur=$compteur+1;
-							$tableauReservations[$compteur][0] = $unFiltreArrivee['idReservation'];
-							$tableauReservations[$compteur][1] = $unFiltreArrivee['statutReservation'];
-							$tableauReservations[$compteur][2] = $unFiltreArrivee['nbPlaceReservee'];
-							$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$unFiltreArrivee['heureReservation'] );
-							$tableauReservations[$compteur][4] = $unFiltreArrivee['idJournal'];
-								
-							$aeroportDepart = $unFiltreArrivee['aeroportDepart'];
-							$aeroportArrivee = $unFiltreArrivee['aeroportArrivee'];
-							$unAeroportD = $aeroport->find($aeroportDepart)->current();
-							$unAeroportA = $aeroport->find($aeroportArrivee)->current();
-								
-							$tableauReservations[$compteur][5] = $unAeroportD['nomAeroport'];
-							$tableauReservations[$compteur][6] = $unAeroportA['nomAeroport'];
-						}
-					}
-				}
-			}
-				
-		}
-	
-		if(!isset($_SESSION['boutonDepart']) && !isset($_SESSION['boutonArrivee']))
-		{
-			foreach ($lesReservations as $uneReservation)
-			{
-				if($uneReservation['statutReservation'] == 'en attente')
-				{					
-					$compteur=$compteur+1;					
-					$tableauReservations[$compteur][0] = $uneReservation['idReservation'];
-					$tableauReservations[$compteur][1] = $uneReservation['statutReservation'];
-					$tableauReservations[$compteur][2] = $uneReservation['nbPlaceReservee'];				
-					$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$uneReservation['heureReservation'] );
-					$tableauReservations[$compteur][4] = $uneReservation['idJournal'];
-					
-					$aeroportDepart = $uneReservation['aeroportDepart'];
-					$aeroportArrivee = $uneReservation['aeroportArrivee'];
-					$unAeroportD = $aeroport->find($aeroportDepart)->current();
-					$unAeroportA = $aeroport->find($aeroportArrivee)->current();
-					
-					$tableauReservations[$compteur][5] = $unAeroportD['nomAeroport'];
-					$tableauReservations[$compteur][6] = $unAeroportA['nomAeroport'];
-				}
-			}
-		}
-
 		if(isset($_POST['Vider']))
 		{
-			unset($_SESSION['boutonDepart']);
-			unset($_SESSION['boutonArrivee']);
-			unset($_POST['vider']);
-			unset($_POST['FiltrerA']);
-			unset($_POST['FiltrerD']);	
+			unset($_SESSION['depart']);
+			unset($_SESSION['arrivee']);
 			$this->_redirect('/commercial/index?valeur=afficher');
 		}
 		
+		if(isset($_POST['aeroportD']))
+			$_SESSION['depart'] = $_POST['aeroportD'];		
+		
+		if(isset($_POST['aeroportA']))
+			$_SESSION['arrivee'] = $_POST['aeroportA'];
+		
+		
+		if(isset($_SESSION['depart']) && isset($_SESSION['arrivee']))
+		{
+			$lesReservations = $reservation-> getAeroportDepartArrivee($_SESSION['depart'],$_SESSION['arrivee']);
+		}
+		else 
+		{
+			if(isset($_SESSION['depart']))
+			{
+				$lesReservations = $reservation-> getAeroportDepart($_SESSION['depart']);
+			}
+			else
+			{
+				if(isset($_SESSION['arrivee']))
+				{
+					$lesReservations = $reservation-> getAeroportArrivee($_SESSION['arrivee']);
+				}
+				else
+				{
+					$lesReservations = $reservation->getLesAeroports();
+				}
+			}
+		}
+		
+		
+		$this->view->formFiltreDepart = $formFiltreDepart;	
+		$this->view->formFiltreArrivee = $formFiltreArrivee;
+		
+		$page=$this->_getParam('page',1);
+		$paginator = Zend_Paginator::factory($lesReservations);
+		$paginator->setCurrentPageNumber($this->_getParam('page'));
+		$paginator->setItemCountPerPage(3);
+		$paginator->setCurrentPageNumber($page);
+			
+		foreach($paginator as $unFiltreArriveeDepart)
+		{
+			$compteur=$compteur+1;
+			$tableauReservations[$compteur][0] = $unFiltreArriveeDepart['idReservation'];
+			$tableauReservations[$compteur][1] = $unFiltreArriveeDepart['statutReservation'];
+			$tableauReservations[$compteur][2] = $unFiltreArriveeDepart['nbPlaceReservee'];
+			$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$unFiltreArriveeDepart['heureReservation'] );
+			$tableauReservations[$compteur][4] = $unFiltreArriveeDepart['idJournal'];
+				
+			$aeroportDepart = $unFiltreArriveeDepart['aeroportDepart'];
+			$aeroportArrivee = $unFiltreArriveeDepart['aeroportArrivee'];
+			$unAeroportD = $aeroport->find($aeroportDepart)->current();
+			$unAeroportA = $aeroport->find($aeroportArrivee)->current();
+				
+			$tableauReservations[$compteur][5] = $unAeroportD['nomAeroport'];
+			$tableauReservations[$compteur][6] = $unAeroportA['nomAeroport'];
+				
+		}
+			
 		$this->view->compteur = $compteur;		
 		
 		if(isset($tableauReservations))
 		{
 			$this->view->tableauReservations = $tableauReservations;
+			$this->view->paginator = $paginator;			
 		}
 		else
 		{
@@ -184,6 +129,14 @@ class CommercialController extends Zend_Controller_Action
 		}
 				
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//permet de demander les vols disponibles et de reserver des places
 	public function ajouteroptionsAction()
@@ -276,6 +229,18 @@ class CommercialController extends Zend_Controller_Action
 			}
 		}			
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public function supprimeroptionAction()
 	{
