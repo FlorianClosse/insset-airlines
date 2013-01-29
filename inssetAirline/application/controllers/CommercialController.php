@@ -3,15 +3,23 @@
 class CommercialController extends Zend_Controller_Action
 {
 	
-	
-	public function preDispatch()
-	{
+	public function init(){
 		$this->_helper->actionStack('login', 'index', 'default', array());
+	}
+	
+public function preDispatch()
+	{
+		
 		// Ne rend plus aucune action de ce contrôleur
 		$auth = Zend_Auth::getInstance();
 		if (!$auth->hasIdentity())
 		{
 			$this->_redirect('/index/login');
+		}
+		if($_SESSION['Zend_Auth']['storage']->service != 9){
+			if($_SESSION['Zend_Auth']['storage']->service != 1){
+				$this->_redirect('/index');
+			}
 		}
 	}
 	
