@@ -57,7 +57,7 @@ class PlanningController extends Zend_Controller_Action
 	    	
 	    	if(isset($_POST['boutonSubmitChoixAeroport']))
 	    	{
-	    		$_SESSION['aeroportCreerPlanning'] = $_POST['numeroAeroport'];
+	    		$_SESSION['aeroportCreerPlanning'] = $_POST['aeroport'];
 	    	}
 	    	
 	    	if(!isset($_SESSION['aeroportCreerPlanning']))
@@ -67,9 +67,7 @@ class PlanningController extends Zend_Controller_Action
 		    	$formulaireChoix -> setMethod('post');
 		    	$formulaireChoix -> setAction('/planning/creerplanning');
 		    	
-		    	$numeroAeroport = new Zend_Form_Element_Text('numeroAeroport');
-		    	$numeroAeroport -> setLabel('choisir votre aéroport');
-		    	$formulaireChoix -> addElement($numeroAeroport);
+		    	$formulaireChoix->addElement(fonctionAeroport('aeroport'));
 		    	
 		    	$envoyer = new Zend_Form_Element_Submit('boutonSubmitChoixAeroport');
 		    	$envoyer -> setLabel('Ajouter');
@@ -189,9 +187,7 @@ class PlanningController extends Zend_Controller_Action
 									}
 								}
 							}
-							echo '<div class="cal">';
 							Calendrier($m,$a,$links);
-							echo '</div>';
 						}
 					}
 		    	}
@@ -199,10 +195,13 @@ class PlanningController extends Zend_Controller_Action
 				{
 					$aujourdhui = date('Y-m-j', $recupDate);
 		    		$jour = date('N', $recupDate);
-		
-		    		$this->view->aujourdhui = $aujourdhui;
+					
+		    		$dateEnLettre = convertirDateEnLettre($aujourdhui);
+		    		$this->view->aujourdhui = $dateEnLettre;
 		    		$this->view->jour = $jour;
-		    		$this->view->aeroport = $aeroport;
+		    		$aa = $aerop->find($aeroport)->current();
+		    		$aaa = $aa->nomAeroport;
+		    		$this->view->aeroport = $aaa;
 		    		
 		    		
 		    		
@@ -560,7 +559,9 @@ class PlanningController extends Zend_Controller_Action
 	    	{
 	    		$this->view->lesPilotes = $idPilote;
 	    	}
-	    	$this->view->leVol = $volAPlannifier;
+	    	$bb = $vol->find($volAPlannifier)->current();
+	    	$bbb = $bb->numVol;
+	    	$this->view->leVol = $bbb;
 	    	
     	}
     }

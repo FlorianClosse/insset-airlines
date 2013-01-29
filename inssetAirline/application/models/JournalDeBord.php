@@ -55,7 +55,7 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 	}
 	
 	// ***fonction getRecuperLesVolsArriveAujourdHui par Nicolas
-	public function getRecuperLesVolsArriveAujourdHui($date)
+	public function getRecuperLesVolsArriveeAujourdHui($date)
 	{
 		$requete = $this->select()
 		->from($this)

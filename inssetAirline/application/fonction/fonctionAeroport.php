@@ -1,6 +1,6 @@
 <?php
 
-function fonctionAeroport(){
+function fonctionAeroport($idAeroportChoisie){
 
 	$pays = new Pays();
 	$lesPays = $pays->fetchAll();
@@ -10,7 +10,7 @@ function fonctionAeroport(){
 	 
 	$aeroport = new Aeroport();
 	$lesAeroport = $aeroport ->fetchAll();
-	$aeroport = new Zend_Form_Element_Select('aeroport');
+	$aeroport = new Zend_Form_Element_Select($idAeroportChoisie);
 
 	foreach ($lesPays as $unPays ) {
 		foreach ($lesVilles as $uneVille ) {
