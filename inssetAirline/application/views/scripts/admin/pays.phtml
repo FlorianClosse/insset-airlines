@@ -1,0 +1,32 @@
+<a href="#?w=500" rel="popupajoutpays" class="poplight">Ajouter un pays</a>
+<br /><br />
+<center>
+<table class="avion">
+	<thead>
+		<tr> 	
+			<th></th>
+			<th>Nom</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lespays = $this->lespays;
+	foreach ($lespays as $unpays)
+	{
+?>
+		<tr>
+	    	<td><a href="/admin/supprimerpays?idPays=<?= $unpays['idPays']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce pays ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+			<td><?= $unpays['nomPays'] ;?></td>
+			<td><a href="/admin/modifierpays?idPays=<?= $unpays['idPays']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+		</tr>
+<?php }?>
+	</tbody>
+</table>
+<div id="popupajoutpays" class="popup_block">
+	<?php echo $this->formajoutpays;?>           
+</div>
+<br />
+<?php if($lespays != NULL){ echo $this->paginationControl($lespays,'All', 'paginationcontroleavion.phtml');}?>
+<br /><br /></center>
+<a href="/admin/index">Retour</a>
