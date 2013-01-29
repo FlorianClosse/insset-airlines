@@ -101,7 +101,7 @@ class Fajoutpilote extends Zend_Form
     	$this->addElement($PiloteAdresse);
     	$this->addElement($PiloteTelephone);
     	$this->addElement($PiloteMail);
-    	$this->addElement(fonctionAeroport());
+    	$this->addElement(fonctionAeroport('aeroport'));
 
      	
     	$this->addElement($pSubmit);
