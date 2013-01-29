@@ -30,6 +30,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initPagination(){
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('drh/pagination.phtml');
+        Zend_View_Helper_PaginationControl::setDefaultViewPartial('commercial/pagination.phtml');
     }
 
 	protected function _initDb()

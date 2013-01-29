@@ -1,6 +1,18 @@
 <?php 
 class MaintenanceController extends Zend_Controller_Action
 {
+	
+	public function preDispatch()
+	{
+		$this->_helper->actionStack('login', 'index', 'default', array());
+		// Ne rend plus aucune action de ce contrôleur
+		$auth = Zend_Auth::getInstance();
+		if (!$auth->hasIdentity())
+		{
+			$this->_helper->viewRenderer->setNoRender();
+		}
+	}
+	
 	public function indexAction()
 	{
 		$filtre = new FormFiltreMaintenance();
