@@ -33,5 +33,33 @@
 			$requete = 'SELECT * FROM avion WHERE idAvion='.$idAvion;
 			return $db->query($requete)->fetchAll();
 		}
+		
+		public function selectFiltreUn($champ,$valeur)
+		{
+			$db = Zend_Db_Table::getDefaultAdapter();
+			$requete = 'SELECT * FROM avion WHERE statut='.$valeur;
+			return $db->query($requete)->fetchAll();
+		}
+		
+		public function selectFiltreDeux($champ,$valeur,$champDeux,$valeurDeux)
+		{
+			$db = Zend_Db_Table::getDefaultAdapter();
+			$requete = 'SELECT * FROM avion WHERE '.$champ.'='.$valeur.' AND '.$champDeux.'='.$valeurDeux;
+			return $db->query($requete)->fetchAll();
+		}
+		
+		public function selectFiltreTrois($champ,$valeur,$champDeux,$valeurDeux,$champTrois,$valeurTrois)
+		{
+			$db = Zend_Db_Table::getDefaultAdapter();
+			$requete = 'SELECT * FROM avion WHERE '.$champ.'='.$valeur.' AND '.$champDeux.'='.$valeurDeux.' AND '.$champTrois.'='.$valeurTrois;
+			return $db->query($requete)->fetchAll();
+		}
+		
+		public function selectFiltreQuatre($champ,$valeur,$champDeux,$valeurDeux,$champTrois,$valeurTrois,$champQuatre,$valeurQuatre)
+		{
+			$db = Zend_Db_Table::getDefaultAdapter();
+			$requete = 'SELECT * FROM avion WHERE '.$champ.'='.$valeur.' AND '.$champDeux.'='.$valeurDeux.' AND '.$champTrois.'='.$valeurTrois.' AND '.$champQuatre.'='.$valeurQuatre;
+			return $db->query($requete)->fetchAll();
+		}
 	}
 ?>
