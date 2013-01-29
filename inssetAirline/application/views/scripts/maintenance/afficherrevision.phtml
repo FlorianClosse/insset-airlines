@@ -1,5 +1,4 @@
-
-
+<center>
 <table class="avion">
 	<thead>
 		<tr>
@@ -34,13 +33,13 @@
 			<td><?= $localisation[0]['nomAeroport'] ;?></td>
 			<td>
 				<?php 
-				if($unerevision['dateDebut']=='0000-00-00')
+				if($unerevision['dateDebut'])
 				{?>	
-					<a href="/maintenance/gererrevision?idAvion=<?= $lavion[0]['idAvion'] ;?>&action=mettre">Mettre en révision</a>
+					<a href="/maintenance/gererrevision?idAvion=<?= $lavion[0]['idAvion'];?>&action=sortir">Sortir de révision</a>
 				<?php }
 				else 
 				{?>
-					<a href="/maintenance/gererrevision?idAvion=<?= $lavion[0]['idAvion'];?>&action=sortir">Sortir de révision</a>
+					<a href="/maintenance/gererrevision?idAvion=<?= $lavion[0]['idAvion'] ;?>&action=mettre">Mettre en révision</a>
 				<?php }
 				?>
 			</td>
@@ -48,8 +47,10 @@
 <?php }?>
 	</tbody>
 </table>
-
+</center>
 <div id="popupajoutavion" class="popup_block">
 	<?php echo $this->formajoutavion;?>      
 	<a href="#?w=500" rel="popupajoutavion" class="poplight">Ajouter un avion</a>     
 </div>
+<br /><br />
+<a href="/maintenance/index">Retour</a>
