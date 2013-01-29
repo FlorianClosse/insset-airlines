@@ -157,7 +157,7 @@ class StrategiqueController extends Zend_Controller_Action
     	//zone de saisie de la date
     	$volALaCarte = new Zend_Form_Element_Text('volALaCarte');
     	$volALaCarte -> setAttrib('id', 'datepicker');
-    	$volALaCarte -> setValue(date('Y-d-m'));
+    	$volALaCarte -> setValue(date('Y-m-d'));
     	$volALaCarte -> setLabel('Choisir la date de vol');
     	$volALaCarte -> setDecorators($decorateurDateUnique);
     	$formulaireAjout -> addElement($volALaCarte);
