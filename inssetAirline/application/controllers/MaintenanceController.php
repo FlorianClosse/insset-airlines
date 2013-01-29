@@ -9,46 +9,54 @@ class MaintenanceController extends Zend_Controller_Action
 		$this->view->formajoutavion= $formAjoutAvion;
 		
 		if($this->getRequest()->isPost())
-		{
+		{//on regarde si des données sont envoyées
 			$data = $this->getRequest()->getPost();
 			$avion= new Avion();
 			$i=0;
 			foreach($data as $c => $v)
-			{
+			{//pour chaque élément du formulaire de filtre
 				if($v != "0" && $v != "Filtrer")
-				{
+				{// on regarde si on a choisi quelque chose et que ça soit autre que le bouton
 					if($c == 'statut')
-					{
+					{//si ça correspond au statut on rajoute des '' pour la requete car chaine de caractère.
 						$v = '\''.$v.'\'';
 					}
-					$i++;
-					$array[]= array($c,$v);
+					$i++;//on compte combien de critère on a choisi
+					$array[]= array($c,$v);// on met le résultat plus exploitable
 				}
 			}
 
-			switch ($i) 
+			switch ($i) //suivant le nombre de critère on execute telle ou telle requete
 			{
 				case 0:
-					$this->view->lesavions = $avion->selectAll();
+					$lesavions = $avion->selectAll();
 					break;
 				case 1:
-					$this->view->lesavions = $avion->selectFiltreUn($array[0][0], $array[0][1]);
+					$lesavions = $avion->selectFiltreUn($array[0][0], $array[0][1]);
 					break;
 				case 2:
-					$this->view->lesavions = $avion->selectFiltreDeux($array[0][0], $array[0][1], $array[1][0], $array[1][1]);
+					$lesavions = $avion->selectFiltreDeux($array[0][0], $array[0][1], $array[1][0], $array[1][1]);
 					break;
 				case 3:
-					$this->view->lesavions = $avion->selectFiltreTrois($array[0][0],$array[0][1],$array[1][0],$array[1][1],$array[2][0],$array[2][1]);
+					$lesavions = $avion->selectFiltreTrois($array[0][0],$array[0][1],$array[1][0],$array[1][1],$array[2][0],$array[2][1]);
 					break;
 				case 4:
-					$this->view->lesavions = $avion->selectFiltreQuatre($array[0][0],$array[0][1],$array[1][0],$array[1][1],$array[2][0],$array[2][1],$array[3][0],$array[3][1]);
+					$lesavions = $avion->selectFiltreQuatre($array[0][0],$array[0][1],$array[1][0],$array[1][1],$array[2][0],$array[2][1],$array[3][0],$array[3][1]);
 					break;
+					
+				$pagination = Zend_Paginator::factory($lesavions);
+				$pagination->setCurrentPageNumber($this->_getParam('page'));
+				$pagination->setItemCountPerPage(15);
+				$this->view->lesavions = $pagination;
 			}
 		}
 		else
-		{
+		{//sinon on affiche tous les avions
 			$avion= new Avion();
-			$this->view->lesavions = $avion->selectAll();
+			$pagination = Zend_Paginator::factory($avion->selectAll());
+			$pagination->setCurrentPageNumber($this->_getParam('page'));
+			$pagination->setItemCountPerPage(15);
+			$this->view->lesavions = $pagination;
 		}
 	}
 
