@@ -2,6 +2,18 @@
 //Par nicolas
 class StrategiqueController extends Zend_Controller_Action
 {
+	
+	public function preDispatch()
+	{
+		$this->_helper->actionStack('login', 'index', 'default', array());
+		// Ne rend plus aucune action de ce contrôleur
+		$auth = Zend_Auth::getInstance();
+		if (!$auth->hasIdentity())
+		{
+			$this->_helper->viewRenderer->setNoRender();
+		}
+	}
+	
 	public function indexAction()
     {
     	$valeur = $this->_getParam('valeur');
@@ -76,11 +88,43 @@ class StrategiqueController extends Zend_Controller_Action
     
     public function creerligneAction()
     {
+    	//decorateur des 
+    	$decorateurChoix = array(
+    			array('ViewHelper'),
+    			array('Errors'),
+    			array(
+    				array('DivTag' => 'HtmlTag'),
+    				array('tag' => 'div', 'id' => 'choixDate')
+    				)
+    	);
+    	$decorateurDateUnique = array(
+    			array('ViewHelper'),
+    			array('Errors'),
+    			array(
+    				array('DivTag' => 'HtmlTag'),
+    				array('tag' => 'div', 'id' => 'dateUnique')
+    				)
+    	);
+    	$decorateurPeriode = array(
+    			array('ViewHelper'),
+    			array('Errors'),
+    			array(
+    				array('DivTag' => 'HtmlTag'),
+    				array('tag' => 'div', 'id' => 'datePeriodique')
+    				)
+    	);
+    	//decorateur du bouton formulaire complet
+    	$decorateurTableau = array(
+    			array('FormElements'),
+    			array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
+    	);
+    	
     	//on crée le formulaire
     	$formulaireAjout = new Zend_Form;
     	$formulaireAjout -> setAttrib('id','formulaireAjout');
     	$formulaireAjout -> setMethod('post');
     	$formulaireAjout -> setAction('/strategique/index/');
+    	$formulaireAjout -> addDecorators($decorateurTableau);
     	
     	//choix de l'aéroport de départ
     	$numeroVol = new Zend_Form_Element_Text('numeroVol');
@@ -88,16 +132,10 @@ class StrategiqueController extends Zend_Controller_Action
     	$formulaireAjout -> addElement($numeroVol);
     	
     	//choix de l'aéroport de départ
-    	$aeroportDepart = new Zend_Form_Element_Text('aeroportDepart');
-    	$aeroportDepart -> setLabel('Aéroport de départ');
-    	$aeroportDepart -> setValue(fonctionFormulaireChoixAeroport());
-    	$formulaireAjout -> addElement($aeroportDepart);
+    	$formulaireAjout->addElement(fonctionAeroport('aeroportDepart'));
     	
     	//choix de l'aéroport d'arrivée
-    	$aeroportArrivee = new Zend_Form_Element_Text('aeroportArrivee');
-    	$aeroportArrivee -> setLabel('Aéroport d\'arrivée');
-    	$aeroportArrivee -> setValue(fonctionFormulaireChoixAeroport());
-    	$formulaireAjout -> addElement($aeroportArrivee);
+    	$formulaireAjout->addElement(fonctionAeroport('aeroportArrivee'));
     	
     	//zone de saisie de la durée du vol
     	$dureeVol = new Zend_Form_Element_Text('dureeVol');
@@ -108,16 +146,20 @@ class StrategiqueController extends Zend_Controller_Action
     	//choix du type de vol
     	$choixVol = new Zend_Form_Element_Select('choixDuVol', 
     		array('multiOptions' => array(
-		        0 => '',
+		        0 => 'Choix:',
 		        1 => 'Vol à la carte',
 		        2 => 'Vol periodique',
 			)));
     	$choixVol -> setLabel('Choix du vol');
+    	$choixVol -> setDecorators($decorateurChoix);
     	$formulaireAjout -> addElement($choixVol);
     	
     	//zone de saisie de la date
     	$volALaCarte = new Zend_Form_Element_Text('volALaCarte');
+    	$volALaCarte -> setAttrib('id', 'datepicker');
+    	$volALaCarte -> setValue(date('Y-d-m'));
     	$volALaCarte -> setLabel('Choisir la date de vol');
+    	$volALaCarte -> setDecorators($decorateurDateUnique);
     	$formulaireAjout -> addElement($volALaCarte);
     	
     	//case a cocher des jours de la semaine
@@ -130,6 +172,7 @@ class StrategiqueController extends Zend_Controller_Action
     	$choixJours = new Zend_Form_Element_MultiCheckbox(
     			'ChoixDesJours', array('multiOptions' => $multiOptions));
     	$choixJours -> setLabel('Choix des jours de vol');
+    	$choixJours -> setDecorators($decorateurPeriode);
     	$formulaireAjout -> addElement($choixJours);
     	 
     	//bouton d'envoie du formulaire
@@ -143,23 +186,6 @@ class StrategiqueController extends Zend_Controller_Action
     
     public function fermerligneAction()
     {
-    	$resultat =  $this->_getParam('filtreStategique');
-    	if(isset($resultat))
-    	{
-    		$_SESSION['filtreStategique'] = $resultat;
-    	}
-    	else
-    	{
-    		if(isset($_SESSION['filtreStategique']))
-    		{
-    			$resultat = $_SESSION['filtreStategique'];
-    		}
-    		else 
-    		{
-    			$resultat = "defaut";
-    		}
-    	}
-    	
     	//decorateur des cases a cocher
     	$decorateurCase = array(
     			array('ViewHelper'),
@@ -187,61 +213,28 @@ class StrategiqueController extends Zend_Controller_Action
     	);
     	
     	
+    	
     	$vol = new Vol;
-    	$lesVols = $vol->fetchAll();
-    	
-    	if(!isset($_SESSION['donneesFiltreStrategique']))
-    	{
-    		$_SESSION['donneesFiltreStrategique']= 0;
+    	if(isset($_POST['aeroportDepart']))
+    		$_SESSION['aeroportDepart'] = $_POST['aeroportDepart'];
+    	if(isset($_POST['aeroportArrivee']))
+    		$_SESSION['aeroportArrivee'] = $_POST['aeroportArrivee'];
+    	if(isset($_SESSION['aeroportDepart']) && isset($_SESSION['aeroportArrivee'])){
+    		$lesVols = $vol->getRecuperDepartArrivee($_SESSION['aeroportDepart'], $_SESSION['aeroportArrivee']);
     	}
-    	
-    	switch ($resultat)
-    	{
-    		case "defaut":
-    			$_SESSION['donneesFiltreStrategique']= 0;
-    			unset($_SESSION['aeroportDepartFiltreStrategique']);
-    			unset($_SESSION['aeroportArriveeFiltreStrategique']);
-    			break;
-    			
-    		case "aeroportDepart":
-    			if ($_SESSION['donneesFiltreStrategique'] < 1)
-    			{
-    				$_SESSION['donneesFiltreStrategique'] = $_SESSION['donneesFiltreStrategique'] +1;
+    	else{
+    		if(isset($_SESSION['aeroportDepart'])){
+    			$lesVols = $vol->getRecuperDepart($_SESSION['aeroportDepart']);
+    		}
+    		else{
+    			if(isset($_SESSION['aeroportArrivee'])){
+    				$lesVols = $vol->getRecuperArrivee($_SESSION['aeroportArrivee']);
     			}
-    			if ($_SESSION['donneesFiltreStrategique'] = 1)
-    			{
-    				if (isset($_SESSION['aeroportArriveeFiltreStrategique']))
-    				{
-    					$_SESSION['donneesFiltreStrategique'] = $_SESSION['donneesFiltreStrategique'] +1;
-    				}
+    			else{
+    				$lesVols = $vol->getRecuper();
     			}
-    			if(isset($_POST['aeroportDepart']))
-    			{
-    				$_SESSION['aeroportDepartFiltreStrategique'] = $_POST['aeroportDepart'];
-    			}
-    			break;
-    			
-    		case "aeroportArrivee":
-    			if ($_SESSION['donneesFiltreStrategique'] < 1)
-    			{
-    				$_SESSION['donneesFiltreStrategique'] = $_SESSION['donneesFiltreStrategique'] +1;
-    			}
-    			if ($_SESSION['donneesFiltreStrategique'] = 1)
-    			{
-	    			if (isset($_SESSION['aeroportDepartFiltreStrategique']))
-	    			{
-	    				$_SESSION['donneesFiltreStrategique'] = $_SESSION['donneesFiltreStrategique'] +1;
-	    			}
-    			}
-    			if(isset($_POST['aeroportArrivee']))
-    			{
-    				$_SESSION['aeroportArriveeFiltreStrategique'] = $_POST['aeroportArrivee'];
-    			}
-    			break;
-    	}
-    	//on récupère tous les vols contenus dans la table vol dans
-    	//la variable $lesVols
-    	
+    		}
+    	}   	
     	
     	//on crée le paginator
     	$pagination = Zend_Paginator::factory($lesVols);
@@ -256,108 +249,29 @@ class StrategiqueController extends Zend_Controller_Action
 		
     	foreach($pagination as $unVol)
     	{
-    		$ligne1 = $vol->getRecuperAeroportDepart($unVol->aeroportDepart);
-    		$ligne2 = $vol->getRecuperAeroportDArrivee($unVol->aeroportArrivee);
-    		$ligne3 = $vol->getRecuperDateDeVol($unVol->idVol);
-    		$ligne4 = fonctionConvertirHeure($unVol->dureeVol);
+    		$ligne1 = $vol->getRecuperAeroportDepart($unVol['aeroportDepart']);
+    		$ligne2 = $vol->getRecuperAeroportDArrivee($unVol['aeroportArrivee']);
+    		$ligne3 = $vol->getRecuperDateDeVol($unVol['idVol']);
+    		$ligne4 = fonctionConvertirHeure($unVol['dureeVol']);
     			
-    		
-    		if ($_SESSION['donneesFiltreStrategique'] == 0)
-    		{
-    			//on crée les cases a cocher
-    			$caseACocher = new Zend_Form_Element_Checkbox($unVol -> idVol);
-    			$caseACocher -> setValue($unVol -> idVol);
-    			$caseACocher -> setDecorators($decorateurCase);
-    			$formulaireSuppression -> addElement($caseACocher);
+    		//on crée les cases a cocher
+    		$caseACocher = new Zend_Form_Element_Checkbox($unVol['idVol']);
+    		$caseACocher -> setValue($unVol['idVol']);
+    		$caseACocher -> setDecorators($decorateurCase);
+    		$formulaireSuppression -> addElement($caseACocher);
     			
-    			//on récupère dans des tableaux pour chaque vol:
-    			//l'aéroport de départ
-    			$nomAeroportDepart[$unVol->idVol] = $ligne1['nomAeroport'];
-    			//l'aéroport de d'arrivé
-    			$nomAeroportArrivee[$unVol->idVol] = $ligne2['nomAeroport'];
-    			//la date du vol ou les jours de la semaine
-    			$jourOuDateDuVol[$unVol->idVol] = $ligne3;
-    			//la durée du vol en heures
-    			$duree[$unVol->idVol] = $ligne4;
+    		//on récupère dans des tableaux pour chaque vol:
+    		//l'aéroport de départ
+    		$nomAeroportDepart[$unVol['idVol']] = $ligne1['nomAeroport'];
+    		//l'aéroport de d'arrivé
+    		$nomAeroportArrivee[$unVol['idVol']] = $ligne2['nomAeroport'];
+    		//la date du vol ou les jours de la semaine
+    		$jourOuDateDuVol[$unVol['idVol']] = $ligne3;
+    		//la durée du vol en heures
+    		$duree[$unVol['idVol']] = $ligne4;
     			
-    			$numVol[$unVol->idVol] = $unVol->numVol;
-    			$idVol[$unVol->idVol] = $unVol->idVol;   		
-    		}
-    		if ($_SESSION['donneesFiltreStrategique'] == 1)
-    		{
-    			if(isset($_SESSION['aeroportDepartFiltreStrategique']))
-    			{
-    				if($_SESSION['aeroportDepartFiltreStrategique'] == $ligne1['idAeroport'])
-    				{
-    					//on crée les cases a cocher
-    					$caseACocher = new Zend_Form_Element_Checkbox($unVol -> idVol);
-    					$caseACocher -> setValue($unVol -> idVol);
-    					$caseACocher -> setDecorators($decorateurCase);
-    					$formulaireSuppression -> addElement($caseACocher);
-    					
-    					//on récupère dans des tableaux pour chaque vol:
-    					//l'aéroport de départ
-    					$nomAeroportDepart[$unVol->idVol] = $ligne1['nomAeroport'];
-    					//l'aéroport de d'arrivé
-    					$nomAeroportArrivee[$unVol->idVol] = $ligne2['nomAeroport'];
-    					//la date du vol ou les jours de la semaine
-    					$jourOuDateDuVol[$unVol->idVol] = $ligne3;
-    					//la durée du vol en heures
-    					$duree[$unVol->idVol] = $ligne4;
-    					$numVol[$unVol->idVol] = $unVol->numVol;
-    					$idVol[$unVol->idVol] = $unVol->idVol;
-    				}
-    			}
-    			if(isset($_SESSION['aeroportArriveeFiltreStrategique']))
-    			{
-    				if($_SESSION['aeroportArriveeFiltreStrategique'] == $ligne2['idAeroport'])
-    				{
-    					//on crée les cases a cocher
-    					$caseACocher = new Zend_Form_Element_Checkbox($unVol -> idVol);
-    					$caseACocher -> setValue($unVol -> idVol);
-    					$caseACocher -> setDecorators($decorateurCase);
-    					$formulaireSuppression -> addElement($caseACocher);
-    					
-    					//on récupère dans des tableaux pour chaque vol:
-    					//l'aéroport de départ
-    					$nomAeroportDepart[$unVol->idVol] = $ligne1['nomAeroport'];
-    					//l'aéroport de d'arrivé
-    					$nomAeroportArrivee[$unVol->idVol] = $ligne2['nomAeroport'];
-    					//la date du vol ou les jours de la semaine
-    					$jourOuDateDuVol[$unVol->idVol] = $ligne3;
-    					//la durée du vol en heures
-    					$duree[$unVol->idVol] = $ligne4;
-    					$numVol[$unVol->idVol] = $unVol->numVol;
-    					$idVol[$unVol->idVol] = $unVol->idVol;
-    				}	
-    			}
-    		}
-    		if ($_SESSION['donneesFiltreStrategique'] == 2)
-    		{
-    			if($_SESSION['aeroportDepartFiltreStrategique'] == $ligne1['idAeroport'])
-    			{
-    				if($_SESSION['aeroportArriveeFiltreStrategique'] == $ligne2['idAeroport'])
-    				{
-    					//on crée les cases a cocher
-    					$caseACocher = new Zend_Form_Element_Checkbox($unVol -> idVol);
-    					$caseACocher -> setValue($unVol -> idVol);
-    					$caseACocher -> setDecorators($decorateurCase);
-    					$formulaireSuppression -> addElement($caseACocher);
-    					
-    					//on récupère dans des tableaux pour chaque vol:
-    					//l'aéroport de départ
-    					$nomAeroportDepart[$unVol->idVol] = $ligne1['nomAeroport'];
-    					//l'aéroport de d'arrivé
-    					$nomAeroportArrivee[$unVol->idVol] = $ligne2['nomAeroport'];
-    					//la date du vol ou les jours de la semaine
-    					$jourOuDateDuVol[$unVol->idVol] = $ligne3;
-    					//la durée du vol en heures
-    					$duree[$unVol->idVol] = $ligne4;
-    					$numVol[$unVol->idVol] = $unVol->numVol;
-    					$idVol[$unVol->idVol] = $unVol->idVol;
-    				}
-    			}
-    		}	
+    		$numVol[$unVol['idVol']] = $unVol['numVol'];
+    		$idVol[$unVol['idVol']] = $unVol['idVol'];   		
     	}
     	//on crée le bouton submit
     	$envoyer = new Zend_Form_Element_Submit('boutonSubmitSupprimerVol');
@@ -365,38 +279,27 @@ class StrategiqueController extends Zend_Controller_Action
     	$envoyer -> setDecorators($decorateurBoutonEnvoyer);
     	$formulaireSuppression -> addElement($envoyer);
     	
-    	
-    	
-    	
-    	
-    	
     	//on crée le formulaire filtre
     	$formFiltAeroDepart = new Zend_Form;
     	$formFiltAeroDepart -> setAttrib('id','formFiltAeroDepart');
     	$formFiltAeroDepart -> setMethod('post');
-    	$formFiltAeroDepart -> setAction('/strategique/index?valeur=fermer&filtreStategique=aeroportDepart');
+    	$formFiltAeroDepart -> setAction('/strategique/index?valeur=fermer');
     	 
     	//choix de l'aéroport de départ
-    	$aeroportDepart = new Zend_Form_Element_Text('aeroportDepart');
-    	$aeroportDepart -> setLabel('Aéroport de départ');
-    	$aeroportDepart -> setValue(fonctionFormulaireChoixAeroport());
-    	$formFiltAeroDepart -> addElement($aeroportDepart);
+    	$formFiltAeroDepart -> addElement(fonctionAeroport('aeroportDepart'));
     	
     	$envoyer = new Zend_Form_Element_Submit('boutonSubmitFiltAeroDepart');
     	$envoyer -> setLabel('Filtrer');
     	$formFiltAeroDepart -> addElement($envoyer);
     	
-    	
+    	//on crée le formulaire filtre
     	$formFiltAeroArrivee = new Zend_Form;
     	$formFiltAeroArrivee -> setAttrib('id','formFiltAeroArrivee');
     	$formFiltAeroArrivee -> setMethod('post');
-    	$formFiltAeroArrivee -> setAction('/strategique/index?valeur=fermer&filtreStategique=aeroportArrivee');
+    	$formFiltAeroArrivee -> setAction('/strategique/index?valeur=fermer');
     	
-    	//choix de l'aéroport de départ
-    	$aeroportArrivee = new Zend_Form_Element_Text('aeroportArrivee');
-    	$aeroportArrivee -> setLabel('Aéroport d\'arrivée');
-    	$aeroportArrivee -> setValue(fonctionFormulaireChoixAeroport());
-    	$formFiltAeroArrivee -> addElement($aeroportArrivee);
+    	//choix de l'aéroport d'arrivee
+    	$formFiltAeroArrivee -> addElement(fonctionAeroport('aeroportArrivee'));
     	 
     	$envoyer = new Zend_Form_Element_Submit('boutonSubmitFiltAeroArrivee');
     	$envoyer -> setLabel('Filtrer');
@@ -409,16 +312,24 @@ class StrategiqueController extends Zend_Controller_Action
     	//on envoie les vols a la vue
     	$this->view->lesVols = $pagination;
     	//on envoie les noms d'aeroport de depart
-    	$this->view->lesAeroportsDeDepart = $nomAeroportDepart;
-    	//on envoie les noms d'aeroport d'arrivee
-    	$this->view->lesAeroportsDArrivee = $nomAeroportArrivee;
-    	//on envoie les dates de départs ou les jours prévu
-    	$this->view->lesJourEtDateDeVol = $jourOuDateDuVol;
-    	//on envoie la durée des vols
-    	$this->view->duree = $duree;
     	
-    	$this->view->idVol = $idVol;
-    	$this->view->numVol = $numVol;
+    	if(isset($nomAeroportDepart))
+    		$this->view->lesAeroportsDeDepart = $nomAeroportDepart;
+    	//on envoie les noms d'aeroport d'arrivee
+    	if(isset($nomAeroportArrivee))
+    		$this->view->lesAeroportsDArrivee = $nomAeroportArrivee;
+    	//on envoie les dates de départs ou les jours prévu
+    	if(isset($jourOuDateDuVol))
+    		$this->view->lesJourEtDateDeVol = $jourOuDateDuVol;
+    	//on envoie la durée des vols
+    	if(isset($duree))
+    		$this->view->duree = $duree;
+    	
+    	if(isset($idVol))
+    		$this->view->idVol = $idVol;
+    	
+    	if(isset($numVol))
+    		$this->view->numVol = $numVol;
     	//on envoie le formulaire a la vue
     	$this->view->formulaire = $formulaireSuppression;
     

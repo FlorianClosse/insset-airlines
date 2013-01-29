@@ -1,3 +1,5 @@
+
+
 #contenu{
 	width: 980px;
 	height: 85%;
@@ -24,19 +26,16 @@ a
 .Bar {
 	background:black repeat-x;
 	background-position:top;
-	padding:5px;
 	position:fixed;
-	
-	
 	width: 980px;
-	height: 40px;
-	margin: 0px auto;
 	
-
+	margin: 0px auto;
+height:50px;;
 	left:0;
 	right:0;
 	top:0;
 	color:#FFF;
+	border-radius:7px;
 	border-bottom:3px solid #FFF;
 	-moz-opacity:0.5;
 opacity: 0.5;
@@ -64,14 +63,13 @@ body{
 }
 
 .form{
+	position:absolute;
+	top:0;
+	right:0;
 	float:right;
+	height: auto;
 }
-#mail{
-	width:150px;
-}
-#mdp{
-	width:150px;
-}
+
 
 /* .pied */
 /* { */
