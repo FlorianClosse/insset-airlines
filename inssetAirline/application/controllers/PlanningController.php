@@ -338,6 +338,7 @@ class PlanningController extends Zend_Controller_Action
     	$vol = new Vol();
     	$pilote = new Pilote();
     	$modele = new Modele();
+    	$revision = new Revision();
     	$liaionBrevetModele = new LiaisonBrevetModele();
     	$liaisonPiloteBrevet = new LiaisonPiloteBrevet();
     	
@@ -389,7 +390,46 @@ class PlanningController extends Zend_Controller_Action
 		    	
 		    	if($monAeroDepart == $aeroDepart)
 		    	{
-		    		$tabAvion = array($jdb['idAvion'] => $numAvion);
+		    		//////datePrevue 	dateDebut 	dateFin 	idAvion 
+		    		$lesRevisions = $revision->getRecupererSuivantAvion($jdb['idAvion']);
+		    		$enRevision ='non';
+		    		foreach($lesRevisions as $uneRevision)
+		    		{
+		    			$auj = mktime(0, 0, 0, date('m'), date('d'), date('Y')); 
+		    			
+		    			$tabDate = explode("-", $uneRevision['datePrevue']);
+						$annees =  $tabDate[0]; 
+						$mois =  $tabDate[1];
+						$jours =  $tabDate[2];
+						date_default_timezone_set("Europe/Paris" );
+						$dateDebut = mktime(0, 0, 0, $mois, $jours, $annees);
+						
+						if($dateDebut <= $auj)
+		    			{
+		    				if($uneRevision['dateFin'])
+		    				{
+		    					$tabDate = explode("-", $uneRevision['dateFin']);
+								$annees =  $tabDate[0]; 
+								$mois =  $tabDate[1];
+								$jours =  $tabDate[2];
+								date_default_timezone_set("Europe/Paris" );
+								$dateFin = mktime(0, 0, 0, $mois, $jours, $annees);
+								if($dateFin >= $auj)
+		    					{
+		    						$enRevision = 'oui';
+		    					}
+		    				}
+		    				else
+		    				{
+		    					$enRevision = 'oui';
+		    				}
+		    			}
+		    		}
+		    		if($enRevision != 'oui')
+		    		{
+		    			$tabAvion = array($jdb['idAvion'] => $numAvion);
+		    		}
+		    		
 		    		
 		    		if(isset($_POST['ChoixDesAvions']))
 		    		{
