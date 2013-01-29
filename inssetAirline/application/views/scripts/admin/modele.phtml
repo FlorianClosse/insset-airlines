@@ -4,7 +4,7 @@
 <table class="avion">
 	<thead>
 		<tr> 	
-			<th></th>nomModele 	longueurPiste 	rayonDaction 	nbPlace 	periodePetiteRevision 	periodeGrandeRevision
+			<th></th>
 			<th>Nom</th>
 			<th>Longueur nécessaire de piste</th>
 			<th>Rayon d'action</th>
@@ -34,7 +34,7 @@
 	</tbody>
 </table>
 <div id="popupajoutmodele" class="popup_block">
-	<?php echo $this->formajoutaeroport;?>           
+	<?php echo $this->formajoutmodele;?>           
 </div>
 <br />
 <?php if($lesmodeles != NULL){ echo $this->paginationControl($lesmodeles,'All', 'paginationcontroleavion.phtml');}?>
