@@ -37,7 +37,7 @@
 		public function selectFiltreUn($champ,$valeur)
 		{
 			$db = Zend_Db_Table::getDefaultAdapter();
-			$requete = 'SELECT * FROM avion WHERE statut='.$valeur;
+			$requete = 'SELECT * FROM avion WHERE '.$champ.'='.$valeur;
 			return $db->query($requete)->fetchAll();
 		}
 		

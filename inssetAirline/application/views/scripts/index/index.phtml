@@ -1,34 +1,54 @@
 <ul>
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 1)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=commercial">
 			Service Commercial
 		</a>
 	</li>
+	<?php }?>
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 2)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=strategique">
 			Service Stratégique
 		</a>
 	</li>
+	<?php }?>
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 3)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=technique">
 			Service Technique
 		</a>
 	</li>
+	<?php }?>
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 4)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=logistique">
 			Service Logistique
 		</a>
 	</li>
+	<?php }?>
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 5)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=drh">
 			Direction des ressources humaines
 		</a>
 	</li>
+	<?php } ?>
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 6)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=maintenance">
 			Service de Maintenance
 		</a>
 	</li>
+	<?php } ?>
+	
+	<?php if(($_SESSION['Zend_Auth']['storage']->service == 7)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
 	<li>
 		<a href="<?php echo $this->baseUrl('index/index'); ?>?menu=exploitation">
 			Service d'exploitation
@@ -39,4 +59,5 @@
 			Gestion du planning
 		</a>
 	</li>
+	<?php } ?>
 </ul>

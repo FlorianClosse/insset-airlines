@@ -39,7 +39,9 @@ public class GererOperation extends Activity {
 				Intent t = new Intent(GererOperation.this,
 						ListeOperations.class);
 				t.putExtra("idRevision", IoSeb.tabResultats[position][2]);
+				IoSeb.viderTabResultats();
 				startActivity(t);
+				finish();
 			}
 		});
 	}// oncreate

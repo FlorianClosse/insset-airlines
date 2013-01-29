@@ -1,11 +1,17 @@
 package com.example.inssetairlines;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+import seb.util.IoSeb;
 import seb.util.ToastSeb;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -19,7 +25,11 @@ public class ValiderRevision extends Activity {
 
 	ListView listeValiderRevision = null;
 	ArrayList<HashMap<String, String>> lAvions = null;
-	String[] numImmatri = { "avion1", "avion2", "avion3" };
+	String[] numImmatri = null;
+	String[] idRevision = null;
+	String[] idAvion = null;
+	String dateDuJour = null;
+	Boolean[] isValide = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,8 @@ public class ValiderRevision extends Activity {
         setContentView(R.layout.activity_valider_revision);
         listeValiderRevision = (ListView) findViewById(R.id.listViewValiderRevision);
         listeValiderRevision.setOnItemClickListener(listenerListeValiderRevision);
+        GregorianCalendar calendar = new GregorianCalendar();
+        dateDuJour = String.valueOf(calendar.get(Calendar.YEAR))+"-"+String.valueOf(calendar.get(Calendar.MONTH)+1)+"-"+String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
 		afficherListeValiderRevision();
     }
 
@@ -36,38 +48,48 @@ public class ValiderRevision extends Activity {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 				long arg3) {
 			// TODO Auto-generated method stub
-			HashMap<String,String> map = null;
-			map = lAvions.get(position);
-			String numImmatri = map.get("numImmatri");
-			map = new HashMap<String,String>();
-			map.put("numImmatri", numImmatri);
-			map.put("valideOuiNon", "OUI");
-			lAvions.set(position, map);
-			SimpleAdapter adapter = new SimpleAdapter(ValiderRevision.this,
-					lAvions, R.layout.ligne_valider_revision,
-					new String[] { "numImmatri","valideOuiNon" }, new int[] {
-							R.id.TextViewImmatri,R.id.textViewValideOuiNon});
-			listeValiderRevision.setAdapter(adapter);
-			//requète à la base pour valider la revision choisie
-			ToastSeb.toastSeb(getApplicationContext(), "révision validée"); //à mettre dans le handler aprés la requete.
+			
+			if(!isValide[position]) {
+				listeValiderRevision.setEnabled(false);
+				HashMap<String,String> map = null;
+				map = lAvions.get(position);
+				String numImmatri = map.get("numImmatri");
+				map = new HashMap<String,String>();
+				map.put("numImmatri", numImmatri);
+				map.put("valideOuiNon", "OUI");
+				lAvions.set(position, map);
+				isValide[position] = true;
+			IoSeb ioSeb = new IoSeb();
+			ioSeb.ajoutParam("idRevision", idRevision[position]);
+			ioSeb.ajoutParam("dateDuJour", dateDuJour);
+			ioSeb.ajoutParam("idAvion", idAvion[position]);
+			ioSeb.inputSeb(UrlScriptsPhp.urlValiderRevision, handlerValidationRevision, getApplicationContext());
+		}
 		}
 	};
     
     private void afficherListeValiderRevision() {
-    	//mettre requete IoSeb ioSeb = new IoSeb(); ioSeb.ajoutParam
     	
-    	remplaceHandlerPourTests();  //a supprimer
+    	IoSeb ioSeb = new IoSeb(); 
+    	ioSeb.ajoutParam("dateDuJour", dateDuJour);
+    	ioSeb.outputSeb(UrlScriptsPhp.urlLireListeRevisionsAvalider, new String[] {"idRevision","immatriculationAvion","idAvion"}, getApplicationContext(), handlerLireRevisionAvalider);
     }
     
-    public void remplaceHandlerPourTests() {
+    private Handler handlerLireRevisionAvalider = new Handler() {
+    public void handleMessage(Message msg) {
+    	numImmatri = new String[IoSeb.tabResultats.length];
+    	idAvion = new String[IoSeb.tabResultats.length];
+    	idRevision = new String[IoSeb.tabResultats.length];
+    	isValide = new Boolean[IoSeb.tabResultats.length];
     	lAvions = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> avionRev = new HashMap<String, String>();
-		for (int i = 0; i < 3; i++) { // remplacer 3 par
-										// IoSeb.tabResultats.length
+		for (int i = 0; i < IoSeb.tabResultats.length; i++) {
+			isValide[i] = false;
+			numImmatri[i] = IoSeb.tabResultats[i][1];
+			idRevision[i] = IoSeb.tabResultats[i][0];
+			idAvion[i] = IoSeb.tabResultats[i][2];
 			avionRev = new HashMap<String, String>();
-			avionRev.put("numImmatri", numImmatri[i]); // remplacer
-														// numImmatri[i] par
-														// IoSeb.tabResultats[i][0]
+			avionRev.put("numImmatri", numImmatri[i]);
 			avionRev.put("valideOuiNon", "NON");
 			lAvions.add(avionRev);
 		}
@@ -77,6 +99,19 @@ public class ValiderRevision extends Activity {
 						R.id.TextViewImmatri, R.id.textViewValideOuiNon});
 		listeValiderRevision.setAdapter(adapter);
     }
+    };
+    
+    private Handler handlerValidationRevision = new Handler() {
+    	public void handleMessage(Message msg) {
+			SimpleAdapter adapter = new SimpleAdapter(ValiderRevision.this,
+					lAvions, R.layout.ligne_valider_revision,
+					new String[] { "numImmatri","valideOuiNon" }, new int[] {
+							R.id.TextViewImmatri,R.id.textViewValideOuiNon});
+			listeValiderRevision.setAdapter(adapter);
+			listeValiderRevision.setEnabled(true);
+			ToastSeb.toastSeb(getApplicationContext(), "révision validée");
+    	}
+    };
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

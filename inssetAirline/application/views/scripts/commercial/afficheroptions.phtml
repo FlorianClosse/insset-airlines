@@ -67,13 +67,12 @@
 				?>
 			</tr>
 			<?php 	
-				}
-				
-				echo $formFiltreDepart;
-				echo $formFiltreArrivee;
-				echo $paginator;
+				}				
  			}
 			?>
 			</table>	
-			<?php  //echo $this->paginationControl($tableauReservations,'All', 'paginationcontrole.phtml');?>	
+			<?php echo $paginator.'<br>'; 
+				echo 'Choisir un aeroport de depart :'.$formFiltreDepart;
+				echo 'Choisir un aeroport d\'arrivée :'.$formFiltreArrivee;
+				?>	
 	</div>		

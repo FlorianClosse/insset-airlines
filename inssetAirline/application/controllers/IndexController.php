@@ -114,7 +114,7 @@ class IndexController extends Zend_Controller_Action
 					}
 					else
 					{
-						echo "dans le cul";
+						$this->_redirect('/index/login');
 					}
 				}
 				catch(Zend_Exception $e)

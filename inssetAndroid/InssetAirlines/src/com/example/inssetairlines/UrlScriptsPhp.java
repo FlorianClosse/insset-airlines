@@ -12,5 +12,7 @@ public class UrlScriptsPhp {
 	public static String urlValiderOperation = urlScriptsPhp+"ValiderOperation.php";
 	public static String urlLireListeAvionsAenvoyerEnRevision = urlScriptsPhp+"LireListeAvionsAenvoyerEnRevision.php";
 	public static String urlValiderDateRevisionPrevue = urlScriptsPhp+"ValiderDateRevisionPrevue.php";
+	public static String urlLireListeRevisionsAvalider = urlScriptsPhp+"LireListeRevisionsAvalider.php";
+	public static String urlValiderRevision = urlScriptsPhp+"ValiderRevision.php";
 
 }
