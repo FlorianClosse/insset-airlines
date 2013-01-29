@@ -10,9 +10,7 @@ class TechniqueController extends Zend_Controller_Action
     	$formulaireChoix -> setMethod('post');
     	$formulaireChoix -> setAction('/technique/index/');
     	//choix de l'aéroport de départ
-    	$numeroAeroport = new Zend_Form_Element_Text('numeroAeroport');
-    	$numeroAeroport -> setLabel('choisir votre aéroport');
-    	$formulaireChoix -> addElement($numeroAeroport);
+    	$formulaireChoix -> addElement(fonctionAeroport('numeroAeroport'));
     	//bouton d'envoie du formulaire
     	$envoyer = new Zend_Form_Element_Submit('boutonSubmitChoixAeroport');
     	$envoyer -> setLabel('Ajouter');
@@ -139,13 +137,15 @@ class TechniqueController extends Zend_Controller_Action
     	$monAeroport = $_SESSION['aeroport'];
     	 
     	 
-    	$lesVols = $journalDeBord->getRecuperLesVolsArriveAujourdHui($aujourdhui);
+    	$lesVols = $journalDeBord->getRecuperLesVolsArriveeAujourdHui($aujourdhui);
     	foreach($lesVols as $unVol)
     	{
     		$idVol = $unVol['idVol'];
-    		$aeroportDArrivee = $unVol['aeroportArrivee'];
+    		
     		$idJournal = $unVol['idJournalDeBord'];
     		$leVol = $vol->find($idVol)->current();
+    		$aeroportDArrivee = $leVol['aeroportArrivee'];
+    		
     		if($leVol->aeroportArrivee == $monAeroport)
     		{
     			$idAvion = $unVol['idAvion'];
