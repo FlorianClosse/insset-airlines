@@ -36,6 +36,7 @@ set_include_path(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH), get_i
 require_once 'fonction/fonctionConvertirHeure.php';
 require_once 'fonction/fonctionFormulaireChoixAeroport.php';
 require_once 'fonction/fonctionAeroport.php';
+require_once 'fonction/ConvertionDate.php';
 
 $application->bootstrap()->run();
 ?>

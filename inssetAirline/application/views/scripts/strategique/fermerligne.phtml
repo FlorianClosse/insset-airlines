@@ -48,13 +48,13 @@ $idVol = $this->idVol;
 	<?php echo $formulaire; ?>
 	
 	<table id="tableauInfoVol">
-	<?php foreach($lesVols as $unVol) { if(isset($idVol[$unVol->idVol])){?>
+	<?php foreach($lesVols as $unVol) { if(isset($idVol[$unVol['idVol']])){?>
 		<tr>
-			<td><?php echo $numVol[$unVol->idVol]; ?></td>
-			<td><?php echo $lesAeroportsDeDepart[$unVol->idVol]; ?></td>
-			<td><?php echo $lesAeroportsDArrivee[$unVol->idVol]; ?></td>
-			<td><?php echo $lesJourEtDateDeVol[$unVol->idVol]; ?></td>
-			<td><?php echo $duree[$unVol->idVol]; ?></td>
+			<td><?php echo $numVol[$unVol['idVol']]; ?></td>
+			<td><?php echo $lesAeroportsDeDepart[$unVol['idVol']]; ?></td>
+			<td><?php echo $lesAeroportsDArrivee[$unVol['idVol']]; ?></td>
+			<td><?php echo $lesJourEtDateDeVol[$unVol['idVol']]; ?></td>
+			<td><?php echo $duree[$unVol['idVol']]; ?></td>
 	   </tr>
 	<?php } } ?>
 	</table>

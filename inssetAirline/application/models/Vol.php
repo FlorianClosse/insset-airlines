@@ -24,7 +24,38 @@ class Vol extends Zend_Db_Table_Abstract
 	);
 	
 	
-	
+	// ***fonction par Nicolas
+	public function getRecuper()
+	{
+		$requete = $this->select()
+		->from($this);
+		return $requete->query()->fetchAll();
+	}
+	// ***fonction par Nicolas
+	public function getRecuperDepart($aeroportDepart)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('aeroportDepart=?', $aeroportDepart);
+		return $requete->query()->fetchAll();
+	}
+	// ***fonction par Nicolas
+	public function getRecuperArrivee($aeroportArrivee)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('aeroportArrivee=?', $aeroportArrivee);
+		return $requete->query()->fetchAll();
+	}
+	// ***fonction par Nicolas
+	public function getRecuperDepartArrivee($aeroportDepart, $aeroportArrivee)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('aeroportDepart=?', $aeroportDepart)
+		->where('aeroportArrivee=?', $aeroportArrivee);
+		return $requete->query()->fetchAll();
+	}
 	
 	// ***fonction getRecuperAeroportDepart par Nicolas 
 	public function getRecuperAeroportDepart($aeroportDepart)
@@ -45,7 +76,6 @@ class Vol extends Zend_Db_Table_Abstract
 		->where('aeroport.idAeroport=?', $aeroportArrivee);
 		return $requete->query()->fetch();
 	}
-	
 	// ***fonction getRecuperDates de vol par Nicolas
 	public function getRecuperDateDeVol($date)
 	{
@@ -87,9 +117,10 @@ class Vol extends Zend_Db_Table_Abstract
 		}
 		else
 		{
-			return $ligne['datePrevu'];
+			$result = convertirDateEnLettre($ligne['datePrevu']);
+			return $result;
 		}
-	}
+	}               
 	public function getRecuperLesVolsAujourdHui($aujourdhui, $aeroport)
 	{
 		$requete = $this->select()
@@ -98,6 +129,20 @@ class Vol extends Zend_Db_Table_Abstract
 		->where('aeroportDepart=?', $aeroport)
 		;
 		return $requete->query()->fetchAll();
+	}
+	
+	
+	
+	public function getRecuperUnVolAvecDateDepartArriveeEtNom($aujourdhui, $aeroportDepart, $aeroportArrivee, $nom)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('datePrevu=?', $aujourdhui)
+		->where('aeroportDepart=?', $aeroportDepart)
+		->where('aeroportArrivee=?', $aeroportArrivee)
+		->where('numVol=?', $nom)
+		;
+		return $requete->query()->fetch();
 	}
 	
 }

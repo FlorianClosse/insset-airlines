@@ -75,14 +75,14 @@ public class AfficherComment extends Activity {
 		HashMap<String, String> comment = new HashMap<String, String>();
 		for (int i = 0; i < commentaires.length; i++) {
 			comment = new HashMap<String, String>();
-			comment.put("date", commentaires[i].getDateCommentaire());
+			comment.put("datePrevue", commentaires[i].getDateCommentaire());
 			comment.put("comment", commentaires[i].getCommentaire());
 			comment.put("nomTechnicien", "Robert");
 			lComment.add(comment);
 		}
 
 		SimpleAdapter adapter = new SimpleAdapter(AfficherComment.this,
-				lComment, R.layout.ligne_comment, new String[] { "date",
+				lComment, R.layout.ligne_comment, new String[] { "datePrevue",
 						"comment" }, new int[] { R.id.date, R.id.comment });
 		listeComment.setAdapter(adapter);
 	}
@@ -101,7 +101,7 @@ public class AfficherComment extends Activity {
 				.findViewById(R.id.TextIdCreat);
 		TextView comment = (TextView) alertDialogView
 				.findViewById(R.id.TextComment);
-		date.setText(map.get("date"));
+		date.setText(map.get("datePrevue"));
 		nomTechni.setText(map.get("nomTechnicien"));
 		comment.setText(map.get("comment"));
 		adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
