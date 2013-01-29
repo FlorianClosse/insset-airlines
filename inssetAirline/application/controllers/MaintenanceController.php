@@ -3,13 +3,52 @@ class MaintenanceController extends Zend_Controller_Action
 {
 	public function indexAction()
 	{
-		try{
+		$filtre = new FormFiltreMaintenance();
+		echo $filtre;
 		$formAjoutAvion = new FormAjoutAvion();
 		$this->view->formajoutavion= $formAjoutAvion;
-		$avion= new Avion();
-		$this->view->lesavions = $avion->selectAll();
-		}catch(Zend_Exception $e){
-			echo $e->getMessage();
+		
+		if($this->getRequest()->isPost())
+		{
+			$data = $this->getRequest()->getPost();
+			$avion= new Avion();
+			$i=0;
+			foreach($data as $c => $v)
+			{
+				if($v != "0" && $v != "Filtrer")
+				{
+					if($c == 'statut')
+					{
+						$v = '\''.$v.'\'';
+					}
+					$i++;
+					$array[]= array($c,$v);
+				}
+			}
+
+			switch ($i) 
+			{
+				case 0:
+					$this->view->lesavions = $avion->selectAll();
+					break;
+				case 1:
+					$this->view->lesavions = $avion->selectFiltreUn($array[0][0], $array[0][1]);
+					break;
+				case 2:
+					$this->view->lesavions = $avion->selectFiltreDeux($array[0][0], $array[0][1], $array[1][0], $array[1][1]);
+					break;
+				case 3:
+					$this->view->lesavions = $avion->selectFiltreTrois($array[0][0],$array[0][1],$array[1][0],$array[1][1],$array[2][0],$array[2][1]);
+					break;
+				case 4:
+					$this->view->lesavions = $avion->selectFiltreQuatre($array[0][0],$array[0][1],$array[1][0],$array[1][1],$array[2][0],$array[2][1],$array[3][0],$array[3][1]);
+					break;
+			}
+		}
+		else
+		{
+			$avion= new Avion();
+			$this->view->lesavions = $avion->selectAll();
 		}
 	}
 
