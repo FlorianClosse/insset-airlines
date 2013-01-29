@@ -72,8 +72,7 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 					 from journalDeBord J, vol V
 					 where J.idVol = V.idVol;';
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$datas = $db->query($requete)->fetchAll();
-		//Zend_Debug::dump($datas) ;
+		$datas = $db->query($requete)->fetchAll();		
 		return $datas;
 	}
 	
@@ -84,7 +83,7 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 					 where statut = "en vol";';
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$datas = $db->query($requete)->fetchAll();
-		//Zend_Debug::dump($datas) ;
+		
 		return $datas;
 	}
 	

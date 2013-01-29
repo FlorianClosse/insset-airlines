@@ -2,7 +2,6 @@
 
 class LogistiqueController extends Zend_Controller_Action
 {
-	
 	public function preDispatch()
 	{
 		$this->_helper->actionStack('login', 'index', 'default', array());
@@ -69,27 +68,7 @@ class LogistiqueController extends Zend_Controller_Action
 			{
 				echo 'Il n\'y a pas de commentaire pour ce vol';
 			}
-		}
-		if(isset($_POST['EnvoyerCommentaire']))
-		{
-							$commentaire = new CommentaireVol;
-								
-							$comvol = $commentaire->createRow();
-							$comvol->idCommentaireVol = '';
-							$comvol->idJournalDeBord = $_POST['journaldebord'];
-							$comvol->commentaire = $_POST['NewCom'];
-							$comvol->titre = $_POST['NewTitre'];							
-						
-							if(!empty($comvol->commentaire))
-							{
-								$comvol->save();
-								echo "Commentaire ajouté";
-							}
-							else
-							{
-								echo"Erreur d'ajout";
-							}
-			}
+		}		
 	}
 	
 	//***** fonction afficher*****
@@ -97,7 +76,8 @@ class LogistiqueController extends Zend_Controller_Action
 	{
 		$journal = new JournalDeBord;
 		$lesJournaux = $journal->getVolEnCour();
-			
+		
+		
     	//decorateur des cases a cocher
     	$decorateurCase = array(
     			array('ViewHelper'),
@@ -136,8 +116,9 @@ class LogistiqueController extends Zend_Controller_Action
     		$caseACocher = new Zend_Form_Element_Checkbox($unJournal['idJournalDeBord']);
     		$caseACocher -> setValue($unJournal['idJournalDeBord']);
     		$caseACocher -> setDecorators($decorateurCase);    		
-    		$formulaireAfficherVol -> addElement($caseACocher);    			
-    	}    		
+    		$formulaireAfficherVol -> addElement($caseACocher);      		
+    	} 
+    		
     	//on crée le bouton submit
     	$valider = new Zend_Form_Element_Submit('valider');
     	$valider -> setDecorators($decorateurBoutonValider);
@@ -150,59 +131,50 @@ class LogistiqueController extends Zend_Controller_Action
     	{
     		$compteur = $compteur + 1;
     		$listeNumVol[$compteur][0] = $unNumVol['numVol'].'<br>'; 
-    		$this->view->listeNumVol = $listeNumVol;  	
-    	}
-    	
+    		$this->view->listeNumVol = $listeNumVol; 
+    		
+    	}   	
     		 
     	//on envoie les vols a la vue
     	$this->view->lesJournaux = $lesJournaux;
     	$this->view->formulaire = $formulaireAfficherVol;    	
+  
 	}
 	
 	//***** fonction ajouter*****
 	public function ajoutcommentaireAction()
 	{
-			// Créer un objet formulaire 
-			$FormAjoutCommentaire = new Zend_Form();
-			 
-			// Parametrer le formulaire 
-			$FormAjoutCommentaire->setMethod('post')->setAction('/logistique/index');
-			$FormAjoutCommentaire->setAttrib('id', 'FormAjoutCommentaire');
-			
-			// Creer de l'elements de formulaire 
-			$NewCommentaire= new Zend_Form_Element_Textarea('NewCom');
-			$NewCommentaire ->setLabel('Taper votre commentaire');
-			$NewCommentaire->setAttrib('id', 'formcommentaire');
-			$NewCommentaire ->setRequired(TRUE);
-			
-			$NewTitre= new Zend_Form_Element_Text('NewTitre');
-			$NewTitre ->setLabel('Taper votre titre');
-			$NewTitre->setAttrib('id', 'formcommentaire');
-			$NewTitre ->setRequired(TRUE);			
-						
- 			$journalDeBord = new JournalDeBord;
- 			$lesjournaldebord = $journalDeBord->fetchAll();
-			$journalDeBord = new Zend_Form_Element_Select('journaldebord');
-			$journalDeBord ->setLabel('Choisir un id journal de bord');
-			foreach ($lesjournaldebord as $unjournaldebord )
+		$formAjoutCommentaire = new Fajoutcommentairelogistique;
+		$commentaire = new CommentaireVol;
+		
+		$id = $this->_getParam('idJournalDeBord');
+		$formAjoutCommentaire->journaldebord->setValue($id);
+		
+		
+		if(isset($_POST['Envoyer']))
+		{			
+		
+			$comvol = $commentaire->createRow();
+			$comvol->idCommentaireVol = '';
+			$comvol->idJournalDeBord = $_POST['journaldebord'];
+			$comvol->commentaire = $_POST['NewCom'];
+			$comvol->titre = $_POST['NewTitre'];			
+			if(!empty($comvol->commentaire))
 			{
-				$tableaujournaldebord[$unjournaldebord -> idJournalDeBord] = $unjournaldebord -> idJournalDeBord ;
-			}
+				$comvol->save();
+				$this->_redirect('/logistique/index?valeur=afficher');
 				
-			$journalDeBord->setMultiOptions($tableaujournaldebord);
-			
-			
-			$boutonSubmit = new Zend_Form_Element_Submit('EnvoyerCommentaire');
-			$boutonReset = new Zend_Form_Element_Reset('Reset');
-			
-			$FormAjoutCommentaire->addElement($NewTitre);			
- 			$FormAjoutCommentaire->addElement($journalDeBord);
-			$FormAjoutCommentaire->addElement($NewCommentaire);
-			$FormAjoutCommentaire->addElement($boutonSubmit);
-			$FormAjoutCommentaire->addElement($boutonReset);
-			
-			//affiche le formulaire
-			echo $FormAjoutCommentaire;
+			}
+			else
+			{
+				echo"Erreur d'ajout";
+			}
+		}
+		else 
+		{
+			$this->view->formAjoutCommentaire = $formAjoutCommentaire;
+		}	
 		
 	}	
+
 }
