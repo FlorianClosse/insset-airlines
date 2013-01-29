@@ -15,45 +15,15 @@ class FdemanderLesVols extends Zend_Form
  		$aeroportD = new Zend_Form_Element_Select('aeroportD');
  		$aeroportD ->setLabel('Choisir un aeroport de départ');
  		
- 		foreach ($lesAeroportD as $unAeroportD ) 
- 		{
- 			$tableauAeroportD[$unAeroportD -> idAeroport] = ucfirst($unAeroportD->nomAeroport);
- 		}
- 		$aeroportD->setMultiOptions($tableauAeroportD);
  		
  		$aeroportA = new Aeroport;
  		$lesAeroportA = $aeroportA->fetchAll();
  		
  		$aeroportA = new Zend_Form_Element_Select('aeroportA');
- 		$aeroportA ->setLabel('Choisir un aeroport d\'arrivé');
+ 				
  		
- 		foreach ($lesAeroportA as $unAeroportA )
- 		{
- 			$tableauAeroportA[$unAeroportA -> idAeroport] = ucfirst($unAeroportA->nomAeroport);
- 		}
- 		$aeroportA->setMultiOptions($tableauAeroportA);
  		
-//  		$paysDe = new Pays;
-//  		$lesPaysD = $paysDe->fetchAll();
- 		
-//  		$paysD = new Zend_Form_Element_Select('paysD');
-//  		$paysD ->setLabel('Choisir un Pays de départ');
-//  		foreach ($lesPaysD as $unPaysD)
-//  		{
-//  			$tableauPaysD[$unPaysD -> idPays] = $unPaysD->nomPays;
-//  		}
-//  		$paysD->setMultiOptions($tableauPaysD);
- 		
-//  		$paysAe = new Pays;
-//  		$lesPaysA = $paysAe->fetchAll();
-//  		$paysA = new Zend_Form_Element_Select('paysA');
-//  		$paysA ->setLabel('Choisir un Pays d\'arrivé');
-//  		foreach ($lesPaysA as $unPaysA)
-//  		{
-//  			$tableauPaysA[$unPaysA -> idPays] = $unPaysA->nomPays;
-//  		} 		
-//  		$paysA->setMultiOptions($tableauPaysA);  			
- 		
+
  		$date = new Zend_Form_Element_Text('datepicker');
 		$date ->setLabel('Date ');
 		$date ->setRequired(TRUE);
@@ -64,11 +34,9 @@ class FdemanderLesVols extends Zend_Form
  		
  		$boutonReset = new Zend_Form_Element_Reset('Reset');		
 		
-		$this->addElement($date);
-		//$this->addElement($paysD);
-		$this->addElement($aeroportD);		
-		//$this->addElement($paysA);
-		$this->addElement($aeroportA);
+		$this->addElement($date);		
+		$this->addElement(fonctionAeroport('aeroportD'));		
+		$this->addElement(fonctionAeroport('aeroportA'));
 		$this->addElement($bSubmit);
 		$this->addElement($boutonReset);
 	}

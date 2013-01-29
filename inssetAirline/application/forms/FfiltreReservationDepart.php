@@ -12,15 +12,7 @@ class FfiltreReservationDepart extends Zend_Form
 		$aeroportD = new Aeroport;
  		$lesAeroportD = $aeroportD->fetchAll();
  		
- 		$aeroportD = new Zend_Form_Element_Select('aeroportD');
- 		$aeroportD ->setLabel('Choisir un aeroport de départ');
- 		
- 		foreach ($lesAeroportD as $unAeroportD ) 
- 		{
- 			$tableauAeroportD[$unAeroportD -> idAeroport] = ucfirst($unAeroportD->nomAeroport);
- 		}
- 		$aeroportD->setMultiOptions($tableauAeroportD);			
- 		
+ 		$aeroportD = new Zend_Form_Element_Select('aeroportD'); 		
  		
 		$bSubmitD = new Zend_Form_Element_Submit('FiltrerD');
 		$bSubmitD->setAttrib('id', 'boutonfiltreD');
@@ -28,7 +20,7 @@ class FfiltreReservationDepart extends Zend_Form
 		
 		
 		/* On ajoute les elements au formulaire */
-		$this->addElement($aeroportD);
+		$this->addElement(fonctionAeroport('aeroportD'));
 		$this->addElement($bSubmitD);	
 		
 	}

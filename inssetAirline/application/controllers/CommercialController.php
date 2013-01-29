@@ -225,7 +225,8 @@ class CommercialController extends Zend_Controller_Action
 			if(!isset($_POST['Ajouter']))
 			{		
 				//on affiche le formulaire
-				echo $formDemanderLesVols;				
+				//echo $formDemanderLesVols;		
+				$this->view->formDemanderLesVols = $formDemanderLesVols;
 			}
 		}			
 	}
