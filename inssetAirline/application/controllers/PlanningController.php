@@ -13,7 +13,7 @@ class PlanningController extends Zend_Controller_Action
     				$this->_helper->actionStack('creerplanning', 'planning', 'default', array());
     				break;
     				 
-    			case "fermer":
+    			case "modifier":
     				$this->_helper->actionStack('modifierplanning', 'planning', 'default', array());
     				break;
     		}
@@ -568,6 +568,45 @@ class PlanningController extends Zend_Controller_Action
     
     public function modifierplanningAction()
     {
+    	$messageModifVol = new MessageModifVol();
+    	$journalDeBord = new JournalDeBord();
+    	$vol = new Vol();
     	
+    	if($this->_getParam('retour') == 'oui')
+    		unset($_SESSION['aeroport']);
+    	if(isset($_POST['btAeroport']))
+    		$_SESSION['aeroport'] = $_POST['aeroport'];
+    	
+    	if(isset($_SESSION['aeroport']))
+    	{
+    		$lesMessagesModifVol = $messageModifVol->fetchAll();
+    		foreach($lesMessagesModifVol as $unMessageModifVol)
+    		{
+    			$idAeroport = $unMessageModifVol->idAeroport;
+    			$message = $unMessageModifVol->message;
+    			$statut = $unMessageModifVol->statut;
+    			$dateMessage = $unMessageModifVol->dateMessage;
+    			if($idAeroport == $_SESSION['aeroport'])
+    			{
+    				if($statut == 'debut')
+    				{
+    					$tabMessage[] = $message;
+    					$tabDateMessage[] = dateMessage;
+    				}
+    			}
+    		}
+    	}
+    	else
+    	{
+    		$formulaireChoix = new Zend_Form;
+    		$formulaireChoix -> setAttrib('id','formulaireChoixAeroport');
+    		$formulaireChoix -> setMethod('post');
+    		$formulaireChoix -> setAction('/planning/modifierplanning');
+    		$formulaireChoix->addElement(fonctionAeroport('aeroport'));
+    		$envoyer = new Zend_Form_Element_Submit('btAeroport');
+    		$envoyer -> setLabel('Ajouter');
+    		$formulaireChoix -> addElement($envoyer);
+    		$this->view->formulaireAeroport = $formulaireChoix;
+    	}
     }
 }
