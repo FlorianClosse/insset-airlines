@@ -70,8 +70,6 @@ class MaintenanceController extends Zend_Controller_Action
 				$unerevision->datePrevue = $data['datePrevue'];
 				$unerevision->statutRevision = $data['statut'];
 				$unerevision->idAvion = $data['idAvion'];
-				$unerevision->dateDebut = '0000-00-00';
-				$unerevision->dateFin = '0000-00-00';
 				$unerevision->save();
 				
 				$this->_redirect('/maintenance/index');
