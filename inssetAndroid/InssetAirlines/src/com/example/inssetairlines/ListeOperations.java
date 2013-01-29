@@ -40,6 +40,7 @@ public class ListeOperations extends Activity {
 				Intent t = new Intent(ListeOperations.this,
 						ValiderOperation.class);
 				t.putExtra("idOperation", IoSeb.tabResultats[position][0]);
+				finish();
 				startActivity(t);
 			}
 		});
@@ -50,12 +51,13 @@ public class ListeOperations extends Activity {
 		IoSeb ioSeb = new IoSeb();
 		ioSeb.ajoutParam("idRevision", idRevision);
 		ioSeb.outputSeb(UrlScriptsPhp.urlLireListeOperations, new String[] {
-				"idOperation", "nomOperation" }, getApplicationContext(),
+				"idOperation", "nomOperationType" }, getApplicationContext(),
 				handlerLireListeOperations);
 	}
 
 	Handler handlerLireListeOperations = new Handler() {
 		public void handleMessage(Message msg) {
+			ToastSeb.toastSeb(getApplicationContext(), "nombre d'opérations: "+String.valueOf(IoSeb.tabResultats.length));
 			ArrayList<HashMap<String, String>> lOperations = new ArrayList<HashMap<String, String>>();
 			HashMap<String, String> operation = new HashMap<String, String>();
 
