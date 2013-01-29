@@ -94,25 +94,28 @@ class CommercialController extends Zend_Controller_Action
 		$page=$this->_getParam('page',1);
 		$paginator = Zend_Paginator::factory($lesReservations);
 		$paginator->setCurrentPageNumber($this->_getParam('page'));
-		$paginator->setItemCountPerPage(3);
+		$paginator->setItemCountPerPage(6);
 		$paginator->setCurrentPageNumber($page);
 			
-		foreach($paginator as $unFiltreArriveeDepart)
+		foreach($paginator as $uneReservation)
 		{
-			$compteur=$compteur+1;
-			$tableauReservations[$compteur][0] = $unFiltreArriveeDepart['idReservation'];
-			$tableauReservations[$compteur][1] = $unFiltreArriveeDepart['statutReservation'];
-			$tableauReservations[$compteur][2] = $unFiltreArriveeDepart['nbPlaceReservee'];
-			$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$unFiltreArriveeDepart['heureReservation'] );
-			$tableauReservations[$compteur][4] = $unFiltreArriveeDepart['idJournal'];
-				
-			$aeroportDepart = $unFiltreArriveeDepart['aeroportDepart'];
-			$aeroportArrivee = $unFiltreArriveeDepart['aeroportArrivee'];
-			$unAeroportD = $aeroport->find($aeroportDepart)->current();
-			$unAeroportA = $aeroport->find($aeroportArrivee)->current();
-				
-			$tableauReservations[$compteur][5] = $unAeroportD['nomAeroport'];
-			$tableauReservations[$compteur][6] = $unAeroportA['nomAeroport'];
+			if($uneReservation['statutReservation'] == 'en attente')
+			{
+				$compteur=$compteur+1;
+				$tableauReservations[$compteur][0] = $uneReservation['idReservation'];
+				$tableauReservations[$compteur][1] = $uneReservation['statutReservation'];
+				$tableauReservations[$compteur][2] = $uneReservation['nbPlaceReservee'];
+				$tableauReservations[$compteur][3] = fonctionConvertirHeureMinutes(time()-$uneReservation['heureReservation'] );
+				$tableauReservations[$compteur][4] = $uneReservation['idJournal'];
+					
+				$aeroportDepart = $uneReservation['aeroportDepart'];
+				$aeroportArrivee = $uneReservation['aeroportArrivee'];
+				$unAeroportD = $aeroport->find($aeroportDepart)->current();
+				$unAeroportA = $aeroport->find($aeroportArrivee)->current();
+					
+				$tableauReservations[$compteur][5] = $unAeroportD['nomAeroport'];
+				$tableauReservations[$compteur][6] = $unAeroportA['nomAeroport'];
+			}
 				
 		}
 			
@@ -224,8 +227,6 @@ class CommercialController extends Zend_Controller_Action
 		{	
 			if(!isset($_POST['Ajouter']))
 			{		
-				//on affiche le formulaire
-				//echo $formDemanderLesVols;		
 				$this->view->formDemanderLesVols = $formDemanderLesVols;
 			}
 		}			
