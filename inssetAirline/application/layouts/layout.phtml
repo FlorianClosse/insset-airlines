@@ -15,6 +15,31 @@
 		  $(function() {
 		    $( "#datepicker" ).datepicker();
 		  });
+
+			function afficherBlockFormulaireCreerLigne()
+			{
+				var valeur = $('#choixDuVol option:selected').val();
+				if(valeur == 0)
+				{
+					$('#dateUnique').css('display','none');
+					$('#datePeriodique').css('display','none');
+				}
+				if(valeur == 1)
+				{
+					$('#dateUnique').css('display','block');
+					$('#datePeriodique').css('display','none');
+				}
+				if(valeur == 2)
+				{
+					$('#dateUnique').css('display','none');
+					$('#datePeriodique').css('display','block');
+				}
+			}
+		  
+		  	$(document).ready(function() 
+		  	{
+			  	$('#choixDuVol').change(afficherBlockFormulaireCreerLigne);
+			})
 	</script>
 	
 	

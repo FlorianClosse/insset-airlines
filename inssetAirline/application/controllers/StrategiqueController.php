@@ -76,11 +76,43 @@ class StrategiqueController extends Zend_Controller_Action
     
     public function creerligneAction()
     {
+    	//decorateur des 
+    	$decorateurChoix = array(
+    			array('ViewHelper'),
+    			array('Errors'),
+    			array(
+    				array('DivTag' => 'HtmlTag'),
+    				array('tag' => 'div', 'id' => 'choixDate')
+    				)
+    	);
+    	$decorateurDateUnique = array(
+    			array('ViewHelper'),
+    			array('Errors'),
+    			array(
+    				array('DivTag' => 'HtmlTag'),
+    				array('tag' => 'div', 'id' => 'dateUnique')
+    				)
+    	);
+    	$decorateurPeriode = array(
+    			array('ViewHelper'),
+    			array('Errors'),
+    			array(
+    				array('DivTag' => 'HtmlTag'),
+    				array('tag' => 'div', 'id' => 'datePeriodique')
+    				)
+    	);
+    	//decorateur du bouton formulaire complet
+    	$decorateurTableau = array(
+    			array('FormElements'),
+    			array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
+    	);
+    	
     	//on crée le formulaire
     	$formulaireAjout = new Zend_Form;
     	$formulaireAjout -> setAttrib('id','formulaireAjout');
     	$formulaireAjout -> setMethod('post');
     	$formulaireAjout -> setAction('/strategique/index/');
+    	$formulaireAjout -> addDecorators($decorateurTableau);
     	
     	//choix de l'aéroport de départ
     	$numeroVol = new Zend_Form_Element_Text('numeroVol');
@@ -102,11 +134,12 @@ class StrategiqueController extends Zend_Controller_Action
     	//choix du type de vol
     	$choixVol = new Zend_Form_Element_Select('choixDuVol', 
     		array('multiOptions' => array(
-		        0 => '',
+		        0 => 'Choix:',
 		        1 => 'Vol à la carte',
 		        2 => 'Vol periodique',
 			)));
     	$choixVol -> setLabel('Choix du vol');
+    	$choixVol -> setDecorators($decorateurChoix);
     	$formulaireAjout -> addElement($choixVol);
     	
     	//zone de saisie de la date
@@ -114,6 +147,7 @@ class StrategiqueController extends Zend_Controller_Action
     	$volALaCarte -> setAttrib('id', 'datepicker');
     	$volALaCarte -> setValue(date('Y-d-m'));
     	$volALaCarte -> setLabel('Choisir la date de vol');
+    	$volALaCarte -> setDecorators($decorateurDateUnique);
     	$formulaireAjout -> addElement($volALaCarte);
     	
     	//case a cocher des jours de la semaine
@@ -126,6 +160,7 @@ class StrategiqueController extends Zend_Controller_Action
     	$choixJours = new Zend_Form_Element_MultiCheckbox(
     			'ChoixDesJours', array('multiOptions' => $multiOptions));
     	$choixJours -> setLabel('Choix des jours de vol');
+    	$choixJours -> setDecorators($decorateurPeriode);
     	$formulaireAjout -> addElement($choixJours);
     	 
     	//bouton d'envoie du formulaire
@@ -166,66 +201,28 @@ class StrategiqueController extends Zend_Controller_Action
     	);
     	
     	
-    	$resultat =  $this->_getParam('filtreStategique');
-    	if(isset($_POST['aeroportDepart']))
-    		$_SESSION['aeroportDepart'] = $_POST['aeroportDepart'];
-    	
-    		
-    	if(isset($_POST['aeroportArrivee']))
-    		$_SESSION['aeroportArrivee'] = $_POST['aeroportArrivee'];
-    	
-    	
-    	if(isset($_SESSION['aeroportDepart']) && isset($_SESSION['aeroportArrivee']))
-    	{
-    		$filtre = 'aeroportArriveeEtDepart';
-    	}
-    	else 
-    	{
-    		if(isset($_SESSION['aeroportDepart']))
-    		{
-    			$filtre = 'aeroportDepart';
-    		}
-    		else
-    		{
-    			if(isset($_SESSION['aeroportArrivee']))
-    			{
-    				$filtre = 'aeroportArrivee';
-    			}
-    			else
-    			{
-    				$filtre = 'defaut';
-    			}
-    		}
-    	}
-//     	
     	
     	$vol = new Vol;
-    	
-    	switch ($filtre)
-    	{
-    		case "defaut":
-    			if(isset($_SESSION['donneesFiltreStrategique']))
-     				unset($_SESSION['donneesFiltreStrategique']);
-     			$lesVols = $vol->getRecuper();
-				break;
-    			
-    		case "aeroportDepart":
-    			$lesVols = $vol->getRecuperDepart($_SESSION['aeroportDepart']);
-    			break;
-    			
-    		case "aeroportArrivee":
-    			$lesVols = $vol->getRecuperArrivee($_SESSION['aeroportArrivee']);
-    			break;
-    			
-    		case "aeroportArriveeEtDepart":
-    			$lesVols = $vol->getRecuperDepartArrivee($_SESSION['aeroportDepart'], $_SESSION['aeroportArrivee']);
-    			break;
+    	if(isset($_POST['aeroportDepart']))
+    		$_SESSION['aeroportDepart'] = $_POST['aeroportDepart'];
+    	if(isset($_POST['aeroportArrivee']))
+    		$_SESSION['aeroportArrivee'] = $_POST['aeroportArrivee'];
+    	if(isset($_SESSION['aeroportDepart']) && isset($_SESSION['aeroportArrivee'])){
+    		$lesVols = $vol->getRecuperDepartArrivee($_SESSION['aeroportDepart'], $_SESSION['aeroportArrivee']);
     	}
-    	
-    	
-    	//on récupère tous les vols contenus dans la table vol dans
-    	//la variable $lesVols
-    	
+    	else{
+    		if(isset($_SESSION['aeroportDepart'])){
+    			$lesVols = $vol->getRecuperDepart($_SESSION['aeroportDepart']);
+    		}
+    		else{
+    			if(isset($_SESSION['aeroportArrivee'])){
+    				$lesVols = $vol->getRecuperArrivee($_SESSION['aeroportArrivee']);
+    			}
+    			else{
+    				$lesVols = $vol->getRecuper();
+    			}
+    		}
+    	}   	
     	
     	//on crée le paginator
     	$pagination = Zend_Paginator::factory($lesVols);
@@ -270,16 +267,11 @@ class StrategiqueController extends Zend_Controller_Action
     	$envoyer -> setDecorators($decorateurBoutonEnvoyer);
     	$formulaireSuppression -> addElement($envoyer);
     	
-    	
-    	
-    	
-    	
-    	
     	//on crée le formulaire filtre
     	$formFiltAeroDepart = new Zend_Form;
     	$formFiltAeroDepart -> setAttrib('id','formFiltAeroDepart');
     	$formFiltAeroDepart -> setMethod('post');
-    	$formFiltAeroDepart -> setAction('/strategique/index?valeur=fermer&filtreStategique=aeroportDepart');
+    	$formFiltAeroDepart -> setAction('/strategique/index?valeur=fermer');
     	 
     	//choix de l'aéroport de départ
     	$formFiltAeroDepart -> addElement(fonctionAeroport('aeroportDepart'));
@@ -292,7 +284,7 @@ class StrategiqueController extends Zend_Controller_Action
     	$formFiltAeroArrivee = new Zend_Form;
     	$formFiltAeroArrivee -> setAttrib('id','formFiltAeroArrivee');
     	$formFiltAeroArrivee -> setMethod('post');
-    	$formFiltAeroArrivee -> setAction('/strategique/index?valeur=fermer&filtreStategique=aeroportArrivee');
+    	$formFiltAeroArrivee -> setAction('/strategique/index?valeur=fermer');
     	
     	//choix de l'aéroport d'arrivee
     	$formFiltAeroArrivee -> addElement(fonctionAeroport('aeroportArrivee'));

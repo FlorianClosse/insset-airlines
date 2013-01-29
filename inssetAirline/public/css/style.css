@@ -336,3 +336,13 @@ table.avion
 {
 	color :red;
 }
+
+#dateUnique
+{
+	display: none;
+}
+
+#datePeriodique
+{
+	display: none;
+}
