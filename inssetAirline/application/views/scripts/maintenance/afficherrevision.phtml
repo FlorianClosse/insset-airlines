@@ -34,7 +34,7 @@
 			<td><?= $localisation[0]['nomAeroport'] ;?></td>
 			<td>
 				<?php 
-				if($unerevision['dateDebut']=='NULL')
+				if($unerevision['dateDebut']=='0000-00-00')
 				{?>	
 					<a href="/maintenance/gererrevision?idAvion=<?= $lavion[0]['idAvion'] ;?>&action=mettre">Mettre en révision</a>
 				<?php }
