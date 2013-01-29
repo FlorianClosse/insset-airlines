@@ -1,15 +1,25 @@
 <?php
 class DrhController extends Zend_Controller_Action
 {
+	public function init(){
+		$this->_helper->actionStack('login', 'index', 'default', array());
+	}
+	
 	
 	public function preDispatch()
 	{
-		$this->_helper->actionStack('login', 'index', 'default', array());
 		// Ne rend plus aucune action de ce contrôleur
 		$auth = Zend_Auth::getInstance();
 		if (!$auth->hasIdentity())
 		{
-			 $this->_redirect('/index/login'); 
+				$this->_redirect('/index/login');
+ 
+		}
+		
+	if($_SESSION['Zend_Auth']['storage']->service != 9){
+			if($_SESSION['Zend_Auth']['storage']->service != 5){
+				$this->_redirect('/index');
+			}
 		}
 	}
 	
