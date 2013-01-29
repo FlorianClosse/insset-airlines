@@ -4,7 +4,7 @@
 */
 	class MessageModifVol extends Zend_Db_Table_Abstract
 	{
-		protected $_name='messagemodifvol';
+		protected $_name='messageModifVol';
 		protected $_primary=array('idMessage');
 		
 		protected $_referenceMap = array(

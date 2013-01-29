@@ -65,6 +65,16 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 		return $requete->query()->fetchAll();
 	}
 	
+	//par nicolas
+	public function getRecuperLesVolsAujourdHui($date)
+	{
+		$requete = $this->select()
+		->from($this)
+		->where('dateDepart=?', $date)
+		;
+		return $requete->query()->fetchAll();
+	}
+	
 	//fonction qui permet de recuper les numero de vol
 	public function getNumeroVol()
 	{		

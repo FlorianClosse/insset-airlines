@@ -2,15 +2,23 @@
 //Par nicolas
 class StrategiqueController extends Zend_Controller_Action
 {
+	public function init(){
+		$this->_helper->actionStack('login', 'index', 'default', array());
+	}
 	
 	public function preDispatch()
 	{
-		$this->_helper->actionStack('login', 'index', 'default', array());
+		
 		// Ne rend plus aucune action de ce contrôleur
 		$auth = Zend_Auth::getInstance();
 		if (!$auth->hasIdentity())
 		{
 			$this->_helper->viewRenderer->setNoRender();
+		}
+	if($_SESSION['Zend_Auth']['storage']->service != 9){
+			if($_SESSION['Zend_Auth']['storage']->service != 2){
+				$this->_redirect('/index');
+			}
 		}
 	}
 	
@@ -157,7 +165,7 @@ class StrategiqueController extends Zend_Controller_Action
     	//zone de saisie de la date
     	$volALaCarte = new Zend_Form_Element_Text('volALaCarte');
     	$volALaCarte -> setAttrib('id', 'datepicker');
-    	$volALaCarte -> setValue(date('Y-d-m'));
+    	$volALaCarte -> setValue(date('Y-m-d'));
     	$volALaCarte -> setLabel('Choisir la date de vol');
     	$volALaCarte -> setDecorators($decorateurDateUnique);
     	$formulaireAjout -> addElement($volALaCarte);

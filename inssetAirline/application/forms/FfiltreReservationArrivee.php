@@ -15,16 +15,7 @@ class FfiltreReservationArrivee extends Zend_Form
  		$aeroportA = new Aeroport;
  		$lesAeroportA = $aeroportA->fetchAll();
  		
- 		$aeroportA = new Zend_Form_Element_Select('aeroportA');
- 		$aeroportA ->setLabel('Choisir un aeroport d\'arrivé');
- 		
- 		foreach ($lesAeroportA as $unAeroportA )
- 		{
- 			$tableauAeroportA[$unAeroportA -> idAeroport] = ucfirst($unAeroportA->nomAeroport);
- 		}
- 		$aeroportA->setMultiOptions($tableauAeroportA);
-		
- 		
+ 		$aeroportA = new Zend_Form_Element_Select('aeroportA'); 			
  		
 		$bSubmitA = new Zend_Form_Element_Submit('FiltrerA');
 		$bSubmitA->setAttrib('id', 'boutonfiltreA');
@@ -36,7 +27,7 @@ class FfiltreReservationArrivee extends Zend_Form
 		$bSubmitVider->setLabel('Vider les filtres');
 		
 		/* On ajoute les elements au formulaire */		
-		$this->addElement($aeroportA);
+		$this->addElement(fonctionAeroport('aeroportA'));
 		$this->addElement($bSubmitA);
 		$this->addElement($bSubmitVider);
 	}

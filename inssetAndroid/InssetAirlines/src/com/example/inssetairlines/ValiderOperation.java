@@ -1,6 +1,7 @@
 package com.example.inssetairlines;
 
 import seb.util.IoSeb;
+import seb.util.ToastSeb;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -53,8 +54,12 @@ public class ValiderOperation extends Activity {
 
 	Handler handlerValiderOperation = new Handler() {
 		public void handleMessage(Message msg) {
+			ToastSeb.toastSeb(getApplicationContext(), "Opération terminée");
+			finish();
+			/*
 			Intent t = new Intent(ValiderOperation.this, ListeOperations.class);
 			startActivity(t);
+			*/
 		}
 	};
 
