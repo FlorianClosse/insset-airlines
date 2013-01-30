@@ -160,12 +160,13 @@ class LogistiqueController extends Zend_Controller_Action
     	$formulaireAfficherVol = new Zend_Form();
     	$formulaireAfficherVol -> setMethod('post');
     	$formulaireAfficherVol -> setAction('/logistique/index/');
-    	$formulaireAfficherVol -> setAttrib('id','formulaireAfficherVol');
+    	$formulaireAfficherVol -> setAttrib('id','forms');
     	$formulaireAfficherVol -> addDecorators($decorateurTableau);
     		 
     	foreach($paginator as $unJournal)
     	{    			
     		$caseACocher = new Zend_Form_Element_Checkbox($unJournal['idJournalDeBord']);
+    		$caseACocher->setAttrib('id', 'forms');
     		$caseACocher -> setValue($unJournal['idJournalDeBord']);
     		$caseACocher -> setDecorators($decorateurCase);    		
     		$formulaireAfficherVol -> addElement($caseACocher);
@@ -184,6 +185,7 @@ class LogistiqueController extends Zend_Controller_Action
     	
     	//on crée le bouton submit
     	$valider = new Zend_Form_Element_Submit('valider');
+    	$valider->setAttrib('id', 'forms');
     	$valider -> setDecorators($decorateurBoutonValider);
     	$formulaireAfficherVol -> addElement($valider);    	 	
     		 

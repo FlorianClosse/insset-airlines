@@ -22,9 +22,7 @@
 			$depart=$this->depart;
 			$arrivee=$this->arrivee;			
 			$paginator=$this->paginator;
-			$i=0;
-			$formFiltreDepart = $this->formFiltreDepart;
-			$formFiltreArrivee = $this->formFiltreArrivee;
+			$i=0;			
 			echo $this->formulaire; 
 		?>
 			
@@ -51,8 +49,11 @@
 	<?php }
 	if(isset($paginator))
 	{
+		$formFiltreDepart = $this->formFiltreDepart;
+		$formFiltreArrivee = $this->formFiltreArrivee;
 		echo $this->paginationControl($paginator,'All', 'paginationcontrole.phtml');
-	}?>
-	<?php echo 'Choisir un aeroport de depart  :'.$formFiltreDepart;
+		echo 'Choisir un aeroport de depart  :'.$formFiltreDepart;
 		  echo 'Choisir un aeroport d\'arrivée :'.$formFiltreArrivee;
-	?>	
+		
+	}?>
+	
