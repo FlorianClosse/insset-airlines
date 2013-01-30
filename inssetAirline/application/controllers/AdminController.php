@@ -197,7 +197,7 @@
 					$newville->nomVille = $data['nomVille'];
 					$newville->cpVille = $data['cpVille'];
 					$newville->idPays = $data['idPays'];
-					$newuser->save();
+					$newville->save();
 					$this->_redirect('/admin/ville');
 				}
 				else
@@ -226,7 +226,7 @@
 					$newville->nomVille = $data['nomVille'];
 					$newville->cpVille = $data['cpVille'];
 					$newville->idPays = $data['idPays'];
-					$newuser->save();
+					$newville->save();
 					$this->_redirect('/admin/ville');
 				}
 				else

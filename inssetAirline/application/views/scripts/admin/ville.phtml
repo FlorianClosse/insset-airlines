@@ -20,7 +20,6 @@
 		$lepays = $pays->selectOne($uneville['idPays']);
 ?>
 		<tr>
-	    	<td><a href="/admin/supprimerville?idVille=<?= $uneville['idVille']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette ville ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
 			<td><?= $uneville['nomVille'] ;?></td>
 			<td><?= $uneville['cpVille'] ;?></td>
 			<td><?= $lepays[0]['nomPays'] ;?></td>
