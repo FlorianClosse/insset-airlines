@@ -12,23 +12,21 @@ $numVol = $this->numVol;
 $idVol = $this->idVol;
 ?>
 
-<div class="filtreEtPanier">
-	<ul class="filtre">
-		<li >
-			<a class="filt1" href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=fermer&filtreStategique=defaut">
-				Tout les vols
-			</a>
-		</li>
-		<li>
-			Filtrer par aéroport de depart
-			<?php echo $formFiltAeroDepart; ?>
-		</li>
-		<li>
-			Filtrer par aéroport d'arrivée
-			<?php echo $formFiltAeroArrivee; ?>
-		</li>
+<div class="filtreStrategique">
+	<div class="viderFiltreStrategique">
+		<a class="filt1" href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=fermer&filtreStategique=defaut">
+			<img src="<?php echo $this->baseUrl('/img/viderFiltre.png'); ?>" alt="vider filtre" />
+		</a>
 		
-	</ul>
+	</div>
+	<div class="elementFiltreStrategique">
+		Filtrer par aéroport de depart
+		<?php echo $formFiltAeroDepart; ?>
+	</div>
+	<div class="elementFiltreStrategique">
+		Filtrer par aéroport d'arrivée
+		<?php echo $formFiltAeroArrivee; ?>
+	</div>
 </div>
 
 

@@ -129,7 +129,7 @@ class StrategiqueController extends Zend_Controller_Action
     	
     	//on crée le formulaire
     	$formulaireAjout = new Zend_Form;
-    	$formulaireAjout -> setAttrib('id','formulaireAjout');
+    	$formulaireAjout -> setAttrib('id','formulaireAjoutStrategique');
     	$formulaireAjout -> setMethod('post');
     	$formulaireAjout -> setAction('/strategique/index/');
     	$formulaireAjout -> addDecorators($decorateurTableau);
