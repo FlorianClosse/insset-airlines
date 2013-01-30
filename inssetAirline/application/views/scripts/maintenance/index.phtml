@@ -50,7 +50,7 @@ if(count($lesavions)>=1)
 		$plannifie=$revision->isPlannifie($unAvion['idAvion']);
 ?>
 		<tr>
-	    	<td><a href="/maintenance/modifier?idAvion=<?= $unAvion['idAvion']; ?>"><img src="/img/modif.gif" alt="suppr"/></a></td>
+	    	<td><a href="/maintenance/modifier?idAvion=<?= $unAvion['idAvion']; ?>"><img src="/img/modif.gif" alt="modif"/></a></td>
 			<td><?= $unAvion['numImmatriculation'] ;?></td>
 			<td><?= $unAvion['dateMisEnService'] ;?></td>
 			<td><?= ucfirst ($unAvion['statut']);?></td>
