@@ -237,7 +237,7 @@
 			}
 			else
 			{
-				if(isset($_GET['idUser']))
+				if(isset($_GET['idVille']))
 				{
 					$laville = $ville->selectOne($_GET['idVille']);
 					$this->view->formajoutville = $formajoutville->populate($laville[0]);

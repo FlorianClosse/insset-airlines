@@ -25,14 +25,14 @@
 		$laeroportDattache = $aeroport->selectOne($unuser['idAeroport']);
 ?>
 		<tr>
-	    	<td><a href="/admin/supprimeruser?idUser=<?= $unuser['idUser']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+	    	<td><a href="/admin/supprimeruser?idUser=<?= $unuser['idUser']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?');"><img src="/img/supprimer.gif" alt="suppr"/></a></td>
 			<td><?= $unuser['nomUser'] ;?></td>
 			<td><?= $unuser['prenomUser'] ;?></td>
 			<td><?= $unuser['email']; ?></td>
 			<td><?= $laeroportDattache[0]['nomAeroport'] ;?></td>
 			<td><?= $leservice[0]['nomService'] ;?></td>
 			<td><?= ucfirst ($laeroportDattache[0]['nomAeroport']);?></td>
-			<td><a href="/admin/modifieruser?idUser=<?= $unuser['idUser']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+			<td><a href="/admin/modifieruser?idUser=<?= $unuser['idUser']; ?>"><img src="/img/modif.gif" alt="modif" /></a></td>
 		</tr>
 <?php }?>
 	</tbody>
