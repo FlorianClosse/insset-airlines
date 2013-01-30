@@ -17,5 +17,19 @@ class LiaisonPiloteBrevet extends Zend_Db_Table_Abstract
 					'refTableClass' => 'Pilote'
 			)
 			);
+	
+	public function selectAll($idBrevet)
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM liaisonPiloteBrevet WHERE idBrevet='.$idBrevet;
+		return $db->query($requete)->fetchAll();
+	}
+	
+	public function delete($idPilote)
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'delete FROM liaisonPiloteBrevet WHERE idPilote='.$idPilote;
+		return $db->query($requete)->rowCount();
+	}
 }
 ?>

@@ -4,7 +4,6 @@
 <table class="avion">
 	<thead>
 		<tr> 	
-			<th></th>
 			<th>Nom</th>
 			<th>Trigramme</th>
 			<th>Longueur de la piste</th>
@@ -21,7 +20,6 @@
 		$laville = $ville->selectOne($unaeroport['idVille']);
 ?>
 		<tr>
-	    	<td><a href="/admin/supprimeraeroport?idAeroport=<?= $unaeroport['idAeroport']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet aéroport ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
 			<td><?= $unaeroport['nomAeroport'] ;?></td>
 			<td><?= $unaeroport['trigramme'] ;?></td>
 			<td><?= $unaeroport['longueurPiste']; ?></td>

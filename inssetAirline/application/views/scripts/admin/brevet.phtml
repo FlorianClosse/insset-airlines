@@ -1,1 +1,34 @@
-<?php
+<a href="#?w=500" rel="popupajoutbrevet" class="poplight">Ajouter un brevet</a>
+<br /><br />
+<center>
+<table class="avion">
+	<thead>
+		<tr> 	
+			<th></th>
+			<th>Nom</th>
+			<th>Durée en année</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+	$lesbrevets = $this->lesbrevets;
+	foreach ($lesbrevets as $unbrevet)
+	{
+?>
+		<tr>
+	    	<td><a href="/admin/supprimerbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce brevet ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+			<td><?= $unbrevet['nomBrevet'] ;?></td>
+			<td><?= $unbrevet['dureeBrevetEnAnnee'] ;?></td>
+			<td><a href="/admin/modifierbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+		</tr>
+<?php }?>
+	</tbody>
+</table>
+<div id="popupajoutbrevet" class="popup_block">
+	<?php echo $this->formajoutbrevet;?>           
+</div>
+<br />
+<?php if($lesbrevets != NULL){ echo $this->paginationControl($lesbrevets,'All', 'paginationcontroleavion.phtml');}?>
+<br /><br /></center>
+<a href="/admin/index">Retour</a>

@@ -5,7 +5,7 @@ class FormAjoutAvion extends Zend_Form
 	{
 		$this->setMethod('POST');
 		$this->setAction('/maintenance/ajout');
-		$this->setAttrib('id', 'formAjoutAvion');
+		$this->setAttrib('id', 'forms');
 		$this->clearDecorators();
 		
 		$immatriculation = new Zend_Form_Element_Text('immatriculation');
