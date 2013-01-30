@@ -1,11 +1,38 @@
 <?php 
-$tabMessage = $this->tabMessage;
-$tabDateMessage = $this->tabDateMessage;
+$message = $this->message;
+$dateMessage = $this->dateMessage;
+$numeroVol = $this->numeroVol;
+$matriculeAvion = $this->matriculeAvion;
+$nomPilote = $this->nomPilote;
+$nomCoPilote = $this->nomCoPilote;
+$depart = $this->depart;
+$arrivee = $this->arrivee;
+$lesMessagesModifVol = $this->lesMessagesModifVol;
+$formulaireAjout = $this->formulaire;
 ?>
 
-<a href="<?php echo $this->baseUrl('planning/index'); ?>?valeur=modifier&retour=oui">
-	Retour
-</a>
+<?php echo $formulaireAjout; ?>
 
-<?php echo $this->formulaireAeroport; ?>
-
+<?php if(isset($lesMessagesModifVol)) { foreach($lesMessagesModifVol as $uneligne) { ?>
+	<div class="blocCommentaireModifPlanning">
+		<u>Message du <?php echo convertirDateEnLettre($dateMessage[$uneligne['idJournalDeBord']]); ?>:</u><br/>
+		Vol numéro <b><?php echo $numeroVol[$uneligne['idJournalDeBord']]; ?></b>
+		de <b><?php echo $depart[$uneligne['idJournalDeBord']]; ?></b>
+		à <b><?php echo $arrivee[$uneligne['idJournalDeBord']]; ?></b>.<br/>
+		Pilote <b><?php echo $nomPilote[$uneligne['idJournalDeBord']]; ?></b>
+		et co-pilote <b><?php echo $nomCoPilote[$uneligne['idJournalDeBord']]; ?></b>
+		dans l'avion <b><?php echo $matriculeAvion[$uneligne['idJournalDeBord']]; ?></b>.<br/>
+		<div class="messageModifPlanning">
+			<div class="messageModifPlanningTitre"><u>Message:</u></div> 
+			<div class="messageModifPlanningCommentaire"><?php echo $message[$uneligne['idJournalDeBord']]; ?></div>
+		</div>
+		<div class="lienModifPlanning">
+			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=supprimer&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Supprimer le vol</a><br/>
+			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifavion&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier l'avion</a><br/>
+			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifpilote&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier le pilote</a><br/>
+			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifcopilote&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier le co-pilote</a>
+		</div> 
+	</div>
+<?php } } ?>
+	
+<?php  //echo $this->paginationControl($lesMessagesModifVol,'All', 'paginationcontrole.phtml');?>
