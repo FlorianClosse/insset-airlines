@@ -5,13 +5,18 @@ class FormFiltreMaintenance extends Zend_Form
 	{
 		$this->setMethod('POST');
 		$this->setAction('/maintenance/index');
-		$this->setAttrib('id', 'forms');
+		$this->setAttrib('id', 'formfiltremaintenance');
 		$this->clearDecorators();
 			
+		
+		$decoratorElem = array ('ViewHelper', 'Description', array ('HtmlTag', array ('tag' => 'td' ) ), array ('Label', array ('tag' => 'td', 'align' => 'left' ) ) ); // définition du décorateur pour l'alignement du champ et de son label
+		$decoratorElem2 = array ('ViewHelper', 'Description', array ('HtmlTag', array ('tag' => 'tr' ) ) ); // définition du décorateur pour l'alignement du champ et de son label
+		   
 		$statut = new Zend_Form_Element_Select('statut');
-		$statut ->setLabel('Statut de l\'avion');
+		$statut ->setLabel('Statut');
 		$statut->addMultiOptions(array('0'=>'Choisissez une valeur','actif'=>'actif','en révision'=>'en révision','en vol'=>'en vol'));
 		$this->addElement($statut);
+		$statut->setDecorators($decoratorElem);
 		
 		$objmodele = new Modele;
 		$lesModeles = $objmodele->fetchAll();
@@ -22,7 +27,8 @@ class FormFiltreMaintenance extends Zend_Form
 		}
 		
 		$modele = new Zend_Form_Element_Select('idModele');
-		$modele ->setLabel('Modele de l\'avion');
+		$modele ->setLabel('Modele');
+		$modele->setDecorators($decoratorElem);
 		$modele->addMultiOptions($listeModele);
 		$this->addElement($modele);		
 		
@@ -35,12 +41,14 @@ class FormFiltreMaintenance extends Zend_Form
 		}
 		
 		$localisation = new Zend_Form_Element_Select('localisation');
-		$localisation ->setLabel('Localisation de l\'avion');
+		$localisation ->setLabel('Localisation');
+		$localisation->setDecorators($decoratorElem);
 		$localisation->addMultiOptions($listeAeroport);
 		$this->addElement($localisation);
 		
 		$aeroportdattache = new Zend_Form_Element_Select('idAeroportDattache');
-		$aeroportdattache ->setLabel('Aeroport d\'attache de l\'avion');
+		$aeroportdattache ->setLabel('Aeroport d\'attache');
+		$aeroportdattache->setDecorators($decoratorElem);
 		$aeroportdattache->addMultiOptions($listeAeroport);
 		$this->addElement($aeroportdattache);
 		
