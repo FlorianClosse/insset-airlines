@@ -1,67 +1,73 @@
-<ul>
+<center>
+	<table class="tablemenu" border="0px">
+		<tr>
+			<td>
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 1)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonCom">
+					<a href="<?php echo $this->baseUrl('commercial/index'); ?>"></a>
+				</p>
+				<?php }?>
 	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 1)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('commercial/index'); ?>">
-			Service Commercial
-		</a>
-	</li>
-	<?php }?>
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 2)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonStr">
+					<a href="<?php echo $this->baseUrl('strategique/index'); ?>"></a>
+				</p>
+				<?php }?>
+
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 3)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonTec">
+					<a href="<?php echo $this->baseUrl('technique/index'); ?>">
+			
+					</a>
+				</p>
+				<?php }?>
 	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 2)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('strategique/index'); ?>">
-			Service Stratégique
-		</a>
-	</li>
-	<?php }?>
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 4)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonLog">
+					<a href="<?php echo $this->baseUrl('logistique/index'); ?>">
+			
+					</a>
+				</p>
+				<?php }?>
+			</td>
+			<td>
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 5)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonDrh">
+					<a href="<?php echo $this->baseUrl('drh/index'); ?>">
+						
+					</a>
+				</p>
+				<?php } ?>
 	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 3)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('technique/index'); ?>">
-			Service Technique
-		</a>
-	</li>
-	<?php }?>
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 6)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonMai">
+					<a href="<?php echo $this->baseUrl('maintenance/index'); ?>">
+						
+					</a>
+				</p>
+				<?php } ?>
 	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 4)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('logistique/index'); ?>">
-			Service Logistique
-		</a>
-	</li>
-	<?php }?>
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 8)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonExp">
+					<a href="<?php echo $this->baseUrl('exploitation/index'); ?>">
+						
+					</a>
+				</p>
 	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 5)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('drh/index'); ?>">
-			Direction des ressources humaines
-		</a>
-	</li>
-	<?php } ?>
-	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 6)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('maintenance/index'); ?>">
-			Service de Maintenance
-		</a>
-	</li>
-	<?php } ?>
-	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 8)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('exploitation/index'); ?>">
-			Service d'exploitation
-		</a>
-	</li>
-	
-	
-	<?php if(($_SESSION['Zend_Auth']['storage']->service == 7)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
-	<li>
-		<a href="<?php echo $this->baseUrl('planning/index'); ?>">
-			Gestion du planning
-		</a>
-	</li>
-	<?php } ?>
-	<?php } ?>
-</ul>
+				<?php if(($_SESSION['Zend_Auth']['storage']->service == 7)||($_SESSION['Zend_Auth']['storage']->service == 9)){?>
+				<p class="buttonPla">
+					<a href="<?php echo $this->baseUrl('planning/index'); ?>">
+						
+					</a>
+				</p>
+				<?php } ?>
+				<?php } ?>
+			</td>
+		</tr>
+	</table>
+				<?php if($_SESSION['Zend_Auth']['storage']->service == 9){?>
+					<p class="buttonAdm">
+						<a href="<?php echo $this->baseUrl('admin'); ?>"></a>
+					</p>
+				<?php }?>
+</center>

@@ -6,7 +6,7 @@ class Fajoutcommentairelogistique extends Zend_Form
 			 
 		// Parametrer le formulaire
 		$this->setMethod('post')->setAction('/logistique/ajoutcommentaire');
-		$this->setAttrib('id', 'FormAjoutCommentaire');
+		$this->setAttrib('id', 'forms');
 		
 		// Creer de l'elements de formulaire
 		$NewCommentaire= new Zend_Form_Element_Textarea('NewCom');

@@ -5,7 +5,7 @@ class FdemanderLesVols extends Zend_Form
 	{
 		/* Parametrer le formulaire */
 		$this->setMethod('post')->setAction('/commercial/index?valeur=ajout');
-		$this->setAttrib('id', 'FormAjoutOption');
+		$this->setAttrib('id', 'forms');
 		 
 		/* Creer des elements de formulaire */
  		

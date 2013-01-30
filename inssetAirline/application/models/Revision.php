@@ -32,7 +32,7 @@ class Revision extends Zend_Db_Table_Abstract
 	public function isPlannifie($idAvion)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$requete = 'SELECT * FROM revision WHERE idAvion='.$idAvion.' AND dateFin=\'NULL\'';
+		$requete = 'SELECT * FROM revision WHERE idAvion='.$idAvion.' AND dateFin is null';
 		return $db->query($requete)->fetchAll();
 	}
 	public function getRevisionPlannifiees()

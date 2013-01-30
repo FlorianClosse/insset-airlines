@@ -1,7 +1,23 @@
-<a href="#?w=500" rel="popupajoutavion" class="poplight">Ajouter un avion</a>
-<br /><br />
-<a href="/maintenance/afficherrevision">Gérer les révisions</a>
-<br /><br />
+<center>
+	<table class="tablemenu">
+		<tr>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="#?w=500" rel="popupajoutavion" class="poplight">
+						Ajouter un avion
+					</a>
+				</p>
+			</td>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('maintenance/afficherrevision'); ?>">
+						Gérer les révisions
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</center>
 <center>
 <?php 
 echo $this->filtre;
@@ -34,7 +50,7 @@ if(count($lesavions)>=1)
 		$plannifie=$revision->isPlannifie($unAvion['idAvion']);
 ?>
 		<tr>
-	    	<td><a href="/maintenance/supprimer?supprId=<?= $unAvion['idAvion']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet avion ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+	    	<td><a href="/maintenance/modifier?idAvion=<?= $unAvion['idAvion']; ?>"><img src="/img/modif.gif" alt="modif"/></a></td>
 			<td><?= $unAvion['numImmatriculation'] ;?></td>
 			<td><?= $unAvion['dateMisEnService'] ;?></td>
 			<td><?= ucfirst ($unAvion['statut']);?></td>
@@ -66,6 +82,7 @@ if(count($lesavions)>=1)
 <?php }?>
 	</tbody>
 </table>
+<br />
 <?php }else{echo'Aucun résultat pour votre recherche';}?>
 <div id="popupajoutavion" class="popup_block">
 	<?php echo $this->formajoutavion;?>           

@@ -79,14 +79,39 @@ class MaintenanceController extends Zend_Controller_Action
 		}
 	}
 
-	public function supprimerAction()
+	public function modifierAction()
 	{
-		if(isset($_GET['supprId']))
+		$formajoutavion = new FormAjoutAvion();
+		$avion = new Avion();
+		
+		if($this->getRequest()->isPost())
 		{
-			$avion= new Avion();
-			$lavion = $avion->find($_GET['supprId'])->current();
-			$lavion->delete();
-			$this->_redirect('/maintenance/index');
+			$data = $this->getRequest()->getPost();
+			if($formajoutavion->isValid($data))
+			{
+				$newavion = $aeroport->find($data['idAvion'])->current();
+				$newavion->numImmatriculation = $data['numImmatriculation'];
+				$newavion->dateMisEnService = $data['dateMisEnService'];
+				$newavion->statut = $data['statut'];
+				$newavion->idModele = $data['idModele'];
+				$newavion->localisation = $data['localisation'];
+				$newavion->idAeroportDattache = $data['idAeroportDattache'];
+				$newavion->save();
+				$this->_redirect('/maintenance/index');
+			}
+			else
+			{
+				$formajoutavion->populate($data);
+				echo $formajoutavion;
+			}
+		}
+		else
+		{
+			if(isset($_GET['idAvion']))
+			{
+				$lavion = $avion->selectOne($_GET['idAvion']);
+				$this->view->formajoutavion = $formajoutavion->populate($lavion[0]);
+			}
 		}
 	}
 	
@@ -101,15 +126,15 @@ class MaintenanceController extends Zend_Controller_Action
 				$listeAvion = New Avion();
 				$avion = $listeAvion->createRow();
 				$avion->idAvion = '';
-				$avion->numImmatriculation = $data['immatriculation'];
+				$avion->numImmatriculation = $data['numImmatriculation'];
 				$avion->dateMisEnService = $data['dateMisEnService'];
 				$avion->nombreHeureTotale = 0;
 				$avion->nbHeureVolDepuisGrandeRevision = 0;
 				$avion->nbHeureVolDepuisPetiteRevision = 0;
 				$avion->statut = $data['statut'];
-				$avion->idModele = $data['modele'];
+				$avion->idModele = $data['idModele'];
 				$avion->localisation = $data['localisation'];
-				$avion->idAeroportDattache = $data['aeroportdattache'];
+				$avion->idAeroportDattache = $data['idAeroportDattache'];
 				$avion->save();
 				$this->_redirect('/maintenance/index');
 			}

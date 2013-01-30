@@ -5,7 +5,7 @@ class Ffiltre1drh extends Zend_Form
     {
         /* Parametrer le formulaire */
         $this->setMethod('post')->setAction('/drh/filtre/id/0');
-        $this->setAttrib('id', 'FormFiltre1Drh');
+        $this->setAttrib('id', 'forms');
 
         $aeroport = new Aeroport;
         $lesAeroport = $aeroport->fetchAll();
