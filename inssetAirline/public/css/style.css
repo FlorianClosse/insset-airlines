@@ -316,7 +316,59 @@ table.avion th,td
 	border: solid 1px black;
 	text-align:center;
 }
-
+.formulaireNico
+{
+	width : 500px;
+	margin: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #295192;
+	opacity: 0.7;
+	border-radius: 10px 10px 0 0 ;
+}
+.formulaireNico dd
+{
+	text-align:right;
+}
+.formulaireNico  #choixDate
+{
+	text-align:right;
+	margin-top: 10px;
+}
+.formulaireNico dt 
+{
+	margin-bottom: 10px;
+}
+#formulaireAjoutStrategique
+{
+	margin: auto;
+	width : 50%;
+}
+.filtreStrategique
+{
+	width : 750px;
+	margin: auto;
+	margin-bottom:20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #295192;
+	opacity: 0.7;
+	
+}
+.viderFiltreStrategique
+{
+	margin-left: 30px;
+	width : 150px;
+	height: 50px;
+	display : inline-block;
+}
+.elementFiltreStrategique
+{
+	width : 250px;
+	height: 150px;
+	display : inline-block;
+	
+}
 table.avion
 {
 	border-collapse:collapse;
