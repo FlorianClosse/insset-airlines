@@ -37,7 +37,7 @@ public class ValiderOperation extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				int jour = datePickerOp.getDayOfMonth();
-				int mois = datePickerOp.getMonth();
+				int mois = datePickerOp.getMonth()+1;
 				int annee = datePickerOp.getYear();
 				String date = String.valueOf(annee) + "-"
 						+ String.valueOf(mois) + "-" + String.valueOf(jour);

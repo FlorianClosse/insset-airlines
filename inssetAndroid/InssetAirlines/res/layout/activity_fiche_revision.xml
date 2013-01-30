@@ -120,11 +120,13 @@
 
     <TextView
     	android:id="@+id/textViewCommentaire"
+    	style="@style/editText"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:layout_alignParentLeft="true"
     	android:layout_below="@+id/TextView03"
-    	android:layout_marginTop="39dp"
+    	android:layout_centerHorizontal="true"
+    	android:layout_marginTop="31dp"
+    	android:gravity="center_vertical|center_horizontal"
     	android:text="commentaire" />
 
 </RelativeLayout>
