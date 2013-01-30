@@ -98,6 +98,43 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 		return $datas;
 	}
 	
+	public function getAeroportDepart($depart)
+	{
+		$requete = 	 'select *
+					 from journalDeBord J, vol V					
+					 where J.idVol = V.idVol
+					 and V.aeroportDepart =\''.$depart.'\'
+					 and J.statut = "en vol";';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$datas = $db->query($requete)->fetchAll();		
+		return $datas;
+	}
+	
+	public function getAeroportDepartArrivee($depart,$arrive)
+	{
+		$requete = 	 'select *
+					 from journalDeBord J, vol V					 
+					 where J.idVol = V.idVol
+					 and V.aeroportDepart =\''.$depart.'\'
+					 and V.aeroportArrivee =\''.$arrive.'\'
+					 and J.statut = "en vol";';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$datas = $db->query($requete)->fetchAll();
+		return $datas;
+	}
+	
+	public function getAeroportArrivee($arrive)
+	{
+		$requete = 	 'select *
+					 from journalDeBord J, vol V,					 
+					 where J.idVol = V.idVol
+					 and V.aeroportArrivee =\''.$arrive.'\'
+					 and J.statut = "en vol";';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$datas = $db->query($requete)->fetchAll();
+		return $datas;
+	}
+	
 	public function getVol($date,$aeroportDepart,$aeroportArrivee)
 	{
 		$requete = 'select *

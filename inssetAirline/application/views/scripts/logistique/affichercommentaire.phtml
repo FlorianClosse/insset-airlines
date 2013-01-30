@@ -1,8 +1,3 @@
-
-
-
-
-
 <?php if(!isset($_POST['valider']))
 	  {?>	
 	    <h2>Affichage des vols</h2>
@@ -10,7 +5,9 @@
 			<tr>
 				<th > Commentaires </th>
 				<th > Id Journal de bord </th>				
-				<th>  Numero de vol </th>		
+				<th>  Numero de vol </th>
+				<th > Aeroport Depart</th>				
+				<th>  Aeroport Arrivée </th>			
 				<th > </th>
 			</tr>
 		</table>
@@ -22,9 +19,12 @@
 			$lesJournaux = $this->lesJournaux;
 			$idJournal=$this->idJournal;
 			$numVol=$this->numVol;
+			$depart=$this->depart;
+			$arrivee=$this->arrivee;			
 			$paginator=$this->paginator;
 			$i=0;
-					
+			$formFiltreDepart = $this->formFiltreDepart;
+			$formFiltreArrivee = $this->formFiltreArrivee;
 			echo $this->formulaire; 
 		?>
 			
@@ -39,7 +39,9 @@
 				  		$i++; ?>
 						<tr>
 							<td><?php echo $idJournal[$unJournal['idJournalDeBord']]; ?></td>		
-							<td><?php echo $numVol[$unJournal['idJournalDeBord']]; ?></td>								   					   	
+							<td><?php echo $numVol[$unJournal['idJournalDeBord']]; ?></td>	
+							<td><?php echo $depart[$unJournal['idJournalDeBord']]; ?></td>		
+							<td><?php echo $arrivee[$unJournal['idJournalDeBord']]; ?></td>							   					   	
 					   		<td><a  href="<?php echo $this->baseUrl('logistique/ajoutcommentaire')."?idJournalDeBord=$id"?>">Ajouter un commentaire</a></td>				   			
 						</tr>			
 		  <?php 	}
@@ -51,3 +53,6 @@
 	{
 		echo $this->paginationControl($paginator,'All', 'paginationcontrole.phtml');
 	}?>
+	<?php echo 'Choisir un aeroport de depart  :'.$formFiltreDepart;
+		  echo 'Choisir un aeroport d\'arrivée :'.$formFiltreArrivee;
+	?>	

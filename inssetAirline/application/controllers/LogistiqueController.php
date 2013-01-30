@@ -102,12 +102,58 @@ class LogistiqueController extends Zend_Controller_Action
     	); 
     	
     	$journal = new JournalDeBord;    	
-		$lesJournaux = $journal->getVolEnCour();  
+		$lesJournaux = $journal->getVolEnCour();
+
+		$aeroport = new Aeroport();
+		
+		$formFiltreDepart = new FfiltreLogistiqueDepart();
+		$formFiltreArrivee = new FfiltreLogistiqueArrivee();
+		
+		if(isset($_POST['Vider']))
+		{
+			unset($_SESSION['depart']);
+			unset($_SESSION['arrivee']);
+			$this->_redirect('/logistique/index?valeur=afficher');
+		}
+		
+		if(isset($_POST['aeroportD']))
+			$_SESSION['depart'] = $_POST['aeroportD'];
+		
+		if(isset($_POST['aeroportA']))
+			$_SESSION['arrivee'] = $_POST['aeroportA'];
+		
+		
+		if(isset($_SESSION['depart']) && isset($_SESSION['arrivee']))
+		{
+			$lesJournaux = $journal-> getAeroportDepartArrivee($_SESSION['depart'],$_SESSION['arrivee']);
+		}
+		else
+		{
+			if(isset($_SESSION['depart']))
+			{
+				$lesJournaux = $journal-> getAeroportDepart($_SESSION['depart']);
+			}
+			else
+			{
+				if(isset($_SESSION['arrivee']))
+				{
+					$lesJournaux = $journal-> getAeroportArrivee($_SESSION['arrivee']);
+				}
+				else
+				{
+					$lesJournaux = $journal->getVolEnCour();
+				}
+			}
+		}
+		
+		
+		$this->view->formFiltreDepart = $formFiltreDepart;
+		$this->view->formFiltreArrivee = $formFiltreArrivee;
 				
 		$page=$this->_getParam('page',1);
 		$paginator = Zend_Paginator::factory($lesJournaux);
 		$paginator->setCurrentPageNumber($this->_getParam('page'));
-		$paginator->setItemCountPerPage(1);
+		$paginator->setItemCountPerPage(10);
 		$paginator->setCurrentPageNumber($page);
 
     	//on crée le formulaire
@@ -126,6 +172,14 @@ class LogistiqueController extends Zend_Controller_Action
 
     		$idJournal[$unJournal['idJournalDeBord']] = $unJournal['idJournalDeBord'];
     		$numVol[$unJournal['idJournalDeBord']] = $unJournal['numVol'];
+    		
+    		$aeroportDepart = $unJournal['aeroportDepart'];
+    		$aeroportArrivee = $unJournal['aeroportArrivee'];
+    		$unAeroportD = $aeroport->find($aeroportDepart)->current();
+    		$unAeroportA = $aeroport->find($aeroportArrivee)->current();
+    			
+    		$depart[$unJournal['idJournalDeBord']] = $unAeroportD['nomAeroport'];
+    		$arrivee[$unJournal['idJournalDeBord']] = $unAeroportA['nomAeroport'];
     	} 
     	
     	//on crée le bouton submit
@@ -139,8 +193,13 @@ class LogistiqueController extends Zend_Controller_Action
     	$this->view->formulaire = $formulaireAfficherVol; 
     	if(isset($idJournal))
     	$this->view->idJournal = $idJournal;
-    	if(isset($numVol))
-    	$this->view->numVol = $numVol;   	
+    	if(isset($depart))
+    	$this->view->numVol = $numVol;
+    	  
+    	if(isset($depart))
+    		$this->view->depart = $depart;
+    	if(isset($arrivee))
+    		$this->view->arrivee = $arrivee;
   
 	}
 	
