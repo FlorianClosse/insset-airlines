@@ -6,7 +6,7 @@ class FmodifierReservation extends Zend_Form
 				
 		//Paramétre le formulaire
 		$this->setMethod('post')->setAction('/commercial/modifieroption');		
-		$this->setAttrib('id', 'FormModifierReservation');
+		$this->setAttrib('id', 'forms');
 		
 		
 		//Champ de l'ajout de place à reserver

@@ -5,7 +5,7 @@ class FormFiltreMaintenance extends Zend_Form
 	{
 		$this->setMethod('POST');
 		$this->setAction('/maintenance/index');
-		$this->setAttrib('id', 'formfiltremaintenance');
+		$this->setAttrib('id', 'forms');
 		$this->clearDecorators();
 			
 		$statut = new Zend_Form_Element_Select('statut');

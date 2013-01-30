@@ -36,7 +36,7 @@ class Fajoutpilote extends Zend_Form
 		
     	/* Parametrer le formulaire */
     	$this->setMethod('post')->setAction('/drh/ajouterpersonne');
-    	$this->setAttrib('id', 'FormAjoutPilote');
+    	$this->setAttrib('id', 'forms');
     	
     	/* Creer des elements de formulaire */
     	$PiloteNom= new Zend_Form_Element_Text('nomPilote');

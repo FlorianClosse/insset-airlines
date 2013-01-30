@@ -5,7 +5,7 @@ class Fbrevet extends Zend_Form
 	{
 		/* Parametrer le formulaire */
 		$this->setMethod('post')->setAction('/drh/index');
-		$this->setAttrib('id', 'formbrevet');
+		$this->setAttrib('id', 'forms');
 		
 		$pilote = new Pilote;
 		

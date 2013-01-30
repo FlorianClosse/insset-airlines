@@ -6,7 +6,7 @@ class FfiltreReservationArrivee extends Zend_Form
 				
 		//Paramétre le formulaire
 		$this->setMethod('post')->setAction('/commercial/index?valeur=afficher');		
-		$this->setAttrib('id', 'FormFiltreReservation');
+		$this->setAttrib('id', 'forms');
 		
 		
 		$aeroportD = new Aeroport;

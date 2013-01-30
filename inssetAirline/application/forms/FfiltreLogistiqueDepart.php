@@ -6,7 +6,7 @@ class FfiltreLogistiqueDepart extends Zend_Form
 				
 		//Paramétre le formulaire
 		$this->setMethod('post')->setAction('/logistique/index?valeur=afficher');		
-		$this->setAttrib('id', 'FormFiltreReservation');
+		$this->setAttrib('id', 'forms');
 		
 		
 		$aeroportD = new Aeroport;

@@ -6,7 +6,7 @@ class FajoutReservation extends Zend_Form
 				
 		//Paramétre le formulaire
 		$this->setMethod('post')->setAction('/commercial/index?valeur=ajout');		
-		$this->setAttrib('id', 'FormAjoutReservation');
+		$this->setAttrib('id', 'forms');
 		
 		
 		//Champ de l'ajout de place à reserver
