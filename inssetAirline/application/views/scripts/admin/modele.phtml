@@ -4,7 +4,6 @@
 <table class="avion">
 	<thead>
 		<tr> 	
-			<th></th>
 			<th>Nom</th>
 			<th>Longueur nécessaire de piste</th>
 			<th>Rayon d'action</th>
@@ -21,14 +20,13 @@
 	{
 ?>
 		<tr>
-	    	<td><a href="/admin/supprimermodele?idModele=<?= $unmodele['idModele']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce modèle ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
 			<td><?= $unmodele['nomModele'] ;?></td>
 			<td><?= $unmodele['longueurPiste'] ;?></td>
 			<td><?= $unmodele['rayonDaction']; ?></td>
 			<td><?= $unmodele['nbPlace']; ?></td>
 			<td><?= $unmodele['periodePetiteRevision']; ?></td>
 			<td><?= $unmodele['periodeGrandeRevision']; ?></td>
-			<td><a href="/admin/modifiermodele?idModelet=<?= $unmodele['idModele']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+			<td><a href="/admin/modifiermodele?idModele=<?= $unmodele['idModele']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
 		</tr>
 <?php }?>
 	</tbody>

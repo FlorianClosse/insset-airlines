@@ -10,7 +10,7 @@ class FormPetiteRevision extends Zend_Form
 			
 			$this->setMethod('POST');
 			$this->setAction('/maintenance/plannifier');
-			$this->setAttrib('id', 'formPetiteRevision');
+			$this->setAttrib('id', 'forms');
 			$this->clearDecorators();
 			
 			$ts = (mktime() + 4838400); //On récupère le TimeStamp dans 8 semaines

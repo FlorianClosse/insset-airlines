@@ -3,6 +3,11 @@
 <a href="/maintenance/afficherrevision">Gérer les révisions</a>
 <br /><br />
 <center>
+<?php 
+echo $this->filtre;
+$lesavions = $this->lesavions;
+if(count($lesavions)>=1)
+{?>
 <table class="avion">
 	<thead>
 		<tr>
@@ -18,7 +23,6 @@
 	</thead>
 	<tbody>
 <?php 
-	$lesavions = $this->lesavions;
 	$revision = new Revision();
 	$modele = new Modele();
 	$aeroport = new Aeroport();
@@ -62,6 +66,7 @@
 <?php }?>
 	</tbody>
 </table>
+<?php }else{echo'Aucun résultat pour votre recherche';}?>
 <div id="popupajoutavion" class="popup_block">
 	<?php echo $this->formajoutavion;?>           
 </div>

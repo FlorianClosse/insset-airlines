@@ -39,14 +39,7 @@ public function preDispatch()
 					break;
 			}
 		}		
-	}
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 	public function afficheroptionsAction()
 	{
@@ -141,14 +134,6 @@ public function preDispatch()
 				
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	//permet de demander les vols disponibles et de reserver des places
 	public function ajouteroptionsAction()
 	{
@@ -239,18 +224,6 @@ public function preDispatch()
 			}
 		}			
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public function supprimeroptionAction()
 	{
