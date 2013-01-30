@@ -34,12 +34,12 @@ $idVol = $this->idVol;
 	
 	<table id="tableauTitreVol">
 		<tr>
-			<th >Vols a supprimer</th>
-			<th >numero</th>
-			<th >aeroport de depart</th>
-			<th >aeroport d'arrivée</th>
-			<th >Départ</th>
-			<th >Durée</th>
+			<th  style="width: 124px;">Vols a supprimer</th>
+			<th style="width: 124px;">numero</th>
+			<th style="width: 124px;">aeroport de depart</th>
+			<th style="width: 124px;">aeroport d'arrivée</th>
+			<th style="width: 124px;">Départ</th>
+			<th style="width: 124px;">Durée</th>
 		</tr>
 	</table>
 	
@@ -48,11 +48,11 @@ $idVol = $this->idVol;
 	<table id="tableauInfoVol">
 	<?php foreach($lesVols as $unVol) { if(isset($idVol[$unVol['idVol']])){?>
 		<tr>
-			<td><?php echo $numVol[$unVol['idVol']]; ?></td>
-			<td><?php echo $lesAeroportsDeDepart[$unVol['idVol']]; ?></td>
-			<td><?php echo $lesAeroportsDArrivee[$unVol['idVol']]; ?></td>
-			<td><?php echo $lesJourEtDateDeVol[$unVol['idVol']]; ?></td>
-			<td><?php echo $duree[$unVol['idVol']]; ?></td>
+			<td style="width: 124px;"><?php echo $numVol[$unVol['idVol']]; ?></td>
+			<td style="width: 124px;"><?php echo $lesAeroportsDeDepart[$unVol['idVol']]; ?></td>
+			<td style="width: 124px;"><?php echo $lesAeroportsDArrivee[$unVol['idVol']]; ?></td>
+			<td style="width: 124px;"><?php echo $lesJourEtDateDeVol[$unVol['idVol']]; ?></td>
+			<td style="width: 124px;"><?php echo $duree[$unVol['idVol']]; ?></td>
 	   </tr>
 	<?php } } ?>
 	</table>

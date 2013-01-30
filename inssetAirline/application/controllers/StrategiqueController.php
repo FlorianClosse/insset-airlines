@@ -203,6 +203,7 @@ class StrategiqueController extends Zend_Controller_Action
     					array('tr' => 'HtmlTag'),
     					array('tag'=> 'tr')
     			)
+    			
     	);
     	//decorateur du bouton submit
     	$decorateurBoutonEnvoyer = array(
