@@ -63,7 +63,7 @@ class StrategiqueController extends Zend_Controller_Action
 	    	}
     	}
     	
-    	if(isset($_POST['boutonSubmitAjouterVol']))
+    	if(isset($_POST['boutonSubmitAjouter']))
     	{
     		//ajouter un vol
     		$vol = new Vol;
@@ -140,10 +140,10 @@ class StrategiqueController extends Zend_Controller_Action
     	$formulaireAjout -> addElement($numeroVol);
     	
     	//choix de l'aéroport de départ
-    	$formulaireAjout->addElement(fonctionAeroport('aeroportDepart'));
+    	$formulaireAjout->addElement(fonctionAeroport('aeroportDepart')->setLabel('Aéroport de départ'));
     	
     	//choix de l'aéroport d'arrivée
-    	$formulaireAjout->addElement(fonctionAeroport('aeroportArrivee'));
+    	$formulaireAjout->addElement(fonctionAeroport('aeroportArrivee')->setLabel('Aéroport d\'arrivée'));
     	
     	//zone de saisie de la durée du vol
     	$dureeVol = new Zend_Form_Element_Text('dureeVol');
@@ -184,7 +184,7 @@ class StrategiqueController extends Zend_Controller_Action
     	$formulaireAjout -> addElement($choixJours);
     	 
     	//bouton d'envoie du formulaire
-    	$envoyer = new Zend_Form_Element_Submit('boutonSubmitAjouterVol');
+    	$envoyer = new Zend_Form_Element_Submit('boutonSubmitAjouter');
     	$envoyer -> setLabel('Ajouter');
     	$formulaireAjout -> addElement($envoyer);
     	
