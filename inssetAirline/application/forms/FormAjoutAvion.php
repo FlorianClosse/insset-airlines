@@ -8,7 +8,7 @@ class FormAjoutAvion extends Zend_Form
 		$this->setAttrib('id', 'forms');
 		$this->clearDecorators();
 		
-		$immatriculation = new Zend_Form_Element_Text('immatriculation');
+		$immatriculation = new Zend_Form_Element_Text('numImmatriculation');
 		$immatriculation->setLabel('Immatriculation de l\'avion');
 		$immatriculation->addValidator('StringLength', true, array('max' => 200));
 		$immatriculation->setRequired(true);
@@ -34,7 +34,7 @@ class FormAjoutAvion extends Zend_Form
 		
 		$objmodele = new Modele;
 		$lesModeles = $objmodele->fetchAll();
-		$modele = new Zend_Form_Element_Select('modele');
+		$modele = new Zend_Form_Element_Select('idModele');
 		$modele ->setLabel('Modele de l\'avion');
 		foreach ($lesModeles as $unModele )
 		{
@@ -49,7 +49,7 @@ class FormAjoutAvion extends Zend_Form
 		$localisation->addMultiOptions($listeAeroport);
 		$this->addElement($localisation);
 		
-		$aeroportdattache = new Zend_Form_Element_Select('aeroportdattache');
+		$aeroportdattache = new Zend_Form_Element_Select('idAeroportDattache');
 		$aeroportdattache ->setLabel('Aeroport d\'attache de l\'avion');
 		$aeroportdattache->addMultiOptions($listeAeroport);
 		$this->addElement($aeroportdattache);
