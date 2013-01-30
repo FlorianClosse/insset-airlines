@@ -3,6 +3,8 @@
     <style name="editText">
     	<item name="android:textColor">@color/noir</item>
     	<item name="android:textSize">25dp</item>
+    	<item name="android:paddingLeft">10dp</item>
+    	<item name="android:paddingRight">10dp</item>
     	<item name="android:background">@drawable/cadre_noir</item>
     </style>
 	
