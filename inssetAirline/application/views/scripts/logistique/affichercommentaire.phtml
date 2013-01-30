@@ -7,8 +7,7 @@
 			<tr>
 				<th > Commentaires </th>
 				<th > Id Journal de bord </th>				
-				<th>  Numero de vol </th>				
-				<th>  Statut </th>	
+				<th>  Numero de vol </th>		
 				<th > </th>
 			</tr>
 		</table>
@@ -16,7 +15,10 @@
 		<?php 
 			//$tableau = $this->tableau;
 			$formulaire = $this->formulaire;
-			$listeNumVol = $this->listeNumVol;
+			$form = $this->formAjoutCommentaire;
+			$lesJournaux = $this->lesJournaux;
+			$idJournal=$this->idJournal;
+			$numVol=$this->numVol;
 			$paginator=$this->paginator;
 			$i=0;
 					
@@ -25,20 +27,21 @@
 			
 		<table id="tableauInfoVol">
 		<?php 
-				$form = $this->formAjoutCommentaire;
-				$lesJournaux = $this->lesJournaux; 
+				
 			  	foreach($lesJournaux as $unJournal) 
-			  	{	
-			  		$id=$unJournal['idJournalDeBord'];
-			  		$i++; ?>
-					<tr>
-						<td><?php echo $unJournal['idJournalDeBord']; ?></td>						
-				   		<td><?php echo $listeNumVol[$i][0];?></td>	
-				   		<td><?php echo $unJournal['statut']; ?></td>
-				   		<td><a  href="<?php echo $this->baseUrl('logistique/ajoutcommentaire')."?idJournalDeBord=$id"?>">Ajouter un commentaire</a></td>				   			
-					</tr>			
-		  <?php }?> 						
+			  	{
+			  		if(isset($idJournal[$unJournal['idJournalDeBord']]))
+					{	
+				  		$id=$unJournal['idJournalDeBord'];
+				  		$i++; ?>
+						<tr>
+							<td><?php echo $idJournal[$unJournal['idJournalDeBord']]; ?></td>		
+							<td><?php echo $numVol[$unJournal['idJournalDeBord']]; ?></td>								   					   	
+					   		<td><a  href="<?php echo $this->baseUrl('logistique/ajoutcommentaire')."?idJournalDeBord=$id"?>">Ajouter un commentaire</a></td>				   			
+						</tr>			
+		  <?php 	}
+				}?> 						
 		</table>
 		
 	<?php }
-	echo $paginator;?>		
+	echo $this->paginationControl($paginator,'All', 'paginationcontrole.phtml');?>
