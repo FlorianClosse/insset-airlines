@@ -38,7 +38,7 @@ class Revision extends Zend_Db_Table_Abstract
 	public function getRevisionPlannifiees()
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$requete = 'SELECT * FROM revision WHERE dateFin=\'NULL\' OR dateDebut=\'NULL\'';
+		$requete = 'SELECT * FROM revision WHERE dateFin is null OR dateDebut is null';
 		return $db->query($requete)->fetchAll();
 	}
 	public function selectOne($idRevision)

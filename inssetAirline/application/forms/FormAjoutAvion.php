@@ -4,9 +4,21 @@ class FormAjoutAvion extends Zend_Form
 	public function init()
 	{
 		$this->setMethod('POST');
-		$this->setAction('/maintenance/ajout');
+		
 		$this->setAttrib('id', 'forms');
 		$this->clearDecorators();
+		
+		if(isset($_GET['idAvion']))
+		{
+			$idAvion = new Zend_Form_Element_Hidden('idAvion');
+			$idAvion->setValue($_GET['idAvion']);
+			$this -> addElement($idAvion);
+			$this->setAction('/maintenance/modifier');
+		}
+		else
+		{
+			$this->setAction('/maintenance/ajout');
+		}
 		
 		$immatriculation = new Zend_Form_Element_Text('numImmatriculation');
 		$immatriculation->setLabel('Immatriculation de l\'avion');
@@ -57,8 +69,17 @@ class FormAjoutAvion extends Zend_Form
 		$reset = new Zend_Form_Element_Reset('Reset');
 		$this->addElement($reset);
 		
-		$ajout = new Zend_Form_Element_Submit('envoyer');
-		$ajout -> setLabel('Ajouter');
-		$this -> addElement($ajout);
+		if(isset($_GET['idAvion']))
+		{
+			$ajout = new Zend_Form_Element_Submit('envoyer');
+			$ajout -> setLabel('Modifier');
+			$this -> addElement($ajout);
+		}
+		else
+		{
+			$ajout = new Zend_Form_Element_Submit('envoyer');
+			$ajout -> setLabel('Ajouter');
+			$this -> addElement($ajout);
+		}
 	}
 }
