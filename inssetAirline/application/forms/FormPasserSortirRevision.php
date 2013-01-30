@@ -13,7 +13,7 @@ class FormPasserSortirRevision extends Zend_Form
 			
 			$this->setMethod('POST');
 			$this->setAction('/maintenance/gererrevision');
-			$this->setAttrib('id', 'formPasserSortirRevision');
+			$this->setAttrib('id', 'forms');
 			$this->clearDecorators();
 			
 			$idRevision = new Zend_Form_Element_Hidden('idRevision');
