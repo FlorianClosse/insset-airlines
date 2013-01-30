@@ -1,8 +1,11 @@
-<h2>Affichage des vols</h2>
+
+
+
 
 
 <?php if(!isset($_POST['valider']))
-	  {?>
+	  {?>	
+	    <h2>Affichage des vols</h2>
 		<table id="tableauTitreVol">
 			<tr>
 				<th > Commentaires </th>
@@ -44,4 +47,7 @@
 		</table>
 		
 	<?php }
-	echo $this->paginationControl($paginator,'All', 'paginationcontrole.phtml');?>
+	if(isset($paginator))
+	{
+		echo $this->paginationControl($paginator,'All', 'paginationcontrole.phtml');
+	}?>
