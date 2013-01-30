@@ -1,4 +1,8 @@
 <center>
+<?php 
+$lesrevisions = $this->lesrevisions;
+if(count($lesrevisions)>=1)
+{?>
 <table class="avion">
 	<thead>
 		<tr>
@@ -13,7 +17,7 @@
 	</thead>
 	<tbody>
 <?php 
-	$lesrevisions = $this->lesrevisions;
+	
 	$avion = new Avion();
 	$modele = new Modele();
 	$aeroport = new Aeroport();
@@ -47,6 +51,7 @@
 <?php }?>
 	</tbody>
 </table>
+<?php }else{echo'Pas de révisions à gérer.';}?>
 </center>
 <div id="popupajoutavion" class="popup_block">
 	<?php echo $this->formajoutavion;?>      
