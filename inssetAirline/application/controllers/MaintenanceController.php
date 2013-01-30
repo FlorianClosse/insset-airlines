@@ -110,7 +110,7 @@ class MaintenanceController extends Zend_Controller_Action
 			if(isset($_GET['idAvion']))
 			{
 				$lavion = $aeroport->selectOne($_GET['idAvion']);
-				$this->view->formajoutaeroport = $formajoutavion->populate($lavion[0]);
+				$this->view->formajoutavion = $formajoutavion->populate($lavion[0]);
 			}
 		}
 	}
