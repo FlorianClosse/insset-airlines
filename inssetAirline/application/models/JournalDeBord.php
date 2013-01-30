@@ -32,6 +32,139 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 		return $donnees;
 	}
 	
+	public function getRecupererCoPilote($idPilote)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where idCoPilote = '.$idPilote;
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetchAll();
+		return $donnees;
+	}
+	public function getRecupererLieuCoPiloteAvecDate($idPilote, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart < "'.$date.'"
+		and idCoPilote = "'.$idPilote.'"
+		ORDER BY dateDepart DESC
+		LIMIT 1';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetch();
+		return $donnees;
+	}
+	public function getRecupererCoPiloteAstreinte($idPilote, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart > "'.$date.'"
+		and idCoPilote = "'.$idPilote.'"
+		ORDER BY dateDepart DESC
+		LIMIT 1';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetch();
+		return $donnees;
+	}
+	public function getRecupererCoPiloteAModifier($idPilote, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart > "'.$date.'"
+		and idCoPilote = "'.$idPilote.'"';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetchAll();
+		return $donnees;
+	}
+	
+	public function getRecupererPilote($idPilote)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where idPilote = '.$idPilote;
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetchAll();
+		return $donnees;
+	}
+	public function getRecupererLieuPiloteAvecDate($idPilote, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart < "'.$date.'"
+		and idPilote = "'.$idPilote.'"
+		ORDER BY dateDepart DESC
+		LIMIT 1';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetch();
+		return $donnees;
+	}
+	public function getRecupererPiloteAstreinte($idPilote, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart > "'.$date.'"
+		and idPilote = "'.$idPilote.'"
+		ORDER BY dateDepart DESC
+		LIMIT 1';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetch();
+		return $donnees;
+	}
+	public function getRecupererPiloteAModifier($idPilote, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart > "'.$date.'"
+		and idPilote = "'.$idPilote.'"';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetchAll();
+		return $donnees;
+	}
+	
+	
+	
+	public function getRecupererAvion($idAvion)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where idAvion = '.$idAvion;
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetchAll();
+		return $donnees;
+	}
+	public function getRecupererLieuAvionAvecDate($idAvion, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart < "'.$date.'"
+		and idAvion = "'.$idAvion.'"
+		ORDER BY dateDepart DESC
+		LIMIT 1';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetch();
+		return $donnees;
+	}
+	public function getRecupererAvionAstreinte($idAvion, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart > "'.$date.'"
+		and idAvion = "'.$idAvion.'"
+		ORDER BY dateDepart DESC
+		LIMIT 1';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetch();
+		return $donnees;
+	}
+	public function getRecupererAvionAModifier($idAvion, $date)
+	{
+		$requete = 	 'select *
+		from journalDeBord
+		where dateDepart > "'.$date.'"
+		and idAvion = "'.$idAvion.'"';
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->fetchAll();
+		return $donnees;
+	}
 	
 	
 	public function getRecupererSuivantDateEtVol($aujourdhui, $idVol)
@@ -42,6 +175,16 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 		->where('idVol=?',$idVol)
 		;
 		return $requete->query()->fetch();
+	}
+	
+	
+	public function getSupprimer($id)
+	{
+		$requete = 	'delete from journalDeBord
+		where idJournalDeBord = '.$id;
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$donnees = $db->query($requete)->rowCount();
+		return $donnees;
 	}
 	// ***fonction getRecuperLesVolsDepartAujourdHui par Nicolas
 	public function getRecuperLesVolsDepartAujourdHui($date)

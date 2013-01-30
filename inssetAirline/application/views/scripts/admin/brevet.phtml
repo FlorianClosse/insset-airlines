@@ -17,10 +17,10 @@
 	{
 ?>
 		<tr>
-	    	<td><a href="/admin/supprimerbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce brevet ?');"><img src="/images/supprimer.gif" alt="suppr"/></a></td>
+	    	<td><a href="/admin/supprimerbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce brevet ?');"><img src="/img/supprimer.gif" alt="suppr"/></a></td>
 			<td><?= $unbrevet['nomBrevet'] ;?></td>
 			<td><?= $unbrevet['dureeBrevetEnAnnee'] ;?></td>
-			<td><a href="/admin/modifierbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>"><img src="/images/modif.gif" alt="modif" /></a></td>
+			<td><a href="/admin/modifierbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>"><img src="/img/modif.gif" alt="modif" /></a></td>
 		</tr>
 <?php }?>
 	</tbody>

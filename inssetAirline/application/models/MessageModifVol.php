@@ -11,5 +11,15 @@
 				'idAeroport' => array(
 						'columns' => 'idAeroport',
 						'refTableClass' =>'aeroport'));
+		
+		
+		// ***fonction par Nicolas
+		public function getRecuperStatut($statut)
+		{
+			$requete = $this->select()
+			->from($this)
+			->where('statut=?', $statut);
+			return $requete->query()->fetchAll();
+		}
 	}
 ?>

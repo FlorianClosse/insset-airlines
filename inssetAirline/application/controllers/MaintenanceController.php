@@ -24,8 +24,7 @@ class MaintenanceController extends Zend_Controller_Action
 	
 	public function indexAction()
 	{
-		$filtre = new FormFiltreMaintenance();
-		echo $filtre;
+		$this->view->filtre = new FormFiltreMaintenance();
 		$formAjoutAvion = new FormAjoutAvion();
 		$this->view->formajoutavion= $formAjoutAvion;
 		
@@ -64,12 +63,11 @@ class MaintenanceController extends Zend_Controller_Action
 				case 4:
 					$lesavions = $avion->selectFiltreQuatre($array[0][0],$array[0][1],$array[1][0],$array[1][1],$array[2][0],$array[2][1],$array[3][0],$array[3][1]);
 					break;
-					
-				$pagination = Zend_Paginator::factory($lesavions);
-				$pagination->setCurrentPageNumber($this->_getParam('page'));
-				$pagination->setItemCountPerPage(15);
-				$this->view->lesavions = $pagination;
 			}
+			$pagination = Zend_Paginator::factory($lesavions);
+			$pagination->setCurrentPageNumber($this->_getParam('page'));
+			$pagination->setItemCountPerPage(15);
+			$this->view->lesavions = $pagination;
 		}
 		else
 		{//sinon on affiche tous les avions

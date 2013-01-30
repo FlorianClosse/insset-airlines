@@ -220,7 +220,12 @@ class StrategiqueController extends Zend_Controller_Action
     			array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
     	);
     	
-    	
+    	$filtreStategique = $this->_getParam('filtreStategique');
+    	if($filtreStategique == 'defaut')
+    	{
+    		unset($_SESSION['aeroportDepart']);
+    		unset($_SESSION['aeroportArrivee']);
+    	}
     	
     	$vol = new Vol;
     	if(isset($_POST['aeroportDepart']))

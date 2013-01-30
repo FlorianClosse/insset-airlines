@@ -39,24 +39,28 @@ if(isset($message))
 { 
 	foreach($lesVolsDate as $unVol) 
 	{ 
-		
 		if($journalsDate[$unVol['idVol']] == 'existe pas')
-		{?>
+		{ $erreur = 1;?>
 		Vol de <?php echo $aeroDepartVolsDate[$unVol['idVol']]; ?> à <?php echo $aeroArriveeVolsDate[$unVol['idVol']]; ?> : <br/>
 		<a href="<?php echo $this->baseUrl('planning/volacreer'); ?>?numerovol=<?php echo $idVolsDate[$unVol['idVol']]; ?>&date=<?php echo $aujourdhui; ?>">
 		Créer le vol n° <?php echo $numVolsDate[$unVol['idVol']]; ?>
 		</a><br/>
-<?php } } } ?>
 
-<?php if(isset($lesVolsJour)) { 
+<?php  }else {$erreur = 1;}}} ?>
+
+<?php if(isset($lesVolsJour)) 
+{ 
 	foreach($lesVolsJour as $unVol) 
 	{ 
 		if($aeroportDepart[$unVol['idVol']] == $aeroport) 
 		{ 
 			if($journalsJour[$unVol['idVol']] == 'existe pas')
-			{?>
+			{ ?>
 		Vol de <?php echo $aeroDepartVolsJour[$unVol['idVol']]; ?> à <?php echo $aeroArriveeVolsJour[$unVol['idVol']]; ?> : <br/>
 		<a href="<?php echo $this->baseUrl('planning/volacreer'); ?>?numerovol=<?php echo $idVolsJour[$unVol['idVol']]; ?>&date=<?php echo $aujourdhui; ?>">
 		Créer le vol n° <?php echo $numVolsJour[$unVol['idVol']]; ?>
 		</a><br/>
-<?php } } } } ?>
+<?php }else {$erreur = 1;}}else {$erreur = 1;}}} 
+if(isset($erreur)){?>
+aucun vol n'est prévu
+<?php }?>

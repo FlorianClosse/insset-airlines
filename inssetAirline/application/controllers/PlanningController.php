@@ -360,6 +360,7 @@ class PlanningController extends Zend_Controller_Action
     	$pilote = new Pilote();
     	$modele = new Modele();
     	$revision = new Revision();
+    	$aeroport = new Aeroport();
     	$liaionBrevetModele = new LiaisonBrevetModele();
     	$liaisonPiloteBrevet = new LiaisonPiloteBrevet();
     	
@@ -448,9 +449,12 @@ class PlanningController extends Zend_Controller_Action
 		    		}
 		    		if($enRevision != 'oui')
 		    		{
-		    			$tabAvion = array($jdb['idAvion'] => $numAvion);
+		    			$infAvion = $avion->find($jdb['idAvion'])->current();
+		    			$infModel = $modele->find($infAvion['idModele'])->current();
+		    			$infAero = $aeroport->find($aeroDepart)->current();
+		    			if($infModel['longueurPiste'] < $infAero['longueurPiste'])
+		    				$tabAvion[$jdb['idAvion']] = $numAvion;
 		    		}
-		    		
 		    		
 		    		if(isset($_POST['ChoixDesAvions']))
 		    		{
@@ -497,9 +501,9 @@ class PlanningController extends Zend_Controller_Action
 			    		foreach($listePilotes as $unPilote)
 			    		{
 				    		if($jdb['idPilote'] == $unPilote)
-				    			$tabPilote = array($jdb['idPilote'] => $nomPrenomPilote);
+				    			$tabPilote[$jdb['idPilote']] = $nomPrenomPilote;
 				    		if($jdb['idCoPilote'] == $unPilote)
-				    			$tabPilote = array($jdb['idCoPilote'] => $nomPrenomcoPilote);
+				    			$tabPilote[$jdb['idCoPilote']] = $nomPrenomcoPilote;
 			    		}
 		    		}
 		    	}
@@ -593,42 +597,407 @@ class PlanningController extends Zend_Controller_Action
     	$messageModifVol = new MessageModifVol();
     	$journalDeBord = new JournalDeBord();
     	$vol = new Vol();
+    	$avion = new Avion();
+    	$pilote = new Pilote();
+    	$aeroport = new Aeroport();
     	
-    	if($this->_getParam('retour') == 'oui')
-    		unset($_SESSION['aeroport']);
-    	if(isset($_POST['btAeroport']))
-    		$_SESSION['aeroport'] = $_POST['aeroport'];
-    	
-    	if(isset($_SESSION['aeroport']))
+    	$type = $this->_getParam('type');
+    	if(isset($type))
     	{
-    		$lesMessagesModifVol = $messageModifVol->fetchAll();
-    		foreach($lesMessagesModifVol as $unMessageModifVol)
+    		$idJDB 		= $this->_getParam('idJDB');
+    		$idMessage  = $this->_getParam('idMessage');
+    		$donneesJDB = $journalDeBord->find($idJDB)->current();
+    		$idVol 		= $donneesJDB['idVol'];
+    		$idAvion 	= $donneesJDB['idAvion'];
+    		$idPilote 	= $donneesJDB['idPilote'];
+    		$idCoPilote = $donneesJDB['idCoPilote'];
+    		$date 		= $donneesJDB['dateDepart'];
+    		$leVol 		= $vol->find($idVol)->current();
+    		$depart 	= $leVol['aeroportDepart'];
+    		
+    	if($type == 'supprimer')
+    	{	
+    		$maLigneJDB = $journalDeBord->find($idJDB)->current();
+    		$copiloteAmodifier = $maLigneJDB['idCoPilote'];
+    		$piloteAmodifier = $maLigneJDB['idPilote'];
+    		$avionAmodifier = $maLigneJDB['idAvion'];
+    		$laDate = $maLigneJDB['dateDepart'];
+    		$journalDeBord->getSupprimer($idJDB);
+    		$maLigneMessage = $messageModifVol->find($idMessage)->current();
+    		$maLigneMessage->statut = 'fin';
+    		$maLigneMessage->save();
+    		 
+    		$listePiloteAModifier = $journalDeBord->getRecupererCoPiloteAModifier($copiloteAmodifier,$laDate);
+			foreach ($listePiloteAModifier as $piloteAmodifier)
+			{
+				$maLigneJDB = $journalDeBord->find($piloteAmodifier['idJournalDeBord'])->current();
+				$maLigneJDB->idCoPilote = $idPilote;
+				$maLigneJDB->save();
+			}
+			$listePiloteAModifier = $journalDeBord->getRecupererPiloteAModifier($piloteAmodifier,$laDate);
+			foreach ($listePiloteAModifier as $piloteAmodifier)
+			{
+				$maLigneJDB = $journalDeBord->find($piloteAmodifier['idJournalDeBord'])->current();
+				$maLigneJDB->idPilote = $idPilote;
+				$maLigneJDB->save();
+			}
+			$listeAvionAModifier = $journalDeBord->getRecupererAvionAModifier($avionAmodifier,$laDate);
+			foreach ($listeAvionAModifier as $avionAmodifier)
+			{
+				$maLigneJDB = $journalDeBord->find($avionAmodifier['idJournalDeBord'])->current();
+				$maLigneJDB->idAvion = $idAvion;
+				$maLigneJDB->save();
+			}
+    	}
+    	if($type == 'modifcopilote')
     		{
-    			$idAeroport = $unMessageModifVol->idAeroport;
-    			$message = $unMessageModifVol->message;
-    			$statut = $unMessageModifVol->statut;
-    			$dateMessage = $unMessageModifVol->dateMessage;
-    			if($idAeroport == $_SESSION['aeroport'])
+    			$lesPilotes = $pilote->fetchAll();
+    			foreach($lesPilotes as $unPilotes)
     			{
-    				if($statut == 'debut')
+    				if($unPilotes['idPilote'] != $idCoPilote)
     				{
-    					$tabMessage[] = $message;
-    					$tabDateMessage[] = dateMessage;
+    					$leJDB = $journalDeBord->getRecupererLieuCoPiloteAvecDate($unPilotes['idPilote'], $date);
+    					$leVol = $vol->find($leJDB['idVol'])->current();
+    					if($depart == $leVol['aeroportArrivee'])
+    					{
+    						$listePilote[] = $unPilotes['idPilote'];
+    					}
+    			
+    					$dejaVole = $journalDeBord->getRecupererCoPilote($unPilotes['idPilote']);
+    					if(!$dejaVole)
+    					{
+    						$detailPilote = $pilote->find($unPilotes['idPilote'])->current();
+    						if($detailPilote['idAeroportEmbauche'] == $depart)
+    						{
+    							$listePilote[] = $unPilotes['idPilote'];
+    						}
+    					}
     				}
     			}
+    			if(isset($listePilote))
+    			{
+    				foreach ($listePilote as $unListePilote)
+    				{
+    					$tabDate = explode("-", $date);
+    					date_default_timezone_set("Europe/Paris" );
+    					$dateJourPrecedent = mktime(0, 0, 0, $tabDate[1], $tabDate[2], $tabDate[0])- 60 * 60 * 24;
+    					$dateJourPrecedent = date('Y-m-d', $dateJourPrecedent);
+    			
+    					$leJDB = $journalDeBord->getRecupererCoPiloteAstreinte($unListePilote, $dateJourPrecedent);
+    					if(!$leJDB)
+    					{
+    						$listeDesPilotesDAstreinte[] = $unListePilote;
+    					}
+    				}
+    			}
+    			else
+    			{
+    				echo 'aucun co-pilotes disponibles';
+    			}
+    			 
+    			if(isset($listeDesPilotesDAstreinte))
+    			{
+    				foreach ($listeDesPilotesDAstreinte as $unElement)
+    				{
+    					$infoPilote = $pilote->find($unElement)->current();
+    					$lenomPilote = $infoPilote->nomPilote.' '.$infoPilote->prenomPilote;
+    						
+    					$tabPilote[$unElement] =  $lenomPilote;
+    				}
+    			
+    				$formulaireAjout = new Zend_Form;
+    				$formulaireAjout -> setAttrib('id','formulaireAjout');
+    				$formulaireAjout -> setMethod('post');
+    				$formulaireAjout -> setAction('/planning/volamodifier?type=modifcopilote&idVol='.$idJDB.'&idMessage='.$idMessage);
+    			
+    				$choixPilote = new Zend_Form_Element_Select('ChoixDesPilotes');
+    				$choixPilote -> setLabel('Choisir le co-pilote');
+    				$choixPilote -> setMultiOptions($tabPilote);
+    				$formulaireAjout -> addElement($choixPilote);
+    			
+    				$envoyer = new Zend_Form_Element_Submit('boutonAjouterJDB');
+    				$envoyer -> setLabel('Ajouter');
+    				$formulaireAjout -> addElement($envoyer);
+    				$this->view->formulaire = $formulaireAjout;
+    			
+    			}
+    			else
+    			{
+    				echo 'aucun co-pilotes disponibles';
+    			}
+    			
     		}
+    		if($type == 'modifpilote')
+    		{
+    			$lesPilotes = $pilote->fetchAll();
+    			foreach($lesPilotes as $unPilotes)
+    			{
+    				if($unPilotes['idPilote'] != $idPilote)
+    				{
+    					$leJDB = $journalDeBord->getRecupererLieuPiloteAvecDate($unPilotes['idPilote'], $date);
+    					$leVol = $vol->find($leJDB['idVol'])->current();
+    					if($depart == $leVol['aeroportArrivee'])
+    					{
+    						$listePilote[] = $unPilotes['idPilote'];
+    					}
+    			
+    					$dejaVole = $journalDeBord->getRecupererPilote($unPilotes['idPilote']);
+    					if(!$dejaVole)
+    					{
+    						$detailPilote = $pilote->find($unPilotes['idPilote'])->current();
+    						if($detailPilote['idAeroportEmbauche'] == $depart)
+    						{
+    							$listePilote[] = $unPilotes['idPilote'];
+    						}
+    					}
+    				}
+    			}
+    			if(isset($listePilote))
+    			{
+    				foreach ($listePilote as $unListePilote)
+    				{
+    					$tabDate = explode("-", $date);
+    					date_default_timezone_set("Europe/Paris" );
+    					$dateJourPrecedent = mktime(0, 0, 0, $tabDate[1], $tabDate[2], $tabDate[0])- 60 * 60 * 24;
+    					$dateJourPrecedent = date('Y-m-d', $dateJourPrecedent);
+    			
+    					$leJDB = $journalDeBord->getRecupererPiloteAstreinte($unListePilote, $dateJourPrecedent);
+    					if(!$leJDB)
+    					{
+    						$listeDesPilotesDAstreinte[] = $unListePilote;
+    					}
+    				}
+    			}
+    			else
+    			{
+    				echo 'aucun pilotes disponibles';
+    			}
+    			 
+    			if(isset($listeDesPilotesDAstreinte))
+    			{
+    				foreach ($listeDesPilotesDAstreinte as $unElement)
+    				{
+    					$infoPilote = $pilote->find($unElement)->current();
+    					$lenomPilote = $infoPilote->nomPilote.' '.$infoPilote->prenomPilote;
+    						
+    					$tabPilote[$unElement] =  $lenomPilote;
+    				}
+    			
+    				$formulaireAjout = new Zend_Form;
+    				$formulaireAjout -> setAttrib('id','formulaireAjout');
+    				$formulaireAjout -> setMethod('post');
+    				$formulaireAjout -> setAction('/planning/volamodifier?type=modifpilote&idVol='.$idJDB.'&idMessage='.$idMessage);
+    			
+    				$choixPilote = new Zend_Form_Element_Select('ChoixDesPilotes');
+    				$choixPilote -> setLabel('Choisir le pilote');
+    				$choixPilote -> setMultiOptions($tabPilote);
+    				$formulaireAjout -> addElement($choixPilote);
+    			
+    				$envoyer = new Zend_Form_Element_Submit('boutonAjouterJDB');
+    				$envoyer -> setLabel('Ajouter');
+    				$formulaireAjout -> addElement($envoyer);
+    				$this->view->formulaire = $formulaireAjout;
+    			
+    			}
+    			else
+    			{
+    				echo 'aucun pilotes disponibles';
+    			}
+    			
+    		}
+    		if($type == 'modifavion')
+    		{
+    			$lesAvions = $avion->fetchAll();
+    			foreach($lesAvions as $unAvions)
+    			{
+    			 	if($unAvions['idAvion'] != $idAvion)
+    			 	{
+    			 		$leJDB = $journalDeBord->getRecupererLieuAvionAvecDate($unAvions['idAvion'], $date);
+    			 		$leVol = $vol->find($leJDB['idVol'])->current();
+    			 		if($depart == $leVol['aeroportArrivee'])
+    			 		{
+    			 			$listeAvion[] = $unAvions['idAvion'];
+    			 		}
+    			 		
+    			 		$dejaVole = $journalDeBord->getRecupererAvion($unAvions['idAvion']);
+    			 		if(!$dejaVole)
+    			 		{
+    			 			$detailAvion = $avion->find($unAvions['idAvion'])->current();
+    			 			if($detailAvion['localisation'] == $depart)
+    			 			{
+    			 				$listeAvion[] = $unAvions['idAvion'];
+    			 			}
+    			 		}
+    			 	}
+    			}
+    			if(isset($listeAvion))
+    			{
+    				foreach ($listeAvion as $unListeAvion)
+    				{
+    					$tabDate = explode("-", $date);
+						date_default_timezone_set("Europe/Paris" );
+						$dateJourPrecedent = mktime(0, 0, 0, $tabDate[1], $tabDate[2], $tabDate[0])- 60 * 60 * 24;
+						$dateJourPrecedent = date('Y-m-d', $dateJourPrecedent);
+						
+						$leJDB = $journalDeBord->getRecupererAvionAstreinte($unListeAvion, $dateJourPrecedent);
+						if(!$leJDB)
+						{
+							$listeDesAvionsDAstreinte[] = $unListeAvion;
+						}
+    				}
+    			}
+    			else
+    			{
+    				echo 'aucun avions disponibles';
+    			}
+    			
+    			if(isset($listeDesAvionsDAstreinte))
+    			{
+    				foreach ($listeDesAvionsDAstreinte as $unElement)
+    				{
+    					$numAvion = $avion->find($unElement)->current()->numImmatriculation;
+    					
+    					$tabAvion[$unElement] =  $numAvion;
+    				}
+    				
+    				$formulaireAjout = new Zend_Form;
+    				$formulaireAjout -> setAttrib('id','formulaireAjout');
+    				$formulaireAjout -> setMethod('post');
+    				$formulaireAjout -> setAction('/planning/volamodifier?type=modifavion&idVol='.$idJDB.'&idMessage='.$idMessage);
+    				
+    				$choixAvion = new Zend_Form_Element_Select('ChoixDesAvions');
+    				$choixAvion -> setLabel('Choisir l\'avion');
+    				$choixAvion -> setMultiOptions($tabAvion);
+    				$formulaireAjout -> addElement($choixAvion);
+    				
+    				$envoyer = new Zend_Form_Element_Submit('boutonAjouterJDB');
+    				$envoyer -> setLabel('Ajouter');
+    				$formulaireAjout -> addElement($envoyer);
+    				$this->view->formulaire = $formulaireAjout;
+    				
+    			}
+    			else
+    			{
+    				echo 'aucun avions disponibles';
+    			}
+    		}
+    		
     	}
     	else
     	{
-    		$formulaireChoix = new Zend_Form;
-    		$formulaireChoix -> setAttrib('id','formulaireChoixAeroport');
-    		$formulaireChoix -> setMethod('post');
-    		$formulaireChoix -> setAction('/planning/modifierplanning');
-    		$formulaireChoix->addElement(fonctionAeroport('aeroport'));
-    		$envoyer = new Zend_Form_Element_Submit('btAeroport');
-    		$envoyer -> setLabel('Ajouter');
-    		$formulaireChoix -> addElement($envoyer);
-    		$this->view->formulaireAeroport = $formulaireChoix;
+	    	$lesMessagesModifVol = $messageModifVol->getRecuperStatut('debut');
+	    	$pagination = Zend_Paginator::factory($lesMessagesModifVol);
+	    	$pagination->setCurrentPageNumber($this->_getParam('page'));
+	    	$pagination->setItemCountPerPage(5);
+	    	
+	    	foreach($pagination as $unMessageModifVol)
+	    	{
+	    		$idJDB 				= $unMessageModifVol['idJournalDeBord'];
+	    		$donneesJDB 		= $journalDeBord->find($idJDB)->current();
+	    		$idVol 				= $donneesJDB['idVol'];
+	    		$idAvion 			= $donneesJDB['idAvion'];
+	    		$idPilote 			= $donneesJDB['idPilote'];
+	    		$idCoPilote 		= $donneesJDB['idCoPilote'];
+	    		$donneesVol 		= $vol->find($idVol)->current();
+	    		$donneesAvion 		= $avion->find($idAvion)->current();
+	    		$donneesPilote 		= $pilote->find($idPilote)->current();
+	    		$donneesCoPilote 	= $pilote->find($idCoPilote)->current();
+	    		$idAeroDepart  		= $donneesVol['aeroportDepart'];
+	    		$idAeroArrivee 		= $donneesVol['aeroportArrivee'];
+	    		$donneesAeroDepart  = $aeroport->find($idAeroDepart)->current();
+	    		$donneesAeroArrivee = $aeroport->find($idAeroArrivee)->current();
+	    		
+	    		$message[$idJDB]     	= $unMessageModifVol['message'];
+	    		$dateMessage[$idJDB] 	= $unMessageModifVol['dateMessage'];
+	    		$numeroVol[$idJDB]		= $donneesVol['numVol'];
+	    		$matriculeAvion[$idJDB] = $donneesAvion['numImmatriculation'];
+	    		$nomPilote[$idJDB]		= $donneesPilote['nomPilote'].' '.$donneesPilote['prenomPilote'];
+	    		$nomCoPilote[$idJDB]	= $donneesCoPilote['nomPilote'].' '.$donneesCoPilote['prenomPilote'];
+	    		$depart[$idJDB]			= $donneesAeroDepart['nomAeroport'];
+	    		$arrivee[$idJDB]		= $donneesAeroArrivee['nomAeroport'];
+	    		$numJDB[$idJDB]			= $idJDB;
+	    	}	
+	    	if(isset($message))
+	    	{
+	    		$this->view->message 				= $message;
+	    		$this->view->dateMessage 			= $dateMessage;
+	    		$this->view->numeroVol 				= $numeroVol;
+	    		$this->view->matriculeAvion 		= $matriculeAvion;
+	    		$this->view->nomPilote	 			= $nomPilote;
+	    		$this->view->nomCoPilote 			= $nomCoPilote;
+	    		$this->view->depart 				= $depart;
+	    		$this->view->arrivee 				= $arrivee;
+	    		$this->view->lesMessagesModifVol 	= $pagination;
+	    	}
     	}
+    }
+    public function volamodifierAction()
+    {
+    	$type = $this->_getParam('type');
+    	$idMessage = $this->_getParam('idMessage');
+    	$idJDB = $this->_getParam('idVol');
+    	
+    	$messageModifVol = new MessageModifVol();
+    	$journalDeBord = new JournalDeBord();
+    	$vol = new Vol();
+    	$avion = new Avion();
+    	$pilote = new Pilote();
+    	$aeroport = new Aeroport();
+    	
+    	$maLigneMessage = $messageModifVol->find($idMessage)->current();
+    	$maLigneMessage->statut = 'fin';
+    	$maLigneMessage->save();
+    	
+    	if($type == 'modifavion')
+    	{
+	    	$idAvion = $_POST['ChoixDesAvions'];
+	    	$maLigneJDB = $journalDeBord->find($idJDB)->current();
+	    	$avionAmodifier = $maLigneJDB->idAvion;
+	    	$laDate = $maLigneJDB->dateDepart;
+	    	$maLigneJDB->idAvion = $idAvion;
+	    	$maLigneJDB->save();
+	    	
+	    	$listeAvionAModifier = $journalDeBord->getRecupererAvionAModifier($avionAmodifier,$laDate);
+	    	foreach ($listeAvionAModifier as $avionAmodifier)
+	    	{
+	    		$maLigneJDB = $journalDeBord->find($avionAmodifier['idJournalDeBord'])->current();
+	    		$maLigneJDB->idAvion = $idAvion;
+	    		$maLigneJDB->save();
+	    	}
+	    }
+	    if($type == 'modifpilote')
+	    {
+	    	$idPilote = $_POST['ChoixDesPilotes'];
+	    	$maLigneJDB = $journalDeBord->find($idJDB)->current();
+	    	$piloteAmodifier = $maLigneJDB->idPilote;
+	    	$laDate = $maLigneJDB->dateDepart;
+	    	$maLigneJDB->idPilote = $idPilote;
+	    	$maLigneJDB->save();
+	    
+	    	$listePiloteAModifier = $journalDeBord->getRecupererPiloteAModifier($piloteAmodifier,$laDate);
+	    	foreach ($listePiloteAModifier as $piloteAmodifier)
+	    	{
+	    		$maLigneJDB = $journalDeBord->find($piloteAmodifier['idJournalDeBord'])->current();
+	    		$maLigneJDB->idPilote = $idPilote;
+	    		$maLigneJDB->save();
+	    	}
+	    }
+	    if($type == 'modifcopilote')
+	    {
+	    	$idPilote = $_POST['ChoixDesPilotes'];
+	    	$maLigneJDB = $journalDeBord->find($idJDB)->current();
+	    	$piloteAmodifier = $maLigneJDB->idCoPilote;
+	    	$laDate = $maLigneJDB->dateDepart;
+	    	$maLigneJDB->idCoPilote = $idPilote;
+	    	$maLigneJDB->save();
+	    	 
+	    	$listePiloteAModifier = $journalDeBord->getRecupererCoPiloteAModifier($piloteAmodifier,$laDate);
+	    	foreach ($listePiloteAModifier as $piloteAmodifier)
+	    	{
+	    		$maLigneJDB = $journalDeBord->find($piloteAmodifier['idJournalDeBord'])->current();
+	    		$maLigneJDB->idCoPilote = $idPilote;
+	    		$maLigneJDB->save();
+	    	}
+	    }
     }
 }
