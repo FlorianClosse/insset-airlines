@@ -67,7 +67,7 @@ class LogistiqueController extends Zend_Controller_Action
 			}
 			else
 			{
-				echo 'Il n\'y a pas de commentaire pour ce vol';
+				echo 'Il n\'y a pas de commentaire pour ce vol ';
 			}
 		}		
 	}
