@@ -1,19 +1,27 @@
-<h1>Voici l'accueil de la page d'index de la drh</h1>
-
-<ol>
-	<li>
-		<a href="<?php echo $this->baseUrl('drh/pilote/'); ?>">
-			Liste des heures des Pilotes et Co-Pilotes
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $this->baseUrl('drh/ajouterpersonne'); ?>">
-			Ajouter une personne
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $this->baseUrl('drh/brevet'); ?>">
-			Assigner des brevets
-		</a>
-	</li>
-</ol>
+<center>
+	<table class="tablemenu">
+		<tr>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('drh/pilote/'); ?>">
+						Liste des heures des Pilotes
+					</a>
+				</p>
+			</td>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('drh/ajouterpersonne'); ?>">
+						Ajouter un pilote
+					</a>
+				</p>
+			</td>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('drh/brevet'); ?>">
+						Assigner des brevets
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</center>

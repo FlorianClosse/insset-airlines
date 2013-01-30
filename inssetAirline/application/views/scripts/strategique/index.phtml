@@ -1,15 +1,23 @@
-<ul>
-	<li>
-		<a href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=creer">
-			Créer une ligne
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=fermer">
-			Fermer une ligne
-		</a>
-	</li>
-</ul>
+<center>
+	<table class="tablemenu">
+		<tr>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('strategique/index/'); ?>?valeur=creer">
+						Créer une ligne
+					</a>
+				</p>
+			</td>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('strategique/index'); ?>?valeur=fermer">
+						Fermer une ligne
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</center>
 
 
 <?php $tableau = $this->tableau; if(count($tableau) > 0){ ?>
