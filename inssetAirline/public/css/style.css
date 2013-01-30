@@ -7,7 +7,7 @@
 }
 #entete{
 	width: 980px;
-	height: 120px;
+	height: 200px;
 	margin: 0px auto;
 }
 .pied{
@@ -24,22 +24,21 @@ a
 }
 
 .Bar {
-	background:black repeat-x;
+	background:#295192 ;
 	background-position:top;
 	position:fixed;
 	width: 980px;
-	
 	margin: 0px auto;
-height:50px;;
+	height:55px;
 	left:0;
 	right:0;
 	top:0;
-	color:#FFF;
-	border-radius:7px;
-	border-bottom:3px solid #FFF;
-	-moz-opacity:0.5;
-opacity: 0.5;
-filter:alpha(opacity=50);
+	color:black;
+	border-radius: 0 0 7px 7px;
+	border-bottom:3px solid #295192;
+	-moz-opacity:0.7;
+opacity: 0.7;
+filter:alpha(opacity=70);
 }
 
 .text {
@@ -55,20 +54,15 @@ header p{
 }
 
 body{
+	margin: 0px auto;	
+	width: 980px;
 	margin-top:35px;
-	background-image: url("/img/fond.jpg");
+	background-image: url("/img/fondsite.jpg");
 	background-position: center;
 	background-attachment: fixed;
 	
 }
 
-.form{
-	position:absolute;
-	top:0;
-	right:0;
-	float:right;
-	height: auto;
-}
 
 
 /* .pied */
@@ -137,7 +131,7 @@ body{
 
 .boutonEnvoyer
 {
-	background: white;
+
 	border:none;
 }
 
@@ -147,7 +141,7 @@ body{
 	width : 135px;
 	font-size: 18px;
 	border-radius:15px;
-	background-color:#01F601;
+
 }
 
 .boutonValider
@@ -204,11 +198,11 @@ body{
 		right: 50%;
 	}
 	
-	#vuebrevetform{
-		font-size : 2ex;
-		position:absolute;
-		right: 50%;
-	}
+
+#listepilote td{
+	border:0;
+	border-top: solid;
+}
 	
 	#EnvoyerBrevet{
 		width: 100px;
@@ -333,6 +327,31 @@ table.avion
 	color :red;
 }
 
+#tableauTitreVol tr{
+	height:102px;
+	width:175px;
+}
+#tableauTitreVol td{
+	height:102px;
+	width:175px;
+}
+#tableauInfoVol tr{
+	height:102px;
+	width:175px;
+}
+#tableauInfoVol td{
+	height:102px;
+	width:175px;
+}
+#formulaireSuppression tr{
+	height:102px;
+	width:175px;
+}
+#formulaireSuppression td{
+	height:102px;
+	width:175px;
+}
+
 #dateUnique
 {
 	display: none;
@@ -341,4 +360,285 @@ table.avion
 #datePeriodique
 {
 	display: none;
+}
+
+.buttonCom {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonCom a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Service_Commercial.png") no-repeat top left;
+	outline:none;
+}
+.buttonCom a:hover {
+	background-position:0 -50px;
+}
+
+.buttonStr {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonStr a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Service_Stratégique.png") no-repeat top left;
+	outline:none;
+}
+.buttonStr a:hover {
+	background-position:0 -50px;
+}
+
+.buttonTec {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonTec a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Service_Technique.png") no-repeat top left;
+	outline:none;
+}
+.buttonTec a:hover {
+	background-position:0 -50px;
+}
+
+.buttonLog {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonLog a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Service_Logistique.png") no-repeat top left;
+	outline:none;
+}
+.buttonLog a:hover {
+	background-position:0 -50px;
+}
+
+
+.buttonDrh {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonDrh a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Direction_des_ressources_humaines.png") no-repeat top left;
+	outline:none;
+}
+.buttonDrh a:hover {
+	background-position:0 -50px;
+}
+
+
+.buttonMai {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonMai a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Service_de_Maintenance.png") no-repeat top left;
+	outline:none;
+}
+.buttonMai a:hover {
+	background-position:0 -50px;
+}
+
+
+.buttonExp {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonExp a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Service_dexploitation.png") no-repeat top left;
+	outline:none;
+}
+.buttonExp a:hover {
+	background-position:0 -50px;
+}
+.buttonAdm {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonAdm a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/administration.png") no-repeat top left;
+	outline:none;
+}
+.buttonAdm a:hover {
+	background-position:0 -50px;
+}
+
+
+.buttonPla {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonPla a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/Gestion_du_planning.png") no-repeat top left;
+	outline:none;
+}
+.buttonPla a:hover {
+	background-position:0 -50px;
+}
+
+
+.buttonCom1 {
+	display:block;
+	width:170px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonCom1 a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/com_1.png") no-repeat top left;
+	outline:none;
+}
+.buttonCom1 a:hover {
+	background-position:0 -50px;
+}
+
+.buttonCom2 {
+	display:block;
+	width:250px;
+	height:50px;
+	text-indent:-9999px;
+}
+.buttonCom2 a {
+	display:block;
+	width:100%;
+	height:100%;
+	background:url("/img/com_2.png") no-repeat top left;
+	outline:none;
+}
+.buttonCom2 a:hover {
+	background-position:0 -50px;
+}
+
+
+.buttonSousMenu a {
+	display:block;
+	background-color:#6495ED; 
+	width:250px;
+	height:25px;
+	outline:none;
+	color : white;
+
+}
+
+
+.tablemenu tr{border: 0;}
+.tablemenu td{border: 0;}
+.tablemenu th{border: 0;}
+
+
+
+
+input.submitbuttondeco{
+		cursor: pointer;
+    cursor: hand;
+        background-color: transparent;
+    text-decoration: underline;
+}
+.submitbuttonedeco{
+	width:150px;
+	height:32px;
+	border:0;
+	background:url("/img/deconnexion.png") no-repeat;
+
+
+}
+
+#forms fieldset {
+ padding:0 20px 20px 20px;
+ margin-bottom:10px;
+ border:1px solid #DF3F3F;
+ }
+#forms legend {
+ color:#DF3F3F;
+ font-weight:bold
+ }
+#forms label {
+ margin-top:10px;
+ display:block;
+ }
+#forms label.inline {
+ display:inline;
+ margin-right:50px;
+ }
+
+#forms input, textarea, select, option {
+ background-color:#E5E5E5;
+ }
+
+
+#forms input, textarea, select {
+ border-radius:5px;
+ width:200px;
+ }
+#forms select {
+ margin-top:10px;
+}
+#forms input[type=radio] {
+ background-color:transparent;
+ border:none;
+ width:10px;
+ }
+#forms input[type=submit], input[type=reset] {
+ width:200px;
+
+ cursor:pointer;
+ }
+ 
+ .form{
+	position:absolute;
+	top:0;
+	right:0;
+	float:right;
+	height: auto;
+}
+input.form{
+	width:987px;
+}
+
+#formfiltremaintenance{
+	width:800px;
 }
