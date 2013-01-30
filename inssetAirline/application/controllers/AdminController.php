@@ -6,6 +6,7 @@
 			
 		}
 		
+		/*************** Actions pour gérer les aéroports*****************/
 		public function aeroportAction()
 		{
 			$aeroport = new Aeroport();
@@ -78,7 +79,9 @@
 				}
 			}
 		}
+		/*************** Fin Actions pour gérer les aéroports*****************/
 		
+		/*************** Actions pour gérer les utilisateurs*****************/
 		public function userAction()
 		{
 			$user = new User();
@@ -168,7 +171,9 @@
 				}
 			}
 		}
+		/*************** Fin actions pour gérer les utilisateurs*****************/
 		
+		/*************** Actions pour gérer les villes*****************/
 		public function villeAction()
 		{
 			$ville = new Ville();
@@ -176,8 +181,72 @@
 			$pagination->setCurrentPageNumber($this->_getParam('page'));
 			$pagination->setItemCountPerPage(15);
 			$this->view->lesvilles =$pagination;
+			$this->view->formajoutville = new FormAjoutVille();
 		}
 		
+		public function ajoutvilleAction()
+		{
+			$formajoutville = new FormAjoutVille();
+			if($this->getRequest()->isPost())
+			{
+				$data = $this->getRequest()->getPost();
+				if($formajoutville->isValid($data))
+				{
+					$ville = new Ville();
+					$newville = $ville->createRow();
+					$newville->nomVille = $data['nomVille'];
+					$newville->cpVille = $data['cpVille'];
+					$newville->idPays = $data['idPays'];
+					$newuser->save();
+					$this->_redirect('/admin/ville');
+				}
+				else
+				{
+					$formajoutville->populate($data);
+					echo $formajoutville;
+				}
+			}
+			else
+			{
+				echo $formajoutville;
+			}
+		}
+		
+		public function modifiervilleAction()
+		{
+			$formajoutville = new FormAjoutVille();
+			$ville = new Ville();
+		
+			if($this->getRequest()->isPost())
+			{
+				$data = $this->getRequest()->getPost();
+				if($formajoutville->isValid($data))
+				{
+					$newville = $ville->find($data['idVille'])->current();
+					$newville->nomVille = $data['nomVille'];
+					$newville->cpVille = $data['cpVille'];
+					$newville->idPays = $data['idPays'];
+					$newuser->save();
+					$this->_redirect('/admin/ville');
+				}
+				else
+				{
+					$formajoutville->populate($data);
+					echo $formajoutville;
+				}
+			}
+			else
+			{
+				if(isset($_GET['idUser']))
+				{
+					$laville = $ville->selectOne($_GET['idVille']);
+					$this->view->formajoutville = $formajoutville->populate($laville[0]);
+				}
+			}
+		}
+		/*************** Fin actions pour gérer les villes *****************/
+		
+		/*************** Actions pour gérer les pays *****************/
 		public function paysAction()
 		{
 			$pays = new Pays();
@@ -185,8 +254,68 @@
 			$pagination->setCurrentPageNumber($this->_getParam('page'));
 			$pagination->setItemCountPerPage(15);
 			$this->view->lespays = $pagination;
+			$this->view->formajoutpays = new FormAjoutPays();
 		}
 		
+		public function ajoutpaysAction()
+		{
+			$formajoutpays = new FormAjoutPays();
+			if($this->getRequest()->isPost())
+			{
+				$data = $this->getRequest()->getPost();
+				if($formajoutpays->isValid($data))
+				{
+					$pays = new Pays();
+					$newPays = $pays->createRow();
+					$newPays->nomPays = $data['nomPays'];
+					$newPays->save();
+					$this->_redirect('/admin/pays');
+				}
+				else
+				{
+					$formajoutpays->populate($data);
+					echo $formajoutpays;
+				}
+			}
+			else
+			{
+				echo $formajoutpays;
+			}
+		}
+		
+		public function modifierpaysAction()
+		{
+			$formajoutpays = new FormAjoutPays();
+			$pays = new Pays();
+		
+			if($this->getRequest()->isPost())
+			{
+				$data = $this->getRequest()->getPost();
+				if($formajoutpays->isValid($data))
+				{
+					$newPays = $pays->find($data['idPays'])->current();
+					$newPays->nomPays = $data['nomPays'];
+					$newPays->save();
+					$this->_redirect('/admin/pays');
+				}
+				else
+				{
+					$formajoutpays->populate($data);
+					echo $formajoutpays;
+				}
+			}
+			else
+			{
+				if(isset($_GET['idPays']))
+				{
+					$lepays = $pays->selectOne($_GET['idPays']);
+					$this->view->formajoutpays = $formajoutpays->populate($lepays[0]);
+				}
+			}
+		}
+		/*************** Fin actions pour gérer les pays*****************/
+		
+		/*************** Actions pour gérer les modèles *****************/
 		public function modeleAction()
 		{
 			$modele = new Modele();
@@ -194,8 +323,78 @@
 			$pagination->setCurrentPageNumber($this->_getParam('page'));
 			$pagination->setItemCountPerPage(15);
 			$this->view->lesmodeles = $pagination;
+			$this->view->formajoutmodele = new FormAjoutModele();
 		}
 		
+		public function ajoutmodeleAction()
+		{
+			$formajoutmodele = new FormAjoutModele();
+			if($this->getRequest()->isPost())
+			{
+				$data = $this->getRequest()->getPost();
+				if($formajoutmodele->isValid($data))
+				{
+					$modele = new Modele();
+					$newmodele = $modele->createRow();
+					$newmodele->nomModele = $data['nomModele'];
+					$newmodele->longueurPiste = $data['longueurPiste'];
+					$newmodele->rayonDaction = $data['rayonDaction'];
+					$newmodele->nbPlace = $data['nbPlace'];
+					$newmodele->periodePetiteRevision = $data['periodePetiteRevision'];
+					$newmodele->periodeGrandeRevision = $data['periodeGrandeRevision'];
+					$newmodele->save();
+					$this->_redirect('/admin/modele');
+				}
+				else
+				{
+					$formajoutmodele->populate($data);
+					echo $formajoutmodele;
+				}
+			}
+			else
+			{
+				echo $formajoutmodele;
+			}
+		}
+		
+		public function modifiermodeleAction()
+		{
+			$formajoutmodele = new FormAjoutModele();
+			$modele = new Modele();
+				
+			if($this->getRequest()->isPost())
+			{
+				$data = $this->getRequest()->getPost();
+				if($formajoutmodele->isValid($data))
+				{
+					$newmodele = $modele->find($data['idModele'])->current();
+					$newmodele->nomModele = $data['nomModele'];
+					$newmodele->longueurPiste = $data['longueurPiste'];
+					$newmodele->rayonDaction = $data['rayonDaction'];
+					$newmodele->nbPlace = $data['nbPlace'];
+					$newmodele->periodePetiteRevision = $data['periodePetiteRevision'];
+					$newmodele->periodeGrandeRevision = $data['periodeGrandeRevision'];
+					$newmodele->save();
+					$this->_redirect('/admin/modele');
+				}
+				else
+				{
+					$formajoutmodele->populate($data);
+					echo $formajoutmodele;
+				}
+			}
+			else
+			{
+				if(isset($_GET['idModele']))
+				{
+					$lemodele = $modele->selectOne($_GET['idModele']);
+					$this->view->formajoutmodele = $formajoutmodele->populate($lemodele[0]);
+				}
+			}
+		}
+		/*************** Fin actions pour gérer les modèles*****************/
+		
+		/*************** Actions pour gérer les brevets *****************/
 		public function brevetAction()
 		{
 			$brevet = new Brevet();
@@ -290,5 +489,6 @@
 				$this->_redirect('/admin/brevet');
 			}
 		}
+		/*************** Fin actions pour gérer les brevets*****************/
 	}
 ?>
