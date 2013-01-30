@@ -89,7 +89,7 @@ class MaintenanceController extends Zend_Controller_Action
 			$data = $this->getRequest()->getPost();
 			if($formajoutavion->isValid($data))
 			{
-				$newavion = $aeroport->find($data['idAvion'])->current();
+				$newavion = $avion->find($data['idAvion'])->current();
 				$newavion->numImmatriculation = $data['numImmatriculation'];
 				$newavion->dateMisEnService = $data['dateMisEnService'];
 				$newavion->statut = $data['statut'];
