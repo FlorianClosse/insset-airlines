@@ -279,6 +279,11 @@ body{
 	font-size: 10px;
 	text-align:right;
 }
+.centrage
+{
+	margin:auto;
+	width: 220px;
+}
 
 .lienTechnique 
 {
