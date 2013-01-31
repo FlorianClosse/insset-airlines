@@ -174,6 +174,7 @@ class StrategiqueController extends Zend_Controller_Action
     	//choix de l'aéroport de départ
     	$numeroVol = new Zend_Form_Element_Text('numeroVol');
     	$numeroVol -> setLabel('Numéro de vol');
+    	$numeroVol ->setRequired(true);
     	$formulaireAjout -> addElement($numeroVol);
     	
     	//choix de l'aéroport de départ
@@ -186,6 +187,7 @@ class StrategiqueController extends Zend_Controller_Action
     	$dureeVol = new Zend_Form_Element_Text('dureeVol');
     	$dureeVol -> setLabel('Durée du vol ( ex: 4H24 )');
     	$dureeVol -> setValue(0);
+    	$dureeVol ->setRequired(true);
     	$formulaireAjout -> addElement($dureeVol);
     	
     	//choix du type de vol
@@ -290,7 +292,7 @@ class StrategiqueController extends Zend_Controller_Action
     	//on crée le paginator
     	$pagination = Zend_Paginator::factory($lesVols);
     	$pagination->setCurrentPageNumber($this->_getParam('page'));
-    	$pagination->setItemCountPerPage(10);
+    	$pagination->setItemCountPerPage(5);
     	//on crée le formulaire
     	$formulaireSuppression = new Zend_Form;
     	$formulaireSuppression -> setMethod('post');

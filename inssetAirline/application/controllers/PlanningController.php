@@ -59,8 +59,9 @@ class PlanningController extends Zend_Controller_Action
     				$message = "Le co-pilote à été modifier.";
     			break;
     		}
+    		$this->view->message = $message;
     	}
-    	$this->view->message = $message;
+    	
     	
     }
     public function creerplanningAction()
