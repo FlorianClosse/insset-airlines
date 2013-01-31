@@ -1,59 +1,75 @@
-<?php if(!isset($_POST['valider']))
-	  {?>	
-	    <h2>Affichage des vols</h2>
-		<table id="tableauTitreVol">
-			<tr>
-				<th > Commentaires </th>
-				<th > Id Journal de bord </th>				
-				<th>  Numero de vol </th>
-				<th > Aeroport Depart</th>				
-				<th>  Aeroport Arrivée </th>			
-				<th > </th>
-			</tr>
-		</table>
+<?php 
+//$tableau = $this->tableau;
+$formulaire = $this->formulaire;
+$form = $this->formAjoutCommentaire;
+$lesJournaux = $this->lesJournaux;
+$idJournal=$this->idJournal;
+$numVol=$this->numVol;
+$depart=$this->depart;
+$arrivee=$this->arrivee;
+$paginator=$this->paginator;
+$i=0;
 
-		<?php 
-			//$tableau = $this->tableau;
-			$formulaire = $this->formulaire;
-			$form = $this->formAjoutCommentaire;
-			$lesJournaux = $this->lesJournaux;
-			$idJournal=$this->idJournal;
-			$numVol=$this->numVol;
-			$depart=$this->depart;
-			$arrivee=$this->arrivee;			
-			$paginator=$this->paginator;
-			$i=0;			
-			echo $this->formulaire; 
-		?>
-			
-		<table id="tableauInfoVol">
-		<?php 
-				
-			  	foreach($lesJournaux as $unJournal) 
-			  	{
-			  		if(isset($idJournal[$unJournal['idJournalDeBord']]))
-					{	
-				  		$id=$unJournal['idJournalDeBord'];
-				  		$i++; ?>
-						<tr>
-							<td><?php echo $idJournal[$unJournal['idJournalDeBord']]; ?></td>		
-							<td><?php echo $numVol[$unJournal['idJournalDeBord']]; ?></td>	
-							<td><?php echo $depart[$unJournal['idJournalDeBord']]; ?></td>		
-							<td><?php echo $arrivee[$unJournal['idJournalDeBord']]; ?></td>							   					   	
-					   		<td><a  href="<?php echo $this->baseUrl('logistique/ajoutcommentaire')."?idJournalDeBord=$id"?>">Ajouter un commentaire</a></td>				   			
-						</tr>			
-		  <?php 	}
-				}?> 						
-		</table>
-		
-	<?php }
+if(!isset($_POST['valider']))
+{
+
 	if(isset($paginator))
 	{
 		$formFiltreDepart = $this->formFiltreDepart;
 		$formFiltreArrivee = $this->formFiltreArrivee;
-		echo $this->paginationControl($paginator,'All', 'paginationcontrole.phtml');
-		echo 'Choisir un aeroport de depart  :'.$formFiltreDepart;
-		  echo 'Choisir un aeroport d\'arrivée :'.$formFiltreArrivee;
+		echo $this->paginationControl($paginator,'All', 'paginationcontrole.phtml');?>
 		
-	}?>
+		<div class="filtreLogistique">
+			<div class="viderFiltreStrategique">
+				<a class="filt1" href="<?php echo $this->baseUrl('logistique/index'); ?>?valeur=afficher&viderFiltre=ok">
+					<img src="<?php echo $this->baseUrl('/img/viderFiltre.png'); ?>" alt="vider filtre" />
+				</a>				
+			</div>
+			<div class="elementFiltreStrategique">
+				<?php echo 'Choisir un aeroport de depart  :'.$formFiltreDepart;?>
+			</div>
+			<div class="elementFiltreStrategique">
+				<?php echo 'Choisir un aeroport d\'arrivée :'.$formFiltreArrivee; ?>
+			</div>
+		</div>
+	<?php 
+	}?>	
+
+   <h2>Affichage des vols</h2> 
+   <table id="tableauTitreVol">
+		<tr>
+			<th style="width: 181px; height: 100px;"> Commentaires </th>
+			<th style="width: 125px;"> Id Journal de bord </th>				
+			<th style="width: 125px;">  Numero de vol </th>
+			<th style="width: 125px;"> Aeroport Depart</th>				
+			<th style="width: 125px;">  Aeroport Arrivée </th>			
+			<th style="width: 125px;"> </th>
+		</tr>
+	</table>
+	<?php echo $this->formulaire;	?>	
+	
+	<table id="tableauInfoVol">
+	<?php 			
+  	foreach($lesJournaux as $unJournal) 
+  	{
+  		if(isset($idJournal[$unJournal['idJournalDeBord']]))
+		{	
+	  		$id=$unJournal['idJournalDeBord'];
+	  		$i++; ?>
+			<tr>
+				<td style="width: 125px; height: 100px;"><?php echo $idJournal[$unJournal['idJournalDeBord']]; ?></td>		
+				<td style="width: 125px;"><?php echo $numVol[$unJournal['idJournalDeBord']]; ?></td>	
+				<td style="width: 125px;"><?php echo $depart[$unJournal['idJournalDeBord']]; ?></td>		
+				<td style="width: 125px;"><?php echo $arrivee[$unJournal['idJournalDeBord']]; ?></td>							   					   	
+		   		<td style="width: 125px;"><a  href="<?php echo $this->baseUrl('logistique/ajoutcommentaire')."?idJournalDeBord=$id"?>">Ajouter un commentaire</a></td>				   			
+				</tr>			
+  <?php 	}
+	}
+}?> 						
+	</table>
+		
+		
+	
+		
+	
 	

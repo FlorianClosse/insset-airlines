@@ -1,6 +1,27 @@
+<?php 
+			$tableauReservations = $this->tableauReservations;
+			$paginator=$this->paginator;
+			$formFiltreDepart = $this->formFiltreDepart;	
+			$formFiltreArrivee = $this->formFiltreArrivee;
+			$compteur = $this->compteur;
+?>
+<div class="filtreLogistique">	
+	 <div class="viderFiltreStrategique">
+		<a class="filt1" href="<?php echo $this->baseUrl('commercial/index'); ?>?valeur=afficher&viderFiltre=ok">
+			<img src="<?php echo $this->baseUrl('/img/viderFiltre.png'); ?>" alt="vider filtre" />
+		</a>				
+	</div>
+	<div class="elementFiltreStrategique">
+		<?php echo 'Choisir un aeroport de depart  :'.$formFiltreDepart;?>
+	</div>
+	<div class="elementFiltreStrategique">
+		<?php echo 'Choisir un aeroport d\'arrivée :'.$formFiltreArrivee;?>	
+	</div>
+</div>
+
 <h1>Affichage des réservations :</h1>
 
-<div id="tableauxSupprVol">	
+
 		<table id="tableauTitreVol">
 			<tr>				
 				<th > Id reservation </th>		
@@ -12,67 +33,50 @@
 				<th > Aeroport d'arrivée </th>	
 			</tr>
 		
-
-		<?php 
-			$tableauReservations = $this->tableauReservations;
-			$paginator=$this->paginator;
-			$formFiltreDepart = $this->formFiltreDepart;	
-			$formFiltreArrivee = $this->formFiltreArrivee;
-			$compteur = $this->compteur;
-			
-			if(count($tableauReservations) > 0)
- 			{ ?>	
-				<?php 
-				for ($ii=1; $ii<=$compteur; $ii++)
+<tr>
+<?php			
+if(count($tableauReservations) > 0)
+{ 
+	for ($ii=1; $ii<=$compteur; $ii++)
+	{
+		$bool = 1;
+		for ($jj=0;$jj<7;$jj++)
+		{?>
+		
+			<td>						
+			<?php
+				if($tableauReservations[$ii][3] >= 2)
+				{?>							
+					<U  style= color:red;><?php echo $tableauReservations[$ii][$jj]; ?></U><br><br>
+					<?php $id = $tableauReservations[$ii][0];
+							  
+					if($bool == 1)
+					{	
+						$bool =0;?>						
+						<a href="<?php echo $this->baseUrl('commercial/supprimeroption')."?idReservation=$id"?>">Supprimer</a>	<br>
+		  				<a href="<?php echo $this->baseUrl('commercial/modifieroption')."?idReservation=$id"?>">Modifier</a>
+			  <?php } 
+				}
+				else 
 				{
-				?> <tr>
+					echo $tableauReservations[$ii][$jj]; ?><br><br>
 				<?php 
-					$bool = 1;
-					for ($jj=0;$jj<7;$jj++)
+					if($bool == 1)
 					{
-				?>
-					<td>						
-						<?php
-							if($tableauReservations[$ii][3] >= 2)
-							{?>							
-								<U  style= color:red;><?php echo $tableauReservations[$ii][$jj]; ?></U><br><br>
-								<?php $id = $tableauReservations[$ii][0];
-									  
-								if($bool == 1)
-								{	
-									$bool =0;?>
-								
-									<a href="<?php echo $this->baseUrl('commercial/supprimeroption')."?idReservation=$id"?>">Supprimer</a>	<br>
-					  				<a href="<?php echo $this->baseUrl('commercial/modifieroption')."?idReservation=$id"?>">Modifier</a>
-					  <?php 	} 
-							}
-						 	else 
-							{
-								echo $tableauReservations[$ii][$jj]; ?><br><br>
-								<?php if($bool == 1)
-								{
-									$id = $tableauReservations[$ii][0];
-									$bool =0; ?>
-									
-									<a href="<?php echo $this->baseUrl('commercial/supprimeroption')."?idReservation=$id"?>">Supprimer</a> <br>
-									<a href="<?php echo $this->baseUrl('commercial/modifieroption')."?idReservation=$id"?>">Modifier</a>
-					  <?php 
-								}
-							}
-						 ?>
-					</td>
-				<?php 			
+						$id = $tableauReservations[$ii][0];
+						$bool =0; ?>
+							
+						<a href="<?php echo $this->baseUrl('commercial/supprimeroption')."?idReservation=$id"?>">Supprimer</a> <br>
+						<a href="<?php echo $this->baseUrl('commercial/modifieroption')."?idReservation=$id"?>">Modifier</a>
+			  <?php 
 					}
-					$jj=0;
-				?>
-			</tr>
-			<?php 	
-				}				
- 			}
-			?>
-			</table>	
-			<?php echo $paginator.'<br>'; 
-				echo 'Choisir un aeroport de depart  :'.$formFiltreDepart;
-				echo 'Choisir un aeroport d\'arrivée :'.$formFiltreArrivee;
-				?>	
-	</div>		
+				}?>
+			</td>
+	<?php 			
+		}$jj=0;	?>
+	</tr>
+	<?php 	
+	}				
+}?>
+</table>
+<?php echo $paginator ?><br>

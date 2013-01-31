@@ -255,7 +255,7 @@ class StrategiqueController extends Zend_Controller_Action
     	//decorateur du bouton formulaire complet
     	$decorateurTableau = array(
     			array('FormElements'),
-    			array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
+    			array('HtmlTag', array('tag'=>'table', 'class'=>'tableauCaseACocherVol'))
     	);
     	
     	$filtreStategique = $this->_getParam('filtreStategique');

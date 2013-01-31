@@ -1,6 +1,16 @@
-<a href="#?w=500" rel="popupajoutuser" class="poplight">Ajouter un utilisateur</a>
-<br /><br />
 <center>
+<table class="tablemenu">
+	<tr>
+		<td>
+			<p class="buttonSousMenu">
+				<a href="#?w=500" rel="popupajoutuser" class="poplight">Ajouter un utilisateur</a>
+			</p>
+		</td>
+	</tr>
+</table>
+
+<br /><br />
+
 <table class="avion">
 	<thead>
 		<tr>
@@ -29,7 +39,7 @@
 			<td><?= $unuser['nomUser'] ;?></td>
 			<td><?= $unuser['prenomUser'] ;?></td>
 			<td><?= $unuser['email']; ?></td>
-			<td><?= $laeroportDattache[0]['nomAeroport'] ;?></td>
+			<td><?= $unuser['dateNaissance'] ;?></td>
 			<td><?= $leservice[0]['nomService'] ;?></td>
 			<td><?= ucfirst ($laeroportDattache[0]['nomAeroport']);?></td>
 			<td><a href="/admin/modifieruser?idUser=<?= $unuser['idUser']; ?>"><img src="/img/modif.gif" alt="modif" /></a></td>
@@ -41,6 +51,6 @@
 	<?php echo $this->formajoutuser;?>           
 </div>
 <br />
-<?php if($lesusers != NULL){ echo $this->paginationControl($lesusers,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lesusers != NULL && count($lesusers)>15){ echo $this->paginationControl($lesusers,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>

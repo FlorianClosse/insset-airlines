@@ -35,8 +35,8 @@ class FdemanderLesVols extends Zend_Form
  		$boutonReset = new Zend_Form_Element_Reset('Reset');		
 		
 		$this->addElement($date);		
-		$this->addElement(fonctionAeroport('aeroportD'));		
-		$this->addElement(fonctionAeroport('aeroportA'));
+		$this->addElement(fonctionAeroport('aeroportD')->setLabel('Choisir un aeroport de départ'));		
+		$this->addElement(fonctionAeroport('aeroportA')->setLabel('Choisir un aeroport d\'arrivée'));
 		$this->addElement($bSubmit);
 		$this->addElement($boutonReset);
 	}

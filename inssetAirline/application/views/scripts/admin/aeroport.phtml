@@ -1,6 +1,15 @@
-<a href="#?w=500" rel="popupajoutaeroport" class="poplight">Ajouter un aéroport</a>
-<br /><br />
 <center>
+<table class="tablemenu">
+	<tr>
+		<td>
+			<p class="buttonSousMenu">
+				<a href="#?w=500" rel="popupajoutaeroport" class="poplight">Ajouter un aéroport</a>			
+			</p>
+		</td>
+	</tr>
+</table>
+
+<br /><br />
 <table class="avion">
 	<thead>
 		<tr> 	
@@ -33,6 +42,6 @@
 	<?php echo $this->formajoutaeroport;?>           
 </div>
 <br />
-<?php if($lesaeroports != NULL){ echo $this->paginationControl($lesaeroports,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lesaeroports != NULL && count($lesaeroports)>15){ echo $this->paginationControl($lesaeroports,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>

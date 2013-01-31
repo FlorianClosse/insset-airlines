@@ -21,15 +21,9 @@ class FfiltreLogistiqueArrivee extends Zend_Form
 		$bSubmitA->setAttrib('id', 'boutonfiltreA');
 		$bSubmitA->setLabel('Filtrer');	
 		
-		
-		$bSubmitVider = new Zend_Form_Element_Submit('Vider');
-		$bSubmitVider->setAttrib('id', 'boutonvider');
-		$bSubmitVider->setLabel('Vider les filtres');
-		
 		/* On ajoute les elements au formulaire */		
 		$this->addElement(fonctionAeroport('aeroportA'));
 		$this->addElement($bSubmitA);
-		$this->addElement($bSubmitVider);
 	}
 	
 }

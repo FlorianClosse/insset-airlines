@@ -21,17 +21,17 @@ class FormAjoutUser extends Zend_Form
 		}
 		
 		$nomuser = new Zend_Form_Element_Text('nomUser');
-		$nomuser->setLabel('Nom de l\'utilisateur :*');
+		$nomuser->setLabel('* Nom de l\'utilisateur :');
 		$nomuser->setRequired(true);
 		$this -> addElement($nomuser);
 		
 		$prenomuser = new Zend_Form_Element_Text('prenomUser');
-		$prenomuser->setLabel('Prénom de l\'utilisateur :*');
+		$prenomuser->setLabel('* Prénom de l\'utilisateur :');
 		$prenomuser->setRequired(true);
 		$this -> addElement($prenomuser);
 		
 		$email = new Zend_Form_Element_Text('email');
-		$email->setLabel('Email :*');
+		$email->setLabel('* Email :');
 		$email->addValidator('StringLength', true, array('max' => 100));
 		$email->addValidator('EmailAddress');
 		$email->setRequired(true);
@@ -40,14 +40,14 @@ class FormAjoutUser extends Zend_Form
 		$password = Fast_Pass_Mnemo::getOne(12);
 		
 		$mdp = new Zend_Form_Element_Text('motDePasse');
-		$mdp->setLabel('Mot de passe :*');
+		$mdp->setLabel('* Mot de passe :');
 		$mdp->addValidator('StringLength', true, array('max' => 32));
 		$mdp->setRequired(true);
 		$mdp->setValue($password);
 		$this->addElement($mdp);
 		
 		$datenaissance = new Zend_Form_Element_Text('dateNaissance');
-		$datenaissance->setLabel('Date de naissance de l\'utilisateur :*');
+		$datenaissance->setLabel('* Date de naissance de l\'utilisateur :');
 		$datenaissance->setAttrib('id','datepicker');
 		$datenaissance->setRequired(true);
 		$this -> addElement($datenaissance);
@@ -59,20 +59,12 @@ class FormAjoutUser extends Zend_Form
 			$listeService[$unservice['idService']] = ucfirst($unservice['nomService']);
 		}
 		$idservice = new Zend_Form_Element_Select('service');
-		$idservice ->setLabel('Service de l\'utilisateur :*');
+		$idservice ->setLabel('* Service de l\'utilisateur :');
 		$idservice->addMultiOptions($listeService);
 		$this->addElement($idservice);
 		
-		$aeroport = new Aeroport;
-		$lesAeroports = $aeroport->fetchAll();
-		foreach ($lesAeroports as $unAeroport )
-		{
-			$listeAeroport[$unAeroport['idAeroport']] = ucfirst($unAeroport['nomAeroport']);
-		}
-		$idaeroport = new Zend_Form_Element_Select('idAeroport');
-		$idaeroport ->setLabel('Aéroport de l\'utilisateur :*');
-		$idaeroport->addMultiOptions($listeAeroport);
-		$this->addElement($idaeroport);
+		$aeroportdattache = new Zend_Form_Element_Select('idAeroport');
+		$this->addElement(fonctionAeroport('idAeroport')->setLabel('* Aéroport de l\'utilisateur :'));
 		
 		if(isset($_GET['idUser']))
 		{

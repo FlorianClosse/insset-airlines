@@ -1,6 +1,19 @@
-<a href="#?w=500" rel="popupajoutmodele" class="poplight">Ajouter un modèle</a>
-<br /><br />
 <center>
+
+<table class="tablemenu">
+	<tr>
+		<td>
+			<p class="buttonSousMenu">
+				<a href="#?w=500" rel="popupajoutmodele" class="poplight">
+					Ajouter un modèle
+				</a>
+			</p>
+		</td>
+	</tr>
+</table>
+
+<br /><br />
+
 <table class="avion">
 	<thead>
 		<tr> 	
@@ -35,6 +48,6 @@
 	<?php echo $this->formajoutmodele;?>           
 </div>
 <br />
-<?php if($lesmodeles != NULL){ echo $this->paginationControl($lesmodeles,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lesmodeles != NULL && count($lesmodeles)>15){ echo $this->paginationControl($lesmodeles,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>
