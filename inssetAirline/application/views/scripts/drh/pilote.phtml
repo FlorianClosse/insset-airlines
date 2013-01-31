@@ -1,16 +1,23 @@
 <h1>Nombres d'heures des pilotes et co-pilotes</h1>
 <br /><br />
     <!--Filtre -->
-    <table>
-        <tr>
-            <td><a href="<?php echo $this->baseUrl('drh/filtre/page/2'); ?>">
-                    Afficher les personnes ayant dépassé le quota d'heure max
-                </a>
-            </td>
-        </tr>
-    </table>
+<center>
+	<table class="tablemenu">
+		<tr>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('drh/filtre/page/2'); ?>">
+						Afficher les infractions
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</center>
+
 <br /><br /><br />
 <p>Liste de personne ayant dépassé le quotas d'heure prévu :</p>
+<center>
 <?php
 $listePilote = $this->listePilote;
     $count = count($listePilote);
@@ -18,18 +25,30 @@ $listePilote = $this->listePilote;
     <?php
     if($count ==0) {echo'la liste est vide';}
     ?>
-    <table id="listepilote">
+    <table id="tableauTitreVol">
+    	<tr>
+    		<th>
+    			Nom et Prénom du pilote
+    		</th>
+    		<th>
+    			Nombre de vol(s)
+    		</th>
+    		<th>
+    			Nombre d'heure total
+    		</th>
+    	</tr>
         <?php
         for ($i = 1; $i <= $count; $i++) {
         ?>
-        <?php if($listePilote[$i][2]>=2){ $plus = "s";}else{ $plus="";}?>
             <tr>
                 <td>
-                    <?php echo "le pilote "; echo $listePilote[$i][0] . " " . $listePilote[$i][1];; ?>
-               
-                    <?php echo" a éffectué "; echo $listePilote[$i][2]; echo " vol$plus ";?>
-              		
-                    <?php echo "soit un total de "; echo $listePilote[$i][3]; echo" heures de vol"; ?>
+                    <?php  echo $listePilote[$i][0] . " " . $listePilote[$i][1]; ?>
+               	</td>
+               	<td>
+                    <?php  echo $listePilote[$i][2];?>
+              	</td>
+              	<td>	
+                    <?php echo $listePilote[$i][3];  ?>
                 </td>
             </tr>
            
@@ -38,8 +57,19 @@ $listePilote = $this->listePilote;
         }echo $this->paginator;
         ?>
     </table>
-        <li>
-            <a href="<?php echo $this->baseUrl('drh/index'); ?>">
-                Revenir à l'accueil
-            </a>
-        </li>
+    	<br /><br />
+     </center> 		
+<center>
+	<table class="tablemenu">
+		<tr>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('drh/index/'); ?>">
+						Revenir à l'acceuil
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</center>
+        
