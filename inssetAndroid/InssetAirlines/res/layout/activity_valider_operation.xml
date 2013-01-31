@@ -1,65 +1,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
 
-    <TextView
-    	android:id="@+id/textView1"
-    	style="@style/titre"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_alignParentLeft="true"
-    	android:layout_alignParentTop="true"
-    	android:text="Valider une opération" />
+	<TextView
+		android:id="@+id/textView1"
+		style="@style/titre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:text="Valider une opération" />
 
-    <TextView
-    	android:id="@+id/textView2"
-    	style="@style/textBleu"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_alignParentLeft="true"
-    	android:layout_below="@+id/textView1"
-    	android:layout_marginLeft="42dp"
-    	android:layout_marginTop="124dp"
-    	android:text="id du technicien :" />
+	<Button
+		android:id="@+id/buttonValider"
+		style="@style/bouton_vert"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/datePickerOp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="77dp"
+		android:text="valider" />
 
-    <TextView
-    	android:id="@+id/TextView01"
-    	style="@style/textBleu"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_alignLeft="@+id/textView2"
-    	android:layout_below="@+id/textView2"
-    	android:layout_marginTop="84dp"
-    	android:text="Date :    " />
+	<TextView
+		android:id="@+id/textViewNomPrenomUser"
+		style="@style/editText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/textView1"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="180dp"
+		android:ems="10"
+		android:gravity="center_vertical|center_horizontal"
+		android:hint="nom et prénom" />
 
-    <EditText
-    	android:id="@+id/editNomTech"
-    	style="@style/editText"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_alignBaseline="@+id/textView2"
-    	android:layout_alignBottom="@+id/textView2"
-    	android:layout_alignRight="@+id/textView1"
-    	android:ems="10"
-    	android:gravity="center_vertical|center_horizontal"
-    	android:text="id" />
+	<DatePicker
+		android:id="@+id/datePickerOp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/textViewNomPrenomUser"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="88dp" />
 
-    <DatePicker
-    	android:id="@+id/datePickerOp"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_alignTop="@+id/TextView01"
-    	android:layout_toRightOf="@+id/TextView01" />
-
-    <Button
-    	android:id="@+id/buttonValider"
-    	style="@style/bouton_vert"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_below="@+id/datePickerOp"
-    	android:layout_centerHorizontal="true"
-    	android:layout_marginTop="77dp"
-    	android:text="valider" />
+	<TextView
+		android:id="@+id/TextView01"
+		style="@style/textBleu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignTop="@+id/datePickerOp"
+		android:text="Date :    " />
 
 </RelativeLayout>
