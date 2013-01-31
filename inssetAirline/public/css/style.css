@@ -28,8 +28,8 @@ a
 .Bar {
 	background:#295192 ;
 	background-position:top;
-	position:fixed;
-	width: 980px;
+	position: absolute;
+	width: 980px; 
 	margin: 0px auto;
 	height:55px;
 	left:0;
