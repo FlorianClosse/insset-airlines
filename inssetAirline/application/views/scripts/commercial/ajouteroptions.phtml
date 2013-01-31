@@ -1,1 +1,38 @@
-<?php echo $this->formDemanderLesVols ?>
+<?php
+
+$reservation = $this->formAjoutReservation;
+$demanderVols = $this->formDemanderLesVols;
+$numeroVol = $this->numeroVol;
+$nombrePlace = $this->nombrePlace ;
+$modifier = $this->formModifierReservation;
+?>
+
+
+<?php
+if(!isset($_POST['valider']))
+{
+	if(isset($demanderVols))
+	{?>
+		<div class="formulaireLogistique">
+			<div class="elementFormulaireLogistique">
+				<?php echo $demanderVols;?>
+			</div>
+		</div>
+	<?php
+	}
+}
+
+if(isset($reservation))
+{?>
+	<div class="formulaireLogistique">
+		<div class="elementFormulaireLogistique">
+				<?php
+				echo $numeroVol;
+				echo $nombrePlace;
+				echo $reservation;?>
+			</div>
+		</div>
+<?php 
+}?>
+
+

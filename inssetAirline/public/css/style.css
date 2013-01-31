@@ -427,6 +427,24 @@ table.avion th,td
 	
 }
 
+.formulaireLogistique
+{
+	width : 660px;
+	border-radius: 10px;
+	margin: auto;
+	margin-bottom:20px;
+	margin-top:20px;
+	padding-top: 25px;
+	padding-bottom: 10px;
+	background-color: #295192;
+	opacity: 0.7;	
+}
+
+.elementFormulaireLogistique
+{	
+	padding-left: 185px;	
+}
+
 table.avion
 {
 	border-collapse:collapse;

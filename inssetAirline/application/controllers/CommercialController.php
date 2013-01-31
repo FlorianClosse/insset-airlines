@@ -203,14 +203,16 @@ public function preDispatch()
 			{
 				foreach($lesjournaldebord as $unjournaldebord)
 				{
-					echo'Numero du vol :  '. $unjournaldebord['numVol'].'<br/>';
-					echo'Nombre de places disponibles :  '. $unjournaldebord['nbPlaceDispo'].'<br/>';					
+					$numeroVol = 'Numero du vol :  '. $unjournaldebord['numVol'].'<br/>';
+					$nombrePlace = 'Nombre de places disponibles :  '. $unjournaldebord['nbPlaceDispo'].'<br/>';					
 				}		
 				$_SESSION['nbplacedispo']=$unjournaldebord['nbPlaceDispo'];
 				$_SESSION['idjournaldebord']=$unjournaldebord['idJournalDeBord'];
 				
 				//on affiche le formulaire
-				echo $formAjoutReservation;
+				$this->view-> numeroVol = $numeroVol;
+				$this->view-> nombrePlace = $nombrePlace;
+				$this->view-> formAjoutReservation = $formAjoutReservation;
 			}
 			else
 			{
@@ -295,16 +297,20 @@ public function preDispatch()
 					if($placeAvantModif < $place)
 					{
 						$resultat = $place - $placeAvantModif;						
-						$placeDispo = $unJournalDeBord['nbPlaceDispo'] + $resultat;
+						$placeDispo = $unJournalDeBord['nbPlaceDispo'] - $resultat;						
 					}
 					else
 					{
 						if($placeAvantModif > $place)
 						{
 							$resultat = $place - $placeAvantModif;
-							$placeDispo = $unJournalDeBord['nbPlaceDispo'] + $resultat;
+							$placeDispo = $unJournalDeBord['nbPlaceDispo'] - $resultat;							
 						}
-						$placeDispo = $unJournalDeBord['nbPlaceDispo'];
+						else 
+						{
+							$placeDispo = $unJournalDeBord['nbPlaceDispo'];							
+						}
+						
 					}
 
 					$modification= $journal->find($idJournal)->current();
@@ -330,9 +336,7 @@ public function preDispatch()
 				if($idReservation == $uneReservation->idReservation)
 				{
 					$datas=array('statut'=>$uneReservation ->statutReservation,
-							'place'=>$uneReservation ->nbPlaceReservee);
-						
-					echo 'Id de reservation : '.$uneReservation ->idReservation;
+							'place'=>$uneReservation ->nbPlaceReservee);					
 					
 					//on stock l'id de la reservation en session pour le récupérer
 					$_SESSION['idreservation']=$idReservation;
@@ -340,7 +344,7 @@ public function preDispatch()
 					$_SESSION['idJournal']=$uneReservation ->idJournal;
 					
 					$formModifierReservation->populate($datas);
-					echo $formModifierReservation;
+					$this->view->formModifierReservation = $formModifierReservation;
 				}
 			}
 		}
