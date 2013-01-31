@@ -10,67 +10,63 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-    	
-    	
     	$auth = Zend_Auth::getInstance();
     	//on regarde si on est bien authentifié
     	if ($auth->hasIdentity())
     	{
-    	
-        //Menu par Nicolas 
-        $this->_helper->actionStack('login', 'index', 'default', array());
-        
-        $menu = $this->_getParam('menu');
-        if(isset($menu))
-        {
-        	switch ($menu)
-        	{
-        		case "commercial":
-        			$this->_helper->actionStack('index', 'commercial', 'default', array());
-        			break;
-        			 
-        		case "strategique":
-        			$this->_helper->actionStack('index', 'strategique', 'default', array());
-        			break;
-        		
-        		case "technique":
-        			$this->_helper->actionStack('index', 'technique', 'default', array());
-        			break;
-        		
-        		case "logistique":
-        			$this->_helper->actionStack('index', 'logistique', 'default', array());
-        			break;
-        		
-        		case "drh":
-        			$this->_helper->actionStack('index', 'drh', 'default', array());
-        			break;
-        		
-        		case "maintenance":
-        			$this->_helper->actionStack('index', 'maintenance', 'default', array());
-        			break;
-
-        		case "exploitation":
-        			$this->_helper->actionStack('index', 'exploitation', 'default', array());
-        			break;
-        			
-        		case "planning":
-        			$this->_helper->actionStack('index', 'planning', 'default', array());
-        			break;
-        	}
-        }
+	        //Menu par Nicolas 
+	        $this->_helper->actionStack('login', 'index', 'default', array());
+	        
+	        $menu = $this->_getParam('menu');
+	        if(isset($menu))
+	        {
+	        	switch ($menu)
+	        	{
+	        		case "commercial":
+	        			$this->_helper->actionStack('index', 'commercial', 'default', array());
+	        			break;
+	        			 
+	        		case "strategique":
+	        			$this->_helper->actionStack('index', 'strategique', 'default', array());
+	        			break;
+	        		
+	        		case "technique":
+	        			$this->_helper->actionStack('index', 'technique', 'default', array());
+	        			break;
+	        		
+	        		case "logistique":
+	        			$this->_helper->actionStack('index', 'logistique', 'default', array());
+	        			break;
+	        		
+	        		case "drh":
+	        			$this->_helper->actionStack('index', 'drh', 'default', array());
+	        			break;
+	        		
+	        		case "maintenance":
+	        			$this->_helper->actionStack('index', 'maintenance', 'default', array());
+	        			break;
+	
+	        		case "exploitation":
+	        			$this->_helper->actionStack('index', 'exploitation', 'default', array());
+	        			break;
+	        			
+	        		case "planning":
+	        			$this->_helper->actionStack('index', 'planning', 'default', array());
+	        			break;
+	        	}
+	        }
     	}
-    	else{
-
-    			$this->_redirect('/index/login');
+    	else
+    	{
+    		$this->_redirect('/index/login');
     	}
     }
     
     
-    public function loginAction(){
-    	
+    public function loginAction()
+    {
     	$formDeco = new Fdeco();
     	$this->view->formDeco =$formDeco;
-    	
     	
     	$formConnexion = new Flogin();
 		$this->_helper->viewRenderer->setResponseSegment('login');
@@ -140,8 +136,7 @@ class IndexController extends Zend_Controller_Action
 			}
 		}
     }
-
-    
+   
     public function decoAction()
     {
     	if(isset($_POST['submit'])){
@@ -155,4 +150,3 @@ class IndexController extends Zend_Controller_Action
     	}
     }
 }
-

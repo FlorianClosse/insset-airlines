@@ -1,4 +1,3 @@
-
 <?php
 class JournalDeBord extends Zend_Db_Table_Abstract
 {
@@ -19,6 +18,13 @@ class JournalDeBord extends Zend_Db_Table_Abstract
 					'columns'=>'idVol',
 					'refTableClass'=>'vol')
 	);
+
+	public function lesVolsAPartirDaujoudhui($date)
+	{
+		$db = Zend_Db_Table::getDefaultAdapter();
+		$requete = 'SELECT * FROM journalDeBord WHERE dateDepart >= \''.$date.'\'';
+		return $db->query($requete)->fetchAll();
+	}
 	
 	public function getRecupererLieuAvion($idAvion)
 	{

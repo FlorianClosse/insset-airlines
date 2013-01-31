@@ -3,7 +3,6 @@
 	{	
 		public function indexAction()
 		{
-			
 		}
 		
 		/*************** Actions pour gérer les aéroports*****************/
