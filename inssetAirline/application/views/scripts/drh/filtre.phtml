@@ -1,13 +1,16 @@
-<table>
-    <tr>
-        <td>
-            <a href="<?php echo $this->baseUrl('drh/filtre/id/1'); ?>">
-                Filtrer les pilotes par point d'attache
-            </a>
-        </td>
-    </tr>
-</table>
-
+<center>
+	<table class="tablemenu">
+		<tr>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('drh/filtre/id/1'); ?>">
+						Filtrer par point d'attache
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</center>
 <?php
 $idfiltre = $this->idfiltre;
 if($idfiltre==1){
@@ -19,27 +22,57 @@ if($idfiltre==1){
 <?php
     if($count ==0) {echo'la liste est vide';}
     ?>
-<table id="listepilote">
-    <?php
-    for ($i = 1; $i <= $count; $i++) {
+<center>
+<?php
+	$listePilote = $this->listePilote;
+    $count = count($listePilote);
 
+    if($count ==0) {echo'la liste est vide';}
+ ?>
+    <table id="tableauTitreVol">
+    	<tr>
+    		<th>
+    			Nom et Prénom du pilote
+    		</th>
+    		<th>
+    			Nombre de vol(s)
+    		</th>
+    		<th>
+    			Nombre d'heure total
+    		</th>
+    	</tr>
+        <?php
+        for ($i = 1; $i <= $count; $i++) {
         ?>
-        <tr>
-            <td>
-                <?php echo " le pilote "; echo $listePilote[$i][0] . " " . $listePilote[$i][1];; ?>
-            </td>
-            <td>
-                <?php echo" à éffectué "; echo $listePilote[$i][2]; echo " vol";?>
-            </td>
-            <td>
-                <?php echo "soit un total de "; echo $listePilote[$i][3]; echo" heures de vol"; ?>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <?php  echo $listePilote[$i][0] . " " . $listePilote[$i][1]; ?>
+               	</td>
+               	<td>
+                    <?php  echo $listePilote[$i][2];?>
+              	</td>
+              	<td>	
+                    <?php echo $listePilote[$i][3];  ?>
+                </td>
+            </tr>
+           
 
         <?php
-    }
-    ?>
-</table>
-<?php
-}
-?>
+        }echo $this->paginator;
+        }?>
+    </table>
+   <br /><br />
+     </center> 
+   <center>
+	<table class="tablemenu">
+		<tr>
+			<td>
+				<p class="buttonSousMenu">
+					<a href="<?php echo $this->baseUrl('drh/index/'); ?>">
+						Revenir à l'acceuil
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</center>
