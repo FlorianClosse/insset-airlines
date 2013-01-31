@@ -39,6 +39,6 @@
 	<?php echo $this->formajoutbrevet;?>           
 </div>
 <br />
-<?php if($lesbrevets != NULL && count($lesbrevets)>15){ echo $this->paginationControl($lesbrevets,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lesbrevets != NULL){ echo $this->paginationControl($lesbrevets,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>

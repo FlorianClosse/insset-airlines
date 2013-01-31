@@ -66,7 +66,7 @@ class MaintenanceController extends Zend_Controller_Action
 			}
 			$pagination = Zend_Paginator::factory($lesavions);
 			$pagination->setCurrentPageNumber($this->_getParam('page'));
-			$pagination->setItemCountPerPage(15);
+			$pagination->setItemCountPerPage(5);
 			$this->view->lesavions = $pagination;
 		}
 		else
@@ -74,7 +74,7 @@ class MaintenanceController extends Zend_Controller_Action
 			$avion= new Avion();
 			$pagination = Zend_Paginator::factory($avion->selectAll());
 			$pagination->setCurrentPageNumber($this->_getParam('page'));
-			$pagination->setItemCountPerPage(15);
+			$pagination->setItemCountPerPage(5);
 			$this->view->lesavions = $pagination;
 		}
 	}

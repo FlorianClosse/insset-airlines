@@ -6,8 +6,10 @@
         <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/debut.png'); ?>" alt="page precedente" />
       </a> 
     <?php else: ?>
-      <span class="disabled"><img style="width: 50px;" src="<?php echo $this->baseUrl('/img/debut.png'); ?>" alt="page precedente" /></span> 
-    <?php endif; ?>
+    <a class="disabled" href="<?php echo $this->url(array('page' => $this->first)); ?>">
+        <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/debut.png'); ?>" alt="page precedente" />
+      </a>
+      <?php endif; ?>
      
     <!-- Previous page link -->
     <?php if (isset($this->previous)): ?>
@@ -15,8 +17,10 @@
         <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/gauche.png'); ?>" alt="page precedente" />
       </a> 
     <?php else: ?>
-      <span class="disabled"><img style="width: 50px;" src="<?php echo $this->baseUrl('/img/gauche.png'); ?>" alt="page precedente" /></span> 
-    <?php endif; ?>
+      <a class="disabled" href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+        <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/gauche.png'); ?>" alt="page precedente" />
+      </a>
+       <?php endif; ?>
      
     <!-- Next page link -->
     <?php if (isset($this->next)): ?>
@@ -24,8 +28,10 @@
         <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/droite.png'); ?>" alt="page precedente" />
       </a> 
     <?php else: ?>
-      <span class="disabled"><img style="width: 50px;" src="<?php echo $this->baseUrl('/img/droite.png'); ?>" alt="page precedente" /></span> 
-    <?php endif; ?>
+    <a class="disabled" href="<?php echo $this->url(array('page' => $this->next)); ?>">
+        <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/droite.png'); ?>" alt="page precedente" />
+      </a>
+       <?php endif; ?>
      
     <!-- Last page link -->
     <?php if (isset($this->next)): ?>
@@ -33,7 +39,9 @@
         <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/fin.png'); ?>" alt="page precedente" />
       </a>
     <?php else: ?>
-      <span class="disabled"><img style="width: 50px;" src="<?php echo $this->baseUrl('/img/fin.png'); ?>" alt="page precedente" /></span>
-    <?php endif; ?>
+       <a class="disabled" href="<?php echo $this->url(array('page' => $this->last)); ?>">
+        <img style="width: 50px;" src="<?php echo $this->baseUrl('/img/fin.png'); ?>" alt="page precedente" />
+      </a>
+       <?php endif; ?>
     <?php endif; ?>
 </div>

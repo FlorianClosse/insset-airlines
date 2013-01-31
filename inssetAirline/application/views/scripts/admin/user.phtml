@@ -51,6 +51,6 @@
 	<?php echo $this->formajoutuser;?>           
 </div>
 <br />
-<?php if($lesusers != NULL && count($lesusers)>15){ echo $this->paginationControl($lesusers,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lesusers != NULL){ echo $this->paginationControl($lesusers,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>
