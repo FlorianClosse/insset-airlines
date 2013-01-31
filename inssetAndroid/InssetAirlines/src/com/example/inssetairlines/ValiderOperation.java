@@ -13,11 +13,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ValiderOperation extends Activity {
 
 	String idOperation;
-	EditText editNomTech = null;
+	TextView textNomPrenomUser = null;
 	DatePicker datePickerOp = null;
 	Button boutonValider = null;
 
@@ -25,7 +26,8 @@ public class ValiderOperation extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_valider_operation);
-		editNomTech = (EditText) findViewById(R.id.editNomTech);
+		textNomPrenomUser = (TextView) findViewById(R.id.textViewNomPrenomUser);
+		textNomPrenomUser.setText(IAMaintenance.NOM_PRENOM_USER);
 		datePickerOp = (DatePicker) findViewById(R.id.datePickerOp);
 		boutonValider = (Button) findViewById(R.id.buttonValider);
 		Intent t = getIntent();
@@ -42,7 +44,7 @@ public class ValiderOperation extends Activity {
 				String date = String.valueOf(annee) + "-"
 						+ String.valueOf(mois) + "-" + String.valueOf(jour);
 				IoSeb ioSeb = new IoSeb();
-				ioSeb.ajoutParam("idUser", editNomTech.getText().toString());
+				ioSeb.ajoutParam("idUser", String.valueOf(IAMaintenance.ID_USER));
 				ioSeb.ajoutParam("dateFin", date);
 				ioSeb.ajoutParam("idOperation", idOperation);
 				ioSeb.inputSeb(UrlScriptsPhp.urlValiderOperation,

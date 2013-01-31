@@ -38,20 +38,22 @@ public class AfficherComment extends Activity {
 				"idCommentaire", "idAvion", "commentaire", "dateCommentaire" },
 				getApplicationContext(), handlerListeCommentairesAvion);
 
-		listeComment.setOnItemClickListener(new OnItemClickListener() {
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				// TODO Auto-generated method stub
-				HashMap<String, String> map = (HashMap<String, String>) listeComment
-						.getItemAtPosition(position);
-				alertDial(map);
-
-			}
-		});
+		//listeComment.setOnItemClickListener(listenerListeComment); l'affichage de alertdial est conservé comme exemple
 	}
+	
+	private OnItemClickListener listenerListeComment = new OnItemClickListener() {
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1,
+				int position, long arg3) {
+			// TODO Auto-generated method stub
+			HashMap<String, String> map = (HashMap<String, String>) listeComment
+					.getItemAtPosition(position);
+			alertDial(map);
+
+		}
+	};
 
 	Handler handlerListeCommentairesAvion = new Handler() {
 		public void handleMessage(Message msg) {
@@ -77,7 +79,7 @@ public class AfficherComment extends Activity {
 			comment = new HashMap<String, String>();
 			comment.put("datePrevue", commentaires[i].getDateCommentaire());
 			comment.put("comment", commentaires[i].getCommentaire());
-			comment.put("nomTechnicien", "Robert");
+		//	comment.put("nomTechnicien", "Robert");
 			lComment.add(comment);
 		}
 

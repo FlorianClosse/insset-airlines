@@ -23,7 +23,21 @@ public class MenuPrincipal extends Activity {
 		gererOperation = (Button) findViewById(R.id.gererOperations);
 		gererRevisions = (Button) findViewById(R.id.gererRevisions);
 		planifierRevisions = (Button) findViewById(R.id.planifier);
-		planning = (Button)findViewById(R.id.planning);
+		planning = (Button) findViewById(R.id.planning);
+		if (IAMaintenance.ID_SERVICE != IAMaintenance.ID_ADMINISTRATEUR) {
+			gererAvion.setEnabled(false);
+			gererAvion.setAlpha(0.3F);
+			planifierRevisions.setEnabled(false);
+			planifierRevisions.setAlpha(0.3F);
+			gererRevisions.setEnabled(false);
+			gererRevisions.setAlpha(0.3F);
+			if (IAMaintenance.ID_SERVICE != IAMaintenance.ID_MAINTENANCE) {
+				planning.setEnabled(false);
+				planning.setAlpha(0.3F);
+				gererOperation.setEnabled(false);
+				gererOperation.setAlpha(0.3F);
+			}
+		}
 
 		gererAvion.setOnClickListener(new OnClickListener() {
 
@@ -40,11 +54,12 @@ public class MenuPrincipal extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent t = new Intent(MenuPrincipal.this, PlanningRevisions.class);
+				Intent t = new Intent(MenuPrincipal.this,
+						PlanningRevisions.class);
 				startActivity(t);
 			}
 		});
-		
+
 		gererOperation.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -77,7 +92,7 @@ public class MenuPrincipal extends Activity {
 
 			}
 		});
-	}//onCreate
+	}// onCreate
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
