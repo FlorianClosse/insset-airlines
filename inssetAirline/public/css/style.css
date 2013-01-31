@@ -3,12 +3,14 @@
 #contenu{
 	width: 980px;
 	height: 85%;
-	margin: 0px auto;	
+	margin: 0px auto;
+	margin-top: 5px;
 }
 #entete{
 	width: 980px;
 	height: 200px;
 	margin: 0px auto;
+	margin-bottom:-60px;
 }
 .pied{
 	text-align:center;
@@ -128,7 +130,7 @@ body{
 	border-collapse: collapse;
 }
 
-#tableauCaseACocherVol
+.tableauCaseACocherVol 
 {
 	float:left;
 	border-collapse: collapse;
@@ -136,7 +138,26 @@ body{
 	width: 146px;
 	height: 100px;
 }
-
+.tableauCaseACocherVol2
+{
+	float:left;
+	border-collapse: collapse;
+	margin-right: -1px;
+	width: 146px;
+	height: 100px;
+}
+.tableauCaseACocherVol td
+{
+	
+	width: 146px;
+	height: 100px;
+}
+.tableauCaseACocherVol2 td
+{
+	
+	width: 146px;
+	height: 102px;
+}
 
 .boutonEnvoyer
 {
@@ -361,6 +382,7 @@ table.avion th,td
 .filtreStrategique
 {
 	width : 750px;
+	border-radius: 10px;
 	margin: auto;
 	margin-bottom:20px;
 	padding-top: 10px;
@@ -383,6 +405,28 @@ table.avion th,td
 	display : inline-block;
 	
 }
+
+.filtreLogistique
+{
+	width : 750px;
+	border-radius: 10px;
+	margin: auto;
+	margin-bottom:20px;
+	margin-top:20px;
+	padding-top: 25px;
+	padding-bottom: 10px;
+	background-color: #295192;
+	opacity: 0.7;	
+}
+
+.elementFiltreLogistique
+{
+	width : 250px;
+	height: 150px;
+	display : inline-block;
+	
+}
+
 table.avion
 {
 	border-collapse:collapse;

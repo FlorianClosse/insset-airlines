@@ -51,7 +51,8 @@ public function preDispatch()
 		$compteur=0;
 		
 		
-		if(isset($_POST['Vider']))
+	$viderFiltre = $this->_getParam('viderFiltre');
+		if(isset($viderFiltre))
 		{
 			unset($_SESSION['depart']);
 			unset($_SESSION['arrivee']);
