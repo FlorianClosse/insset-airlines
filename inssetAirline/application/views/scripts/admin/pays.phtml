@@ -25,6 +25,6 @@
 	<?php echo $this->formajoutpays;?>           
 </div>
 <br />
-<?php if($lespays != NULL){ echo $this->paginationControl($lespays,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lespays != NULL && count($lespays)>15){ echo $this->paginationControl($lespays,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>

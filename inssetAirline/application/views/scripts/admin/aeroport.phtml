@@ -33,6 +33,6 @@
 	<?php echo $this->formajoutaeroport;?>           
 </div>
 <br />
-<?php if($lesaeroports != NULL){ echo $this->paginationControl($lesaeroports,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lesaeroports != NULL && count($lesaeroports)>15){ echo $this->paginationControl($lesaeroports,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>

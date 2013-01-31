@@ -35,6 +35,6 @@
 	<?php echo $this->formajoutmodele;?>           
 </div>
 <br />
-<?php if($lesmodeles != NULL){ echo $this->paginationControl($lesmodeles,'All', 'paginationcontroleavion.phtml');}?>
+<?php if($lesmodeles != NULL && count($lesmodeles)>15){ echo $this->paginationControl($lesmodeles,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
 <a href="/admin/index">Retour</a>
