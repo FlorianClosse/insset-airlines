@@ -19,17 +19,12 @@ class FfiltreReservationArrivee extends Zend_Form
  		
 		$bSubmitA = new Zend_Form_Element_Submit('FiltrerA');
 		$bSubmitA->setAttrib('id', 'boutonfiltreA');
-		$bSubmitA->setLabel('Filtrer');	
-		
-		
-		$bSubmitVider = new Zend_Form_Element_Submit('Vider');
-		$bSubmitVider->setAttrib('id', 'boutonvider');
-		$bSubmitVider->setLabel('Vider les filtres');
+		$bSubmitA->setLabel('Filtrer');			
 		
 		/* On ajoute les elements au formulaire */		
 		$this->addElement(fonctionAeroport('aeroportA'));
 		$this->addElement($bSubmitA);
-		$this->addElement($bSubmitVider);
+		
 	}
 	
 }

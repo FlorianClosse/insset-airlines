@@ -83,23 +83,24 @@ class LogistiqueController extends Zend_Controller_Action
     			array(
     					array('tr' => 'HtmlTag'),
     					array('tag'=> 'tr')
-    				  )
+    			)
+    			
     	);
     	//decorateur du bouton submit
-    	$decorateurBoutonValider = array(
+    	$decorateurBoutonEnvoyer = array(
     			array('ViewHelper'),
     			array('Errors'),
-    			array('HtmlTag', array('tag'=>'td', 'class'=>'boutonValider')),
+    			array('HtmlTag', array('tag'=>'td', 'class'=>'boutonEnvoyer')),
     			array(
     					array('tr' => 'HtmlTag'),
     					array('tag'=> 'tr'),
-    				  )
-    	);    		
+    			)
+    	);
     	//decorateur du bouton formulaire complet
     	$decorateurTableau = array(
     			array('FormElements'),
-    			array('HtmlTag', array('tag'=>'table', 'id'=>'tableauCaseACocherVol'))
-    	); 
+    			array('HtmlTag', array('tag'=>'table', 'class'=>'tableauCaseACocherVol2'))
+    	);
     	
     	$journal = new JournalDeBord;    	
 		$lesJournaux = $journal->getVolEnCour();
@@ -109,7 +110,9 @@ class LogistiqueController extends Zend_Controller_Action
 		$formFiltreDepart = new FfiltreLogistiqueDepart();
 		$formFiltreArrivee = new FfiltreLogistiqueArrivee();
 		
-		if(isset($_POST['Vider']))
+		
+		$viderFiltre = $this->_getParam('viderFiltre');
+		if(isset($viderFiltre))
 		{
 			unset($_SESSION['depart']);
 			unset($_SESSION['arrivee']);
@@ -186,7 +189,7 @@ class LogistiqueController extends Zend_Controller_Action
     	//on crée le bouton submit
     	$valider = new Zend_Form_Element_Submit('valider');
     	$valider->setAttrib('id', 'forms');
-    	$valider -> setDecorators($decorateurBoutonValider);
+    	$valider -> setDecorators($decorateurBoutonEnvoyer);
     	$formulaireAfficherVol -> addElement($valider);    	 	
     		 
     	//on envoie les vols a la vue
