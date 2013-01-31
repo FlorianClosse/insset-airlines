@@ -290,7 +290,7 @@ class StrategiqueController extends Zend_Controller_Action
     	//on crée le paginator
     	$pagination = Zend_Paginator::factory($lesVols);
     	$pagination->setCurrentPageNumber($this->_getParam('page'));
-    	$pagination->setItemCountPerPage(3);
+    	$pagination->setItemCountPerPage(10);
     	//on crée le formulaire
     	$formulaireSuppression = new Zend_Form;
     	$formulaireSuppression -> setMethod('post');

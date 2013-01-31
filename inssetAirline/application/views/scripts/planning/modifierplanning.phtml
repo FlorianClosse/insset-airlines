@@ -10,29 +10,41 @@ $arrivee = $this->arrivee;
 $lesMessagesModifVol = $this->lesMessagesModifVol;
 $formulaireAjout = $this->formulaire;
 ?>
-
+<?php if(isset($formulaireAjout)){ ?>
+<div class = "formulaireNico plusHaut">
+<div class = "contenuFormulaireNico">
 <?php echo $formulaireAjout; ?>
+</div></div>
+<?php }?>
 
-<?php if(isset($lesMessagesModifVol)) { foreach($lesMessagesModifVol as $uneligne) { ?>
-	<div class="blocCommentaireModifPlanning">
-		<u>Message du <?php echo convertirDateEnLettre($dateMessage[$uneligne['idJournalDeBord']]); ?>:</u><br/>
-		Vol numéro <b><?php echo $numeroVol[$uneligne['idJournalDeBord']]; ?></b>
-		de <b><?php echo $depart[$uneligne['idJournalDeBord']]; ?></b>
-		à <b><?php echo $arrivee[$uneligne['idJournalDeBord']]; ?></b>.<br/>
-		Pilote <b><?php echo $nomPilote[$uneligne['idJournalDeBord']]; ?></b>
-		et co-pilote <b><?php echo $nomCoPilote[$uneligne['idJournalDeBord']]; ?></b>
-		dans l'avion <b><?php echo $matriculeAvion[$uneligne['idJournalDeBord']]; ?></b>.<br/>
-		<div class="messageModifPlanning">
-			<div class="messageModifPlanningTitre"><u>Message:</u></div> 
-			<div class="messageModifPlanningCommentaire"><?php echo $message[$uneligne['idJournalDeBord']]; ?></div>
-		</div>
-		<div class="lienModifPlanning">
-			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=supprimer&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Supprimer le vol</a><br/>
-			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifavion&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier l'avion</a><br/>
-			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifpilote&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier le pilote</a><br/>
-			<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifcopilote&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier le co-pilote</a>
-		</div> 
+<?php if(isset($lesMessagesModifVol)) { ?>
+<div class="listeVolAfficher">
+<?php 	foreach($lesMessagesModifVol as $uneligne) { ?>
+	<div class="unVolAfficher">	
+		<div class="blocCommentaireModifPlanning">
+			<div class="titreModifPlanning">Message du <?php echo convertirDateEnLettre($dateMessage[$uneligne['idJournalDeBord']]); ?>:</div>
+			Vol numéro <b><?php echo $numeroVol[$uneligne['idJournalDeBord']]; ?></b>
+			de <b><?php echo $depart[$uneligne['idJournalDeBord']]; ?></b>
+			à <b><?php echo $arrivee[$uneligne['idJournalDeBord']]; ?></b>.<br/>
+			Pilote <b><?php echo $nomPilote[$uneligne['idJournalDeBord']]; ?></b>
+			et co-pilote <b><?php echo $nomCoPilote[$uneligne['idJournalDeBord']]; ?></b>
+			dans l'avion <b><?php echo $matriculeAvion[$uneligne['idJournalDeBord']]; ?></b>.<br/>
+			<div class="messageModifPlanning">
+				<u>Message:</u><br/> 
+				<?php echo $message[$uneligne['idJournalDeBord']]; ?>
+			</div>
+			<div class="lienModifPlanning">
+				<div class="lienM"><a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=supprimer&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Supprimer le vol</a></div>
+				<div class="lienM"><a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifavion&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier l'avion</a></div>
+				<div class="lienM"><a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifpilote&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier le pilote</a></div>
+				<div class="lienM"><a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>?idMessage=<?php echo $uneligne['idMessage'];?>&type=modifcopilote&idJDB=<?php echo $uneligne['idJournalDeBord']; ?>">Modifier le co-pilote</a></div>
+			</div> 
+		</div>	
 	</div>
-<?php } } ?>
-	
-<?php  //echo $this->paginationControl($lesMessagesModifVol,'All', 'paginationcontrole.phtml');?>
+<?php } ?>
+</div>
+<?php }else{ if(!isset($formulaireAjout)){?>
+	<div class="mess">
+Aucun Vol n'a besoin d'etre modifier.
+</div>
+<?php }}  //echo $this->paginationControl($lesMessagesModifVol,'All', 'paginationcontrole.phtml');?>

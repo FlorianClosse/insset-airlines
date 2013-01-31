@@ -69,7 +69,8 @@
     	$MonthNames = array(1 => "Janvier","Fevrier","Mars","Avril","Mai","Juin",
     			"Juillet","Aout","Septembre","Octobre","Novembre","Decembre");
     	$monthname = $MonthNames[$month+0];
-    
+    	
+    	
     	// on ouvre la table
     	echo '<table class="cal" cellspacing="1">';
     

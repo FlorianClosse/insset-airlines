@@ -3,14 +3,14 @@
 		<tr>
 			<td>
 				<p class="buttonSousMenu">
-					<a href="<?php echo $this->baseUrl('planning/index/'); ?>?valeur=creer">
+					<a href="<?php echo $this->baseUrl('planning/creerplanning/'); ?>">
 						Créer le planning
 					</a>
 				</p>
 			</td>
 			<td>
 				<p class="buttonSousMenu">
-					<a href="<?php echo $this->baseUrl('planning/index'); ?>?valeur=modifier">
+					<a href="<?php echo $this->baseUrl('planning/modifierplanning'); ?>">
 						Modifier le planning
 					</a>
 				</p>
@@ -18,3 +18,12 @@
 		</tr>
 	</table>
 </center>
+<?php 
+$message = $this->message;
+?>
+
+<?php if(isset($message)){?>
+<div class="mess">
+<?php echo $message;?>
+</div>
+<?php }?>

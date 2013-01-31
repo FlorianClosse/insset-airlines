@@ -7,11 +7,14 @@ $dateDuVolAPlannifier = $this->datePrevu;
 $monAvion = $this->monAvion;
 $message = $this->message;
 ?>
+<div class = "formulaireNico plusBas">
+<div class ="contenuFormulaireNico2">
 
-Vol: <?php echo $volAPlannifier;?> <br/>
-Date prevu: <?php echo $dateDuVolAPlannifier;?> <br/>
+Vol: <span class ="centrer"><?php echo $volAPlannifier;?></span> <br/>
+Date prevu: <span class ="centrer"><?php echo $dateDuVolAPlannifier;?></span> <br/>
 <?php if(isset($monAvion)){?>
-Avion choisie: <?php echo $monAvion;?> <br/>
+Avion choisie: <span class ="centrer"><?php echo $monAvion;?></span> <br/>
+
 <?php }?>
 <?php if(isset($message)){?>
 <?php echo $message;?> <br/>
@@ -21,3 +24,5 @@ Avion choisie: <?php echo $monAvion;?> <br/>
 $formulaire = $this->formulaire; 
 echo $formulaire;
 ?>
+</div>
+</div>

@@ -27,6 +27,7 @@ class PlanningController extends Zend_Controller_Action
 	public function indexAction()
     {
     	$valeur = $this->_getParam('valeur');
+    	$messageRecu = $this->_getParam('message');
     	if(isset($valeur))
     	{
     		switch ($valeur)
@@ -41,10 +42,31 @@ class PlanningController extends Zend_Controller_Action
     		}
     	}
     	
+    	if(isset($messageRecu))
+    	{
+    		switch ($messageRecu)
+    		{
+    			case "volsupprime":
+    			 $message = "Le vol à été supprimé.";
+    			break;
+    			case "avionmodif":
+    				$message = "L'avion à été modifier.";
+    			break;
+    			case "pilotemodif":
+    				$message = "Le pilote à été modifier.";
+    			break;
+    			case "copilotemodit":
+    				$message = "Le co-pilote à été modifier.";
+    			break;
+    		}
+    	}
+    	$this->view->message = $message;
+    	
     }
     public function creerplanningAction()
     {
     	$maintenance = $this->_getParam('maintenance');
+    	$maintenance = $this->_getParam('volsupprime');
     	if(isset($maintenance))
     	{
     		$date = $this->_getParam('date');
@@ -82,24 +104,25 @@ class PlanningController extends Zend_Controller_Action
 	    		$_SESSION['aeroportCreerPlanning'] = $_POST['aeroport'];
 	    	}
 	    	
-	    	if(!isset($_SESSION['aeroportCreerPlanning']))
-	    	{
+// 	    	if(!isset($_SESSION['aeroportCreerPlanning']))
+// 	    	{
 		    	$formulaireChoix = new Zend_Form;
 		    	$formulaireChoix -> setAttrib('id','formulaireChoixAeroport');
 		    	$formulaireChoix -> setMethod('post');
 		    	$formulaireChoix -> setAction('/planning/creerplanning');
 		    	
-		    	$formulaireChoix->addElement(fonctionAeroport('aeroport'));
+		    	$formulaireChoix->addElement(fonctionAeroport('aeroport')->setLabel('Choisir son aéroport:'));
 		    	
 		    	$envoyer = new Zend_Form_Element_Submit('boutonSubmitChoixAeroport');
 		    	$envoyer -> setLabel('Ajouter');
 		    	$formulaireChoix -> addElement($envoyer);
 		    	
-		    	$this->view->formulaire = $formulaireChoix;
-		    }
-	    	else
+		    	$this->view->formulaireChoix = $formulaireChoix;
+// 		    }
+	    	if(isset($_SESSION['aeroportCreerPlanning']))
 	    	{
 		    	$aeroport = $_SESSION['aeroportCreerPlanning'];
+		    	$this->view->aero = $aeroport;
 		    	$vol = new Vol();
 		    	$journalDeBord = new JournalDeBord();
 		    	$liaisonVolJour = new LiaisonVolJour();
@@ -130,7 +153,9 @@ class PlanningController extends Zend_Controller_Action
 						$lesmois[$mois] = $jours;
 						$lesannees[$annee] = $lesmois;
 					}
-					
+					echo'<div class = "formulaireNico plusBas">
+					<div class ="contenuFormulaireNico2">';
+						
 					foreach($lesannees as $a=>$lesmoisa) 
 					{
 						if(isset($sortir))
@@ -212,6 +237,9 @@ class PlanningController extends Zend_Controller_Action
 							Calendrier($m,$a,$links);
 						}
 					}
+					echo'
+					</div>
+					</div>';
 		    	}
 				else
 				{
@@ -289,7 +317,6 @@ class PlanningController extends Zend_Controller_Action
 				    			
 				    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol['idVol']);
 				    			$numVols[$unVol['idVol']] = $unVol['numVol'];
-				    			
 				    			$aeroArriveeVols[$unVol['idVol']] = $aerop->find($unVol['aeroportArrivee'])->current()->nomAeroport;
 				    			$aeroDepartVols[$unVol['idVol']] = $aerop->find($unVol['aeroportDepart'])->current()->nomAeroport;
 				    			$idVols[$unVol['idVol']] = $unVol['idVol'];
@@ -326,7 +353,6 @@ class PlanningController extends Zend_Controller_Action
 				    			$aeroportDepart[$leVol['idVol']] = $unVol->aeroportDepart;
 				    			if($unVol->aeroportDepart == $aeroport)
 				    			{
-					    			
 					    			$journal = $journalDeBord->getRecupererSuivantDateEtVol($aujourdhui, $unVol->idVol);
 					    			if(isset($journal['idJournalDeBord']))
 					    			{
@@ -366,7 +392,7 @@ class PlanningController extends Zend_Controller_Action
     	
     	$volAPlannifier = $this->_getParam('numerovol');
     	$dateDuVolAPlannifier = $this->_getParam('date');
-    	 
+    	
     	if(isset($_POST['boutonAjouterJDB']))
     	{
     		$lAvion = $this->_getParam('avion');
@@ -379,13 +405,13 @@ class PlanningController extends Zend_Controller_Action
     		$maLigne->idCoPilote = $_POST['ChoixDesCoPilotes'];
     		$maLigne->idAvion = $lAvion;
     		$maLigne->idVol = $volAPlannifier;
-    		$maLigne->dateDepart = $dateDuVolAPlannifier;
+    		$maLigne->dateDepart = convertirLettrEneDate($dateDuVolAPlannifier);
     		$maLigne->nbPlaceDispo = $place;
     		$maLigne->statut = 'attente';
     		$maLigne->save();
     		 
     		$Redirect= $this->_helper->getHelper('Redirector');
-    		$Redirect->gotoURL('planning/creerplanning?vol=creer');
+    		$Redirect->gotoURL('planning/creerplanning?vol=creer&retour=oui');
     	}
     	else 
     	{
@@ -592,6 +618,16 @@ class PlanningController extends Zend_Controller_Action
     	}
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function modifierplanningAction()
     {
     	$messageModifVol = new MessageModifVol();
@@ -648,6 +684,8 @@ class PlanningController extends Zend_Controller_Action
 				$maLigneJDB->idAvion = $idAvion;
 				$maLigneJDB->save();
 			}
+			$Redirect= $this->_helper->getHelper('Redirector');
+			$Redirect->gotoURL('planning/index?message=volsupprime');
     	}
     	if($type == 'modifcopilote')
     		{
@@ -964,6 +1002,8 @@ class PlanningController extends Zend_Controller_Action
 	    		$maLigneJDB->idAvion = $idAvion;
 	    		$maLigneJDB->save();
 	    	}
+	    	$Redirect= $this->_helper->getHelper('Redirector');
+	    	$Redirect->gotoURL('planning/index?message=avionmodif');
 	    }
 	    if($type == 'modifpilote')
 	    {
@@ -981,6 +1021,8 @@ class PlanningController extends Zend_Controller_Action
 	    		$maLigneJDB->idPilote = $idPilote;
 	    		$maLigneJDB->save();
 	    	}
+	    	$Redirect= $this->_helper->getHelper('Redirector');
+	    	$Redirect->gotoURL('planning/index?message=piotemodif');
 	    }
 	    if($type == 'modifcopilote')
 	    {
@@ -998,6 +1040,8 @@ class PlanningController extends Zend_Controller_Action
 	    		$maLigneJDB->idCoPilote = $idPilote;
 	    		$maLigneJDB->save();
 	    	}
+	    	$Redirect= $this->_helper->getHelper('Redirector');
+	    	$Redirect->gotoURL('planning/index?message=copiotemodif');
 	    }
     }
 }
