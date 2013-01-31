@@ -42,8 +42,16 @@ class StrategiqueController extends Zend_Controller_Action
     	if(isset($_POST['boutonSubmitSupprimerVol']))
     	{
     		//supprimer un vol
-	    	$vol = new Vol;
+	    	$vol = new Vol();
+	    	$journalDeBord = new JournalDeBord();
+	    	$reservation = new Reservation();
+	    	$messageModifVol = new MessageModifVol();
+	    	$commentaireVol = new CommentaireVol();
 	    	$lesVols = $vol->fetchAll();
+	    	$lesJDBs = $journalDeBord->fetchAll();
+	    	$lesReservations = $reservation->fetchAll();
+	    	$lesMessagesModifVol = $messageModifVol->fetchAll();
+	    	$lesCommentairesVol = $commentaireVol->fetchAll();
 	    	
 	    	foreach($lesVols as $unVol)
 	    	{
@@ -51,6 +59,35 @@ class StrategiqueController extends Zend_Controller_Action
 	    		{
 	    			if($_POST[$unVol->idVol] == 1)
 	    			{
+	    				foreach($lesJDBs as $uneLigne)
+	    				{
+	    					if($uneLigne->idVol == $unVol->idVol)
+	    					{
+		    					foreach($lesReservations as $uneLigne2)
+			    				{
+			    					if($uneLigne2->idJournalDeBord == $uneLigne->idJournalDeBord)
+			    					{
+			    						$reservation->find($uneLigne2->idReservation)->current()->delete();
+			    					}
+			    				}
+			    				foreach($lesMessagesModifVol as $uneLigne2)
+			    				{
+			    					if($uneLigne2->idJournalDeBord == $uneLigne->idJournalDeBord)
+			    					{
+			    						$messageModifVol->find($uneLigne2->idMessage)->current()->delete();
+			    					}
+			    				}
+			    				foreach($lesCommentairesVol as $uneLigne2)
+			    				{
+			    					if($uneLigne2->idJournalDeBord == $uneLigne->idJournalDeBord)
+			    					{
+			    						$commentaireVol->find($uneLigne2->idCommentaireVol)->current()->delete();
+			    					}
+			    				}
+			    				$journalDeBord->find($uneLigne->idJournalDeBord)->current()->delete();
+	    					}
+	    				}
+	    			
 	    				$vol->find($unVol->idVol)->current()->delete();
 	    				$tableau[] = $unVol->numVol;
 	    			}
