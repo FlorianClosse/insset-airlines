@@ -10,6 +10,7 @@
         </tr>
     </table>
 <br /><br /><br />
+<p>Liste de personne ayant dépassé le quotas d'heure prévu :</p>
 <?php
 $listePilote = $this->listePilote;
     $count = count($listePilote);
@@ -21,15 +22,17 @@ $listePilote = $this->listePilote;
         <?php
         for ($i = 1; $i <= $count; $i++) {
         ?>
+        <?php if($listePilote[$i][2]>=2){ $plus = "s";}else{ $plus="";}?>
             <tr>
                 <td>
-                    <?php echo " le pilote "; echo $listePilote[$i][0] . " " . $listePilote[$i][1];; ?>
+                    <?php echo "le pilote "; echo $listePilote[$i][0] . " " . $listePilote[$i][1];; ?>
                
-                    <?php echo" à éffectué "; echo $listePilote[$i][2]; echo " vol";?>
-              
+                    <?php echo" a éffectué "; echo $listePilote[$i][2]; echo " vol$plus ";?>
+              		
                     <?php echo "soit un total de "; echo $listePilote[$i][3]; echo" heures de vol"; ?>
                 </td>
             </tr>
+           
 
         <?php
         }echo $this->paginator;
