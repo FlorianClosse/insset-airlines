@@ -21,33 +21,26 @@ class FormAjoutAvion extends Zend_Form
 		}
 		
 		$immatriculation = new Zend_Form_Element_Text('numImmatriculation');
-		$immatriculation->setLabel('Immatriculation de l\'avion');
+		$immatriculation->setLabel('* Immatriculation de l\'avion :');
 		$immatriculation->addValidator('StringLength', true, array('max' => 200));
 		$immatriculation->setRequired(true);
 		$this -> addElement($immatriculation);
 		
 		$dateMisEnService = new Zend_Form_Element_Text('dateMisEnService');
-		$dateMisEnService->setLabel('Date de mis en service');
+		$dateMisEnService->setLabel('* Date de mis en service :');
 		$dateMisEnService->setAttrib('id','datepicker');
 		$dateMisEnService->setRequired(true);
 		$this -> addElement($dateMisEnService);
 			
 		$statut = new Zend_Form_Element_Select('statut');
-		$statut ->setLabel('Statut de l\'avion');
+		$statut ->setLabel('* Statut de l\'avion :');
 		$statut->addMultiOptions(array('actif'=>'actif','en révision'=>'en révision','en vol'=>'en vol'));
 		$this->addElement($statut);
-			
-		$aeroport = new Aeroport;
-		$lesAeroports = $aeroport->fetchAll();
-		foreach ($lesAeroports as $unAeroport )
-		{
-			$listeAeroport[$unAeroport['idAeroport']] = ucfirst($unAeroport['nomAeroport']);
-		}
 		
 		$objmodele = new Modele;
 		$lesModeles = $objmodele->fetchAll();
 		$modele = new Zend_Form_Element_Select('idModele');
-		$modele ->setLabel('Modele de l\'avion');
+		$modele ->setLabel('* Modèle de l\'avion :');
 		foreach ($lesModeles as $unModele )
 		{
 			$listeModele[$unModele['idModele']] = ucfirst($unModele['nomModele']);
@@ -57,14 +50,10 @@ class FormAjoutAvion extends Zend_Form
 		
 		
 		$localisation = new Zend_Form_Element_Select('localisation');
-		$localisation ->setLabel('Localisation de l\'avion');
-		$localisation->addMultiOptions($listeAeroport);
-		$this->addElement($localisation);
+		$this->addElement(fonctionAeroport('localisation')->setLabel('* Localisation de l\'avion :'));
 		
 		$aeroportdattache = new Zend_Form_Element_Select('idAeroportDattache');
-		$aeroportdattache ->setLabel('Aeroport d\'attache de l\'avion');
-		$aeroportdattache->addMultiOptions($listeAeroport);
-		$this->addElement($aeroportdattache);
+		$this->addElement(fonctionAeroport('idAeroportDattache')->setLabel('* Aeroport d\'attache de l\'avion :'));
 		
 		$reset = new Zend_Form_Element_Reset('Reset');
 		$this->addElement($reset);

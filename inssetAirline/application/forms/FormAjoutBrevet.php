@@ -20,7 +20,7 @@ class FormAjoutBrevet extends Zend_Form
 		}
 		
 		$nombrevet = new Zend_Form_Element_Text('nomBrevet');
-		$nombrevet->setLabel('Nom du brevet :*');
+		$nombrevet->setLabel('* Nom du brevet :');
 		$nombrevet->addValidator('StringLength', true, array('max' => 200));
 		$nombrevet->setRequired(true);
 		$this -> addElement($nombrevet);
@@ -39,7 +39,7 @@ class FormAjoutBrevet extends Zend_Form
 		}
 		
 		$duree = new Zend_Form_Element_Select('dureeBrevetEnAnnee');
-		$duree ->setLabel('Durée du brevet en année :*');
+		$duree ->setLabel('* Durée du brevet en année :');
 		$duree->addMultiOptions($liste);
 		$this->addElement($duree);
 		
