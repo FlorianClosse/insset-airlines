@@ -62,11 +62,19 @@ class DrhController extends Zend_Controller_Action
 	    	 		$this->getResponse()->setHeader('Refresh', '1; URL=/drh/index');	
 	    	}
 	    	else{
+	    		echo'<div class = "formulaireNico">
+	    		<div class = "contenuFormulaireNico">';
 	    		echo 'Une ou plusieur erreur se sont introduit dans le formulaire , réessayez ';
 	    		echo $formajoutpers->populate($data);
+	    		echo'</div>
+	    		</div>';
 	    	}
     	}else{
+    		echo'<div class = "formulaireNico">
+    		<div class = "contenuFormulaireNico">';
     		echo  $formajoutpers;
+    		echo'</div>
+    		</div>';
     	}
     } 
     

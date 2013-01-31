@@ -3,7 +3,8 @@
 $lesrevisions = $this->lesrevisions;
 if(count($lesrevisions)>=1)
 {?>
-<table class="avion">
+
+<table class="avion" id="tableauInfoVolMath">
 	<thead>
 		<tr>
 			<th>Immatriculation</th>
@@ -58,4 +59,8 @@ if(count($lesrevisions)>=1)
 	<a href="#?w=500" rel="popupajoutavion" class="poplight">Ajouter un avion</a>     
 </div>
 <br /><br />
-<a href="/maintenance/index">Retour</a>
+<div class ="imgRetour2">
+	<a href="/maintenance/index">
+		<img style="width:70px;" src="<?php echo $this->baseUrl('/img/retour.png'); ?>" alt="retour" />
+	</a>
+</div>

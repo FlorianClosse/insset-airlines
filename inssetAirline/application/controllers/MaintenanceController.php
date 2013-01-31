@@ -168,12 +168,16 @@ class MaintenanceController extends Zend_Controller_Action
 			else
 			{
 				$formAjoutAvion->populate($data);
+				echo'<div class = "formulaireNico"><div class = "contenuFormulaireNico">';
 				echo $formpetiterevision;
+				echo'</div></div>';
 			}
 		}
 		else
 		{
+			echo'<div class = "formulaireNico"><div class = "contenuFormulaireNico">';
 			echo $formpetiterevision;
+			echo'</div></div>';
 		}
 	}
 	
@@ -247,7 +251,9 @@ class MaintenanceController extends Zend_Controller_Action
 		else
 		{
 			$formpassersortirenrevision = new FormPasserSortirRevision();
+			echo'<div class = "formulaireNico"><div class = "contenuFormulaireNico">';
 			echo $formpassersortirenrevision;
+			echo'</div></div>';
 		}
 	}
 }

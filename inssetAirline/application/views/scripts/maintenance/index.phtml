@@ -26,7 +26,8 @@ $lesavions = $this->lesavions;
 if(count($lesavions)>=1)
 {?>
 </div>
-<table class="avion">
+
+<table class="avion" id="tableauInfoVolMath">
 	<thead>
 		<tr>
 			<th></th>
@@ -52,7 +53,7 @@ if(count($lesavions)>=1)
 		$plannifie=$revision->isPlannifie($unAvion['idAvion']);
 ?>
 		<tr>
-	    	<td><a href="/maintenance/modifier?idAvion=<?= $unAvion['idAvion']; ?>"><img src="/img/modif.gif" alt="modif"/></a></td>
+	    	<td><a href="/maintenance/modifier?idAvion=<?= $unAvion['idAvion']; ?>"><img src="/img/outil.png" alt="modif"/></a></td>
 			<td><?= $unAvion['numImmatriculation'] ;?></td>
 			<td><?= $unAvion['dateMisEnService'] ;?></td>
 			<td><?= ucfirst ($unAvion['statut']);?></td>
@@ -91,4 +92,8 @@ if(count($lesavions)>=1)
 </div>
 <?php if($lesavions != NULL){ echo $this->paginationControl($lesavions,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
-<a href="/">Retour à l'accueil</a>
+<div class ="imgRetour2">
+	<a href="/">
+		<img style="width:70px;" src="<?php echo $this->baseUrl('/img/retour.png'); ?>" alt="retour" />
+	</a>
+</div>

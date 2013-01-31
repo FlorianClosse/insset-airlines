@@ -107,7 +107,7 @@ body{
 }
 
 
- #tableauInfoVol tr td 
+ #tableauInfoVol tr td , #tableauInfoVolMath tr td
  { 
  	text-align: center; 
  	padding-left: 10px; 
@@ -129,6 +129,16 @@ body{
 {
 	border-collapse: collapse;
 }
+#tableauInfoVolMath
+{
+	border-collapse: collapse;
+	margin-top:50px;
+}
+#tableauInfoVolMath thead tr 
+ { 
+ 	background-color: #295192;
+ 	opacity: 0.7;
+ } 
 
 .tableauCaseACocherVol 
 {
@@ -499,6 +509,16 @@ table.avion th,td
 	width: 50px;
 	background-color: white;
 	border-radius: 25px;
+	
+}
+.imgRetour2
+{
+	margin:20px;
+	margin-top:0px;
+	height: 70px;
+	width: 70px;
+	background-color: white;
+	border-radius: 35px;
 	
 }
 .viderFiltreStrategique
