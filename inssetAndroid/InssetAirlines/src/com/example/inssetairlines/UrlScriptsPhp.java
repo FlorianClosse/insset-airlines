@@ -17,5 +17,6 @@ public class UrlScriptsPhp {
 	public static String urlValiderRevision = urlScriptsPhp+"ValiderRevision.php";
 	public static String urlLireListeRevisionsAterminer = urlScriptsPhp+"LireListeRevisionsAterminer.php";
 	public static String urlTerminerRevisionChoisie = urlScriptsPhp+"TerminerRevisionChoisie.php";
+	public static String urlLireValiderIdEtServiceUser = urlScriptsPhp+"LireValiderIdEtServiceUser.php";
 
 }

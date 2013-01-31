@@ -32,7 +32,7 @@ class TechniqueController extends Zend_Controller_Action
     	$formulaireChoix -> setMethod('post');
     	$formulaireChoix -> setAction('/technique/index/');
     	//choix de l'aéroport de départ
-    	$formulaireChoix -> addElement(fonctionAeroport('numeroAeroport'));
+    	$formulaireChoix -> addElement(fonctionAeroport('numeroAeroport')->setLabel('Choisir l\'aéroport que vous souhaitez traiter:'));
     	//bouton d'envoie du formulaire
     	$envoyer = new Zend_Form_Element_Submit('boutonSubmitChoixAeroport');
     	$envoyer -> setLabel('Ajouter');

@@ -80,11 +80,12 @@ body{
 #volSupprime
 {
 	text-align:center;
+	margin: auto;
 	margin-top:20px;
 	width : 400px;
 	border: 1px solid black;
 	border-radius:25px;
-	background-color: #d6d6d6;
+	background-color: #295192;;
 }
 #tableauxSupprVol
 {
@@ -196,23 +197,28 @@ body{
 }
 .listeVolAfficher
 {
-	overflow: hidden;
-	margin-left: 10%;
-	margin-right: 10%;
+	
+	margin: auto;
 	width: 60%;
-	border: solid 1px #010101;
+	background-color:#6595ED;
 	border-radius: 5px;
+	padding: 10px;
 }
 .unVolAfficher
 {
 	margin: 2%;
-	width: 96%;
-	border-bottom: solid 1px #010101;
-	overflow: hidden;
+	width: 92%;
+	background-color:#6595ED;
+	padding: 10px;
 }
 
-
-
+.lienTechnique 
+{
+	background-color:white;
+	border-radius: 5px;
+	text-align:justify;
+	
+}
 
 /* Vue brevet */
 	#formbrevet{
@@ -368,7 +374,7 @@ table.avion th,td
 {
 	margin-bottom: 10px;
 }
-#formulaireAjoutStrategique
+#formulaireAjoutStrategique, .contenuFormulaireNico
 {
 	margin: auto;
 	width : 50%;

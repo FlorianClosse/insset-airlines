@@ -18,6 +18,7 @@ public class PlanningRevisions extends Activity {
         setContentView(R.layout.activity_planning_revisions);
         planning = (CalendarView)findViewById(R.id.calendarViewPlanning);
         planning.setOnDateChangeListener(listenerPlanning);
+        
     }
 
     private OnDateChangeListener listenerPlanning = new OnDateChangeListener() {

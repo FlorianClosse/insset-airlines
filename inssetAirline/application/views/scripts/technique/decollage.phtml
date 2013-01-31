@@ -14,14 +14,20 @@ $message = $this->message;
 	</div>
 <?php } ?><br/>
 	
-<div class="listeVolAfficher">
-	<?php if(isset($lesVolsAEnvoyer)) { foreach($lesVolsAEnvoyer as $unVol) {  ?>
-		<div class="unVolAfficher">
-			 Le vol numero : <?php echo $unVol['idJournalDeBord']; ?><br/>
-			 L'avion numero : <?php echo $lesAvionsAEnvoyer[$unVol['idJournalDeBord']]->numImmatriculation; ?><br/>
-			 Aéroport d'arrivée : <?php echo $lesAeroportAEnvoyer[$unVol['idJournalDeBord']]->nomAeroport; ?><br/>
-			 Durée du vol : <?php echo $lesHorairesAEnvoyer[$unVol['idJournalDeBord']]; ?><br/>
-			 <?php echo $lesFormulaires[$unVol['idJournalDeBord']]; ?>
-		</div>	
-	<?php }}?>	
-</div>	
+
+	<?php if(isset($lesVolsAEnvoyer))?>
+	<div class="listeVolAfficher">
+	<?php  { foreach($lesVolsAEnvoyer as $unVol) {  ?>
+		
+			<div class="unVolAfficher">
+				 Le vol numero : <?php echo $unVol['idJournalDeBord']; ?><br/>
+				 L'avion numero : <?php echo $lesAvionsAEnvoyer[$unVol['idJournalDeBord']]->numImmatriculation; ?><br/>
+				 Aéroport d'arrivée : <?php echo $lesAeroportAEnvoyer[$unVol['idJournalDeBord']]->nomAeroport; ?><br/>
+				 Durée du vol : <?php echo $lesHorairesAEnvoyer[$unVol['idJournalDeBord']]; ?><br/>
+				 <?php echo $lesFormulaires[$unVol['idJournalDeBord']]; ?>
+			</div>	
+		
+	<?php }?>
+	</div>
+	<?php }?>	
+	
