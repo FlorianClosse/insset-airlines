@@ -1,9 +1,11 @@
 <?php 
 //on récupère les infos du controlleur
 $formulaire = $this->formulaire;
+$formulaireChoix = $this->formulaireChoix;
 $aujourdhui = $this->aujourdhui;
 $jour = $this->jour;
 $aeroport = $this->aeroport;
+$aero = $this->aero;
 
 $journalsDate = $this->journalsDate;
 $idVolsDate = $this->idVolsDate;
@@ -22,17 +24,38 @@ $lesVolsJour = $this->lesVolsJour;
 
 
 $message = $this->message;
-if(isset($message))
-	echo $message;
-?>
-<a href="<?php echo $this->baseUrl('planning/index'); ?>?valeur=creer&retour=oui">
-	Retour
-</a>
-	
-<?php echo $formulaire; ?>
 
+?>
+
+	
+<div class = "formulaireNico plusHaut">
+<?php if(isset($message)){?>
+<div class="mess">
+<?php echo $message;?>
+</div>
+<?php }?>
+<?php if(isset($aero)){ ?> 
+	<div class ="imgRetour">
+		<a href="<?php echo $this->baseUrl('planning/creerplanning'); ?>?retour=oui">
+			<img src="<?php echo $this->baseUrl('/img/retour.png'); ?>" alt="retour" />
+		</a>
+	</div>
+<?php }?>
+	<div class = "contenuFormulaireNico">
+		<?php 
+			echo $formulaireChoix;
+		?>
+	</div>
+</div>
+
+
+	
+		
 <?php if(isset($aujourdhui)) { ?>
-<h1>Pour le <?php echo $aujourdhui; ?> pour l'aéroport <?php echo $aeroport; ?> : </h1>
+<div class = "formulaireNico plusBas">
+<div class ="contenuFormulaireNico2">
+<p>Pour le <?php echo $aujourdhui; ?> <br/>Pour l'aéroport <?php echo $aeroport; ?> : </p>
+
 <?php }?>
 
 <?php if(isset($lesVolsDate)) 
@@ -41,10 +64,11 @@ if(isset($message))
 	{ 
 		if($journalsDate[$unVol['idVol']] == 'existe pas')
 		{ $erreur = 1;?>
+		<div class="unVolAfficher">
 		Vol de <?php echo $aeroDepartVolsDate[$unVol['idVol']]; ?> à <?php echo $aeroArriveeVolsDate[$unVol['idVol']]; ?> : <br/>
 		<a href="<?php echo $this->baseUrl('planning/volacreer'); ?>?numerovol=<?php echo $idVolsDate[$unVol['idVol']]; ?>&date=<?php echo $aujourdhui; ?>">
 		Créer le vol n° <?php echo $numVolsDate[$unVol['idVol']]; ?>
-		</a><br/>
+		</a></div>
 
 <?php  }else {$erreur = 1;}}} ?>
 
@@ -52,15 +76,17 @@ if(isset($message))
 { 
 	foreach($lesVolsJour as $unVol) 
 	{ 
-		if($aeroportDepart[$unVol['idVol']] == $aeroport) 
-		{ 
 			if($journalsJour[$unVol['idVol']] == 'existe pas')
 			{ ?>
+			<div class="unVolAfficher">
 		Vol de <?php echo $aeroDepartVolsJour[$unVol['idVol']]; ?> à <?php echo $aeroArriveeVolsJour[$unVol['idVol']]; ?> : <br/>
 		<a href="<?php echo $this->baseUrl('planning/volacreer'); ?>?numerovol=<?php echo $idVolsJour[$unVol['idVol']]; ?>&date=<?php echo $aujourdhui; ?>">
 		Créer le vol n° <?php echo $numVolsJour[$unVol['idVol']]; ?>
-		</a><br/>
-<?php }else {$erreur = 1;}}else {$erreur = 1;}}} 
-if(isset($erreur)){?>
+		</a></div>
+<?php }else {$erreur2 = 1;}}} 
+if(isset($erreur)){ if(isset($erreur2)){?>
 aucun vol n'est prévu
+<?php }}?>
+<?php if(isset($aujourdhui)) { ?>
+</div></div>
 <?php }?>

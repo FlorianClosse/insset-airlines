@@ -19,4 +19,34 @@
 		$maDate = $lesJours[date('w', $timesT)]." ".date('d', $timesT)." ".$lesMois[date('n', $timesT)]." ".date('Y', $timesT);
 		return $maDate;
 	}
+	function convertirLettrEneDate($date)
+	{
+		$lesMois = array("","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
+	
+	
+		//j'explose ma date pour récupérer l'année le mois et le jour
+		$tabDate = explode(" ", $date);
+		$jours =  $tabDate[1];
+		$mois =  $tabDate[2];
+		$annees =  $tabDate[3];
+		$compteur= 0;
+		foreach($lesMois as $unmois)
+		{
+			if($unmois == $mois)
+			{
+				$nbCaract = strlen($compteur);
+				if($nbCaract == 1)
+				{
+					$bonMois = '0'.$compteur;
+				}
+				else
+				{
+					$bonMois = $compteur;
+				}
+			}
+			$compteur= $compteur+1;
+		}
+		$maDate = $annees.'-'.$bonMois.'-'.$jours;
+		return $maDate;
+	}
 ?>

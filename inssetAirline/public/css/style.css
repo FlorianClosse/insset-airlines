@@ -190,6 +190,74 @@ body{
 	background-color:#6595ED;
 	padding: 10px;
 }
+.mess
+{
+	margin:auto;
+	background-color: white;
+	width: 70%;
+	border-radius: 5px;
+	padding: 5px;
+}
+.blocCommentaireModifPlanning
+{
+	border:3px solid #295192;
+	border-radius:5px;
+	padding: 20px;
+}
+.titreModifPlanning
+{
+	background-color: #295192;
+	border-radius:10px;
+	width: 80%;
+	padding: 5px;
+	margin : auto;
+	margin-bottom:10px;
+	margin-top:5px;
+	text-align:center;
+	color: white;
+}
+.lienModifPlanning
+{
+	margin-top: 10px;
+}
+.lienM
+{
+	display: inline-block;
+	width: 24%;
+	background-color: #295192;
+	border-radius:10px;
+	padding-bottom:5px;
+	
+	
+}
+
+.messageModifPlanning
+{
+	border:1px solid black;
+	background-color: white;
+	padding: 5px;
+	margin : auto;
+}
+.centrer
+{
+	text-align:right;
+	width: 250px;
+	display:inline-block;
+}
+.unVolAfficher a
+{
+	color:white;
+	font-size: 20px;
+	text-decoration: none;
+	text-align:center;
+	padding:5px;
+	
+}
+.lienM a
+{
+	font-size: 10px;
+	text-align:right;
+}
 
 .lienTechnique 
 {
@@ -358,6 +426,25 @@ table.avion th,td
 	margin: auto;
 	width : 50%;
 }
+.contenuFormulaireNico2
+{
+	margin: auto;
+	width : 75%;
+}
+
+.contenuFormulaireNico2 p
+{
+	border: 2px solid white;
+	border-radius: 5px;
+	padding: 5px;
+	text-align: justify;
+}
+.cal
+{
+	margin:auto;
+	display : inline-block;
+	width : 180px;;
+}
 .filtreStrategique
 {
 	width : 750px;
@@ -367,6 +454,24 @@ table.avion th,td
 	padding-bottom: 10px;
 	background-color: #295192;
 	opacity: 0.7;
+	
+}
+.plusHaut
+{
+	margin-top: -100px;
+}
+.plusBas
+{
+	margin-top: 20px;
+}
+.imgRetour
+{
+	float: right;
+	margin-right:10px;
+	height: 50px;
+	width: 50px;
+	background-color: white;
+	border-radius: 25px;
 	
 }
 .viderFiltreStrategique
