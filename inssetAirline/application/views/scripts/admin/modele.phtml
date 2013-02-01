@@ -14,7 +14,7 @@
 
 <br /><br />
 
-<table class="avion">
+<table class="avion" id="tableauInfoVolMath">
 	<thead>
 		<tr> 	
 			<th>Nom</th>
@@ -39,7 +39,7 @@
 			<td><?= $unmodele['nbPlace']; ?></td>
 			<td><?= $unmodele['periodePetiteRevision']; ?></td>
 			<td><?= $unmodele['periodeGrandeRevision']; ?></td>
-			<td><a href="/admin/modifiermodele?idModele=<?= $unmodele['idModele']; ?>"><img src="/img/modif.gif" alt="modif" /></a></td>
+			<td><a href="/admin/modifiermodele?idModele=<?= $unmodele['idModele']; ?>"><img src="/img/outil.png" alt="modif"/></a></td>
 		</tr>
 <?php }?>
 	</tbody>
@@ -50,4 +50,4 @@
 <br />
 <?php if($lesmodeles != NULL){ echo $this->paginationControl($lesmodeles,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
-<a href="/admin/index">Retour</a>
+<a href="/admin/index"><img style="width:70px;" src="<?php echo $this->baseUrl('/img/retour.png'); ?>" alt="retour" /></a>

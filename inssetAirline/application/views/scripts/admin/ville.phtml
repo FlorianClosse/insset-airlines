@@ -11,7 +11,7 @@
 
 <br /><br />
 
-<table class="avion">
+<table class="avion" id="tableauInfoVolMath">
 	<thead>
 		<tr> 	
 			<th>Nom</th>
@@ -32,7 +32,7 @@
 			<td><?= $uneville['nomVille'] ;?></td>
 			<td><?= $uneville['cpVille'] ;?></td>
 			<td><?= $lepays[0]['nomPays'] ;?></td>
-			<td><a href="/admin/modifierville?idVille=<?= $uneville['idVille']; ?>"><img src="/img/modif.gif" alt="modif" /></a></td>
+			<td><a href="/admin/modifierville?idVille=<?= $uneville['idVille']; ?>"><img src="/img/outil.png" alt="modif"/></a></td>
 		</tr>
 <?php }?>
 	</tbody>
@@ -43,4 +43,4 @@
 <br />
 <?php if($lesvilles != NULL){ echo $this->paginationControl($lesvilles,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
-<a href="/admin/index">Retour</a>
+<a href="/admin/index"><img style="width:70px;" src="<?php echo $this->baseUrl('/img/retour.png'); ?>" alt="retour" /></a>

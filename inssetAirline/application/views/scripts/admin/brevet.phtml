@@ -11,7 +11,7 @@
 
 <br /><br />
 
-<table class="avion">
+<table class="avion" id="tableauInfoVolMath">
 	<thead>
 		<tr> 	
 			<th></th>
@@ -27,10 +27,10 @@
 	{
 ?>
 		<tr>
-	    	<td><a href="/admin/supprimerbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce brevet ?');"><img src="/img/supprimer.gif" alt="suppr"/></a></td>
+	    	<td><a href="/admin/supprimerbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce brevet ?');"><img src="<?php echo $this->baseUrl('/img/viderFiltre.png'); ?>" alt="vider filtre" width="50px" height="50px"/></a></td>
 			<td><?= $unbrevet['nomBrevet'] ;?></td>
 			<td><?= $unbrevet['dureeBrevetEnAnnee'] ;?></td>
-			<td><a href="/admin/modifierbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>"><img src="/img/modif.gif" alt="modif" /></a></td>
+			<td><a href="/admin/modifierbrevet?idBrevet=<?= $unbrevet['idBrevet']; ?>"><img src="/img/outil.png" alt="modif"/></a></td>
 		</tr>
 <?php }?>
 	</tbody>
@@ -41,4 +41,4 @@
 <br />
 <?php if($lesbrevets != NULL){ echo $this->paginationControl($lesbrevets,'All', 'paginationcontroleavion.phtml');}?>
 <br /><br /></center>
-<a href="/admin/index">Retour</a>
+<a href="/admin/index"><img style="width:70px;" src="<?php echo $this->baseUrl('/img/retour.png'); ?>" alt="retour" /></a>
