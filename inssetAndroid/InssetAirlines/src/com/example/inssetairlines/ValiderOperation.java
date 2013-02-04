@@ -2,17 +2,16 @@ package com.example.inssetairlines;
 
 import seb.util.IoSeb;
 import seb.util.ToastSeb;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class ValiderOperation extends Activity {
@@ -32,19 +31,20 @@ public class ValiderOperation extends Activity {
 		boutonValider = (Button) findViewById(R.id.buttonValider);
 		Intent t = getIntent();
 		idOperation = t.getStringExtra("idOperation");
-		
+
 		boutonValider.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				int jour = datePickerOp.getDayOfMonth();
-				int mois = datePickerOp.getMonth()+1;
+				int mois = datePickerOp.getMonth() + 1;
 				int annee = datePickerOp.getYear();
 				String date = String.valueOf(annee) + "-"
 						+ String.valueOf(mois) + "-" + String.valueOf(jour);
 				IoSeb ioSeb = new IoSeb();
-				ioSeb.ajoutParam("idUser", String.valueOf(IAMaintenance.ID_USER));
+				ioSeb.ajoutParam("idUser",
+						String.valueOf(IAMaintenance.ID_USER));
 				ioSeb.ajoutParam("dateFin", date);
 				ioSeb.ajoutParam("idOperation", idOperation);
 				ioSeb.inputSeb(UrlScriptsPhp.urlValiderOperation,
@@ -59,9 +59,9 @@ public class ValiderOperation extends Activity {
 			ToastSeb.toastSeb(getApplicationContext(), "Opération terminée");
 			finish();
 			/*
-			Intent t = new Intent(ValiderOperation.this, ListeOperations.class);
-			startActivity(t);
-			*/
+			 * Intent t = new Intent(ValiderOperation.this,
+			 * ListeOperations.class); startActivity(t);
+			 */
 		}
 	};
 

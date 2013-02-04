@@ -5,12 +5,11 @@ import java.util.HashMap;
 
 import seb.util.IoSeb;
 import seb.util.ToastSeb;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -57,7 +56,8 @@ public class ListeOperations extends Activity {
 
 	Handler handlerLireListeOperations = new Handler() {
 		public void handleMessage(Message msg) {
-			ToastSeb.toastSeb(getApplicationContext(), "nombre d'opérations: "+String.valueOf(IoSeb.tabResultats.length));
+			ToastSeb.toastSeb(getApplicationContext(), "nombre d'opérations: "
+					+ String.valueOf(IoSeb.tabResultats.length));
 			ArrayList<HashMap<String, String>> lOperations = new ArrayList<HashMap<String, String>>();
 			HashMap<String, String> operation = new HashMap<String, String>();
 

@@ -28,20 +28,6 @@
 		android:textStyle="italic" />
 
 	<Button
-		android:id="@+id/gererAvion"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/textView2"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="99dp"
-		android:background="@drawable/cadre_noir"
-		android:paddingLeft="10dp"
-		android:paddingRight="10dp"
-		android:text="Gérer les avions"
-		android:textColor="@color/bleu"
-		android:textSize="40dp" />
-
-	<Button
 		android:id="@+id/planifier"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -94,6 +80,20 @@
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
 		android:text="Gérer les opérations"
+		android:textColor="@color/bleu"
+		android:textSize="40dp" />
+
+	<Button
+		android:id="@+id/gererAvion"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/planifier"
+		android:layout_centerHorizontal="true"
+		android:layout_marginBottom="57dp"
+		android:background="@drawable/cadre_noir"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:text="Gérer les avions"
 		android:textColor="@color/bleu"
 		android:textSize="40dp" />
 

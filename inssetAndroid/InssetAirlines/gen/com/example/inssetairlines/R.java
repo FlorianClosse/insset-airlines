@@ -80,9 +80,9 @@ public final class R {
         public static final int editTextLoginNom=0x7f09003d;
         public static final int editTextLoginPrenom=0x7f09003e;
         public static final int editTextMotDePasse=0x7f090040;
-        public static final int gererAvion=0x7f090046;
-        public static final int gererOperations=0x7f09004a;
-        public static final int gererRevisions=0x7f090048;
+        public static final int gererAvion=0x7f09004a;
+        public static final int gererOperations=0x7f090049;
+        public static final int gererRevisions=0x7f090047;
         public static final int grandeRev=0x7f090019;
         public static final int heuresGR=0x7f090024;
         public static final int heuresPR=0x7f090025;
@@ -112,8 +112,8 @@ public final class R {
         public static final int nomModele=0x7f090014;
         public static final int nom_ligne=0x7f090065;
         public static final int petiteRev=0x7f090018;
-        public static final int planifier=0x7f090047;
-        public static final int planning=0x7f090049;
+        public static final int planifier=0x7f090046;
+        public static final int planning=0x7f090048;
         public static final int radioButtonGrande=0x7f090057;
         public static final int radioButtonPetite=0x7f090056;
         public static final int radioGroupTypeRev=0x7f090055;

@@ -10,7 +10,6 @@ import javax.net.ssl.HttpsURLConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -20,20 +19,18 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 
-import com.example.inssetairlines.R;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+
+import com.example.inssetairlines.R;
 
 public class InputSeb extends AsyncTask<String, String, String> {
 	private ArrayList<NameValuePair> params;
 	private String urlPhp;
 	private Handler handler;
 	private Context context;
-
 
 	public InputSeb(String urlPhp, Handler handler, Context context) {
 		setUrlPhp(urlPhp);
@@ -54,18 +51,23 @@ public class InputSeb extends AsyncTask<String, String, String> {
 			SchemeRegistry registry = new SchemeRegistry();
 			SSLSocketFactory socketFactory = null;
 			KeyStore trusted = KeyStore.getInstance("BKS");
-			InputStream in = context.getResources().openRawResource(R.raw.mykeystore);
+			InputStream in = context.getResources().openRawResource(
+					R.raw.mykeystore);
 			try {
 				trusted.load(in, "android".toCharArray());
-			}finally {
-					in.close();
+			} finally {
+				in.close();
 			}
 			socketFactory = new SSLSocketFactory(trusted);
-			socketFactory.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
-			registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+			socketFactory
+					.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
+			registry.register(new Scheme("http", PlainSocketFactory
+					.getSocketFactory(), 80));
 			registry.register(new Scheme("https", socketFactory, 443));
-			SingleClientConnManager mgr = new SingleClientConnManager(client.getParams(), registry);
-			DefaultHttpClient hclient = new DefaultHttpClient(mgr, client.getParams());
+			SingleClientConnManager mgr = new SingleClientConnManager(
+					client.getParams(), registry);
+			DefaultHttpClient hclient = new DefaultHttpClient(mgr,
+					client.getParams());
 			HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
 			HttpPost httppost = new HttpPost(urlPhp);
 			httppost.setEntity(new UrlEncodedFormEntity(params));
@@ -73,11 +75,11 @@ public class InputSeb extends AsyncTask<String, String, String> {
 			HttpEntity entity = response.getEntity();
 			entity.getContent();
 		} catch (Exception e) {
-			//Log.e("log_tag", "Error in http connection " + e.toString());
+			// Log.e("log_tag", "Error in http connection " + e.toString());
 			IoSeb.erreur = "connection";
 			Message message = handler.obtainMessage();
 			message.what = 2;
-			
+
 			handler.sendMessage(message);
 
 		}

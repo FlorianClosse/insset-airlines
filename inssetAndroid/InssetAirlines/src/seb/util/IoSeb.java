@@ -37,13 +37,13 @@ public class IoSeb {
 		input.execute();
 	}
 
-	public void outputSeb(String urlPhp, String[] nomCol,
-			Context context, Handler handler) {
+	public void outputSeb(String urlPhp, String[] nomCol, Context context,
+			Handler handler) {
 		OutputSeb output = new OutputSeb(urlPhp, nomCol, context, handler);
 		output.setParams(params);
 		output.execute();
 	}
-	
+
 	public static void viderTabResultats() {
 		tabResultats = null;
 	}

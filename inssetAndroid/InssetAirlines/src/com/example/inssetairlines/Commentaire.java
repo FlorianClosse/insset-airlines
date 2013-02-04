@@ -5,14 +5,14 @@ public class Commentaire {
 	private int idAvion;
 	private String commentaire;
 	private String dateCommentaire;
-	
+
 	public Commentaire() {
 		this.setIdCommentaire(0);
 		this.setIdAvion(0);
 		this.setCommentaire(null);
 		this.setDateCommentaire(null);
 	}
-	
+
 	public Commentaire(String[] resultat) {
 		this.setIdCommentaire(Integer.valueOf(resultat[0]));
 		this.setIdAvion(Integer.valueOf(resultat[1]));

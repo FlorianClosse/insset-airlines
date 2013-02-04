@@ -2,12 +2,11 @@ package com.example.inssetairlines;
 
 import seb.util.IoSeb;
 import seb.util.ToastSeb;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
-import android.content.Intent;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +15,11 @@ import android.widget.EditText;
 
 public class IAMaintenance extends Activity {
 
+	/*
+	 * nom utilisateurs pre enregistres dans la base: nom: admin, prenom: admin,
+	 * mdp: admin, service: 9 nom: user, prenom: user, mdp: user, service: 5
+	 * nom: maint, prenom: maint, mpd: maint, service: 6
+	 */
 	public static int ID_USER;
 	public static int ID_SERVICE;
 	public static String NOM_PRENOM_USER;
@@ -69,7 +73,8 @@ public class IAMaintenance extends Activity {
 			} else {
 				ID_USER = Integer.valueOf(IoSeb.tabResultats[0][0]);
 				ID_SERVICE = Integer.valueOf(IoSeb.tabResultats[0][1]);
-				NOM_PRENOM_USER = editNomUser.getText().toString() + " " + editPrenomUser.getText().toString();
+				NOM_PRENOM_USER = editNomUser.getText().toString() + " "
+						+ editPrenomUser.getText().toString();
 				editNomUser.setText("");
 				editPrenomUser.setText("");
 				editMotDePasse.setText("");

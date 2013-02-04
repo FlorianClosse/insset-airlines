@@ -10,7 +10,7 @@ public class Revision {
 	String commentaire;
 	String statutRevision;
 	int idAvion;
-	
+
 	public Revision() {
 		this.immatriculationAvion = null;
 		this.datePrevue = null;
@@ -20,7 +20,7 @@ public class Revision {
 		this.statutRevision = null;
 		this.idAvion = 0;
 	}
-	
+
 	public Revision(String immatriculationAvion, String datePrevue,
 			String dateDebut, String dateFin, String commentaire,
 			String statutRevision, int idAvion) {
@@ -42,34 +42,34 @@ public class Revision {
 		this.commentaire = null;
 		this.statutRevision = null;
 		this.idAvion = 0;
-		for(int i = 0; i < tabResultats.length; i++) {
-			if(nomColonnes[i].contentEquals("idRevision")) {
+		for (int i = 0; i < tabResultats.length; i++) {
+			if (nomColonnes[i].contentEquals("idRevision")) {
 				setIdRevision(Integer.valueOf(tabResultats[i]));
 			}
-			if(nomColonnes[i].contentEquals("immatriculationAvion")) {
+			if (nomColonnes[i].contentEquals("immatriculationAvion")) {
 				setImmatriculationAvion(tabResultats[i]);
 			}
-			if(nomColonnes[i].contentEquals("datePrevue")) {
+			if (nomColonnes[i].contentEquals("datePrevue")) {
 				setDatePrevue(tabResultats[i]);
 			}
-			if(nomColonnes[i].contentEquals("dateDebut")) {
+			if (nomColonnes[i].contentEquals("dateDebut")) {
 				setDateDebut(tabResultats[i]);
 			}
-			if(nomColonnes[i].contentEquals("dateFin")) {
+			if (nomColonnes[i].contentEquals("dateFin")) {
 				setDateFin(tabResultats[i]);
 			}
-			if(nomColonnes[i].contentEquals("commentaire")) {
+			if (nomColonnes[i].contentEquals("commentaire")) {
 				setCommentaire(tabResultats[i]);
 			}
-			if(nomColonnes[i].contentEquals("statutRevision")) {
+			if (nomColonnes[i].contentEquals("statutRevision")) {
 				setStatutRevision(tabResultats[i]);
 			}
-			if(nomColonnes[i].contentEquals("idAvion")) {
+			if (nomColonnes[i].contentEquals("idAvion")) {
 				setIdAvion(Integer.valueOf(tabResultats[i]));
 			}
 		}
 	}
-	
+
 	public int getIdRevision() {
 		return idRevision;
 	}
